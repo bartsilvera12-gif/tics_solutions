@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tic's Solutions | Tecnología y Ciberseguridad en Paraguay</title>
+<meta name="description" content="Soluciones tecnológicas, protección de datos, monitoreo y gestión de riesgos para empresas. Tic's Solutions, tecnología a tu alcance." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600&display=swap" rel="stylesheet" />
+<script src="./image-slot.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: Nunito, Helvetica, Arial, sans-serif; font-weight: 300; color: #1D1E1E; background: #fff; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, p, ul { margin: 0; }
+  a { color: #E71917; text-decoration: none; }
+  a:hover { color: #1D1E1E; }
+  input, textarea, button { font-family: inherit; }
+  [data-reveal] { opacity: 0; transform: translateY(26px); transition: opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1); }
+  [data-reveal].om-in { opacity: 1; transform: none; }
+  .om-circuit path, .om-circuit line { stroke-dasharray: 600; stroke-dashoffset: 600; animation: omDraw 2.6s cubic-bezier(.4,0,.2,1) forwards; }
+  .om-circuit circle { opacity: 0; animation: omNode 2.4s ease forwards; }
+  @keyframes omDraw { to { stroke-dashoffset: 0; } }
+  @keyframes omNode { 0% { opacity: 0; } 60% { opacity: .35; } 80% { opacity: 1; } 100% { opacity: .8; } }
+  @media (max-width: 900px) {
+    [data-desktop] { display: none !important; }
+    [data-mobile] { display: flex !important; }
+  }
+</style>
+</helmet>
+
+<div style="max-width: 100%; overflow-x: hidden;">
+
+  <header style="position: sticky; top: 0; z-index: 60; background: {{ headerBg }}; backdrop-filter: blur(14px); box-shadow: {{ headerShadow }}; transition: background .35s ease, box-shadow .35s ease;">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); height: clamp(68px, 8vw, 86px); display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+      <a href="#inicio" style="display: flex; align-items: center; flex: 0 0 auto;">
+        <img src="./assets/logo-tics.png" alt="Tic's Solutions — Tecnología a tu alcance" style="height: clamp(36px, 4.4vw, 46px); width: auto; display: block;" />
+      </a>
+      <nav data-desktop="" style="display: flex; align-items: center; gap: clamp(20px, 2.6vw, 40px);">
+        <a href="#inicio" style="color: #1D1E1E; font-size: 15px; font-weight: 400; letter-spacing: .02em;" style-hover="color: #E71917;">Inicio</a>
+        <a href="#nosotros" style="color: #1D1E1E; font-size: 15px; font-weight: 400; letter-spacing: .02em;" style-hover="color: #E71917;">Nosotros</a>
+        <a href="#servicios" style="color: #1D1E1E; font-size: 15px; font-weight: 400; letter-spacing: .02em;" style-hover="color: #E71917;">Servicios</a>
+        <a href="#partners" style="color: #1D1E1E; font-size: 15px; font-weight: 400; letter-spacing: .02em;" style-hover="color: #E71917;">Partners</a>
+        <a href="#contacto" style="color: #1D1E1E; font-size: 15px; font-weight: 400; letter-spacing: .02em;" style-hover="color: #E71917;">Contacto</a>
+        <a href="#contacto" style="background: #E71917; color: #fff; padding: 0 26px; height: 46px; display: inline-flex; align-items: center; border-radius: 999px; font-size: 15px; font-weight: 400; letter-spacing: .01em; transition: background .3s ease, transform .3s ease;" style-hover="background: #1D1E1E; color: #fff; transform: translateY(-1px);">Contactanos</a>
+      </nav>
+      <button data-mobile="" onClick="{{ toggleMenu }}" aria-label="Menú" style="display: none; width: 46px; height: 46px; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; padding: 0; flex-direction: column; gap: 6px;">
+        <span style="display: block; width: 24px; height: 1.5px; background: #1D1E1E;"></span>
+        <span style="display: block; width: 24px; height: 1.5px; background: #1D1E1E;"></span>
+        <span style="display: block; width: 16px; height: 1.5px; background: #E71917;"></span>
+      </button>
+    </div>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <nav style="display: flex; flex-direction: column; gap: 4px; padding: 8px 24px 28px; background: rgba(255,255,255,.98); border-top: 1px solid rgba(29,30,30,.08);">
+        <a href="#inicio" onClick="{{ closeMenu }}" style="color: #1D1E1E; font-size: 18px; padding: 14px 0; border-bottom: 1px solid rgba(29,30,30,.07);">Inicio</a>
+        <a href="#nosotros" onClick="{{ closeMenu }}" style="color: #1D1E1E; font-size: 18px; padding: 14px 0; border-bottom: 1px solid rgba(29,30,30,.07);">Nosotros</a>
+        <a href="#servicios" onClick="{{ closeMenu }}" style="color: #1D1E1E; font-size: 18px; padding: 14px 0; border-bottom: 1px solid rgba(29,30,30,.07);">Servicios</a>
+        <a href="#partners" onClick="{{ closeMenu }}" style="color: #1D1E1E; font-size: 18px; padding: 14px 0; border-bottom: 1px solid rgba(29,30,30,.07);">Partners</a>
+        <a href="#contacto" onClick="{{ closeMenu }}" style="color: #1D1E1E; font-size: 18px; padding: 14px 0;">Contacto</a>
+        <a href="#contacto" onClick="{{ closeMenu }}" style="margin-top: 14px; background: #E71917; color: #fff; height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 999px; font-size: 16px;">Contactanos</a>
+      </nav>
+    </sc-if>
+  </header>
+
+  <section id="inicio" data-screen-label="Hero" style="position: relative; padding: clamp(56px, 8vw, 110px) clamp(20px, 4vw, 48px) clamp(80px, 9vw, 130px); overflow: hidden;">
+    <sc-if value="{{ circuitos }}" hint-placeholder-val="{{ true }}">
+      <svg class="om-circuit" viewBox="0 0 600 500" aria-hidden="true" style="position: absolute; top: -40px; left: -80px; width: min(46vw, 560px); height: auto; opacity: .5; pointer-events: none;">
+        <g fill="none" stroke="#E71917" stroke-width="1.2">
+          <path d="M20 120 H160 L200 160 H320" />
+          <path d="M60 240 H180 L230 290 H400 L440 250 H560" />
+          <path d="M20 380 H120 L170 330 H260" />
+          <path d="M320 160 V60 H460" />
+          <path d="M400 290 V380 H520" />
+        </g>
+        <g fill="#E71917">
+          <circle cx="160" cy="120" r="4" /><circle cx="320" cy="160" r="5" /><circle cx="230" cy="290" r="4" />
+          <circle cx="560" cy="250" r="4" /><circle cx="170" cy="330" r="4" /><circle cx="460" cy="60" r="5" />
+          <circle cx="520" cy="380" r="4" />
+        </g>
+      </svg>
+    </sc-if>
+    <div style="position: relative; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: clamp(44px, 6vw, 88px); align-items: center;">
+      <div>
+        <p data-reveal="" style="font-size: 13px; letter-spacing: .28em; text-transform: uppercase; color: #E71917; font-weight: 400; margin-bottom: 28px;">Tecnología y ciberseguridad</p>
+        <h1 data-reveal="" style="font-size: clamp(38px, 5.6vw, 76px); line-height: 1.04; font-weight: 200; letter-spacing: -0.02em; text-wrap: pretty; margin-bottom: 30px;">Protegemos tu empresa.<br /><span style="color: #E71917;">Impulsamos</span> su crecimiento.</h1>
+        <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.7; font-weight: 300; color: rgba(29,30,30,.72); max-width: 540px; margin-bottom: 40px;">Soluciones tecnológicas y de ciberseguridad diseñadas para proteger tu información, optimizar tus procesos y garantizar la continuidad de tus operaciones.</p>
+        <div data-reveal="" style="display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 56px;">
+          <a href="#servicios" style="background: #E71917; color: #fff; height: 54px; padding: 0 34px; display: inline-flex; align-items: center; border-radius: 999px; font-size: 16px; font-weight: 400; transition: background .3s ease, transform .3s ease;" style-hover="background: #1D1E1E; color: #fff; transform: translateY(-2px);">Conocé nuestras soluciones</a>
+          <a href="#contacto" style="color: #1D1E1E; height: 54px; padding: 0 30px; display: inline-flex; align-items: center; border-radius: 999px; border: 1px solid rgba(29,30,30,.18); font-size: 16px; font-weight: 400; transition: border-color .3s ease, color .3s ease;" style-hover="border-color: #E71917; color: #E71917;">Contactanos</a>
+        </div>
+        <div data-reveal="" style="display: flex; flex-wrap: wrap; gap: clamp(20px, 3vw, 44px);">
+          <div style="padding-left: 18px; border-left: 1px solid rgba(231,25,23,.55);">
+            <p style="font-size: 30px; font-weight: 200; line-height: 1;">5 años</p>
+            <p style="font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: rgba(29,30,30,.5); margin-top: 8px;">de experiencia</p>
+          </div>
+          <div style="padding-left: 18px; border-left: 1px solid rgba(231,25,23,.55);">
+            <p style="font-size: 30px; font-weight: 200; line-height: 1;">Datos</p>
+            <p style="font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: rgba(29,30,30,.5); margin-top: 8px;">protegidos</p>
+          </div>
+          <div style="padding-left: 18px; border-left: 1px solid rgba(231,25,23,.55);">
+            <p style="font-size: 30px; font-weight: 200; line-height: 1;">24/7</p>
+            <p style="font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: rgba(29,30,30,.5); margin-top: 8px;">monitoreo continuo</p>
+          </div>
+        </div>
+      </div>
+      <div style="position: relative; justify-self: center; width: 100%; max-width: 520px;">
+        <sc-if value="{{ circuitos }}" hint-placeholder-val="{{ true }}">
+          <svg class="om-circuit" viewBox="0 0 300 300" aria-hidden="true" style="position: absolute; right: -6%; bottom: -8%; width: 58%; height: auto; opacity: .7; pointer-events: none; z-index: 2;">
+            <g fill="none" stroke="#E71917" stroke-width="1.4">
+              <path d="M10 250 H90 L130 210 H240 L280 170" />
+              <path d="M40 290 H150 L190 250 H290" />
+              <path d="M240 210 V130" />
+            </g>
+            <g fill="#E71917"><circle cx="130" cy="210" r="5" /><circle cx="240" cy="130" r="6" /><circle cx="190" cy="250" r="5" /></g>
+          </svg>
+        </sc-if>
+        <div style="position: relative; border-radius: 36px; overflow: hidden; aspect-ratio: 4 / 5; box-shadow: 0 30px 70px -40px rgba(29,30,30,.45); transform: translateY({{ parallaxHero }}); transition: transform .2s linear;">
+          <image-slot id="hero-tech" shape="rect" placeholder="Foto vertical: datacenter / infraestructura de red"></image-slot>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="nosotros" data-screen-label="Nosotros" style="padding: clamp(72px, 9vw, 130px) clamp(20px, 4vw, 48px); background: #fff;">
+    <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(40px, 6vw, 96px); align-items: center;">
+      <div style="position: relative; order: 0; width: 100%; max-width: 460px; justify-self: center;">
+        <div style="border-radius: 36px; overflow: hidden; aspect-ratio: 3 / 4;">
+          <image-slot id="about-tech" shape="rect" placeholder="Foto vertical: equipo técnico / servidores"></image-slot>
+        </div>
+      </div>
+      <div data-reveal="">
+        <h2 style="font-size: clamp(32px, 4.4vw, 62px); font-weight: 200; line-height: 1.06; letter-spacing: -0.015em; margin-bottom: 32px;">¿QUIÉNES <span style="color: #E71917;">SOMOS?</span></h2>
+        <p style="font-size: clamp(16px, 1.2vw, 19px); line-height: 1.8; font-weight: 300; color: rgba(29,30,30,.76); max-width: 560px;">Somos una empresa con 5 años de experiencia, especializada en soluciones tecnológicas y ciberseguridad. Nos dedicamos a proteger la información y a optimizar los procesos de nuestros clientes, garantizando la continuidad y seguridad de sus operaciones en el entorno digital.</p>
+        <div style="margin-top: 46px; height: 2px; width: 120px; background: #E71917;"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="servicios" data-screen-label="Servicios" style="padding: clamp(72px, 9vw, 130px) clamp(20px, 4vw, 48px); background: #fff;">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: clamp(36px, 5vw, 80px); align-items: start; margin-bottom: clamp(52px, 6vw, 90px);">
+        <h2 data-reveal="" style="font-size: clamp(34px, 5vw, 70px); font-weight: 200; line-height: 1.03; letter-spacing: -0.02em;">NUESTROS<br /><span style="color: #E71917;">SERVICIOS</span></h2>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 22px; max-width: 560px; padding-top: 10px;">
+          <p style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.8; font-weight: 300; color: rgba(29,30,30,.76);">Te ofrecemos un servicio completo y profesional. Nuestro equipo técnico cuenta con la experiencia y conocimientos necesarios que garantizan la correcta implementación de las soluciones y un acompañamiento constante en cada etapa.</p>
+          <p style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.8; font-weight: 400; color: #1D1E1E;">En Tic's Solutions te ofrecemos un enfoque integral para proteger tu empresa.</p>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); gap: clamp(40px, 5vw, 80px); align-items: center;">
+        <div style="display: flex; flex-direction: column;">
+          <div data-reveal="" style="border-top: 1px solid rgba(29,30,30,.14); padding: clamp(30px, 3vw, 44px) 0; display: grid; grid-template-columns: 62px 1fr; gap: 12px; transition: border-color .4s ease;" style-hover="border-color: #E71917;">
+            <span style="font-size: 15px; font-weight: 300; color: #E71917; letter-spacing: .08em; padding-top: 8px;">01</span>
+            <div>
+              <h3 style="font-size: clamp(22px, 2.1vw, 30px); font-weight: 300; margin-bottom: 14px; transition: color .35s ease;">Protección de datos</h3>
+              <p style="font-size: 16px; line-height: 1.75; font-weight: 300; color: rgba(29,30,30,.7); max-width: 520px;">Blindamos tu información más valiosa con soluciones de respaldo y recuperación de vanguardia, para que tus datos estén siempre seguros y accesibles.</p>
+            </div>
+          </div>
+          <div data-reveal="" style="border-top: 1px solid rgba(29,30,30,.14); border-bottom: 1px solid rgba(29,30,30,.14); padding: clamp(30px, 3vw, 44px) 0; display: grid; grid-template-columns: 62px 1fr; gap: 12px; transition: border-color .4s ease;" style-hover="border-color: #E71917;">
+            <span style="font-size: 15px; font-weight: 300; color: #E71917; letter-spacing: .08em; padding-top: 8px;">02</span>
+            <div>
+              <h3 style="font-size: clamp(22px, 2.1vw, 30px); font-weight: 300; margin-bottom: 14px; transition: color .35s ease;">Monitoreo y gestión de riesgos</h3>
+              <p style="font-size: 16px; line-height: 1.75; font-weight: 300; color: rgba(29,30,30,.7); max-width: 520px;">Vigilamos constantemente tu infraestructura para identificar y neutralizar posibles amenazas antes de que afecten tus operaciones.</p>
+            </div>
+          </div>
+        </div>
+        <div style="position: relative; width: 100%; max-width: 460px; justify-self: center;">
+          <div style="border-radius: 32px; overflow: hidden; aspect-ratio: 1 / 1;">
+            <image-slot id="services-tech" shape="rect" placeholder="Foto: ciberseguridad / monitoreo"></image-slot>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Beneficios" style="padding: clamp(72px, 9vw, 130px) clamp(20px, 4vw, 48px);">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <h2 data-reveal="" style="font-size: clamp(30px, 3.8vw, 54px); font-weight: 200; line-height: 1.1; letter-spacing: -0.015em; max-width: 760px; margin-bottom: clamp(48px, 6vw, 84px); text-wrap: pretty;">Tecnología que <span style="color: #E71917;">protege</span> tu operación</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: clamp(28px, 3.4vw, 56px);">
+        <div data-reveal="" style="border-top: 1px solid rgba(231,25,23,.6); padding-top: 22px;">
+          <p style="font-size: 13px; color: #E71917; letter-spacing: .1em; margin-bottom: 16px;">01</p>
+          <h3 style="font-size: 21px; font-weight: 400; margin-bottom: 12px;">Continuidad operativa</h3>
+          <p style="font-size: 15px; line-height: 1.7; font-weight: 300; color: rgba(29,30,30,.66);">Infraestructura preparada para mantener tu empresa funcionando.</p>
+        </div>
+        <div data-reveal="" style="border-top: 1px solid rgba(231,25,23,.6); padding-top: 22px;">
+          <p style="font-size: 13px; color: #E71917; letter-spacing: .1em; margin-bottom: 16px;">02</p>
+          <h3 style="font-size: 21px; font-weight: 400; margin-bottom: 12px;">Información protegida</h3>
+          <p style="font-size: 15px; line-height: 1.7; font-weight: 300; color: rgba(29,30,30,.66);">Respaldo y recuperación para tus datos más importantes.</p>
+        </div>
+        <div data-reveal="" style="border-top: 1px solid rgba(231,25,23,.6); padding-top: 22px;">
+          <p style="font-size: 13px; color: #E71917; letter-spacing: .1em; margin-bottom: 16px;">03</p>
+          <h3 style="font-size: 21px; font-weight: 400; margin-bottom: 12px;">Gestión de riesgos</h3>
+          <p style="font-size: 15px; line-height: 1.7; font-weight: 300; color: rgba(29,30,30,.66);">Detección y neutralización temprana de amenazas.</p>
+        </div>
+        <div data-reveal="" style="border-top: 1px solid rgba(231,25,23,.6); padding-top: 22px;">
+          <p style="font-size: 13px; color: #E71917; letter-spacing: .1em; margin-bottom: 16px;">04</p>
+          <h3 style="font-size: 21px; font-weight: 400; margin-bottom: 12px;">Acompañamiento técnico</h3>
+          <p style="font-size: 15px; line-height: 1.7; font-weight: 300; color: rgba(29,30,30,.66);">Experiencia y soporte durante cada etapa de implementación.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="partners" data-screen-label="Partners" style="position: relative; padding: clamp(72px, 9vw, 130px) clamp(20px, 4vw, 48px) clamp(80px, 9vw, 120px); overflow: hidden;">
+    <div style="position: relative; max-width: 1280px; margin: 0 auto;">
+      <div style="max-width: 720px; margin-bottom: clamp(48px, 6vw, 86px);">
+        <h2 data-reveal="" style="font-size: clamp(30px, 4vw, 58px); font-weight: 200; line-height: 1.06; letter-spacing: -0.015em; margin-bottom: 24px;">MARCAS Y <span style="color: #E71917;">SERVICIOS</span></h2>
+        <p data-reveal="" style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.75; font-weight: 300; color: rgba(29,30,30,.72);">Trabajamos con líderes del mercado para ofrecerte soluciones de la más alta calidad y confianza.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: clamp(40px, 5vw, 80px);">
+        <div data-reveal="">
+          <p style="font-size: 12px; letter-spacing: .26em; text-transform: uppercase; color: #E71917; margin-bottom: 26px;">Partners</p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1px; background: rgba(29,30,30,.1);">
+            <sc-for list="{{ partners }}" as="marca" hint-placeholder-count="5">
+              <div style="background: #fff; min-height: 92px; display: flex; align-items: center; justify-content: center; padding: 16px; text-align: center; font-size: 16px; font-weight: 300; letter-spacing: .04em; color: rgba(29,30,30,.42); transition: color .35s ease, transform .35s ease;" style-hover="color: #1D1E1E; transform: translateY(-2px);">{{ marca }}</div>
+            </sc-for>
+          </div>
+        </div>
+        <div data-reveal="">
+          <p style="font-size: 12px; letter-spacing: .26em; text-transform: uppercase; color: #E71917; margin-bottom: 26px;">Marcas</p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1px; background: rgba(29,30,30,.1);">
+            <sc-for list="{{ marcas }}" as="marca" hint-placeholder-count="6">
+              <div style="background: #fff; min-height: 92px; display: flex; align-items: center; justify-content: center; padding: 16px; text-align: center; font-size: 16px; font-weight: 300; letter-spacing: .04em; color: rgba(29,30,30,.42); transition: color .35s ease, transform .35s ease;" style-hover="color: #1D1E1E; transform: translateY(-2px);">{{ marca }}</div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Misión" style="position: relative; background: #1D1E1E; color: #fff; padding: clamp(84px, 11vw, 160px) clamp(20px, 4vw, 48px); overflow: hidden;">
+    <sc-if value="{{ circuitos }}" hint-placeholder-val="{{ true }}">
+      <svg class="om-circuit" viewBox="0 0 700 400" aria-hidden="true" style="position: absolute; right: -60px; top: 0; width: min(60vw, 700px); height: auto; opacity: .55; pointer-events: none;">
+        <g fill="none" stroke="#E71917" stroke-width="1.2">
+          <path d="M700 60 H520 L470 110 H300" />
+          <path d="M700 180 H560 L510 230 H360 L310 180 H180" />
+          <path d="M660 320 H480 L430 270" />
+          <path d="M470 110 V20" />
+          <path d="M360 180 V90 H240" />
+        </g>
+        <g fill="#E71917">
+          <circle cx="520" cy="60" r="4" /><circle cx="470" cy="110" r="5" /><circle cx="510" cy="230" r="4" />
+          <circle cx="310" cy="180" r="5" /><circle cx="430" cy="270" r="4" /><circle cx="240" cy="90" r="4" />
+        </g>
+      </svg>
+    </sc-if>
+    <div style="position: relative; max-width: 1000px; margin: 0 auto;">
+      <h2 data-reveal="" style="font-size: clamp(32px, 4.6vw, 66px); font-weight: 200; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 40px; text-wrap: pretty;">Tu <span style="color: #E71917;">socio estratégico</span> en el entorno digital</h2>
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 20px); line-height: 1.8; font-weight: 300; color: rgba(255,255,255,.78); max-width: 720px; margin-bottom: 26px;">Nuestra misión es ser tu socio estratégico en el entorno digital. Te proveemos de una infraestructura tecnológica robusta y de una defensa cibernética inquebrantable, permitiendo que tu empresa prospere sin interrupciones.</p>
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 20px); line-height: 1.8; font-weight: 300; color: rgba(255,255,255,.78); max-width: 720px; margin-bottom: 52px;">En Tic's Solutions, gestionamos los riesgos para que tú puedas capitalizar las oportunidades y enfocarte exclusivamente en tu crecimiento.</p>
+      <a data-reveal="" href="#contacto" style="background: #E71917; color: #fff; height: 54px; padding: 0 36px; display: inline-flex; align-items: center; border-radius: 999px; font-size: 16px; transition: background .3s ease, transform .3s ease;" style-hover="background: #fff; color: #1D1E1E; transform: translateY(-2px);">Hablemos de tu empresa</a>
+    </div>
+  </section>
+
+  <section id="contacto" data-screen-label="Contacto" style="padding: clamp(72px, 9vw, 130px) clamp(20px, 4vw, 48px);">
+    <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: clamp(46px, 6vw, 96px);">
+      <div data-reveal="">
+        <h2 style="font-size: clamp(32px, 4.4vw, 60px); font-weight: 200; line-height: 1.06; letter-spacing: -0.02em; margin-bottom: 30px;">Contactá con <span style="color: #E71917;">nosotros</span></h2>
+        <p style="font-size: 17px; line-height: 1.75; font-weight: 300; color: rgba(29,30,30,.7); max-width: 460px; margin-bottom: 46px;">Conversemos sobre la infraestructura y la seguridad de tu empresa. Respondemos por teléfono, correo o WhatsApp.</p>
+        <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 40px;">
+          <p style="font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: rgba(29,30,30,.45);">Contacto comercial</p>
+          <p style="font-size: 26px; font-weight: 300; margin-top: 10px;">Arturo Osorio</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px; max-width: 420px;">
+          <a href="tel:+595981171372" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 56px; padding: 0 24px; border: 1px solid rgba(29,30,30,.14); border-radius: 999px; color: #1D1E1E; font-size: 16px; transition: border-color .3s ease, color .3s ease;" style-hover="border-color: #E71917; color: #E71917;"><span>(+595) 981 171 372</span><span style="font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: rgba(29,30,30,.4);">Llamar</span></a>
+          <a href="mailto:arturo.osorio@tics-py.com" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 56px; padding: 0 24px; border: 1px solid rgba(29,30,30,.14); border-radius: 999px; color: #1D1E1E; font-size: 16px; transition: border-color .3s ease, color .3s ease;" style-hover="border-color: #E71917; color: #E71917;"><span>arturo.osorio@tics-py.com</span><span style="font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: rgba(29,30,30,.4);">Correo</span></a>
+          <a href="https://wa.me/595981171372" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 56px; padding: 0 24px; background: #E71917; border-radius: 999px; color: #fff; font-size: 16px; transition: background .3s ease;" style-hover="background: #1D1E1E; color: #fff;"><span>Escribinos por WhatsApp</span><span style="font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.7);">Chat</span></a>
+        </div>
+      </div>
+      <div data-reveal="">
+        <sc-if value="{{ enviado }}" hint-placeholder-val="{{ false }}">
+          <div style="border-top: 2px solid #E71917; padding-top: 32px;">
+            <p style="font-size: 24px; font-weight: 300; margin-bottom: 12px;">Gracias por tu consulta.</p>
+            <p style="font-size: 16px; line-height: 1.7; font-weight: 300; color: rgba(29,30,30,.7);">Nuestro equipo te va a responder a la brevedad.</p>
+          </div>
+        </sc-if>
+        <sc-if value="{{ formVisible }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ enviarForm }}" style="display: flex; flex-direction: column; gap: 26px;">
+            <label style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.45);">Nombre</span>
+              <input type="text" name="nombre" required="" style="border: none; border-bottom: 1px solid rgba(29,30,30,.2); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 300; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
+            </label>
+            <label style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.45);">Empresa</span>
+              <input type="text" name="empresa" style="border: none; border-bottom: 1px solid rgba(29,30,30,.2); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 300; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
+            </label>
+            <label style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.45);">Correo</span>
+              <input type="email" name="correo" required="" style="border: none; border-bottom: 1px solid rgba(29,30,30,.2); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 300; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
+            </label>
+            <label style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.45);">Teléfono</span>
+              <input type="tel" name="telefono" style="border: none; border-bottom: 1px solid rgba(29,30,30,.2); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 300; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
+            </label>
+            <label style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.45);">Mensaje</span>
+              <textarea name="mensaje" rows="3" style="border: none; border-bottom: 1px solid rgba(29,30,30,.2); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 300; color: #1D1E1E; outline: none; resize: vertical; transition: border-color .3s ease;" style-focus="border-color: #E71917;"></textarea>
+            </label>
+            <button type="submit" style="align-self: flex-start; margin-top: 8px; background: #E71917; color: #fff; border: none; height: 54px; padding: 0 34px; border-radius: 999px; font-size: 16px; font-weight: 400; cursor: pointer; transition: background .3s ease, transform .3s ease;" style-hover="background: #1D1E1E; transform: translateY(-2px);">Enviar consulta</button>
+          </form>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <footer style="position: relative; background: #000; color: #fff; padding: clamp(60px, 7vw, 96px) clamp(20px, 4vw, 48px) 0; overflow: hidden;">
+    <div style="position: relative; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: clamp(36px, 5vw, 72px); padding-bottom: clamp(52px, 6vw, 80px);">
+      <div>
+        <img src="./assets/logo-tics-blanco.png" alt="Tic's Solutions" style="height: 54px; width: auto; display: block; background: #fff; padding: 10px 14px; border-radius: 10px;" />
+        <p style="margin-top: 22px; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.55);">Tecnología a tu alcance</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <p style="font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: #E71917; margin-bottom: 8px;">Navegación</p>
+        <a href="#inicio" style="color: rgba(255,255,255,.75); font-size: 15px;" style-hover="color: #fff;">Inicio</a>
+        <a href="#nosotros" style="color: rgba(255,255,255,.75); font-size: 15px;" style-hover="color: #fff;">Nosotros</a>
+        <a href="#servicios" style="color: rgba(255,255,255,.75); font-size: 15px;" style-hover="color: #fff;">Servicios</a>
+        <a href="#partners" style="color: rgba(255,255,255,.75); font-size: 15px;" style-hover="color: #fff;">Partners</a>
+        <a href="#contacto" style="color: rgba(255,255,255,.75); font-size: 15px;" style-hover="color: #fff;">Contacto</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <p style="font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: #E71917; margin-bottom: 8px;">Contacto</p>
+        <p style="color: rgba(255,255,255,.75); font-size: 15px;">Arturo Osorio</p>
+        <a href="tel:+595981171372" style="color: rgba(255,255,255,.75); font-size: 15px;" style-hover="color: #fff;">(+595) 981 171 372</a>
+        <a href="mailto:arturo.osorio@tics-py.com" style="color: rgba(255,255,255,.75); font-size: 15px;" style-hover="color: #fff;">arturo.osorio@tics-py.com</a>
+        <a href="https://wa.me/595981171372" target="_blank" rel="noopener" style="color: rgba(255,255,255,.75); font-size: 15px;" style-hover="color: #fff;">WhatsApp</a>
+      </div>
+    </div>
+    <sc-if value="{{ circuitos }}" hint-placeholder-val="{{ true }}">
+      <svg class="om-circuit" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true" style="display: block; width: 100%; height: 90px; opacity: .7;">
+        <g fill="none" stroke="#E71917" stroke-width="1.2">
+          <path d="M0 70 H180 L220 30 H420 L460 70 H700 L740 30 H960 L1000 70 H1200" />
+          <path d="M0 20 H120 L160 60 H300" />
+          <path d="M900 20 H1060 L1100 60 H1200" />
+        </g>
+        <g fill="#E71917">
+          <circle cx="220" cy="30" r="4" /><circle cx="460" cy="70" r="4" /><circle cx="740" cy="30" r="4" /><circle cx="1000" cy="70" r="4" /><circle cx="160" cy="60" r="3" /><circle cx="1100" cy="60" r="3" />
+        </g>
+      </svg>
+    </sc-if>
+    <div style="border-top: 1px solid rgba(255,255,255,.12); padding: 22px 0 26px; text-align: center;">
+      <p style="font-size: 13px; font-weight: 300; color: rgba(255,255,255,.45);">© 2026 Tic's Solutions. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;circuitos&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Identidad&quot;},&quot;animaciones&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamiento&quot;}}">
+class Component extends DCLogic {
+  state = { scrolled: false, menuOpen: false, enviado: false, scrollY: 0 };
+
+  componentDidMount() {
+    this._onScroll = () => {
+      const y = window.scrollY || 0;
+      this.setState({ scrolled: y > 24, scrollY: y });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onScroll();
+
+    if (this.props.animaciones !== false) {
+      this._io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('om-in'); this._io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      this._scan = () => document.querySelectorAll('[data-reveal]:not(.om-in)').forEach((el, i) => {
+        el.style.transitionDelay = (i % 4) * 70 + 'ms';
+        this._io.observe(el);
+      });
+      this._scan();
+      this._timer = setInterval(this._scan, 1200);
+    } else {
+      document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('om-in'));
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+    if (this._io) this._io.disconnect();
+    if (this._timer) clearInterval(this._timer);
+  }
+
+  renderVals() {
+    const s = this.state;
+    return {
+      circuitos: this.props.circuitos !== false,
+      headerBg: s.scrolled ? 'rgba(255,255,255,0.86)' : 'rgba(255,255,255,1)',
+      headerShadow: s.scrolled ? '0 1px 24px -8px rgba(29,30,30,.25)' : 'none',
+      parallaxHero: Math.min(s.scrollY * 0.035, 26) + 'px',
+      menuOpen: s.menuOpen,
+      enviado: s.enviado,
+      formVisible: !s.enviado,
+      toggleMenu: () => this.setState((p) => ({ menuOpen: !p.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      enviarForm: (e) => { e.preventDefault(); this.setState({ enviado: true }); },
+      partners: ['Arcserve', 'Kaspersky', 'ZWCAD', 'Veeam', 'Adobe'],
+      marcas: ['Dell Technologies', 'HP', 'Zebra', 'Dahua Technology', 'APC by Schneider Electric', 'SonicWall']
+    };
+  }
+}
+</script>
+</body>
+</html>

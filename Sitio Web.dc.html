@@ -104,19 +104,18 @@
   }
   @keyframes omShine { 0% { background-position: 220% 0; } 100% { background-position: -60% 0; } }
 
-  /* ---------- StarBorder (React Bits) ---------- */
-  .om-star { position: relative; overflow: hidden; isolation: isolate; }
-  .om-star::before {
-    content: ""; position: absolute; z-index: -1; inset: -180%;
-    background: conic-gradient(from 0deg, transparent 0deg, #E71917 40deg, #ff6b5e 70deg, transparent 130deg, transparent 360deg);
-    animation: omSpin 3.4s linear infinite;
+  /* ---------- botón principal, estático ----------
+     Antes tenía un borde giratorio (StarBorder) sobre un pseudo-elemento.
+     Ahora es fondo sólido; al pasar el mouse se vacía y queda el contorno.
+     Va con !important porque los estilos del canvas son inline: sin eso
+     el `border: none` del botón de envío ganaría. */
+  .om-star {
+    position: relative;
+    background: #E71917 !important;
+    border: 1px solid #E71917 !important;
+    transition: background .3s ease, color .3s ease;
   }
-  .om-star::after {
-    content: ""; position: absolute; z-index: -1; inset: 1px;
-    background: #E71917; border-radius: inherit;
-  }
-  .om-star:hover::after { background: #FAFBFC; }
-  @keyframes omSpin { to { transform: rotate(360deg); } }
+  .om-star:hover { background: transparent !important; }
 
   /* ---------- cintas de partners y marcas ----------
      Estáticas: una sola fila mientras haya ancho. Cada celda se dimensiona por
@@ -176,7 +175,7 @@
 
   /* Teléfonos grandes y tablets en vertical */
   @media (max-width: 620px) {
-    .om-star, [data-magnet] {
+    .om-star {
       padding-left: 20px !important; padding-right: 20px !important;
       font-size: 11px !important; letter-spacing: .06em !important;
       max-width: 100%; white-space: normal; text-align: center;
@@ -197,7 +196,7 @@
 
   /* Teléfonos chicos: iPhone SE, Galaxy A0x y similares */
   @media (max-width: 380px) {
-    .om-star, [data-magnet] {
+    .om-star {
       padding-left: 14px !important; padding-right: 14px !important;
       font-size: 10px !important; letter-spacing: .03em !important;
     }
@@ -221,7 +220,7 @@
     [data-mobile] { display: flex !important; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .om-star::before, .om-shiny, .om-wa::after { animation: none !important; }
+    .om-shiny, .om-wa::after { animation: none !important; }
     [data-reveal] { opacity: 1 !important; transform: none !important; filter: none !important; }
     html { scroll-behavior: auto; }
   }
@@ -253,7 +252,7 @@
         <img src="./assets/logo-tics.png" alt="Tic's Solutions — Tecnología a tu alcance" style="height: clamp(32px, 4.2vw, 44px); width: auto; display: block;" />
       </a>
       <div style="display: flex; align-items: center; gap: clamp(12px, 2vw, 22px);">
-        <a href="#/contacto" class="om-star" data-magnet="" style="color: #fff; padding: 0 clamp(18px, 2vw, 26px); height: 44px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">Contactanos</a>
+        <a href="#/contacto" class="om-star" style="color: #fff; padding: 0 clamp(18px, 2vw, 26px); height: 44px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">Contactanos</a>
         <button onClick="{{ toggleMenu }}" aria-label="Abrir menú" aria-expanded="{{ menuOpen }}" style="width: 42px; height: 42px; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 6px; background: none; border: none; cursor: pointer; padding: 0; flex: 0 0 auto;">
           <span style="width: 24px; height: 1.5px; background: #1D1E1E; display: block;"></span>
           <span style="width: 24px; height: 1.5px; background: #1D1E1E; display: block;"></span>
@@ -544,7 +543,7 @@
       <h2 data-reveal="" style="font-size: clamp(26px, 4.6vw, 66px); font-weight: 200; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 40px; text-wrap: pretty;">Tu <span class="om-glitch" data-text="socio estratégico" style="color: #E71917;">socio estratégico</span> en el entorno digital</h2>
       <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 20px); line-height: 1.85; font-weight: 300; color: rgba(255,255,255,.72); max-width: 720px; margin-bottom: 26px;">Nuestra misión es ser tu socio estratégico en el entorno digital. Te proveemos de una infraestructura tecnológica robusta y de una defensa cibernética inquebrantable, permitiendo que tu empresa prospere sin interrupciones.</p>
       <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 20px); line-height: 1.85; font-weight: 300; color: rgba(255,255,255,.72); max-width: 720px; margin-bottom: 52px;">En Tic's Solutions, gestionamos los riesgos para que tú puedas capitalizar las oportunidades y enfocarte exclusivamente en tu crecimiento.</p>
-      <a data-reveal="" data-magnet="" href="#/contacto" class="om-star" style="color: #fff; height: 56px; padding: 0 36px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">Hablemos de tu empresa</a>
+      <a data-reveal="" href="#/contacto" class="om-star" style="color: #fff; height: 56px; padding: 0 36px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">Hablemos de tu empresa</a>
     </div>
   </section>
   </sc-if>
@@ -609,7 +608,7 @@
                     <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(29,30,30,.42);">&gt; mensaje</span>
                     <textarea name="mensaje" rows="3" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 300; color: #1D1E1E; outline: none; resize: vertical; transition: border-color .3s ease;" style-focus="border-color: #E71917;"></textarea>
                   </label>
-                  <button type="submit" class="om-star" data-magnet="" style="align-self: flex-start; margin-top: 8px; color: #fff; background: transparent; border: none; height: 54px; padding: 0 34px; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">Enviar consulta</button>
+                  <button type="submit" class="om-star" style="align-self: flex-start; margin-top: 8px; color: #fff; background: transparent; border: none; height: 54px; padding: 0 34px; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">Enviar consulta</button>
                 </form>
               </sc-if>
             </div>
@@ -802,11 +801,6 @@ class Component extends DCLogic {
       if (el.dataset.omSpot) return;
       el.dataset.omSpot = '1';
       this.bindSpotlight(el);
-    });
-    document.querySelectorAll('[data-magnet]').forEach((el) => {
-      if (el.dataset.omMag) return;
-      el.dataset.omMag = '1';
-      this.bindMagnet(el);
     });
     document.querySelectorAll('[data-truefocus]').forEach((el) => {
       if (el.dataset.omTf) return;
@@ -1145,26 +1139,6 @@ class Component extends DCLogic {
     };
     el.addEventListener('mousemove', fn, { passive: true });
     this._cleanups.push(() => el.removeEventListener('mousemove', fn));
-  }
-
-  // ---------- Magnet (React Bits) ----------
-  bindMagnet(el) {
-    if (this._reduced) return;
-    const STRENGTH = 0.28, RANGE = 90;
-    const move = (e) => {
-      const r = el.getBoundingClientRect();
-      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-      const dx = e.clientX - cx, dy = e.clientY - cy;
-      if (Math.abs(dx) > r.width / 2 + RANGE || Math.abs(dy) > r.height / 2 + RANGE) {
-        el.style.transform = '';
-        return;
-      }
-      el.style.transform = 'translate(' + dx * STRENGTH + 'px,' + dy * STRENGTH + 'px)';
-    };
-    const leave = () => { el.style.transform = ''; };
-    window.addEventListener('mousemove', move, { passive: true });
-    el.addEventListener('mouseleave', leave);
-    this._cleanups.push(() => { window.removeEventListener('mousemove', move); el.removeEventListener('mouseleave', leave); });
   }
 
   renderVals() {

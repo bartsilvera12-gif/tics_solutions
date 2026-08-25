@@ -317,13 +317,15 @@
 
   <!-- ================= HERO ================= -->
   <sc-if value="{{ esInicio }}" hint-placeholder-val="{{ true }}">
-  <section id="inicio" data-screen-label="Hero" style="position: relative; padding: clamp(64px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 9vw, 130px); overflow: hidden; background: #FFFFFF;">
+  <section id="inicio" data-screen-label="Hero" style="position: relative; padding: clamp(64px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 9vw, 130px); overflow: hidden; background: #07080A;">
+    <!-- Destello del hero -->
+    <canvas id="fx-burst" data-fx="lightburst" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
 
     <!-- LetterGlitch (React Bits) -->
     <sc-if value="{{ glitch }}" hint-placeholder-val="{{ true }}">
-      <canvas id="fx-glitch" data-fx="letterglitch" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: .3; pointer-events: none;"></canvas>
+      <canvas id="fx-glitch" data-fx="letterglitch" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: .22; pointer-events: none;"></canvas>
     </sc-if>
-    <div class="om-vig" style="background: radial-gradient(ellipse 90% 70% at 50% 40%, transparent 0%, rgba(255,255,255,.72) 55%, #FFFFFF 88%);"></div>
+    <div class="om-vig" style="background: radial-gradient(ellipse 95% 80% at 50% 45%, transparent 0%, rgba(7,8,10,.55) 60%, rgba(7,8,10,.92) 95%);"></div>
 
     <sc-if value="{{ circuitos }}" hint-placeholder-val="{{ true }}">
       <svg class="om-circuit" viewBox="0 0 600 500" aria-hidden="true" style="position: absolute; top: -40px; left: -80px; width: min(46vw, 560px); height: auto; opacity: .32; pointer-events: none;">
@@ -344,12 +346,12 @@
 
     <div style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: clamp(44px, 6vw, 88px); align-items: center;">
       <div>
-        <h1 style="font-size: clamp(28px, 5.6vw, 76px); line-height: 1.05; font-weight: 200; letter-spacing: -0.02em; text-wrap: pretty; margin-bottom: 30px;">
+        <h1 style="font-size: clamp(28px, 5.6vw, 76px); line-height: 1.05; font-weight: 200; letter-spacing: -0.02em; text-wrap: pretty; margin-bottom: 30px; color: #FFFFFF;">
           <span data-decrypt="" data-decrypt-delay="120" style="display: block;">Protegemos tu empresa.</span>
           <span data-decrypt="" data-decrypt-delay="620" style="display: block; color: #E71917;">Impulsamos su crecimiento.</span>
         </h1>
 
-        <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.75; font-weight: 300; color: rgba(29,30,30,.74); max-width: 540px;">Soluciones tecnológicas y de ciberseguridad diseñadas para proteger tu información, optimizar tus procesos y garantizar la continuidad de tus operaciones.</p>
+        <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.75; font-weight: 300; color: rgba(255,255,255,.8); max-width: 540px;">Soluciones tecnológicas y de ciberseguridad diseñadas para proteger tu información, optimizar tus procesos y garantizar la continuidad de tus operaciones.</p>
 
       </div>
 
@@ -369,11 +371,11 @@
           <span style="position: absolute; top: -1px; right: -1px; width: 18px; height: 18px; border-top: 2px solid #E71917; border-right: 2px solid #E71917;"></span>
           <span style="position: absolute; bottom: -1px; left: -1px; width: 18px; height: 18px; border-bottom: 2px solid #E71917; border-left: 2px solid #E71917;"></span>
           <span style="position: absolute; bottom: -1px; right: -1px; width: 18px; height: 18px; border-bottom: 2px solid #E71917; border-right: 2px solid #E71917;"></span>
-          <div style="position: relative; overflow: hidden; aspect-ratio: 4 / 5; background: #FAFBFC;">
+          <div style="position: relative; overflow: hidden; aspect-ratio: 4 / 5; background: #0D0F12;">
             <img src="./assets/foto-ciberseguridad.jpg" alt="Candado digital sobre circuitos: protección de datos empresariales" loading="eager" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
             <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(231,25,23,.10), transparent 40%, rgba(255,255,255,.55));"></div>
           </div>
-          <p style="position: absolute; bottom: -30px; left: 0; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgba(29,30,30,.62);">// infraestructura monitoreada</p>
+          <p style="position: absolute; bottom: -30px; left: 0; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.55);">// infraestructura monitoreada</p>
         </div>
       </div>
     </div>
@@ -898,6 +900,7 @@ class Component extends DCLogic {
       if (c.dataset.omInit) return;
       c.dataset.omInit = '1';
       if (c.getAttribute('data-fx') === 'letterglitch') this.letterGlitch(c);
+      else if (c.getAttribute('data-fx') === 'lightburst') this.lightBurst(c);
       else if (c.getAttribute('data-fx') === 'squares') this.squares(c);
     });
     const spark = document.getElementById('fx-spark');
@@ -1013,6 +1016,75 @@ class Component extends DCLogic {
 
     build();
     requestAnimationFrame(tick);
+    this.onResize(build);
+    this._cleanups.push(() => { alive = false; });
+  }
+
+  // ---------- Destello de luz del hero ----------
+  // Reproduce el fogonazo del video de referencia —núcleo brillante, halo y
+  // destellos horizontales— pero dibujado, y en el rojo de marca en vez del
+  // azul original. Se usa composición aditiva ('lighter'), que es como se
+  // comporta la luz real: los brillos se suman en lugar de taparse.
+  lightBurst(canvas) {
+    const CX = 0.5, CY = 0.46;          // posición del núcleo, en fracción
+    let ctx, w, h, alive = true, t0 = null;
+
+    const build = () => { const f = this.fitCanvas(canvas); ctx = f.ctx; w = f.w; h = f.h; paint(0); };
+
+    const paint = (t) => {
+      if (!ctx) return;
+      // La respiración combina dos ondas de periodo distinto para que el
+      // pulso no se sienta mecánicamente repetitivo.
+      const pulso = 0.82 + 0.12 * Math.sin(t / 2600) + 0.06 * Math.sin(t / 1100);
+      const cx = w * CX, cy = h * CY;
+      const R = Math.max(w, h) * 0.42 * pulso;
+
+      ctx.clearRect(0, 0, w, h);
+      ctx.globalCompositeOperation = 'lighter';
+
+      // Halo: del blanco del núcleo al rojo de marca, hasta desvanecerse.
+      const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, R);
+      halo.addColorStop(0.00, 'rgba(255,255,255,' + (0.95 * pulso) + ')');
+      halo.addColorStop(0.04, 'rgba(255,236,232,' + (0.72 * pulso) + ')');
+      halo.addColorStop(0.12, 'rgba(255,120,110,' + (0.42 * pulso) + ')');
+      halo.addColorStop(0.30, 'rgba(231,25,23,' + (0.20 * pulso) + ')');
+      halo.addColorStop(0.62, 'rgba(231,25,23,' + (0.06 * pulso) + ')');
+      halo.addColorStop(1.00, 'rgba(231,25,23,0)');
+      ctx.fillStyle = halo;
+      ctx.fillRect(0, 0, w, h);
+
+      // Destello horizontal: la banda de luz que cruza el encuadre.
+      const anchoBanda = Math.max(6, h * 0.012 * pulso);
+      const banda = ctx.createLinearGradient(0, 0, w, 0);
+      banda.addColorStop(0.00, 'rgba(231,25,23,0)');
+      banda.addColorStop(0.30, 'rgba(231,25,23,' + (0.16 * pulso) + ')');
+      banda.addColorStop(0.50, 'rgba(255,190,185,' + (0.55 * pulso) + ')');
+      banda.addColorStop(0.70, 'rgba(231,25,23,' + (0.16 * pulso) + ')');
+      banda.addColorStop(1.00, 'rgba(231,25,23,0)');
+      ctx.fillStyle = banda;
+      ctx.fillRect(0, cy - anchoBanda / 2, w, anchoBanda);
+
+      // Núcleo compacto, encima de todo.
+      const nucleo = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(w, h) * 0.045 * pulso);
+      nucleo.addColorStop(0, 'rgba(255,255,255,' + (0.98 * pulso) + ')');
+      nucleo.addColorStop(0.5, 'rgba(255,200,195,' + (0.5 * pulso) + ')');
+      nucleo.addColorStop(1, 'rgba(231,25,23,0)');
+      ctx.fillStyle = nucleo;
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.globalCompositeOperation = 'source-over';
+    };
+
+    const tick = (t) => {
+      if (!alive) return;
+      if (t0 === null) t0 = t;
+      paint(t - t0);
+      requestAnimationFrame(tick);
+    };
+
+    build();
+    // Con movimiento reducido queda el destello fijo, sin pulso.
+    if (!this._reduced) requestAnimationFrame(tick);
     this.onResize(build);
     this._cleanups.push(() => { alive = false; });
   }

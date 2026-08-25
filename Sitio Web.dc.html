@@ -203,12 +203,6 @@
     .om-strip > * { height: 76px !important; font-size: 11px !important; }
     .om-strip img { max-height: 24px !important; }
   }
-  /* La navegación va a la derecha, del mismo lado que el botón que la abre.
-     Se reordena con `order` en vez de mover el marcado: así el <nav> sigue
-     siendo lo primero del overlay para lectores de pantalla y tabulación. */
-  .om-menu > :first-child { order: 2; border-right: none !important; border-left: 1px solid rgba(29,30,30,.1); }
-  .om-menu > :last-child { order: 1; }
-
   /* En pantallas angostas la columna de imagen del menú no entra: se oculta
      y la navegación pasa a ocupar todo el ancho. */
   @media (max-width: 820px) {
@@ -248,24 +242,24 @@
 
   <header style="position: sticky; top: 0; z-index: 60; background: {{ headerBg }}; backdrop-filter: blur(16px); border-bottom: 1px solid {{ headerBorder }}; transition: background .35s ease, border-color .35s ease;">
     <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); height: clamp(68px, 8vw, 86px); display: flex; align-items: center; justify-content: space-between; gap: 20px;">
-      <a href="#/" style="display: flex; align-items: center; flex: 0 0 auto;">
-        <img src="./assets/logo-tics.png" alt="Tic's Solutions — Tecnología a tu alcance" style="height: clamp(32px, 4.2vw, 44px); width: auto; display: block;" />
-      </a>
       <div style="display: flex; align-items: center; gap: clamp(12px, 2vw, 22px);">
-        <a href="#/contacto" class="om-star" style="color: #fff; padding: 0 clamp(18px, 2vw, 26px); height: 44px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">Contactanos</a>
-        <button onClick="{{ toggleMenu }}" aria-label="Abrir menú" aria-expanded="{{ menuOpen }}" style="width: 42px; height: 42px; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 6px; background: none; border: none; cursor: pointer; padding: 0; flex: 0 0 auto;">
+        <button onClick="{{ toggleMenu }}" aria-label="Abrir menú" aria-expanded="{{ menuOpen }}" style="width: 42px; height: 42px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 6px; background: none; border: none; cursor: pointer; padding: 0; flex: 0 0 auto;">
           <span style="width: 24px; height: 1.5px; background: #1D1E1E; display: block;"></span>
           <span style="width: 24px; height: 1.5px; background: #1D1E1E; display: block;"></span>
           <span style="width: 15px; height: 1.5px; background: #E71917; display: block;"></span>
         </button>
+        <a href="#/" style="display: flex; align-items: center; flex: 0 0 auto;">
+          <img src="./assets/logo-tics.png" alt="Tic's Solutions — Tecnología a tu alcance" style="height: clamp(32px, 4.2vw, 44px); width: auto; display: block;" />
+        </a>
       </div>
+      <a href="#/contacto" class="om-star" style="color: #fff; padding: 0 clamp(18px, 2vw, 26px); height: 44px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Contactanos</a>
     </div>
   </header>
 
   <!-- Menú a pantalla completa: además de navegar, reúne datos de contacto
        y servicios que no están sueltos en el inicio. -->
   <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
-    <div class="om-menu" style="position: fixed; inset: 0; z-index: 200; display: grid; grid-template-columns: 1fr minmax(300px, 36%);">
+    <div class="om-menu" style="position: fixed; inset: 0; z-index: 200; display: grid; grid-template-columns: minmax(300px, 36%) 1fr;">
 
       <div style="background: #FFFFFF; border-right: 1px solid rgba(29,30,30,.1); padding: clamp(22px, 3vw, 38px) clamp(22px, 3vw, 44px) clamp(26px, 3vw, 38px); display: flex; flex-direction: column; gap: clamp(24px, 3vw, 38px); overflow-y: auto;">
 

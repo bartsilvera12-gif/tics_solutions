@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/Sitio Web.dc.html" }
+  ]
+}

@@ -11,67 +11,209 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Tic's Solutions | Tecnología y Ciberseguridad en Paraguay</title>
 <meta name="description" content="Soluciones tecnológicas, protección de datos, monitoreo y gestión de riesgos para empresas. Tic's Solutions, tecnología a tu alcance." />
+<meta name="theme-color" content="#07080A" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
 <script src="./image-slot.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { margin: 0; font-family: Nunito, Helvetica, Arial, sans-serif; font-weight: 300; color: #1D1E1E; background: #fff; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  body {
+    margin: 0;
+    font-family: Nunito, Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    color: #E8EAEC;
+    background: #07080A;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
   h1, h2, h3, p, ul { margin: 0; }
   a { color: #E71917; text-decoration: none; }
-  a:hover { color: #1D1E1E; }
   input, textarea, button { font-family: inherit; }
-  [data-reveal] { opacity: 0; transform: translateY(26px); transition: opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1); }
-  [data-reveal].om-in { opacity: 1; transform: none; }
+  ::selection { background: #E71917; color: #fff; }
+
+  /* ---------- scrollbar ciber ---------- */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #07080A; }
+  ::-webkit-scrollbar-thumb { background: #24282D; border: 2px solid #07080A; border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover { background: #E71917; }
+
+  /* ---------- AnimatedContent / BlurText (React Bits) ----------
+     El contenido es VISIBLE por defecto. El JS solo "arma" la animación
+     (.om-armed) cuando puede garantizar que el observer funciona en este
+     entorno, y la desarma si no. Sin esto, el texto queda atrapado en
+     opacity:0 en cualquier contexto donde el observer no dispare
+     (editor de canvas con artboards escalados, pestañas de fondo, etc). */
+  [data-reveal].om-armed {
+    opacity: 0;
+    transform: translateY(28px);
+    filter: blur(6px);
+    transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1), filter .8s cubic-bezier(.22,.61,.36,1);
+  }
+  [data-reveal].om-armed.om-in { opacity: 1; transform: none; filter: none; }
+
+  /* ---------- circuitos de marca ---------- */
   .om-circuit path, .om-circuit line { stroke-dasharray: 600; stroke-dashoffset: 600; animation: omDraw 2.6s cubic-bezier(.4,0,.2,1) forwards; }
   .om-circuit circle { opacity: 0; animation: omNode 2.4s ease forwards; }
   @keyframes omDraw { to { stroke-dashoffset: 0; } }
   @keyframes omNode { 0% { opacity: 0; } 60% { opacity: .35; } 80% { opacity: 1; } 100% { opacity: .8; } }
+
+  /* ---------- GlitchText (React Bits) ---------- */
+  .om-glitch { position: relative; display: inline-block; }
+  .om-glitch::before, .om-glitch::after {
+    content: attr(data-text);
+    position: absolute; left: 0; top: 0; width: 100%;
+    pointer-events: none; opacity: 0;
+  }
+  .om-glitch::before { color: #E71917; }
+  .om-glitch::after { color: #35D0E0; }
+  .om-glitch:hover::before { opacity: .9; animation: omGlitchA .4s steps(2, end) infinite; }
+  .om-glitch:hover::after { opacity: .7; animation: omGlitchB .4s steps(2, end) infinite; }
+  @keyframes omGlitchA {
+    0% { transform: translate(0, 0); clip-path: inset(0 0 72% 0); }
+    25% { transform: translate(-3px, -1px); clip-path: inset(38% 0 30% 0); }
+    50% { transform: translate(2px, 1px); clip-path: inset(70% 0 8% 0); }
+    75% { transform: translate(-2px, 0); clip-path: inset(12% 0 60% 0); }
+    100% { transform: translate(0, 0); clip-path: inset(0 0 72% 0); }
+  }
+  @keyframes omGlitchB {
+    0% { transform: translate(0, 0); clip-path: inset(60% 0 12% 0); }
+    25% { transform: translate(3px, 1px); clip-path: inset(10% 0 66% 0); }
+    50% { transform: translate(-2px, -1px); clip-path: inset(34% 0 40% 0); }
+    75% { transform: translate(2px, 0); clip-path: inset(76% 0 4% 0); }
+    100% { transform: translate(0, 0); clip-path: inset(60% 0 12% 0); }
+  }
+
+  /* ---------- cursor de terminal ---------- */
+  .om-caret::after {
+    content: "_";
+    color: #E71917;
+    animation: omBlink 1.05s steps(1, end) infinite;
+  }
+  @keyframes omBlink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+
+  /* ---------- ShinyText (React Bits) ---------- */
+  .om-shiny {
+    background: linear-gradient(110deg, rgba(232,234,236,.42) 32%, #fff 48%, rgba(232,234,236,.42) 62%);
+    background-size: 260% 100%;
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+    animation: omShine 5.5s linear infinite;
+  }
+  @keyframes omShine { 0% { background-position: 220% 0; } 100% { background-position: -60% 0; } }
+
+  /* ---------- StarBorder (React Bits) ---------- */
+  .om-star { position: relative; overflow: hidden; isolation: isolate; }
+  .om-star::before {
+    content: ""; position: absolute; z-index: -1; inset: -180%;
+    background: conic-gradient(from 0deg, transparent 0deg, #E71917 40deg, #ff6b5e 70deg, transparent 130deg, transparent 360deg);
+    animation: omSpin 3.4s linear infinite;
+  }
+  .om-star::after {
+    content: ""; position: absolute; z-index: -1; inset: 1px;
+    background: #E71917; border-radius: inherit;
+  }
+  .om-star:hover::after { background: #0D0F12; }
+  @keyframes omSpin { to { transform: rotate(360deg); } }
+
+  /* ---------- cintas de partners y marcas ----------
+     Estáticas: una sola fila mientras haya ancho. Cada celda se dimensiona por
+     su contenido (flex-basis auto), así "HP" no ocupa lo mismo que un nombre
+     largo y cada texto entra en un renglón. Solo envuelve si no hay espacio. */
+  .om-strip { display: flex; flex-wrap: wrap; width: 100%; }
+  .om-strip > * + * { border-left: 1px solid rgba(255,255,255,.07); }
+
+  /* ---------- TrueFocus (React Bits) ---------- */
+  .om-tf-word { transition: filter .5s ease, opacity .5s ease; filter: blur(5px); opacity: .45; }
+  .om-tf-word.om-tf-on { filter: blur(0); opacity: 1; }
+  .om-tf-frame { position: absolute; pointer-events: none; transition: all .5s cubic-bezier(.22,.61,.36,1); opacity: 0; }
+  .om-tf-frame.om-tf-ready { opacity: 1; }
+  .om-tf-corner { position: absolute; width: 14px; height: 14px; border: 2px solid #E71917; }
+
+  /* ---------- SpotlightCard (React Bits) ---------- */
+  .om-spot { position: relative; overflow: hidden; transition: border-color .45s ease, transform .45s ease; }
+  .om-spot::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    opacity: 0; transition: opacity .45s ease;
+    background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), rgba(231,25,23,.20), transparent 68%);
+  }
+  .om-spot:hover::before { opacity: 1; }
+
+  /* ---------- overlays ---------- */
+  .om-scan {
+    position: fixed; inset: 0; z-index: 90; pointer-events: none;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,.028) 0 1px, transparent 1px 3px);
+    mix-blend-mode: overlay;
+  }
+  .om-vig { position: absolute; inset: 0; pointer-events: none; }
+
   @media (max-width: 900px) {
     [data-desktop] { display: none !important; }
     [data-mobile] { display: flex !important; }
   }
+  @media (prefers-reduced-motion: reduce) {
+    .om-star::before, .om-shiny { animation: none !important; }
+    [data-reveal] { opacity: 1 !important; transform: none !important; filter: none !important; }
+    html { scroll-behavior: auto; }
+  }
 </style>
 </helmet>
 
-<div style="max-width: 100%; overflow-x: hidden;">
+<div style="position: relative; max-width: 100%; overflow-x: hidden; background: #07080A;">
 
-  <header style="position: sticky; top: 0; z-index: 60; background: {{ headerBg }}; backdrop-filter: blur(14px); box-shadow: {{ headerShadow }}; transition: background .35s ease, box-shadow .35s ease;">
+  <!-- ClickSpark (React Bits) -->
+  <sc-if value="{{ chispas }}" hint-placeholder-val="{{ true }}">
+    <canvas id="fx-spark" style="position: fixed; inset: 0; width: 100%; height: 100%; z-index: 95; pointer-events: none;"></canvas>
+  </sc-if>
+
+  <!-- Scanlines -->
+  <sc-if value="{{ scanlines }}" hint-placeholder-val="{{ true }}">
+    <div class="om-scan"></div>
+  </sc-if>
+
+  <header style="position: sticky; top: 0; z-index: 60; background: {{ headerBg }}; backdrop-filter: blur(16px); border-bottom: 1px solid {{ headerBorder }}; transition: background .35s ease, border-color .35s ease;">
     <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); height: clamp(68px, 8vw, 86px); display: flex; align-items: center; justify-content: space-between; gap: 24px;">
       <a href="#inicio" style="display: flex; align-items: center; flex: 0 0 auto;">
-        <img src="./assets/logo-tics.png" alt="Tic's Solutions — Tecnología a tu alcance" style="height: clamp(36px, 4.4vw, 46px); width: auto; display: block;" />
+        <img src="./assets/logo-tics-oscuro.png" alt="Tic's Solutions — Tecnología a tu alcance" style="height: clamp(34px, 4.2vw, 44px); width: auto; display: block;" />
       </a>
-      <nav data-desktop="" style="display: flex; align-items: center; gap: clamp(20px, 2.6vw, 40px);">
-        <a href="#inicio" style="color: #1D1E1E; font-size: 15px; font-weight: 400; letter-spacing: .02em;" style-hover="color: #E71917;">Inicio</a>
-        <a href="#nosotros" style="color: #1D1E1E; font-size: 15px; font-weight: 400; letter-spacing: .02em;" style-hover="color: #E71917;">Nosotros</a>
-        <a href="#servicios" style="color: #1D1E1E; font-size: 15px; font-weight: 400; letter-spacing: .02em;" style-hover="color: #E71917;">Servicios</a>
-        <a href="#partners" style="color: #1D1E1E; font-size: 15px; font-weight: 400; letter-spacing: .02em;" style-hover="color: #E71917;">Partners</a>
-        <a href="#contacto" style="color: #1D1E1E; font-size: 15px; font-weight: 400; letter-spacing: .02em;" style-hover="color: #E71917;">Contacto</a>
-        <a href="#contacto" style="background: #E71917; color: #fff; padding: 0 26px; height: 46px; display: inline-flex; align-items: center; border-radius: 999px; font-size: 15px; font-weight: 400; letter-spacing: .01em; transition: background .3s ease, transform .3s ease;" style-hover="background: #1D1E1E; color: #fff; transform: translateY(-1px);">Contactanos</a>
+      <nav data-desktop="" style="display: flex; align-items: center; gap: clamp(18px, 2.4vw, 34px);">
+        <a href="#inicio" style="color: rgba(232,234,236,.72); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; transition: color .3s ease;" style-hover="color: #E71917;">Inicio</a>
+        <a href="#nosotros" style="color: rgba(232,234,236,.72); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; transition: color .3s ease;" style-hover="color: #E71917;">Nosotros</a>
+        <a href="#servicios" style="color: rgba(232,234,236,.72); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; transition: color .3s ease;" style-hover="color: #E71917;">Servicios</a>
+        <a href="#partners" style="color: rgba(232,234,236,.72); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; transition: color .3s ease;" style-hover="color: #E71917;">Partners</a>
+        <a href="#contacto" style="color: rgba(232,234,236,.72); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; transition: color .3s ease;" style-hover="color: #E71917;">Contacto</a>
+        <a href="#contacto" class="om-star" data-magnet="" style="color: #fff; padding: 0 24px; height: 44px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">Contactanos</a>
       </nav>
       <button data-mobile="" onClick="{{ toggleMenu }}" aria-label="Menú" style="display: none; width: 46px; height: 46px; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; padding: 0; flex-direction: column; gap: 6px;">
-        <span style="display: block; width: 24px; height: 1.5px; background: #1D1E1E;"></span>
-        <span style="display: block; width: 24px; height: 1.5px; background: #1D1E1E;"></span>
+        <span style="display: block; width: 24px; height: 1.5px; background: #E8EAEC;"></span>
+        <span style="display: block; width: 24px; height: 1.5px; background: #E8EAEC;"></span>
         <span style="display: block; width: 16px; height: 1.5px; background: #E71917;"></span>
       </button>
     </div>
     <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
-      <nav style="display: flex; flex-direction: column; gap: 4px; padding: 8px 24px 28px; background: rgba(255,255,255,.98); border-top: 1px solid rgba(29,30,30,.08);">
-        <a href="#inicio" onClick="{{ closeMenu }}" style="color: #1D1E1E; font-size: 18px; padding: 14px 0; border-bottom: 1px solid rgba(29,30,30,.07);">Inicio</a>
-        <a href="#nosotros" onClick="{{ closeMenu }}" style="color: #1D1E1E; font-size: 18px; padding: 14px 0; border-bottom: 1px solid rgba(29,30,30,.07);">Nosotros</a>
-        <a href="#servicios" onClick="{{ closeMenu }}" style="color: #1D1E1E; font-size: 18px; padding: 14px 0; border-bottom: 1px solid rgba(29,30,30,.07);">Servicios</a>
-        <a href="#partners" onClick="{{ closeMenu }}" style="color: #1D1E1E; font-size: 18px; padding: 14px 0; border-bottom: 1px solid rgba(29,30,30,.07);">Partners</a>
-        <a href="#contacto" onClick="{{ closeMenu }}" style="color: #1D1E1E; font-size: 18px; padding: 14px 0;">Contacto</a>
-        <a href="#contacto" onClick="{{ closeMenu }}" style="margin-top: 14px; background: #E71917; color: #fff; height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 999px; font-size: 16px;">Contactanos</a>
+      <nav style="display: flex; flex-direction: column; gap: 2px; padding: 8px 24px 28px; background: rgba(7,8,10,.98); border-top: 1px solid rgba(231,25,23,.2);">
+        <a href="#inicio" onClick="{{ closeMenu }}" style="color: #E8EAEC; font-family: 'JetBrains Mono', monospace; font-size: 15px; letter-spacing: .1em; text-transform: uppercase; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,.07);">Inicio</a>
+        <a href="#nosotros" onClick="{{ closeMenu }}" style="color: #E8EAEC; font-family: 'JetBrains Mono', monospace; font-size: 15px; letter-spacing: .1em; text-transform: uppercase; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,.07);">Nosotros</a>
+        <a href="#servicios" onClick="{{ closeMenu }}" style="color: #E8EAEC; font-family: 'JetBrains Mono', monospace; font-size: 15px; letter-spacing: .1em; text-transform: uppercase; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,.07);">Servicios</a>
+        <a href="#partners" onClick="{{ closeMenu }}" style="color: #E8EAEC; font-family: 'JetBrains Mono', monospace; font-size: 15px; letter-spacing: .1em; text-transform: uppercase; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,.07);">Partners</a>
+        <a href="#contacto" onClick="{{ closeMenu }}" style="color: #E8EAEC; font-family: 'JetBrains Mono', monospace; font-size: 15px; letter-spacing: .1em; text-transform: uppercase; padding: 15px 0;">Contacto</a>
+        <a href="#contacto" onClick="{{ closeMenu }}" style="margin-top: 14px; background: #E71917; color: #fff; height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: .14em; text-transform: uppercase;">Contactanos</a>
       </nav>
     </sc-if>
   </header>
 
-  <section id="inicio" data-screen-label="Hero" style="position: relative; padding: clamp(56px, 8vw, 110px) clamp(20px, 4vw, 48px) clamp(80px, 9vw, 130px); overflow: hidden;">
+  <!-- ================= HERO ================= -->
+  <section id="inicio" data-screen-label="Hero" style="position: relative; padding: clamp(64px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 9vw, 130px); overflow: hidden; background: #07080A;">
+
+    <!-- LetterGlitch (React Bits) -->
+    <sc-if value="{{ glitch }}" hint-placeholder-val="{{ true }}">
+      <canvas id="fx-glitch" data-fx="letterglitch" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: .3; pointer-events: none;"></canvas>
+    </sc-if>
+    <div class="om-vig" style="background: radial-gradient(ellipse 90% 70% at 50% 40%, transparent 0%, rgba(7,8,10,.72) 55%, #07080A 88%);"></div>
+
     <sc-if value="{{ circuitos }}" hint-placeholder-val="{{ true }}">
-      <svg class="om-circuit" viewBox="0 0 600 500" aria-hidden="true" style="position: absolute; top: -40px; left: -80px; width: min(46vw, 560px); height: auto; opacity: .5; pointer-events: none;">
+      <svg class="om-circuit" viewBox="0 0 600 500" aria-hidden="true" style="position: absolute; top: -40px; left: -80px; width: min(46vw, 560px); height: auto; opacity: .32; pointer-events: none;">
         <g fill="none" stroke="#E71917" stroke-width="1.2">
           <path d="M20 120 H160 L200 160 H320" />
           <path d="M60 240 H180 L230 290 H400 L440 250 H560" />
@@ -86,33 +228,21 @@
         </g>
       </svg>
     </sc-if>
-    <div style="position: relative; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: clamp(44px, 6vw, 88px); align-items: center;">
+
+    <div style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: clamp(44px, 6vw, 88px); align-items: center;">
       <div>
-        <p data-reveal="" style="font-size: 13px; letter-spacing: .28em; text-transform: uppercase; color: #E71917; font-weight: 400; margin-bottom: 28px;">Tecnología y ciberseguridad</p>
-        <h1 data-reveal="" style="font-size: clamp(38px, 5.6vw, 76px); line-height: 1.04; font-weight: 200; letter-spacing: -0.02em; text-wrap: pretty; margin-bottom: 30px;">Protegemos tu empresa.<br /><span style="color: #E71917;">Impulsamos</span> su crecimiento.</h1>
-        <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.7; font-weight: 300; color: rgba(29,30,30,.72); max-width: 540px; margin-bottom: 40px;">Soluciones tecnológicas y de ciberseguridad diseñadas para proteger tu información, optimizar tus procesos y garantizar la continuidad de tus operaciones.</p>
-        <div data-reveal="" style="display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 56px;">
-          <a href="#servicios" style="background: #E71917; color: #fff; height: 54px; padding: 0 34px; display: inline-flex; align-items: center; border-radius: 999px; font-size: 16px; font-weight: 400; transition: background .3s ease, transform .3s ease;" style-hover="background: #1D1E1E; color: #fff; transform: translateY(-2px);">Conocé nuestras soluciones</a>
-          <a href="#contacto" style="color: #1D1E1E; height: 54px; padding: 0 30px; display: inline-flex; align-items: center; border-radius: 999px; border: 1px solid rgba(29,30,30,.18); font-size: 16px; font-weight: 400; transition: border-color .3s ease, color .3s ease;" style-hover="border-color: #E71917; color: #E71917;">Contactanos</a>
-        </div>
-        <div data-reveal="" style="display: flex; flex-wrap: wrap; gap: clamp(20px, 3vw, 44px);">
-          <div style="padding-left: 18px; border-left: 1px solid rgba(231,25,23,.55);">
-            <p style="font-size: 30px; font-weight: 200; line-height: 1;">5 años</p>
-            <p style="font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: rgba(29,30,30,.5); margin-top: 8px;">de experiencia</p>
-          </div>
-          <div style="padding-left: 18px; border-left: 1px solid rgba(231,25,23,.55);">
-            <p style="font-size: 30px; font-weight: 200; line-height: 1;">Datos</p>
-            <p style="font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: rgba(29,30,30,.5); margin-top: 8px;">protegidos</p>
-          </div>
-          <div style="padding-left: 18px; border-left: 1px solid rgba(231,25,23,.55);">
-            <p style="font-size: 30px; font-weight: 200; line-height: 1;">24/7</p>
-            <p style="font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: rgba(29,30,30,.5); margin-top: 8px;">monitoreo continuo</p>
-          </div>
-        </div>
+        <h1 style="font-size: clamp(38px, 5.6vw, 76px); line-height: 1.05; font-weight: 200; letter-spacing: -0.02em; text-wrap: pretty; margin-bottom: 30px;">
+          <span data-decrypt="" data-decrypt-delay="120" style="display: block;">Protegemos tu empresa.</span>
+          <span data-decrypt="" data-decrypt-delay="620" style="display: block; color: #E71917;">Impulsamos su crecimiento.</span>
+        </h1>
+
+        <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.75; font-weight: 300; color: rgba(232,234,236,.66); max-width: 540px;">Soluciones tecnológicas y de ciberseguridad diseñadas para proteger tu información, optimizar tus procesos y garantizar la continuidad de tus operaciones.</p>
+
       </div>
+
       <div style="position: relative; justify-self: center; width: 100%; max-width: 520px;">
         <sc-if value="{{ circuitos }}" hint-placeholder-val="{{ true }}">
-          <svg class="om-circuit" viewBox="0 0 300 300" aria-hidden="true" style="position: absolute; right: -6%; bottom: -8%; width: 58%; height: auto; opacity: .7; pointer-events: none; z-index: 2;">
+          <svg class="om-circuit" viewBox="0 0 300 300" aria-hidden="true" style="position: absolute; right: -6%; bottom: -8%; width: 58%; height: auto; opacity: .8; pointer-events: none; z-index: 3;">
             <g fill="none" stroke="#E71917" stroke-width="1.4">
               <path d="M10 250 H90 L130 210 H240 L280 170" />
               <path d="M40 290 H150 L190 250 H290" />
@@ -121,121 +251,167 @@
             <g fill="#E71917"><circle cx="130" cy="210" r="5" /><circle cx="240" cy="130" r="6" /><circle cx="190" cy="250" r="5" /></g>
           </svg>
         </sc-if>
-        <div style="position: relative; border-radius: 36px; overflow: hidden; aspect-ratio: 4 / 5; box-shadow: 0 30px 70px -40px rgba(29,30,30,.45); transform: translateY({{ parallaxHero }}); transition: transform .2s linear;">
-          <image-slot id="hero-tech" shape="rect" placeholder="Foto vertical: datacenter / infraestructura de red"></image-slot>
+        <div style="position: relative; padding: 12px; border: 1px solid rgba(231,25,23,.28); transform: translateY({{ parallaxHero }}); transition: transform .2s linear;">
+          <span style="position: absolute; top: -1px; left: -1px; width: 18px; height: 18px; border-top: 2px solid #E71917; border-left: 2px solid #E71917;"></span>
+          <span style="position: absolute; top: -1px; right: -1px; width: 18px; height: 18px; border-top: 2px solid #E71917; border-right: 2px solid #E71917;"></span>
+          <span style="position: absolute; bottom: -1px; left: -1px; width: 18px; height: 18px; border-bottom: 2px solid #E71917; border-left: 2px solid #E71917;"></span>
+          <span style="position: absolute; bottom: -1px; right: -1px; width: 18px; height: 18px; border-bottom: 2px solid #E71917; border-right: 2px solid #E71917;"></span>
+          <div style="position: relative; overflow: hidden; aspect-ratio: 4 / 5; background: #0D0F12;">
+            <image-slot id="hero-tech" shape="rect" placeholder="Foto vertical: datacenter / infraestructura de red"></image-slot>
+            <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(231,25,23,.10), transparent 40%, rgba(7,8,10,.55));"></div>
+          </div>
+          <p style="position: absolute; bottom: -30px; left: 0; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgba(232,234,236,.3);">// infraestructura monitoreada</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="nosotros" data-screen-label="Nosotros" style="padding: clamp(72px, 9vw, 130px) clamp(20px, 4vw, 48px); background: #fff;">
-    <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(40px, 6vw, 96px); align-items: center;">
-      <div style="position: relative; order: 0; width: 100%; max-width: 460px; justify-self: center;">
-        <div style="border-radius: 36px; overflow: hidden; aspect-ratio: 3 / 4;">
-          <image-slot id="about-tech" shape="rect" placeholder="Foto vertical: equipo técnico / servidores"></image-slot>
-        </div>
-      </div>
-      <div data-reveal="">
-        <h2 style="font-size: clamp(32px, 4.4vw, 62px); font-weight: 200; line-height: 1.06; letter-spacing: -0.015em; margin-bottom: 32px;">¿QUIÉNES <span style="color: #E71917;">SOMOS?</span></h2>
-        <p style="font-size: clamp(16px, 1.2vw, 19px); line-height: 1.8; font-weight: 300; color: rgba(29,30,30,.76); max-width: 560px;">Somos una empresa con 5 años de experiencia, especializada en soluciones tecnológicas y ciberseguridad. Nos dedicamos a proteger la información y a optimizar los procesos de nuestros clientes, garantizando la continuidad y seguridad de sus operaciones en el entorno digital.</p>
-        <div style="margin-top: 46px; height: 2px; width: 120px; background: #E71917;"></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="servicios" data-screen-label="Servicios" style="padding: clamp(72px, 9vw, 130px) clamp(20px, 4vw, 48px); background: #fff;">
+  <!-- ================= NOSOTROS ================= -->
+  <section id="nosotros" data-screen-label="Nosotros" style="position: relative; padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px); background: #0A0C0E; border-top: 1px solid rgba(255,255,255,.06);">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: clamp(36px, 5vw, 80px); align-items: start; margin-bottom: clamp(52px, 6vw, 90px);">
-        <h2 data-reveal="" style="font-size: clamp(34px, 5vw, 70px); font-weight: 200; line-height: 1.03; letter-spacing: -0.02em;">NUESTROS<br /><span style="color: #E71917;">SERVICIOS</span></h2>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 22px; max-width: 560px; padding-top: 10px;">
-          <p style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.8; font-weight: 300; color: rgba(29,30,30,.76);">Te ofrecemos un servicio completo y profesional. Nuestro equipo técnico cuenta con la experiencia y conocimientos necesarios que garantizan la correcta implementación de las soluciones y un acompañamiento constante en cada etapa.</p>
-          <p style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.8; font-weight: 400; color: #1D1E1E;">En Tic's Solutions te ofrecemos un enfoque integral para proteger tu empresa.</p>
-        </div>
-      </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); gap: clamp(40px, 5vw, 80px); align-items: center;">
-        <div style="display: flex; flex-direction: column;">
-          <div data-reveal="" style="border-top: 1px solid rgba(29,30,30,.14); padding: clamp(30px, 3vw, 44px) 0; display: grid; grid-template-columns: 62px 1fr; gap: 12px; transition: border-color .4s ease;" style-hover="border-color: #E71917;">
-            <span style="font-size: 15px; font-weight: 300; color: #E71917; letter-spacing: .08em; padding-top: 8px;">01</span>
-            <div>
-              <h3 style="font-size: clamp(22px, 2.1vw, 30px); font-weight: 300; margin-bottom: 14px; transition: color .35s ease;">Protección de datos</h3>
-              <p style="font-size: 16px; line-height: 1.75; font-weight: 300; color: rgba(29,30,30,.7); max-width: 520px;">Blindamos tu información más valiosa con soluciones de respaldo y recuperación de vanguardia, para que tus datos estén siempre seguros y accesibles.</p>
-            </div>
-          </div>
-          <div data-reveal="" style="border-top: 1px solid rgba(29,30,30,.14); border-bottom: 1px solid rgba(29,30,30,.14); padding: clamp(30px, 3vw, 44px) 0; display: grid; grid-template-columns: 62px 1fr; gap: 12px; transition: border-color .4s ease;" style-hover="border-color: #E71917;">
-            <span style="font-size: 15px; font-weight: 300; color: #E71917; letter-spacing: .08em; padding-top: 8px;">02</span>
-            <div>
-              <h3 style="font-size: clamp(22px, 2.1vw, 30px); font-weight: 300; margin-bottom: 14px; transition: color .35s ease;">Monitoreo y gestión de riesgos</h3>
-              <p style="font-size: 16px; line-height: 1.75; font-weight: 300; color: rgba(29,30,30,.7); max-width: 520px;">Vigilamos constantemente tu infraestructura para identificar y neutralizar posibles amenazas antes de que afecten tus operaciones.</p>
-            </div>
-          </div>
-        </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(40px, 6vw, 96px); align-items: center;">
         <div style="position: relative; width: 100%; max-width: 460px; justify-self: center;">
-          <div style="border-radius: 32px; overflow: hidden; aspect-ratio: 1 / 1;">
-            <image-slot id="services-tech" shape="rect" placeholder="Foto: ciberseguridad / monitoreo"></image-slot>
+          <div style="position: relative; padding: 10px; border: 1px solid rgba(255,255,255,.1);">
+            <span style="position: absolute; top: -1px; left: -1px; width: 16px; height: 16px; border-top: 2px solid #E71917; border-left: 2px solid #E71917;"></span>
+            <span style="position: absolute; bottom: -1px; right: -1px; width: 16px; height: 16px; border-bottom: 2px solid #E71917; border-right: 2px solid #E71917;"></span>
+            <div style="overflow: hidden; aspect-ratio: 3 / 4; background: #0D0F12;">
+              <image-slot id="about-tech" shape="rect" placeholder="Foto vertical: equipo técnico / servidores"></image-slot>
+            </div>
           </div>
+        </div>
+        <div data-reveal="">
+          <!-- TrueFocus (React Bits) -->
+          <div data-truefocus="" style="position: relative; display: flex; flex-wrap: wrap; gap: .3em; font-size: clamp(32px, 4.4vw, 62px); font-weight: 200; line-height: 1.08; letter-spacing: -0.015em; margin-bottom: 34px;">
+            <span class="om-tf-word">¿QUIÉNES</span><span class="om-tf-word" style="color: #E71917;">SOMOS?</span>
+            <div class="om-tf-frame">
+              <span class="om-tf-corner" style="top: -6px; left: -6px; border-right: none; border-bottom: none;"></span>
+              <span class="om-tf-corner" style="top: -6px; right: -6px; border-left: none; border-bottom: none;"></span>
+              <span class="om-tf-corner" style="bottom: -6px; left: -6px; border-right: none; border-top: none;"></span>
+              <span class="om-tf-corner" style="bottom: -6px; right: -6px; border-left: none; border-top: none;"></span>
+            </div>
+          </div>
+          <p style="font-size: clamp(16px, 1.2vw, 19px); line-height: 1.85; font-weight: 300; color: rgba(232,234,236,.7); max-width: 560px;">Somos una empresa con 5 años de experiencia, especializada en soluciones tecnológicas y ciberseguridad. Nos dedicamos a proteger la información y a optimizar los procesos de nuestros clientes, garantizando la continuidad y seguridad de sus operaciones en el entorno digital.</p>
+          <div style="margin-top: 46px; height: 2px; width: 120px; background: #E71917; box-shadow: 0 0 18px rgba(231,25,23,.7);"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section data-screen-label="Beneficios" style="padding: clamp(72px, 9vw, 130px) clamp(20px, 4vw, 48px);">
+  <!-- ================= SERVICIOS ================= -->
+  <section id="servicios" data-screen-label="Servicios" style="position: relative; padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px); background: #07080A;">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <h2 data-reveal="" style="font-size: clamp(30px, 3.8vw, 54px); font-weight: 200; line-height: 1.1; letter-spacing: -0.015em; max-width: 760px; margin-bottom: clamp(48px, 6vw, 84px); text-wrap: pretty;">Tecnología que <span style="color: #E71917;">protege</span> tu operación</h2>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: clamp(28px, 3.4vw, 56px);">
-        <div data-reveal="" style="border-top: 1px solid rgba(231,25,23,.6); padding-top: 22px;">
-          <p style="font-size: 13px; color: #E71917; letter-spacing: .1em; margin-bottom: 16px;">01</p>
-          <h3 style="font-size: 21px; font-weight: 400; margin-bottom: 12px;">Continuidad operativa</h3>
-          <p style="font-size: 15px; line-height: 1.7; font-weight: 300; color: rgba(29,30,30,.66);">Infraestructura preparada para mantener tu empresa funcionando.</p>
-        </div>
-        <div data-reveal="" style="border-top: 1px solid rgba(231,25,23,.6); padding-top: 22px;">
-          <p style="font-size: 13px; color: #E71917; letter-spacing: .1em; margin-bottom: 16px;">02</p>
-          <h3 style="font-size: 21px; font-weight: 400; margin-bottom: 12px;">Información protegida</h3>
-          <p style="font-size: 15px; line-height: 1.7; font-weight: 300; color: rgba(29,30,30,.66);">Respaldo y recuperación para tus datos más importantes.</p>
-        </div>
-        <div data-reveal="" style="border-top: 1px solid rgba(231,25,23,.6); padding-top: 22px;">
-          <p style="font-size: 13px; color: #E71917; letter-spacing: .1em; margin-bottom: 16px;">03</p>
-          <h3 style="font-size: 21px; font-weight: 400; margin-bottom: 12px;">Gestión de riesgos</h3>
-          <p style="font-size: 15px; line-height: 1.7; font-weight: 300; color: rgba(29,30,30,.66);">Detección y neutralización temprana de amenazas.</p>
-        </div>
-        <div data-reveal="" style="border-top: 1px solid rgba(231,25,23,.6); padding-top: 22px;">
-          <p style="font-size: 13px; color: #E71917; letter-spacing: .1em; margin-bottom: 16px;">04</p>
-          <h3 style="font-size: 21px; font-weight: 400; margin-bottom: 12px;">Acompañamiento técnico</h3>
-          <p style="font-size: 15px; line-height: 1.7; font-weight: 300; color: rgba(29,30,30,.66);">Experiencia y soporte durante cada etapa de implementación.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <section id="partners" data-screen-label="Partners" style="position: relative; padding: clamp(72px, 9vw, 130px) clamp(20px, 4vw, 48px) clamp(80px, 9vw, 120px); overflow: hidden;">
-    <div style="position: relative; max-width: 1280px; margin: 0 auto;">
-      <div style="max-width: 720px; margin-bottom: clamp(48px, 6vw, 86px);">
-        <h2 data-reveal="" style="font-size: clamp(30px, 4vw, 58px); font-weight: 200; line-height: 1.06; letter-spacing: -0.015em; margin-bottom: 24px;">MARCAS Y <span style="color: #E71917;">SERVICIOS</span></h2>
-        <p data-reveal="" style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.75; font-weight: 300; color: rgba(29,30,30,.72);">Trabajamos con líderes del mercado para ofrecerte soluciones de la más alta calidad y confianza.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: clamp(36px, 5vw, 80px); align-items: start; margin-bottom: clamp(52px, 6vw, 90px);">
+        <h2 data-reveal="" style="font-size: clamp(34px, 5vw, 70px); font-weight: 200; line-height: 1.05; letter-spacing: -0.02em;">NUESTROS<br /><span class="om-glitch" data-text="SERVICIOS" style="color: #E71917;">SERVICIOS</span></h2>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 22px; max-width: 560px; padding-top: 10px;">
+          <p style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.85; font-weight: 300; color: rgba(232,234,236,.68);">Te ofrecemos un servicio completo y profesional. Nuestro equipo técnico cuenta con la experiencia y conocimientos necesarios que garantizan la correcta implementación de las soluciones y un acompañamiento constante en cada etapa.</p>
+          <p style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.85; font-weight: 400; color: #E8EAEC;">En Tic's Solutions te ofrecemos un enfoque integral para proteger tu empresa.</p>
+        </div>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: clamp(40px, 5vw, 80px);">
-        <div data-reveal="">
-          <p style="font-size: 12px; letter-spacing: .26em; text-transform: uppercase; color: #E71917; margin-bottom: 26px;">Partners</p>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1px; background: rgba(29,30,30,.1);">
-            <sc-for list="{{ partners }}" as="marca" hint-placeholder-count="5">
-              <div style="background: #fff; min-height: 92px; display: flex; align-items: center; justify-content: center; padding: 16px; text-align: center; font-size: 16px; font-weight: 300; letter-spacing: .04em; color: rgba(29,30,30,.42); transition: color .35s ease, transform .35s ease;" style-hover="color: #1D1E1E; transform: translateY(-2px);">{{ marca }}</div>
-            </sc-for>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); gap: clamp(28px, 4vw, 56px); align-items: stretch;">
+        <div style="display: flex; flex-direction: column; gap: clamp(20px, 2.4vw, 28px);">
+          <!-- SpotlightCard (React Bits) -->
+          <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(255,255,255,.1); background: #0D0F12; padding: clamp(28px, 3vw, 40px);" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-3px);">
+            <div style="position: relative; z-index: 1;">
+              <h3 data-decrypt="" data-decrypt-scroll="" style="font-size: clamp(22px, 2.1vw, 30px); font-weight: 300; margin-bottom: 14px;">Protección de datos</h3>
+              <p style="font-size: 16px; line-height: 1.8; font-weight: 300; color: rgba(232,234,236,.64); max-width: 520px;">Blindamos tu información más valiosa con soluciones de respaldo y recuperación de vanguardia, para que tus datos estén siempre seguros y accesibles.</p>
+            </div>
+          </div>
+          <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(255,255,255,.1); background: #0D0F12; padding: clamp(28px, 3vw, 40px);" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-3px);">
+            <div style="position: relative; z-index: 1;">
+              <h3 data-decrypt="" data-decrypt-scroll="" style="font-size: clamp(22px, 2.1vw, 30px); font-weight: 300; margin-bottom: 14px;">Monitoreo y gestión de riesgos</h3>
+              <p style="font-size: 16px; line-height: 1.8; font-weight: 300; color: rgba(232,234,236,.64); max-width: 520px;">Vigilamos constantemente tu infraestructura para identificar y neutralizar posibles amenazas antes de que afecten tus operaciones.</p>
+            </div>
           </div>
         </div>
-        <div data-reveal="">
-          <p style="font-size: 12px; letter-spacing: .26em; text-transform: uppercase; color: #E71917; margin-bottom: 26px;">Marcas</p>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1px; background: rgba(29,30,30,.1);">
-            <sc-for list="{{ marcas }}" as="marca" hint-placeholder-count="6">
-              <div style="background: #fff; min-height: 92px; display: flex; align-items: center; justify-content: center; padding: 16px; text-align: center; font-size: 16px; font-weight: 300; letter-spacing: .04em; color: rgba(29,30,30,.42); transition: color .35s ease, transform .35s ease;" style-hover="color: #1D1E1E; transform: translateY(-2px);">{{ marca }}</div>
-            </sc-for>
+        <div data-reveal="" style="position: relative; width: 100%; max-width: 460px; justify-self: center; align-self: center;">
+          <div style="position: relative; padding: 10px; border: 1px solid rgba(255,255,255,.1);">
+            <span style="position: absolute; top: -1px; right: -1px; width: 16px; height: 16px; border-top: 2px solid #E71917; border-right: 2px solid #E71917;"></span>
+            <span style="position: absolute; bottom: -1px; left: -1px; width: 16px; height: 16px; border-bottom: 2px solid #E71917; border-left: 2px solid #E71917;"></span>
+            <div style="overflow: hidden; aspect-ratio: 1 / 1; background: #0D0F12;">
+              <image-slot id="services-tech" shape="rect" placeholder="Foto: ciberseguridad / monitoreo"></image-slot>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section data-screen-label="Misión" style="position: relative; background: #1D1E1E; color: #fff; padding: clamp(84px, 11vw, 160px) clamp(20px, 4vw, 48px); overflow: hidden;">
+  <!-- ================= BENEFICIOS ================= -->
+  <section data-screen-label="Beneficios" style="position: relative; padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px); background: #0A0C0E; border-top: 1px solid rgba(255,255,255,.06); overflow: hidden;">
+    <!-- Squares (React Bits) -->
+    <sc-if value="{{ squares }}" hint-placeholder-val="{{ true }}">
+      <canvas id="fx-squares" data-fx="squares" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: .55; pointer-events: none;"></canvas>
+    </sc-if>
+    <div class="om-vig" style="background: radial-gradient(ellipse 80% 60% at 50% 50%, transparent 0%, rgba(10,12,14,.8) 70%, #0A0C0E 100%);"></div>
+
+    <div style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto;">
+      <h2 data-reveal="" style="font-size: clamp(30px, 3.8vw, 54px); font-weight: 200; line-height: 1.12; letter-spacing: -0.015em; max-width: 760px; margin-bottom: clamp(48px, 6vw, 84px); text-wrap: pretty;">Tecnología que <span class="om-glitch" data-text="protege" style="color: #E71917;">protege</span> tu operación</h2>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: clamp(20px, 2.6vw, 34px);">
+        <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(255,255,255,.1); background: rgba(13,15,18,.72); backdrop-filter: blur(6px); padding: 26px 24px 30px;" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-4px);">
+          <h3 data-decrypt="" data-decrypt-scroll="" style="position: relative; z-index: 1; font-size: 20px; font-weight: 400; margin-bottom: 12px;">Continuidad operativa</h3>
+          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 300; color: rgba(232,234,236,.6);">Infraestructura preparada para mantener tu empresa funcionando.</p>
+        </div>
+        <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(255,255,255,.1); background: rgba(13,15,18,.72); backdrop-filter: blur(6px); padding: 26px 24px 30px;" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-4px);">
+          <h3 data-decrypt="" data-decrypt-scroll="" style="position: relative; z-index: 1; font-size: 20px; font-weight: 400; margin-bottom: 12px;">Información protegida</h3>
+          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 300; color: rgba(232,234,236,.6);">Respaldo y recuperación para tus datos más importantes.</p>
+        </div>
+        <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(255,255,255,.1); background: rgba(13,15,18,.72); backdrop-filter: blur(6px); padding: 26px 24px 30px;" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-4px);">
+          <h3 data-decrypt="" data-decrypt-scroll="" style="position: relative; z-index: 1; font-size: 20px; font-weight: 400; margin-bottom: 12px;">Gestión de riesgos</h3>
+          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 300; color: rgba(232,234,236,.6);">Detección y neutralización temprana de amenazas.</p>
+        </div>
+        <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(255,255,255,.1); background: rgba(13,15,18,.72); backdrop-filter: blur(6px); padding: 26px 24px 30px;" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-4px);">
+          <h3 data-decrypt="" data-decrypt-scroll="" style="position: relative; z-index: 1; font-size: 20px; font-weight: 400; margin-bottom: 12px;">Acompañamiento técnico</h3>
+          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 300; color: rgba(232,234,236,.6);">Experiencia y soporte durante cada etapa de implementación.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PARTNERS ================= -->
+  <section id="partners" data-screen-label="Partners" style="position: relative; padding: clamp(80px, 10vw, 140px) 0 clamp(84px, 10vw, 130px); background: #07080A; overflow: hidden;">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px);">
+      <div style="max-width: 720px; margin-bottom: clamp(48px, 6vw, 80px);">
+        <h2 data-reveal="" style="font-size: clamp(30px, 4vw, 58px); font-weight: 200; line-height: 1.08; letter-spacing: -0.015em; margin-bottom: 24px;">MARCAS Y <span class="om-glitch" data-text="SERVICIOS" style="color: #E71917;">SERVICIOS</span></h2>
+        <p data-reveal="" style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.8; font-weight: 300; color: rgba(232,234,236,.66);">Trabajamos con líderes del mercado para ofrecerte soluciones de la más alta calidad y confianza.</p>
+      </div>
+    </div>
+
+    <!-- Cintas estáticas de partners y marcas -->
+    <div data-reveal="" style="margin-bottom: 44px;">
+      <p style="padding: 0 clamp(20px, 4vw, 48px); max-width: 1280px; margin: 0 auto 20px; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: #E71917;">Partners</p>
+      <div style="position: relative; border-top: 1px solid rgba(255,255,255,.09); border-bottom: 1px solid rgba(255,255,255,.09); overflow: hidden;">
+        <div class="om-strip">
+          <sc-for list="{{ partners }}" as="marca" hint-placeholder-count="5">
+            <div data-scramble="" data-scramble-hover="" style="flex: 1 1 auto; min-width: 0; height: 104px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 14px 12px; font-family: 'JetBrains Mono', monospace; font-size: clamp(10px, 1.05vw, 15px); font-weight: 400; letter-spacing: .08em; text-transform: uppercase; color: rgba(232,234,236,.42); cursor: default; transition: color .3s ease, background .3s ease;" style-hover="color: #E71917; background: rgba(231,25,23,.06);">{{ marca }}</div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div data-reveal="">
+      <p style="padding: 0 clamp(20px, 4vw, 48px); max-width: 1280px; margin: 0 auto 20px; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: #E71917;">Marcas</p>
+      <div style="position: relative; border-top: 1px solid rgba(255,255,255,.09); border-bottom: 1px solid rgba(255,255,255,.09); overflow: hidden;">
+        <div class="om-strip">
+          <sc-for list="{{ marcas }}" as="marca" hint-placeholder-count="6">
+            <div data-scramble="" data-scramble-hover="" style="flex: 1 1 auto; min-width: 0; height: 104px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 14px 12px; font-family: 'JetBrains Mono', monospace; font-size: clamp(10px, 1.05vw, 15px); font-weight: 400; letter-spacing: .08em; text-transform: uppercase; color: rgba(232,234,236,.42); cursor: default; transition: color .3s ease, background .3s ease;" style-hover="color: #E71917; background: rgba(231,25,23,.06);">{{ marca }}</div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MISIÓN ================= -->
+  <section data-screen-label="Misión" style="position: relative; background: #0D0F12; color: #fff; padding: clamp(90px, 12vw, 170px) clamp(20px, 4vw, 48px); overflow: hidden; border-top: 1px solid rgba(231,25,23,.22);">
+    <sc-if value="{{ glitch }}" hint-placeholder-val="{{ true }}">
+      <canvas id="fx-glitch2" data-fx="letterglitch" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: .18; pointer-events: none;"></canvas>
+    </sc-if>
+    <div class="om-vig" style="background: radial-gradient(ellipse 80% 70% at 30% 50%, transparent 0%, rgba(13,15,18,.85) 60%, #0D0F12 92%);"></div>
+
     <sc-if value="{{ circuitos }}" hint-placeholder-val="{{ true }}">
-      <svg class="om-circuit" viewBox="0 0 700 400" aria-hidden="true" style="position: absolute; right: -60px; top: 0; width: min(60vw, 700px); height: auto; opacity: .55; pointer-events: none;">
+      <svg class="om-circuit" viewBox="0 0 700 400" aria-hidden="true" style="position: absolute; right: -60px; top: 0; width: min(60vw, 700px); height: auto; opacity: .45; pointer-events: none; z-index: 2;">
         <g fill="none" stroke="#E71917" stroke-width="1.2">
           <path d="M700 60 H520 L470 110 H300" />
           <path d="M700 180 H560 L510 230 H360 L310 180 H180" />
@@ -249,89 +425,109 @@
         </g>
       </svg>
     </sc-if>
-    <div style="position: relative; max-width: 1000px; margin: 0 auto;">
-      <h2 data-reveal="" style="font-size: clamp(32px, 4.6vw, 66px); font-weight: 200; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 40px; text-wrap: pretty;">Tu <span style="color: #E71917;">socio estratégico</span> en el entorno digital</h2>
-      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 20px); line-height: 1.8; font-weight: 300; color: rgba(255,255,255,.78); max-width: 720px; margin-bottom: 26px;">Nuestra misión es ser tu socio estratégico en el entorno digital. Te proveemos de una infraestructura tecnológica robusta y de una defensa cibernética inquebrantable, permitiendo que tu empresa prospere sin interrupciones.</p>
-      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 20px); line-height: 1.8; font-weight: 300; color: rgba(255,255,255,.78); max-width: 720px; margin-bottom: 52px;">En Tic's Solutions, gestionamos los riesgos para que tú puedas capitalizar las oportunidades y enfocarte exclusivamente en tu crecimiento.</p>
-      <a data-reveal="" href="#contacto" style="background: #E71917; color: #fff; height: 54px; padding: 0 36px; display: inline-flex; align-items: center; border-radius: 999px; font-size: 16px; transition: background .3s ease, transform .3s ease;" style-hover="background: #fff; color: #1D1E1E; transform: translateY(-2px);">Hablemos de tu empresa</a>
+
+    <div style="position: relative; z-index: 3; max-width: 1000px; margin: 0 auto;">
+      <h2 data-reveal="" style="font-size: clamp(32px, 4.6vw, 66px); font-weight: 200; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 40px; text-wrap: pretty;">Tu <span class="om-glitch" data-text="socio estratégico" style="color: #E71917;">socio estratégico</span> en el entorno digital</h2>
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 20px); line-height: 1.85; font-weight: 300; color: rgba(255,255,255,.72); max-width: 720px; margin-bottom: 26px;">Nuestra misión es ser tu socio estratégico en el entorno digital. Te proveemos de una infraestructura tecnológica robusta y de una defensa cibernética inquebrantable, permitiendo que tu empresa prospere sin interrupciones.</p>
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 20px); line-height: 1.85; font-weight: 300; color: rgba(255,255,255,.72); max-width: 720px; margin-bottom: 52px;">En Tic's Solutions, gestionamos los riesgos para que tú puedas capitalizar las oportunidades y enfocarte exclusivamente en tu crecimiento.</p>
+      <a data-reveal="" data-magnet="" href="#contacto" class="om-star" style="color: #fff; height: 56px; padding: 0 36px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">Hablemos de tu empresa</a>
     </div>
   </section>
 
-  <section id="contacto" data-screen-label="Contacto" style="padding: clamp(72px, 9vw, 130px) clamp(20px, 4vw, 48px);">
-    <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: clamp(46px, 6vw, 96px);">
-      <div data-reveal="">
-        <h2 style="font-size: clamp(32px, 4.4vw, 60px); font-weight: 200; line-height: 1.06; letter-spacing: -0.02em; margin-bottom: 30px;">Contactá con <span style="color: #E71917;">nosotros</span></h2>
-        <p style="font-size: 17px; line-height: 1.75; font-weight: 300; color: rgba(29,30,30,.7); max-width: 460px; margin-bottom: 46px;">Conversemos sobre la infraestructura y la seguridad de tu empresa. Respondemos por teléfono, correo o WhatsApp.</p>
-        <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 40px;">
-          <p style="font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: rgba(29,30,30,.45);">Contacto comercial</p>
-          <p style="font-size: 26px; font-weight: 300; margin-top: 10px;">Arturo Osorio</p>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 14px; max-width: 420px;">
-          <a href="tel:+595981171372" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 56px; padding: 0 24px; border: 1px solid rgba(29,30,30,.14); border-radius: 999px; color: #1D1E1E; font-size: 16px; transition: border-color .3s ease, color .3s ease;" style-hover="border-color: #E71917; color: #E71917;"><span>(+595) 981 171 372</span><span style="font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: rgba(29,30,30,.4);">Llamar</span></a>
-          <a href="mailto:arturo.osorio@tics-py.com" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 56px; padding: 0 24px; border: 1px solid rgba(29,30,30,.14); border-radius: 999px; color: #1D1E1E; font-size: 16px; transition: border-color .3s ease, color .3s ease;" style-hover="border-color: #E71917; color: #E71917;"><span>arturo.osorio@tics-py.com</span><span style="font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: rgba(29,30,30,.4);">Correo</span></a>
-          <a href="https://wa.me/595981171372" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 56px; padding: 0 24px; background: #E71917; border-radius: 999px; color: #fff; font-size: 16px; transition: background .3s ease;" style-hover="background: #1D1E1E; color: #fff;"><span>Escribinos por WhatsApp</span><span style="font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.7);">Chat</span></a>
-        </div>
-      </div>
-      <div data-reveal="">
-        <sc-if value="{{ enviado }}" hint-placeholder-val="{{ false }}">
-          <div style="border-top: 2px solid #E71917; padding-top: 32px;">
-            <p style="font-size: 24px; font-weight: 300; margin-bottom: 12px;">Gracias por tu consulta.</p>
-            <p style="font-size: 16px; line-height: 1.7; font-weight: 300; color: rgba(29,30,30,.7);">Nuestro equipo te va a responder a la brevedad.</p>
+  <!-- ================= CONTACTO ================= -->
+  <section id="contacto" data-screen-label="Contacto" style="position: relative; padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px); background: #07080A;">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: clamp(46px, 6vw, 96px);">
+        <div data-reveal="">
+          <h2 style="font-size: clamp(32px, 4.4vw, 60px); font-weight: 200; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 30px;">Contactá con <span class="om-glitch" data-text="nosotros" style="color: #E71917;">nosotros</span></h2>
+          <p style="font-size: 17px; line-height: 1.8; font-weight: 300; color: rgba(232,234,236,.66); max-width: 460px; margin-bottom: 46px;">Conversemos sobre la infraestructura y la seguridad de tu empresa. Respondemos por teléfono, correo o WhatsApp.</p>
+
+          <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 36px;">
+            <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: rgba(232,234,236,.4);">Contacto comercial</p>
+            <p style="font-size: 26px; font-weight: 300; margin-top: 12px;">Arturo Osorio</p>
           </div>
-        </sc-if>
-        <sc-if value="{{ formVisible }}" hint-placeholder-val="{{ true }}">
-          <form onSubmit="{{ enviarForm }}" style="display: flex; flex-direction: column; gap: 26px;">
-            <label style="display: flex; flex-direction: column; gap: 8px;">
-              <span style="font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.45);">Nombre</span>
-              <input type="text" name="nombre" required="" style="border: none; border-bottom: 1px solid rgba(29,30,30,.2); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 300; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
-            </label>
-            <label style="display: flex; flex-direction: column; gap: 8px;">
-              <span style="font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.45);">Empresa</span>
-              <input type="text" name="empresa" style="border: none; border-bottom: 1px solid rgba(29,30,30,.2); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 300; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
-            </label>
-            <label style="display: flex; flex-direction: column; gap: 8px;">
-              <span style="font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.45);">Correo</span>
-              <input type="email" name="correo" required="" style="border: none; border-bottom: 1px solid rgba(29,30,30,.2); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 300; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
-            </label>
-            <label style="display: flex; flex-direction: column; gap: 8px;">
-              <span style="font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.45);">Teléfono</span>
-              <input type="tel" name="telefono" style="border: none; border-bottom: 1px solid rgba(29,30,30,.2); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 300; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
-            </label>
-            <label style="display: flex; flex-direction: column; gap: 8px;">
-              <span style="font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.45);">Mensaje</span>
-              <textarea name="mensaje" rows="3" style="border: none; border-bottom: 1px solid rgba(29,30,30,.2); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 300; color: #1D1E1E; outline: none; resize: vertical; transition: border-color .3s ease;" style-focus="border-color: #E71917;"></textarea>
-            </label>
-            <button type="submit" style="align-self: flex-start; margin-top: 8px; background: #E71917; color: #fff; border: none; height: 54px; padding: 0 34px; border-radius: 999px; font-size: 16px; font-weight: 400; cursor: pointer; transition: background .3s ease, transform .3s ease;" style-hover="background: #1D1E1E; transform: translateY(-2px);">Enviar consulta</button>
-          </form>
-        </sc-if>
+
+          <div style="display: flex; flex-direction: column; gap: 12px; max-width: 440px;">
+            <a href="tel:+595981171372" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 58px; padding: 0 22px; border: 1px solid rgba(255,255,255,.12); background: #0D0F12; color: #E8EAEC; font-family: 'JetBrains Mono', monospace; font-size: 14px; transition: border-color .3s ease, color .3s ease, background .3s ease;" style-hover="border-color: #E71917; color: #E71917; background: rgba(231,25,23,.06);"><span>(+595) 981 171 372</span><span style="font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: rgba(232,234,236,.35);">Llamar</span></a>
+            <a href="mailto:arturo.osorio@tics-py.com" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 58px; padding: 0 22px; border: 1px solid rgba(255,255,255,.12); background: #0D0F12; color: #E8EAEC; font-family: 'JetBrains Mono', monospace; font-size: 13px; transition: border-color .3s ease, color .3s ease, background .3s ease;" style-hover="border-color: #E71917; color: #E71917; background: rgba(231,25,23,.06);"><span>arturo.osorio@tics-py.com</span><span style="font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: rgba(232,234,236,.35);">Correo</span></a>
+            <a href="https://wa.me/595981171372" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 58px; padding: 0 22px; background: #E71917; border: 1px solid #E71917; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 13px; transition: background .3s ease, color .3s ease;" style-hover="background: transparent; color: #E71917;"><span>Escribinos por WhatsApp</span><span style="font-size: 10px; letter-spacing: .18em; text-transform: uppercase; opacity: .75;">Chat</span></a>
+          </div>
+        </div>
+
+        <div data-reveal="">
+          <!-- Terminal -->
+          <div style="border: 1px solid rgba(255,255,255,.12); background: #0D0F12;">
+            <div style="display: flex; align-items: center; gap: 8px; padding: 13px 18px; border-bottom: 1px solid rgba(255,255,255,.1); background: #101317;">
+              <span style="width: 9px; height: 9px; border-radius: 999px; background: #E71917;"></span>
+              <span style="width: 9px; height: 9px; border-radius: 999px; background: rgba(232,234,236,.22);"></span>
+              <span style="width: 9px; height: 9px; border-radius: 999px; background: rgba(232,234,236,.22);"></span>
+              <span style="margin-left: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .14em; color: rgba(232,234,236,.42);">consulta@tics-py.com</span>
+            </div>
+            <div style="padding: clamp(26px, 3vw, 38px);">
+              <sc-if value="{{ enviado }}" hint-placeholder-val="{{ false }}">
+                <div style="border-left: 2px solid #E71917; padding-left: 20px;">
+                  <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #E71917; margin-bottom: 16px;">&gt; transmisión completa</p>
+                  <p style="font-size: 24px; font-weight: 300; margin-bottom: 12px;">Gracias por tu consulta.</p>
+                  <p style="font-size: 16px; line-height: 1.75; font-weight: 300; color: rgba(232,234,236,.65);">Nuestro equipo te va a responder a la brevedad.</p>
+                </div>
+              </sc-if>
+              <sc-if value="{{ formVisible }}" hint-placeholder-val="{{ true }}">
+                <form onSubmit="{{ enviarForm }}" style="display: flex; flex-direction: column; gap: 24px;">
+                  <label style="display: flex; flex-direction: column; gap: 8px;">
+                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(232,234,236,.42);">&gt; nombre</span>
+                    <input type="text" name="nombre" required="" style="border: none; border-bottom: 1px solid rgba(255,255,255,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 300; color: #E8EAEC; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
+                  </label>
+                  <label style="display: flex; flex-direction: column; gap: 8px;">
+                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(232,234,236,.42);">&gt; empresa</span>
+                    <input type="text" name="empresa" style="border: none; border-bottom: 1px solid rgba(255,255,255,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 300; color: #E8EAEC; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
+                  </label>
+                  <label style="display: flex; flex-direction: column; gap: 8px;">
+                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(232,234,236,.42);">&gt; correo</span>
+                    <input type="email" name="correo" required="" style="border: none; border-bottom: 1px solid rgba(255,255,255,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 300; color: #E8EAEC; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
+                  </label>
+                  <label style="display: flex; flex-direction: column; gap: 8px;">
+                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(232,234,236,.42);">&gt; teléfono</span>
+                    <input type="tel" name="telefono" style="border: none; border-bottom: 1px solid rgba(255,255,255,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 300; color: #E8EAEC; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
+                  </label>
+                  <label style="display: flex; flex-direction: column; gap: 8px;">
+                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(232,234,236,.42);">&gt; mensaje</span>
+                    <textarea name="mensaje" rows="3" style="border: none; border-bottom: 1px solid rgba(255,255,255,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 300; color: #E8EAEC; outline: none; resize: vertical; transition: border-color .3s ease;" style-focus="border-color: #E71917;"></textarea>
+                  </label>
+                  <button type="submit" class="om-star" data-magnet="" style="align-self: flex-start; margin-top: 8px; color: #fff; background: transparent; border: none; height: 54px; padding: 0 34px; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">Enviar consulta</button>
+                </form>
+              </sc-if>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <footer style="position: relative; background: #000; color: #fff; padding: clamp(60px, 7vw, 96px) clamp(20px, 4vw, 48px) 0; overflow: hidden;">
+  <!-- ================= FOOTER ================= -->
+  <footer style="position: relative; background: #000; color: #fff; padding: clamp(60px, 7vw, 96px) clamp(20px, 4vw, 48px) 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,.08);">
     <div style="position: relative; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: clamp(36px, 5vw, 72px); padding-bottom: clamp(52px, 6vw, 80px);">
       <div>
-        <img src="./assets/logo-tics-blanco.png" alt="Tic's Solutions" style="height: 54px; width: auto; display: block; background: #fff; padding: 10px 14px; border-radius: 10px;" />
-        <p style="margin-top: 22px; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.55);">Tecnología a tu alcance</p>
+        <img src="./assets/logo-tics-oscuro.png" alt="Tic's Solutions" style="height: 52px; width: auto; display: block;" />
+        <p class="om-shiny" style="margin-top: 22px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .2em; text-transform: uppercase;">Tecnología a tu alcance</p>
       </div>
       <div style="display: flex; flex-direction: column; gap: 12px;">
-        <p style="font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: #E71917; margin-bottom: 8px;">Navegación</p>
-        <a href="#inicio" style="color: rgba(255,255,255,.75); font-size: 15px;" style-hover="color: #fff;">Inicio</a>
-        <a href="#nosotros" style="color: rgba(255,255,255,.75); font-size: 15px;" style-hover="color: #fff;">Nosotros</a>
-        <a href="#servicios" style="color: rgba(255,255,255,.75); font-size: 15px;" style-hover="color: #fff;">Servicios</a>
-        <a href="#partners" style="color: rgba(255,255,255,.75); font-size: 15px;" style-hover="color: #fff;">Partners</a>
-        <a href="#contacto" style="color: rgba(255,255,255,.75); font-size: 15px;" style-hover="color: #fff;">Contacto</a>
+        <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #E71917; margin-bottom: 8px;">Navegación</p>
+        <a href="#inicio" style="color: rgba(255,255,255,.66); font-size: 15px; transition: color .3s ease;" style-hover="color: #E71917;">Inicio</a>
+        <a href="#nosotros" style="color: rgba(255,255,255,.66); font-size: 15px; transition: color .3s ease;" style-hover="color: #E71917;">Nosotros</a>
+        <a href="#servicios" style="color: rgba(255,255,255,.66); font-size: 15px; transition: color .3s ease;" style-hover="color: #E71917;">Servicios</a>
+        <a href="#partners" style="color: rgba(255,255,255,.66); font-size: 15px; transition: color .3s ease;" style-hover="color: #E71917;">Partners</a>
+        <a href="#contacto" style="color: rgba(255,255,255,.66); font-size: 15px; transition: color .3s ease;" style-hover="color: #E71917;">Contacto</a>
       </div>
       <div style="display: flex; flex-direction: column; gap: 12px;">
-        <p style="font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: #E71917; margin-bottom: 8px;">Contacto</p>
-        <p style="color: rgba(255,255,255,.75); font-size: 15px;">Arturo Osorio</p>
-        <a href="tel:+595981171372" style="color: rgba(255,255,255,.75); font-size: 15px;" style-hover="color: #fff;">(+595) 981 171 372</a>
-        <a href="mailto:arturo.osorio@tics-py.com" style="color: rgba(255,255,255,.75); font-size: 15px;" style-hover="color: #fff;">arturo.osorio@tics-py.com</a>
-        <a href="https://wa.me/595981171372" target="_blank" rel="noopener" style="color: rgba(255,255,255,.75); font-size: 15px;" style-hover="color: #fff;">WhatsApp</a>
+        <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #E71917; margin-bottom: 8px;">Contacto</p>
+        <p style="color: rgba(255,255,255,.66); font-size: 15px;">Arturo Osorio</p>
+        <a href="tel:+595981171372" style="color: rgba(255,255,255,.66); font-size: 15px; transition: color .3s ease;" style-hover="color: #E71917;">(+595) 981 171 372</a>
+        <a href="mailto:arturo.osorio@tics-py.com" style="color: rgba(255,255,255,.66); font-size: 15px; transition: color .3s ease;" style-hover="color: #E71917;">arturo.osorio@tics-py.com</a>
+        <a href="https://wa.me/595981171372" target="_blank" rel="noopener" style="color: rgba(255,255,255,.66); font-size: 15px; transition: color .3s ease;" style-hover="color: #E71917;">WhatsApp</a>
       </div>
     </div>
     <sc-if value="{{ circuitos }}" hint-placeholder-val="{{ true }}">
-      <svg class="om-circuit" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true" style="display: block; width: 100%; height: 90px; opacity: .7;">
+      <svg class="om-circuit" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true" style="display: block; width: 100%; height: 90px; opacity: .6;">
         <g fill="none" stroke="#E71917" stroke-width="1.2">
           <path d="M0 70 H180 L220 30 H420 L460 70 H700 L740 30 H960 L1000 70 H1200" />
           <path d="M0 20 H120 L160 60 H300" />
@@ -342,53 +538,502 @@
         </g>
       </svg>
     </sc-if>
-    <div style="border-top: 1px solid rgba(255,255,255,.12); padding: 22px 0 26px; text-align: center;">
-      <p style="font-size: 13px; font-weight: 300; color: rgba(255,255,255,.45);">© 2026 Tic's Solutions. Todos los derechos reservados.</p>
+    <div style="border-top: 1px solid rgba(255,255,255,.1); padding: 22px 0 26px; text-align: center;">
+      <p class="om-caret" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 300; letter-spacing: .06em; color: rgba(255,255,255,.38);">© 2026 Tic's Solutions. Todos los derechos reservados. </p>
     </div>
   </footer>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;circuitos&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Identidad&quot;},&quot;animaciones&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamiento&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;circuitos&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Identidad&quot;},&quot;glitch&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;squares&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;chispas&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;scanlines&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;animaciones&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamiento&quot;}}">
 class Component extends DCLogic {
   state = { scrolled: false, menuOpen: false, enviado: false, scrollY: 0 };
 
+  // ============================================================
+  //  Efectos inspirados en React Bits (reactbits.dev), reescritos
+  //  en vanilla JS/Canvas porque el proyecto no usa React ni npm.
+  //  LetterGlitch · Squares · ClickSpark · DecryptedText
+  //  TrueFocus · CountUp · SpotlightCard · Magnet · ScrambleText
+  // ============================================================
+
   componentDidMount() {
+    this._raf = null;
+    this._cleanups = [];
+    this._reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ---- scroll (throttled con rAF) ----
+    let ticking = false;
     this._onScroll = () => {
-      const y = window.scrollY || 0;
-      this.setState({ scrolled: y > 24, scrollY: y });
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        const y = window.scrollY || 0;
+        const next = { scrolled: y > 24, scrollY: y };
+        if (next.scrolled !== this.state.scrolled || Math.abs(y - this.state.scrollY) > 6) this.setState(next);
+        // El barrido por geometría en cada scroll es más fiable que el
+        // IntersectionObserver, que no dispara en artboards escalados.
+        this.sweep();
+      });
     };
     window.addEventListener('scroll', this._onScroll, { passive: true });
     this._onScroll();
 
-    if (this.props.animaciones !== false) {
+    // ---- AnimatedContent: reveal on scroll ----
+    // El contenido ya es visible; solo lo armamos si vamos a animarlo.
+    this._revealed = 0;
+    if (this.props.animaciones !== false && !this._reduced) {
       this._io = new IntersectionObserver((entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) { e.target.classList.add('om-in'); this._io.unobserve(e.target); }
-        });
+        entries.forEach((e) => { if (e.isIntersecting) this.reveal(e.target); });
       }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-      this._scan = () => document.querySelectorAll('[data-reveal]:not(.om-in)').forEach((el, i) => {
-        el.style.transitionDelay = (i % 4) * 70 + 'ms';
-        this._io.observe(el);
-      });
-      this._scan();
-      this._timer = setInterval(this._scan, 1200);
-    } else {
-      document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('om-in'));
+      // Si a los 2s no se reveló nada, el observer no sirve en este contexto
+      // (artboard escalado del editor, iframe sin scroll propio, etc).
+      // Desarmamos para que el texto nunca quede atrapado invisible.
+      this._failsafe = setTimeout(() => { if (!this._revealed) this.disarm(); }, 2000);
     }
+
+    // ---- observer para efectos que disparan al entrar en viewport ----
+    this._fxIo = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) this.fireFx(e.target); });
+    }, { threshold: 0.4 });
+
+    this.scan();
+    this._timer = setInterval(() => this.scan(), 900);
+
+    // ---- DecryptedText inmediato (hero) ----
+    document.querySelectorAll('[data-decrypt]:not([data-decrypt-scroll])').forEach((el) => {
+      this.decrypt(el, parseInt(el.getAttribute('data-decrypt-delay') || '0', 10));
+    });
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this._onScroll);
     if (this._io) this._io.disconnect();
+    if (this._fxIo) this._fxIo.disconnect();
     if (this._timer) clearInterval(this._timer);
+    if (this._failsafe) clearTimeout(this._failsafe);
+    this._cleanups.forEach((fn) => { try { fn(); } catch (err) {} });
+  }
+
+  reveal(el) {
+    if (el.classList.contains('om-in')) return;
+    el.classList.add('om-in');
+    this._revealed++;
+    if (this._io) this._io.unobserve(el);
+  }
+
+  // Cancela la animación de entrada y deja todo el contenido visible.
+  disarm() {
+    if (this._io) { this._io.disconnect(); this._io = null; }
+    document.querySelectorAll('[data-reveal]').forEach((el) => {
+      el.classList.remove('om-armed');
+      el.style.transitionDelay = '';
+    });
+  }
+
+  // Re-escanea el DOM: monta efectos nuevos y (re)inicializa canvases
+  // que el editor pudo haber remontado al togglear un prop.
+  scan() {
+    if (this._io) {
+      document.querySelectorAll('[data-reveal]:not(.om-in)').forEach((el, i) => {
+        if (el.dataset.omObs) return;
+        el.dataset.omObs = '1';
+        el.classList.add('om-armed');
+        el.style.transitionDelay = (i % 4) * 80 + 'ms';
+        this._io.observe(el);
+        // Garantía dura por elemento: nada puede quedar invisible más de 6s,
+        // pase lo que pase con el observer. Es preferible perder la animación
+        // de una sección a que su texto no aparezca nunca.
+        const t = setTimeout(() => this.reveal(el), 6000);
+        this._cleanups.push(() => clearTimeout(t));
+      });
+    }
+    document.querySelectorAll('[data-countup],[data-decrypt-scroll],[data-scramble]').forEach((el) => {
+      if (el.dataset.omFx) return;
+      el.dataset.omFx = '1';
+      if (el.hasAttribute('data-scramble-hover')) this.bindScrambleHover(el);
+      else this._fxIo.observe(el);
+    });
+    document.querySelectorAll('[data-spotlight]').forEach((el) => {
+      if (el.dataset.omSpot) return;
+      el.dataset.omSpot = '1';
+      this.bindSpotlight(el);
+    });
+    document.querySelectorAll('[data-magnet]').forEach((el) => {
+      if (el.dataset.omMag) return;
+      el.dataset.omMag = '1';
+      this.bindMagnet(el);
+    });
+    document.querySelectorAll('[data-truefocus]').forEach((el) => {
+      if (el.dataset.omTf) return;
+      el.dataset.omTf = '1';
+      this.trueFocus(el);
+    });
+    document.querySelectorAll('canvas[data-fx]').forEach((c) => {
+      if (c.dataset.omInit) return;
+      c.dataset.omInit = '1';
+      if (c.getAttribute('data-fx') === 'letterglitch') this.letterGlitch(c);
+      else if (c.getAttribute('data-fx') === 'squares') this.squares(c);
+    });
+    const spark = document.getElementById('fx-spark');
+    if (spark && !spark.dataset.omInit) { spark.dataset.omInit = '1'; this.clickSpark(spark); }
+
+    this.sweep();
+  }
+
+  // Dispara un efecto una sola vez.
+  fireFx(el) {
+    if (el.dataset.omDone === '1') return;
+    el.dataset.omDone = '1';
+    if (this._fxIo) this._fxIo.unobserve(el);
+    if (el.hasAttribute('data-countup')) this.countUp(el);
+    else if (el.hasAttribute('data-decrypt-scroll')) this.decrypt(el, 0);
+    else if (el.hasAttribute('data-scramble')) this.scramble(el);
+  }
+
+  // Red de seguridad por geometría: el IntersectionObserver no dispara en
+  // pestañas ocultas ni en navegadores sin soporte, y sin esto el contenido
+  // quedaría atrapado en opacity:0. Comprueba lo mismo que el observer.
+  sweep() {
+    const vh = window.innerHeight || 0;
+    if (!vh) return;
+    const visible = (el, margin) => {
+      const r = el.getBoundingClientRect();
+      if (!r.height && !r.width) return false;
+      return r.top < vh * margin && r.bottom > 0;
+    };
+    if (this._io) {
+      document.querySelectorAll('[data-reveal]:not(.om-in)').forEach((el) => {
+        if (visible(el, 0.92)) this.reveal(el);
+      });
+    }
+    document.querySelectorAll('[data-countup],[data-decrypt-scroll],[data-scramble]').forEach((el) => {
+      if (el.dataset.omDone === '1' || el.hasAttribute('data-scramble-hover')) return;
+      if (visible(el, 0.85)) this.fireFx(el);
+    });
+  }
+
+  // ---------- utilidades de canvas ----------
+  fitCanvas(canvas) {
+    const r = canvas.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.max(1, Math.floor(r.width * dpr));
+    canvas.height = Math.max(1, Math.floor(r.height * dpr));
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx, w: r.width, h: r.height };
+  }
+
+  onResize(fn) {
+    window.addEventListener('resize', fn);
+    this._cleanups.push(() => window.removeEventListener('resize', fn));
+  }
+
+  // ---------- LetterGlitch (React Bits) ----------
+  letterGlitch(canvas) {
+    if (this._reduced) return;
+    const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&@!?<>[]{}/\\|=+-*_.:;';
+    const PALETTE = [
+      { c: '#E71917', a: 0.95 }, { c: '#E71917', a: 0.55 }, { c: '#8E1010', a: 0.7 },
+      { c: '#FFFFFF', a: 0.65 }, { c: '#5A6067', a: 0.6 }, { c: '#31363B', a: 0.85 },
+      { c: '#31363B', a: 0.85 }, { c: '#22262A', a: 0.9 }
+    ];
+    const CW = 12, CH = 20, FS = 14;
+    let ctx, w, h, cols, rows, cells = [], last = 0, alive = true;
+    const pick = (arr) => arr[(Math.random() * arr.length) | 0];
+
+    const build = () => {
+      const fit = this.fitCanvas(canvas);
+      ctx = fit.ctx; w = fit.w; h = fit.h;
+      cols = Math.ceil(w / CW) + 1;
+      rows = Math.ceil(h / CH) + 1;
+      cells = new Array(cols * rows);
+      for (let i = 0; i < cells.length; i++) {
+        const p = pick(PALETTE);
+        cells[i] = { ch: pick(CHARS), color: p.c, alpha: p.a };
+      }
+      paint();
+    };
+
+    const paint = () => {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, w, h);
+      ctx.font = FS + "px 'JetBrains Mono', ui-monospace, monospace";
+      ctx.textBaseline = 'top';
+      for (let i = 0; i < cells.length; i++) {
+        const cell = cells[i];
+        ctx.globalAlpha = cell.alpha;
+        ctx.fillStyle = cell.color;
+        ctx.fillText(cell.ch, (i % cols) * CW, ((i / cols) | 0) * CH);
+      }
+      ctx.globalAlpha = 1;
+    };
+
+    const tick = (t) => {
+      if (!alive) return;
+      if (t - last > 55) {
+        last = t;
+        const n = Math.max(1, (cells.length * 0.045) | 0);
+        for (let k = 0; k < n; k++) {
+          const i = (Math.random() * cells.length) | 0;
+          const p = pick(PALETTE);
+          cells[i].ch = pick(CHARS);
+          cells[i].color = p.c;
+          cells[i].alpha = p.a;
+        }
+        paint();
+      }
+      requestAnimationFrame(tick);
+    };
+
+    build();
+    requestAnimationFrame(tick);
+    this.onResize(build);
+    this._cleanups.push(() => { alive = false; });
+  }
+
+  // ---------- Squares (React Bits) ----------
+  squares(canvas) {
+    if (this._reduced) return;
+    const SIZE = 46, SPEED = 0.35;
+    let ctx, w, h, offX = 0, offY = 0, hover = null, alive = true;
+
+    // El pintado va aparte del loop para que la grilla exista ya en el primer
+    // frame: requestAnimationFrame no corre en pestañas de fondo y sin esto
+    // la sección se vería sin fondo hasta que el navegador reanude.
+    const paint = () => {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, w, h);
+      if (hover) {
+        ctx.fillStyle = 'rgba(231,25,23,.20)';
+        ctx.fillRect(hover.cx * SIZE - offX, hover.cy * SIZE - offY, SIZE, SIZE);
+      }
+      ctx.strokeStyle = 'rgba(231,25,23,.16)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      for (let x = -offX; x < w + SIZE; x += SIZE) { ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, h); }
+      for (let y = -offY; y < h + SIZE; y += SIZE) { ctx.moveTo(0, y + .5); ctx.lineTo(w, y + .5); }
+      ctx.stroke();
+    };
+
+    const build = () => { const f = this.fitCanvas(canvas); ctx = f.ctx; w = f.w; h = f.h; paint(); };
+
+    const onMove = (e) => {
+      const r = canvas.getBoundingClientRect();
+      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) { hover = null; return; }
+      const x = e.clientX - r.left, y = e.clientY - r.top;
+      hover = { cx: Math.floor((x + offX) / SIZE), cy: Math.floor((y + offY) / SIZE) };
+    };
+
+    const draw = () => {
+      if (!alive) return;
+      if (ctx) {
+        offX = (offX + SPEED) % SIZE;
+        offY = (offY + SPEED) % SIZE;
+        paint();
+      }
+      requestAnimationFrame(draw);
+    };
+
+    build();
+    requestAnimationFrame(draw);
+    this.onResize(build);
+    window.addEventListener('mousemove', onMove, { passive: true });
+    this._cleanups.push(() => { alive = false; window.removeEventListener('mousemove', onMove); });
+  }
+
+  // ---------- ClickSpark (React Bits) ----------
+  clickSpark(canvas) {
+    if (this._reduced) return;
+    const COUNT = 10, DIST = 26, LEN = 12, DUR = 420;
+    let ctx, w, h, sparks = [], alive = true, running = false;
+
+    const build = () => { const f = this.fitCanvas(canvas); ctx = f.ctx; w = f.w; h = f.h; };
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
+
+    const loop = (now) => {
+      if (!alive) return;
+      ctx.clearRect(0, 0, w, h);
+      sparks = sparks.filter((s) => now - s.t < DUR);
+      ctx.lineCap = 'round';
+      sparks.forEach((s) => {
+        const p = ease((now - s.t) / DUR);
+        ctx.globalAlpha = 1 - p;
+        ctx.strokeStyle = s.color;
+        ctx.lineWidth = 1.6;
+        for (let i = 0; i < COUNT; i++) {
+          const a = (Math.PI * 2 * i) / COUNT + s.rot;
+          const r0 = DIST * p, r1 = r0 + LEN * (1 - p);
+          ctx.beginPath();
+          ctx.moveTo(s.x + Math.cos(a) * r0, s.y + Math.sin(a) * r0);
+          ctx.lineTo(s.x + Math.cos(a) * r1, s.y + Math.sin(a) * r1);
+          ctx.stroke();
+        }
+      });
+      ctx.globalAlpha = 1;
+      if (sparks.length) requestAnimationFrame(loop);
+      else running = false;
+    };
+
+    const onClick = (e) => {
+      sparks.push({ x: e.clientX, y: e.clientY, t: performance.now(), rot: Math.random() * Math.PI, color: '#E71917' });
+      if (!running) { running = true; requestAnimationFrame(loop); }
+    };
+
+    build();
+    window.addEventListener('click', onClick);
+    this.onResize(build);
+    this._cleanups.push(() => { alive = false; window.removeEventListener('click', onClick); });
+  }
+
+  // ---------- DecryptedText (React Bits) ----------
+  decrypt(el, delay) {
+    const target = (el.dataset.omText || el.textContent || '').trim();
+    if (!target) return;
+    el.dataset.omText = target;
+    if (this._reduced) { el.textContent = target; return; }
+    const POOL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&@!?<>[]{}/\\';
+    const STEP = 34, PER_CHAR = 2.4;
+
+    // Los caracteres aleatorios tienen anchos distintos en Nunito, así que el
+    // texto reflowea y la página salta. Fijamos la altura del texto final
+    // mientras dura el efecto y la liberamos al terminar.
+    const lock = el.getBoundingClientRect().height;
+    if (lock) el.style.minHeight = lock + 'px';
+    const unlock = () => { el.style.minHeight = ''; };
+
+    let frame = 0;
+    el.textContent = '';
+    const run = () => {
+      const revealed = Math.floor(frame / PER_CHAR);
+      let out = '';
+      for (let i = 0; i < target.length; i++) {
+        const ch = target[i];
+        if (ch === ' ') { out += ' '; continue; }
+        out += i < revealed ? ch : POOL[(Math.random() * POOL.length) | 0];
+      }
+      el.textContent = out;
+      frame++;
+      if (revealed <= target.length) setTimeout(run, STEP);
+      else { el.textContent = target; unlock(); }
+    };
+    setTimeout(run, delay || 0);
+  }
+
+  // ---------- ScrambleText (React Bits) ----------
+  scramble(el) {
+    const target = (el.dataset.omText || el.textContent || '').trim();
+    if (!target) return;
+    el.dataset.omText = target;
+    if (this._reduced) return;
+    if (el.dataset.omBusy === '1') return;
+    el.dataset.omBusy = '1';
+    const POOL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#@$%&';
+    let i = 0;
+    const run = () => {
+      let out = '';
+      for (let k = 0; k < target.length; k++) {
+        const ch = target[k];
+        if (ch === ' ') { out += ' '; continue; }
+        out += k < i ? ch : POOL[(Math.random() * POOL.length) | 0];
+      }
+      el.textContent = out;
+      i += 0.5;
+      if (i <= target.length) setTimeout(run, 32);
+      else { el.textContent = target; el.dataset.omBusy = '0'; }
+    };
+    run();
+  }
+
+  bindScrambleHover(el) {
+    const fn = () => this.scramble(el);
+    el.addEventListener('mouseenter', fn);
+    this._cleanups.push(() => el.removeEventListener('mouseenter', fn));
+  }
+
+  // ---------- CountUp (React Bits) ----------
+  countUp(el) {
+    const target = parseFloat(el.getAttribute('data-countup') || el.textContent || '0');
+    if (!isFinite(target)) return;
+    if (this._reduced) { el.textContent = String(target); return; }
+    const DUR = 1400;
+    const t0 = performance.now();
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
+    const step = (now) => {
+      const p = Math.min(1, (now - t0) / DUR);
+      el.textContent = String(Math.round(target * ease(p)));
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = String(target);
+    };
+    el.textContent = '0';
+    requestAnimationFrame(step);
+  }
+
+  // ---------- TrueFocus (React Bits) ----------
+  trueFocus(root) {
+    const words = Array.from(root.querySelectorAll('.om-tf-word'));
+    const frame = root.querySelector('.om-tf-frame');
+    if (!words.length || !frame) return;
+    if (this._reduced) { words.forEach((w) => w.classList.add('om-tf-on')); frame.remove(); return; }
+    let i = 0;
+    const place = () => {
+      const w = words[i];
+      const rb = root.getBoundingClientRect(), wb = w.getBoundingClientRect();
+      frame.style.left = (wb.left - rb.left) + 'px';
+      frame.style.top = (wb.top - rb.top) + 'px';
+      frame.style.width = wb.width + 'px';
+      frame.style.height = wb.height + 'px';
+      frame.classList.add('om-tf-ready');
+      words.forEach((el, k) => el.classList.toggle('om-tf-on', k === i));
+    };
+    place();
+    const id = setInterval(() => { i = (i + 1) % words.length; place(); }, 1900);
+    this.onResize(place);
+    this._cleanups.push(() => clearInterval(id));
+  }
+
+  // ---------- SpotlightCard (React Bits) ----------
+  bindSpotlight(el) {
+    const fn = (e) => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    };
+    el.addEventListener('mousemove', fn, { passive: true });
+    this._cleanups.push(() => el.removeEventListener('mousemove', fn));
+  }
+
+  // ---------- Magnet (React Bits) ----------
+  bindMagnet(el) {
+    if (this._reduced) return;
+    const STRENGTH = 0.28, RANGE = 90;
+    const move = (e) => {
+      const r = el.getBoundingClientRect();
+      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      const dx = e.clientX - cx, dy = e.clientY - cy;
+      if (Math.abs(dx) > r.width / 2 + RANGE || Math.abs(dy) > r.height / 2 + RANGE) {
+        el.style.transform = '';
+        return;
+      }
+      el.style.transform = 'translate(' + dx * STRENGTH + 'px,' + dy * STRENGTH + 'px)';
+    };
+    const leave = () => { el.style.transform = ''; };
+    window.addEventListener('mousemove', move, { passive: true });
+    el.addEventListener('mouseleave', leave);
+    this._cleanups.push(() => { window.removeEventListener('mousemove', move); el.removeEventListener('mouseleave', leave); });
   }
 
   renderVals() {
     const s = this.state;
+    const partners = ['Arcserve', 'Kaspersky', 'ZWCAD', 'Veeam', 'Adobe'];
+    const marcas = ['Dell Technologies', 'HP', 'Zebra', 'Dahua Technology', 'APC by Schneider Electric', 'SonicWall'];
     return {
       circuitos: this.props.circuitos !== false,
-      headerBg: s.scrolled ? 'rgba(255,255,255,0.86)' : 'rgba(255,255,255,1)',
-      headerShadow: s.scrolled ? '0 1px 24px -8px rgba(29,30,30,.25)' : 'none',
+      glitch: this.props.glitch !== false,
+      squares: this.props.squares !== false,
+      chispas: this.props.chispas !== false,
+      scanlines: this.props.scanlines !== false,
+      headerBg: s.scrolled ? 'rgba(7,8,10,.82)' : 'rgba(7,8,10,1)',
+      headerBorder: s.scrolled ? 'rgba(231,25,23,.28)' : 'rgba(255,255,255,.07)',
       parallaxHero: Math.min(s.scrollY * 0.035, 26) + 'px',
       menuOpen: s.menuOpen,
       enviado: s.enviado,
@@ -396,8 +1041,8 @@ class Component extends DCLogic {
       toggleMenu: () => this.setState((p) => ({ menuOpen: !p.menuOpen })),
       closeMenu: () => this.setState({ menuOpen: false }),
       enviarForm: (e) => { e.preventDefault(); this.setState({ enviado: true }); },
-      partners: ['Arcserve', 'Kaspersky', 'ZWCAD', 'Veeam', 'Adobe'],
-      marcas: ['Dell Technologies', 'HP', 'Zebra', 'Dahua Technology', 'APC by Schneider Electric', 'SonicWall']
+      partners: partners,
+      marcas: marcas
     };
   }
 }

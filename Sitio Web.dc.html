@@ -243,7 +243,7 @@
   <header style="position: sticky; top: 0; z-index: 60; background: {{ headerBg }}; backdrop-filter: blur(16px); border-bottom: 1px solid {{ headerBorder }}; transition: background .35s ease, border-color .35s ease;">
     <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); height: clamp(68px, 8vw, 86px); display: flex; align-items: center; justify-content: space-between; gap: 20px;">
       <div style="display: flex; align-items: center; gap: clamp(12px, 2vw, 22px);">
-        <button onClick="{{ toggleMenu }}" aria-label="Abrir menú" aria-expanded="{{ menuOpen }}" style="width: 42px; height: 42px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 6px; background: none; border: none; cursor: pointer; padding: 0; flex: 0 0 auto;">
+        <button data-mobile="" onClick="{{ toggleMenu }}" aria-label="Abrir menú" aria-expanded="{{ menuOpen }}" style="width: 42px; height: 42px; display: none; flex-direction: column; align-items: flex-start; justify-content: center; gap: 6px; background: none; border: none; cursor: pointer; padding: 0; flex: 0 0 auto;">
           <span style="width: 24px; height: 1.5px; background: #1D1E1E; display: block;"></span>
           <span style="width: 24px; height: 1.5px; background: #1D1E1E; display: block;"></span>
           <span style="width: 15px; height: 1.5px; background: #E71917; display: block;"></span>
@@ -252,7 +252,18 @@
           <img src="./assets/logo-tics.png" alt="Tic's Solutions — Tecnología a tu alcance" style="height: clamp(32px, 4.2vw, 44px); width: auto; display: block;" />
         </a>
       </div>
-      <a href="#/contacto" class="om-star" style="color: #fff; padding: 0 clamp(18px, 2vw, 26px); height: 44px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Contactanos</a>
+      <div style="display: flex; align-items: center; gap: clamp(16px, 2.2vw, 30px);">
+        <nav data-desktop="" style="display: flex; align-items: center; gap: clamp(16px, 2.2vw, 30px);">
+          <sc-if value="{{ mostrarInicio }}" hint-placeholder-val="{{ true }}">
+            <a href="#/" style="color: {{ colorInicio }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Inicio</a>
+          </sc-if>
+          <a href="#/nosotros" style="color: {{ colorNosotros }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Nosotros</a>
+          <a href="#/servicios" style="color: {{ colorServicios }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Servicios</a>
+          <a href="#/partners" style="color: {{ colorPartners }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Partners</a>
+          <a href="#/contacto" style="color: {{ colorContacto }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Contacto</a>
+        </nav>
+        <a href="#/contacto" class="om-star" style="color: #fff; padding: 0 clamp(18px, 2vw, 26px); height: 44px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Contactanos</a>
+      </div>
     </div>
   </header>
 
@@ -1259,7 +1270,16 @@ class Component extends DCLogic {
       // sección en la que ya estás no aporta nada.
       // En una subpágina el enlace a Inicio siempre sirve; en el propio
       // inicio solo aparece tras salir del hero.
-      mostrarInicio: s.ruta !== '/' || s.scrollY > 320,
+      // "Inicio" no aparece cuando ya estás en el inicio. Depende de la ruta
+      // y no del scroll: si dependiera del scroll, el enlace aparecería y
+      // desaparecería mientras se navega y correría al resto de la barra.
+      mostrarInicio: s.ruta !== '/',
+      // La barra marca en rojo la sección en la que estás.
+      colorInicio: s.ruta === '/' ? '#E71917' : 'rgba(29,30,30,.72)',
+      colorNosotros: s.ruta === '/nosotros' ? '#E71917' : 'rgba(29,30,30,.72)',
+      colorServicios: s.ruta === '/servicios' ? '#E71917' : 'rgba(29,30,30,.72)',
+      colorPartners: s.ruta === '/partners' ? '#E71917' : 'rgba(29,30,30,.72)',
+      colorContacto: s.ruta === '/contacto' ? '#E71917' : 'rgba(29,30,30,.72)',
       enviado: s.enviado,
       formVisible: !s.enviado,
       // El menú tapa la pantalla completa: bloqueamos el scroll del fondo

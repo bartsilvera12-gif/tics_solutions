@@ -187,6 +187,13 @@
     .om-strip img { max-width: 100% !important; max-height: 28px !important; }
   }
 
+  /* El botón flotante de WhatsApp se apoya en la esquina inferior derecha.
+     En pantallas anchas no llega a la línea del pie, que está centrada,
+     pero en angostas sí: ahí hace falta despejarle espacio. */
+  @media (max-width: 620px) {
+    footer > div:last-child { padding-bottom: 88px !important; }
+  }
+
   /* Por debajo de 400px no entran logo + llamado a la acción + botón de
      menú: el botón quedaba cortado contra el borde. Se oculta el llamado,
      que igual está en el menú y en el botón flotante de WhatsApp. */
@@ -327,7 +334,7 @@
   <sc-if value="{{ esInicio }}" hint-placeholder-val="{{ true }}">
   <section id="inicio" data-screen-label="Hero" style="position: relative; padding: clamp(64px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 9vw, 130px); overflow: hidden; background: rgba(0,0,0,.96);">
     <!-- Fondo del hero: red de sinapsis, reactiva al cursor. -->
-    <canvas id="fx-burst" data-fx="herofondo" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
+    <canvas id="fx-burst" data-fx="sinapsis" data-color="231,25,23" data-zona="0.38" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
 
     <div class="om-vig" style="background: linear-gradient(90deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.35) 30%, transparent 55%), radial-gradient(ellipse 120% 95% at 60% 50%, transparent 0%, rgba(0,0,0,.35) 70%, rgba(0,0,0,.8) 100%);"></div>
 
@@ -692,13 +699,14 @@
     </div>
   </section>
   </sc-if>
-  <footer style="position: relative; background: rgba(0,0,0,.97); color: #fff; padding: clamp(60px, 7vw, 96px) clamp(20px, 4vw, 48px) 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,.08);">
-    <div style="position: relative; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: clamp(36px, 5vw, 72px); padding-bottom: clamp(52px, 6vw, 80px);">
+  <footer style="position: relative; background: rgba(0,0,0,.97); color: #fff; padding: clamp(40px, 4.6vw, 58px) clamp(20px, 4vw, 48px) 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,.08);">
+    <canvas id="fx-pie" data-fx="sinapsis" data-color="150,156,164" data-zona="0" data-densidad="34000" data-fuerza="0.5" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
+    <div style="position: relative; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: clamp(28px, 4vw, 56px); padding-bottom: clamp(28px, 3.4vw, 42px);">
       <div>
         <img src="./assets/logo-tics-oscuro.png" alt="Tic's Solutions" style="height: 52px; width: auto; display: block;" />
         <p class="om-shiny" style="margin-top: 22px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase;">Tecnología a tu alcance</p>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; flex-direction: column; gap: 9px;">
         <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #FF6B62; margin-bottom: 8px;">Navegación</p>
         <a href="#/" style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400; transition: color .3s ease;" style-hover="color: #E71917;">Inicio</a>
         <a href="#/nosotros" style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400; transition: color .3s ease;" style-hover="color: #E71917;">Nosotros</a>
@@ -706,7 +714,7 @@
         <a href="#/partners" style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400; transition: color .3s ease;" style-hover="color: #E71917;">Partners</a>
         <a href="#/contacto" style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400; transition: color .3s ease;" style-hover="color: #E71917;">Contacto</a>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; flex-direction: column; gap: 9px;">
         <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #FF6B62; margin-bottom: 8px;">Contacto</p>
         <p style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400;">Arturo Osorio</p>
         <a href="tel:+595981171372" style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400; transition: color .3s ease;" style-hover="color: #E71917;">(+595) 981 171 372</a>
@@ -715,7 +723,7 @@
       </div>
     </div>
     <sc-if value="{{ circuitos }}" hint-placeholder-val="{{ true }}">
-      <svg class="om-circuit" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true" style="display: block; width: 100%; height: 90px; opacity: .6;">
+      <svg class="om-circuit" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true" style="display: block; width: 100%; height: 52px; opacity: .6;">
         <g fill="none" stroke="#E71917" stroke-width="1.2">
           <path d="M0 70 H180 L220 30 H420 L460 70 H700 L740 30 H960 L1000 70 H1200" />
           <path d="M0 20 H120 L160 60 H300" />
@@ -726,7 +734,7 @@
         </g>
       </svg>
     </sc-if>
-    <div style="border-top: 1px solid rgba(255,255,255,.1); padding: 22px 0 clamp(84px, 18vw, 104px); text-align: center;">
+    <div style="border-top: 1px solid rgba(255,255,255,.1); padding: 16px 0 clamp(24px, 3vw, 30px); text-align: center;">
       <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: .06em; color: rgba(255,255,255,.6);">Desarrollado por <a href="https://neura.com.py" target="_blank" rel="noopener" style="color: rgba(255,255,255,.75); letter-spacing: .12em; transition: color .3s ease;" style-hover="color: #E71917;">NEURA</a></p>
     </div>
   </footer>
@@ -868,7 +876,7 @@ class Component extends DCLogic {
       if (c.dataset.omInit) return;
       c.dataset.omInit = '1';
       if (c.getAttribute('data-fx') === 'letterglitch') this.letterGlitch(c);
-      else if (c.getAttribute('data-fx') === 'herofondo') this.heroFondo(c);
+      else if (c.getAttribute('data-fx') === 'sinapsis') this.redSinapsis(c);
       else if (c.getAttribute('data-fx') === 'malla') this.malla(c);
     });
     const spark = document.getElementById('fx-spark');
@@ -1097,9 +1105,14 @@ class Component extends DCLogic {
   // deja la estela del original.
   //
   // El tercio izquierdo se atenúa: es donde va el titular.
-  heroFondo(canvas) {
-    const ZONA_TEXTO = 0.38;
-    const ROJO = '231,25,23';
+  redSinapsis(canvas) {
+    // Parametrizado por atributos para poder reutilizarlo: el hero lo usa en
+    // rojo y con el tercio izquierdo apagado para el titular; el pie, en gris
+    // y parejo, porque su contenido está repartido a lo ancho.
+    const COLOR = canvas.getAttribute('data-color') || '231,25,23';
+    const ZONA_TEXTO = parseFloat(canvas.getAttribute('data-zona') || '0.38');
+    const DENSIDAD = parseFloat(canvas.getAttribute('data-densidad') || '26000');
+    const FUERZA = parseFloat(canvas.getAttribute('data-fuerza') || '1');
     const RADIO = 190;            // distancia máxima de conexión
     const ESTELA = 0.09;
 
@@ -1107,6 +1120,7 @@ class Component extends DCLogic {
     const raton = { x: -9999, y: -9999 };
 
     const atenua = (x) => {
+      if (ZONA_TEXTO <= 0) return 1;
       const f = x / w;
       if (f >= ZONA_TEXTO + 0.12) return 1;
       if (f <= ZONA_TEXTO * 0.4) return 0.14;
@@ -1116,7 +1130,7 @@ class Component extends DCLogic {
     const generar = () => {
       // La cantidad se ajusta al área: un número fijo satura en móvil y
       // queda ralo en pantallas anchas.
-      const n = Math.max(26, Math.min(70, Math.round((w * h) / 26000)));
+      const n = Math.max(26, Math.min(70, Math.round((w * h) / DENSIDAD)));
       nodos = [];
       for (let i = 0; i < n; i++) {
         nodos.push({
@@ -1145,9 +1159,9 @@ class Component extends DCLogic {
       // Veladura roja hacia el centro-derecha: da profundidad y evita que
       // el hero quede como un negro plano cuando el cursor no está encima.
       const prof = ctx.createRadialGradient(w * 0.66, h * 0.5, 0, w * 0.66, h * 0.5, Math.max(w, h) * 0.55);
-      prof.addColorStop(0, 'rgba(' + ROJO + ',.075)');
-      prof.addColorStop(0.5, 'rgba(' + ROJO + ',.032)');
-      prof.addColorStop(1, 'rgba(' + ROJO + ',0)');
+      prof.addColorStop(0, 'rgba(' + COLOR + ',' + (.075 * FUERZA) + ')');
+      prof.addColorStop(0.5, 'rgba(' + COLOR + ',' + (.032 * FUERZA) + ')');
+      prof.addColorStop(1, 'rgba(' + COLOR + ',0)');
       ctx.fillStyle = prof;
       ctx.fillRect(0, 0, w, h);
 
@@ -1156,9 +1170,9 @@ class Component extends DCLogic {
       nodos.forEach((a) => {
         a.con.forEach((b) => {
           const at = atenua((a.x + b.x) / 2);
-          const al = Math.max(0.07, a.act, b.act) * 0.58 * at;
+          const al = Math.max(0.07, a.act, b.act) * 0.58 * at * FUERZA;
           if (al < 0.012) return;
-          ctx.strokeStyle = 'rgba(' + ROJO + ',' + al + ')';
+          ctx.strokeStyle = 'rgba(' + COLOR + ',' + al + ')';
           ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
         });
       });
@@ -1178,8 +1192,8 @@ class Component extends DCLogic {
         n.pulsos = n.pulsos.filter((p) => p.p < 1);
 
         const at = atenua(n.x);
-        const alfa = Math.max(0.24, n.act) * at;
-        ctx.fillStyle = 'rgba(' + ROJO + ',' + alfa + ')';
+        const alfa = Math.max(0.24, n.act) * at * FUERZA;
+        ctx.fillStyle = 'rgba(' + COLOR + ',' + alfa + ')';
         ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2); ctx.fill();
 
         n.pulsos.forEach((p) => {
@@ -1187,8 +1201,8 @@ class Component extends DCLogic {
           const px = p.a.x + (p.b.x - p.a.x) * p.p;
           const py = p.a.y + (p.b.y - p.a.y) * p.p;
           const g = ctx.createRadialGradient(px, py, 0, px, py, 7);
-          g.addColorStop(0, 'rgba(255,235,232,' + (0.85 * atenua(px)) + ')');
-          g.addColorStop(1, 'rgba(' + ROJO + ',0)');
+          g.addColorStop(0, "rgba(255,248,246," + (0.85 * atenua(px) * FUERZA) + ")");
+          g.addColorStop(1, 'rgba(' + COLOR + ',0)');
           ctx.fillStyle = g;
           ctx.fillRect(px - 7, py - 7, 14, 14);
         });

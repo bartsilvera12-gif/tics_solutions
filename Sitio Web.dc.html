@@ -226,7 +226,10 @@
 </style>
 </helmet>
 
-<div style="position: relative; max-width: 100%; overflow-x: hidden; background: #FFFFFF;">
+<sc-if value="{{ malla }}" hint-placeholder-val="{{ true }}">
+  <canvas id="fx-malla" data-fx="malla" style="position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;"></canvas>
+</sc-if>
+<div style="position: relative; z-index: 1; max-width: 100%; overflow-x: hidden;">
 
   <!-- ClickSpark (React Bits) -->
   <sc-if value="{{ chispas }}" hint-placeholder-val="{{ true }}">
@@ -322,7 +325,7 @@
 
   <!-- ================= HERO ================= -->
   <sc-if value="{{ esInicio }}" hint-placeholder-val="{{ true }}">
-  <section id="inicio" data-screen-label="Hero" style="position: relative; padding: clamp(64px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 9vw, 130px); overflow: hidden; background: #000000;">
+  <section id="inicio" data-screen-label="Hero" style="position: relative; padding: clamp(64px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 9vw, 130px); overflow: hidden; background: rgba(0,0,0,.88);">
     <!-- Fondo del hero: circuitos, señales y destello. Reemplaza al video. -->
     <canvas id="fx-burst" data-fx="herofondo" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
 
@@ -362,7 +365,7 @@
 
   <!-- ================= NOSOTROS ================= -->
   <sc-if value="{{ esNosotros }}" hint-placeholder-val="{{ true }}">
-  <section id="nosotros" data-screen-label="Nosotros" style="position: relative; padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px); background: #F5F6F8; border-top: 1px solid rgba(29,30,30,.06);">
+  <section id="nosotros" data-screen-label="Nosotros" style="position: relative; padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px); background: rgba(245,246,248,.80); border-top: 1px solid rgba(29,30,30,.06);">
     <div style="max-width: 1280px; margin: 0 auto;">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(40px, 6vw, 96px); align-items: center;">
         <div style="position: relative; width: 100%; max-width: 460px; justify-self: center;">
@@ -395,7 +398,7 @@
 
   <!-- ================= SERVICIOS ================= -->
   <sc-if value="{{ esServicios }}" hint-placeholder-val="{{ true }}">
-  <section id="servicios" data-screen-label="Servicios" style="position: relative; padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px); background: #FFFFFF;">
+  <section id="servicios" data-screen-label="Servicios" style="position: relative; padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px); background: rgba(255,255,255,.80);">
     <div style="max-width: 1280px; margin: 0 auto;">
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: clamp(36px, 5vw, 80px); align-items: start; margin-bottom: clamp(52px, 6vw, 90px);">
@@ -429,11 +432,7 @@
 
   <!-- ================= BENEFICIOS ================= -->
   <sc-if value="{{ esInicio }}" hint-placeholder-val="{{ true }}">
-  <section data-screen-label="Beneficios" style="position: relative; padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px); background: #F5F6F8; border-top: 1px solid rgba(29,30,30,.06); overflow: hidden;">
-    <!-- Squares (React Bits) -->
-    <sc-if value="{{ squares }}" hint-placeholder-val="{{ true }}">
-      <canvas id="fx-squares" data-fx="squares" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: .55; pointer-events: none;"></canvas>
-    </sc-if>
+  <section data-screen-label="Beneficios" style="position: relative; padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px); background: rgba(245,246,248,.80); border-top: 1px solid rgba(29,30,30,.06); overflow: hidden;">
     <div class="om-vig" style="background: radial-gradient(ellipse 80% 60% at 50% 50%, transparent 0%, rgba(245,246,248,.8) 70%, #F5F6F8 100%);"></div>
 
     <div style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto;">
@@ -474,7 +473,7 @@
 
   <!-- ================= PARTNERS ================= -->
   <sc-if value="{{ esPartners }}" hint-placeholder-val="{{ true }}">
-  <section id="partners" data-screen-label="Partners" style="position: relative; padding: clamp(80px, 10vw, 140px) 0 clamp(84px, 10vw, 130px); background: #FFFFFF; overflow: hidden;">
+  <section id="partners" data-screen-label="Partners" style="position: relative; padding: clamp(80px, 10vw, 140px) 0 clamp(84px, 10vw, 130px); background: rgba(255,255,255,.80); overflow: hidden;">
     <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px);">
       <div style="max-width: 720px; margin-bottom: clamp(48px, 6vw, 80px);">
         <h2 data-reveal="" style="font-size: clamp(24px, 4vw, 58px); font-weight: 200; line-height: 1.08; letter-spacing: -0.015em; margin-bottom: 24px;">MARCAS Y <span class="om-glitch" data-text="SERVICIOS" style="color: #E71917;">SERVICIOS</span></h2>
@@ -513,7 +512,7 @@
 
   <!-- ================= MISIÓN ================= -->
   <sc-if value="{{ esNosotros }}" hint-placeholder-val="{{ true }}">
-  <section data-screen-label="Misión" style="position: relative; background: #0D0F12; color: #fff; padding: clamp(90px, 12vw, 170px) clamp(20px, 4vw, 48px); overflow: hidden; border-top: 1px solid rgba(231,25,23,.22);">
+  <section data-screen-label="Misión" style="position: relative; background: rgba(13,15,18,.94); color: #fff; padding: clamp(90px, 12vw, 170px) clamp(20px, 4vw, 48px); overflow: hidden; border-top: 1px solid rgba(231,25,23,.22);">
     <sc-if value="{{ glitch }}" hint-placeholder-val="{{ true }}">
       <canvas id="fx-glitch2" data-fx="letterglitch" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: .18; pointer-events: none;"></canvas>
     </sc-if>
@@ -546,7 +545,7 @@
 
   <!-- ================= CONTACTO ================= -->
   <sc-if value="{{ esContacto }}" hint-placeholder-val="{{ true }}">
-  <section id="contacto" data-screen-label="Contacto" style="position: relative; padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px); background: #FFFFFF;">
+  <section id="contacto" data-screen-label="Contacto" style="position: relative; padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px); background: rgba(255,255,255,.80);">
     <div style="max-width: 1280px; margin: 0 auto;">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: clamp(46px, 6vw, 96px);">
         <div data-reveal="">
@@ -618,7 +617,7 @@
   <!-- ================= FOOTER ================= -->
 
   <sc-if value="{{ esPrivacidad }}" hint-placeholder-val="{{ true }}">
-  <section data-screen-label="Política de privacidad" style="position: relative; padding: clamp(70px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px); background: #FFFFFF;">
+  <section data-screen-label="Política de privacidad" style="position: relative; padding: clamp(70px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px); background: rgba(255,255,255,.80);">
     <div style="max-width: 820px; margin: 0 auto;">
       <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #E71917; margin-bottom: 26px;">[ Legal ]</p>
       <h1 data-reveal="" style="font-size: clamp(30px, 4.4vw, 58px); font-weight: 200; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 18px;">Política de <span style="color: #E71917;">privacidad</span></h1>
@@ -693,14 +692,14 @@
     </div>
   </section>
   </sc-if>
-  <footer style="position: relative; background: #000; color: #fff; padding: clamp(60px, 7vw, 96px) clamp(20px, 4vw, 48px) 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,.08);">
+  <footer style="position: relative; background: rgba(0,0,0,.96); color: #fff; padding: clamp(60px, 7vw, 96px) clamp(20px, 4vw, 48px) 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,.08);">
     <div style="position: relative; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: clamp(36px, 5vw, 72px); padding-bottom: clamp(52px, 6vw, 80px);">
       <div>
         <img src="./assets/logo-tics-oscuro.png" alt="Tic's Solutions" style="height: 52px; width: auto; display: block;" />
         <p class="om-shiny" style="margin-top: 22px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase;">Tecnología a tu alcance</p>
       </div>
       <div style="display: flex; flex-direction: column; gap: 12px;">
-        <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #E71917; margin-bottom: 8px;">Navegación</p>
+        <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #FF6B62; margin-bottom: 8px;">Navegación</p>
         <a href="#/" style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400; transition: color .3s ease;" style-hover="color: #E71917;">Inicio</a>
         <a href="#/nosotros" style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400; transition: color .3s ease;" style-hover="color: #E71917;">Nosotros</a>
         <a href="#/servicios" style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400; transition: color .3s ease;" style-hover="color: #E71917;">Servicios</a>
@@ -708,7 +707,7 @@
         <a href="#/contacto" style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400; transition: color .3s ease;" style-hover="color: #E71917;">Contacto</a>
       </div>
       <div style="display: flex; flex-direction: column; gap: 12px;">
-        <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #E71917; margin-bottom: 8px;">Contacto</p>
+        <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #FF6B62; margin-bottom: 8px;">Contacto</p>
         <p style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400;">Arturo Osorio</p>
         <a href="tel:+595981171372" style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400; transition: color .3s ease;" style-hover="color: #E71917;">(+595) 981 171 372</a>
         <a href="mailto:arturo.osorio@tics-py.com" style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400; transition: color .3s ease;" style-hover="color: #E71917;">arturo.osorio@tics-py.com</a>
@@ -733,7 +732,7 @@
   </footer>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;circuitos&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Identidad&quot;},&quot;glitch&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;squares&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;chispas&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;scanlines&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;animaciones&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamiento&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;circuitos&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Identidad&quot;},&quot;glitch&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;malla&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;chispas&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;scanlines&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;animaciones&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamiento&quot;}}">
 class Component extends DCLogic {
   state = { scrolled: false, menuOpen: false, enviado: false, scrollY: 0, ruta: '/' };
 
@@ -870,7 +869,7 @@ class Component extends DCLogic {
       c.dataset.omInit = '1';
       if (c.getAttribute('data-fx') === 'letterglitch') this.letterGlitch(c);
       else if (c.getAttribute('data-fx') === 'herofondo') this.heroFondo(c);
-      else if (c.getAttribute('data-fx') === 'squares') this.squares(c);
+      else if (c.getAttribute('data-fx') === 'malla') this.malla(c);
     });
     const spark = document.getElementById('fx-spark');
     if (spark && !spark.dataset.omInit) { spark.dataset.omInit = '1'; this.clickSpark(spark); }
@@ -973,6 +972,115 @@ class Component extends DCLogic {
     requestAnimationFrame(tick);
     this.onResize(build);
     this._cleanups.push(() => { alive = false; });
+  }
+
+  // ---------- Malla de fondo ----------
+  // Adaptación del componente blueprint: grilla que deriva en diagonal,
+  // celda resaltada bajo el cursor, viñeta y grano de película. Va fija
+  // detrás de todo el contenido, así que se ve en todas las secciones,
+  // que son translúcidas.
+  //
+  // Dos cambios respecto del original: el color pasa del azul marino al
+  // rojo de marca, y el lienzo no captura el puntero. En el original el
+  // lienzo interactivo va encima de todo y con pointer-events activos, lo
+  // que acá bloquearía cada clic de la página; la celda bajo el cursor se
+  // calcula escuchando el movimiento en la ventana.
+  malla(canvas) {
+    const CELDA = 46;
+    const VEL = 0.18;                 // deriva en px por cuadro
+    const LINEA = 'rgba(231,25,23,.13)';
+    const RELLENO = 'rgba(231,25,23,.10)';
+    const BORDE = 'rgba(231,25,23,.55)';
+    const RESPLANDOR = 'rgba(231,25,23,.35)';
+
+    let ctx, w, h, off = 0, hover = null, alive = true;
+    let grano = null, granoCuadro = 0;
+
+    // El grano se genera en un mosaico chico y se repite: hacerlo a
+    // resolución completa en cada cuadro costaría un millón de píxeles.
+    const armarGrano = () => {
+      const S = 128;
+      grano = document.createElement('canvas');
+      grano.width = S; grano.height = S;
+      const g = grano.getContext('2d');
+      const img = g.createImageData(S, S);
+      const d = img.data;
+      for (let i = 0; i < d.length; i += 4) {
+        const v = 128 + (Math.random() - 0.5) * 255;
+        d[i] = d[i + 1] = d[i + 2] = v;
+        d[i + 3] = 10;
+      }
+      g.putImageData(img, 0, 0);
+    };
+
+    const build = () => { const f = this.fitCanvas(canvas); ctx = f.ctx; w = f.w; h = f.h; pintar(); };
+
+    const pintar = () => {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, w, h);
+
+      // Origen desplazado, para que la grilla parezca infinita.
+      const o = -((off % CELDA) + CELDA) % CELDA;
+
+      ctx.strokeStyle = LINEA;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      for (let x = o; x < w + CELDA; x += CELDA) { ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, h); }
+      for (let y = o; y < h + CELDA; y += CELDA) { ctx.moveTo(0, y + .5); ctx.lineTo(w, y + .5); }
+      ctx.stroke();
+
+      // Celda bajo el cursor.
+      if (hover) {
+        const cx = o + hover.x * CELDA, cy = o + hover.y * CELDA;
+        ctx.save();
+        ctx.shadowBlur = 14;
+        ctx.shadowColor = RESPLANDOR;
+        ctx.fillStyle = RELLENO;
+        ctx.fillRect(cx, cy, CELDA, CELDA);
+        ctx.restore();
+        ctx.strokeStyle = BORDE;
+        ctx.strokeRect(cx + .5, cy + .5, CELDA - 1, CELDA - 1);
+      }
+
+      // Viñeta: apaga la grilla hacia los bordes.
+      const vig = ctx.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, Math.hypot(w, h) / 2);
+      vig.addColorStop(0, 'rgba(255,255,255,0)');
+      vig.addColorStop(1, 'rgba(255,255,255,.55)');
+      ctx.fillStyle = vig;
+      ctx.fillRect(0, 0, w, h);
+
+      if (grano) {
+        const p = ctx.createPattern(grano, 'repeat');
+        ctx.fillStyle = p;
+        ctx.fillRect(0, 0, w, h);
+      }
+    };
+
+    const tick = () => {
+      if (!alive) return;
+      off += VEL;
+      if (++granoCuadro % 6 === 0) armarGrano();
+      pintar();
+      requestAnimationFrame(tick);
+    };
+
+    const mover = (e) => {
+      const o = -((off % CELDA) + CELDA) % CELDA;
+      hover = { x: Math.floor((e.clientX - o) / CELDA), y: Math.floor((e.clientY - o) / CELDA) };
+    };
+    const salir = () => { hover = null; };
+
+    armarGrano();
+    build();
+    if (!this._reduced) requestAnimationFrame(tick);
+    window.addEventListener('mousemove', mover, { passive: true });
+    document.addEventListener('mouseleave', salir);
+    this.onResize(build);
+    this._cleanups.push(() => {
+      alive = false;
+      window.removeEventListener('mousemove', mover);
+      document.removeEventListener('mouseleave', salir);
+    });
   }
 
   // ---------- Fondo del hero ----------
@@ -1083,9 +1191,8 @@ class Component extends DCLogic {
 
       ctx.clearRect(0, 0, w, h);
 
-      // Fondo: negro con veladuras de carbón que respiran muy lento.
-      ctx.fillStyle = '#000000';
-      ctx.fillRect(0, 0, w, h);
+      // El negro lo aporta la sección, que es translúcida: así la malla de
+      // fondo se ve también acá. Este lienzo solo suma luz encima.
       ctx.globalCompositeOperation = 'lighter';
       const prof = ctx.createRadialGradient(w * 0.7, h * 0.5, 0, w * 0.7, h * 0.5, w * 0.7);
       const respira = 0.5 + 0.5 * Math.sin(dosPi * u);
@@ -1176,56 +1283,6 @@ class Component extends DCLogic {
     if (!this._reduced) requestAnimationFrame(tick);
     this.onResize(build);
     this._cleanups.push(() => { alive = false; });
-  }
-
-  // ---------- Squares (React Bits) ----------
-  squares(canvas) {
-    if (this._reduced) return;
-    const SIZE = 46, SPEED = 0.35;
-    let ctx, w, h, offX = 0, offY = 0, hover = null, alive = true;
-
-    // El pintado va aparte del loop para que la grilla exista ya en el primer
-    // frame: requestAnimationFrame no corre en pestañas de fondo y sin esto
-    // la sección se vería sin fondo hasta que el navegador reanude.
-    const paint = () => {
-      if (!ctx) return;
-      ctx.clearRect(0, 0, w, h);
-      if (hover) {
-        ctx.fillStyle = 'rgba(231,25,23,.20)';
-        ctx.fillRect(hover.cx * SIZE - offX, hover.cy * SIZE - offY, SIZE, SIZE);
-      }
-      ctx.strokeStyle = 'rgba(231,25,23,.16)';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      for (let x = -offX; x < w + SIZE; x += SIZE) { ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, h); }
-      for (let y = -offY; y < h + SIZE; y += SIZE) { ctx.moveTo(0, y + .5); ctx.lineTo(w, y + .5); }
-      ctx.stroke();
-    };
-
-    const build = () => { const f = this.fitCanvas(canvas); ctx = f.ctx; w = f.w; h = f.h; paint(); };
-
-    const onMove = (e) => {
-      const r = canvas.getBoundingClientRect();
-      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) { hover = null; return; }
-      const x = e.clientX - r.left, y = e.clientY - r.top;
-      hover = { cx: Math.floor((x + offX) / SIZE), cy: Math.floor((y + offY) / SIZE) };
-    };
-
-    const draw = () => {
-      if (!alive) return;
-      if (ctx) {
-        offX = (offX + SPEED) % SIZE;
-        offY = (offY + SPEED) % SIZE;
-        paint();
-      }
-      requestAnimationFrame(draw);
-    };
-
-    build();
-    requestAnimationFrame(draw);
-    this.onResize(build);
-    window.addEventListener('mousemove', onMove, { passive: true });
-    this._cleanups.push(() => { alive = false; window.removeEventListener('mousemove', onMove); });
   }
 
   // ---------- ClickSpark (React Bits) ----------
@@ -1337,7 +1394,7 @@ class Component extends DCLogic {
       esPrivacidad: s.ruta === '/politicadeprivacidad',
       circuitos: this.props.circuitos !== false,
       glitch: this.props.glitch !== false,
-      squares: this.props.squares !== false,
+      malla: this.props.malla !== false,
       chispas: this.props.chispas !== false,
       scanlines: this.props.scanlines !== false,
       headerBg: s.scrolled ? 'rgba(255,255,255,.86)' : 'rgba(255,255,255,1)',

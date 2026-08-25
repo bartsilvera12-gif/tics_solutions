@@ -149,6 +149,34 @@
   }
   .om-vig { position: absolute; inset: 0; pointer-events: none; }
 
+
+  /* ---------- ajustes responsive ----------
+     El canvas usa estilos inline, así que las correcciones por ancho
+     necesitan !important para poder sobrescribirlos. */
+
+  /* Notebooks de 13-14" y tablets en horizontal */
+  @media (max-width: 1280px) {
+    .om-strip > * { padding-left: 10px !important; padding-right: 10px !important; }
+  }
+
+  /* Teléfonos grandes y tablets en vertical */
+  @media (max-width: 620px) {
+    .om-star, [data-magnet] {
+      padding-left: 20px !important; padding-right: 20px !important;
+      font-size: 11px !important; letter-spacing: .06em !important;
+      max-width: 100%; white-space: normal; text-align: center;
+    }
+    .om-strip > * { height: 84px !important; }
+  }
+
+  /* Teléfonos chicos: iPhone SE, Galaxy A0x y similares */
+  @media (max-width: 380px) {
+    .om-star, [data-magnet] {
+      padding-left: 14px !important; padding-right: 14px !important;
+      font-size: 10px !important; letter-spacing: .03em !important;
+    }
+    .om-strip > * { height: 76px !important; font-size: 11px !important; }
+  }
   @media (max-width: 900px) {
     [data-desktop] { display: none !important; }
     [data-mobile] { display: flex !important; }
@@ -232,7 +260,7 @@
 
     <div style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: clamp(44px, 6vw, 88px); align-items: center;">
       <div>
-        <h1 style="font-size: clamp(38px, 5.6vw, 76px); line-height: 1.05; font-weight: 200; letter-spacing: -0.02em; text-wrap: pretty; margin-bottom: 30px;">
+        <h1 style="font-size: clamp(28px, 5.6vw, 76px); line-height: 1.05; font-weight: 200; letter-spacing: -0.02em; text-wrap: pretty; margin-bottom: 30px;">
           <span data-decrypt="" data-decrypt-delay="120" style="display: block;">Protegemos tu empresa.</span>
           <span data-decrypt="" data-decrypt-delay="620" style="display: block; color: #E71917;">Impulsamos su crecimiento.</span>
         </h1>
@@ -258,7 +286,7 @@
           <span style="position: absolute; bottom: -1px; left: -1px; width: 18px; height: 18px; border-bottom: 2px solid #E71917; border-left: 2px solid #E71917;"></span>
           <span style="position: absolute; bottom: -1px; right: -1px; width: 18px; height: 18px; border-bottom: 2px solid #E71917; border-right: 2px solid #E71917;"></span>
           <div style="position: relative; overflow: hidden; aspect-ratio: 4 / 5; background: #FAFBFC;">
-            <image-slot id="hero-tech" shape="rect" placeholder="Foto vertical: datacenter / infraestructura de red"></image-slot>
+            <img src="./assets/foto-ciberseguridad.jpg" alt="Candado digital sobre circuitos: protección de datos empresariales" loading="eager" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
             <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(231,25,23,.10), transparent 40%, rgba(255,255,255,.55));"></div>
           </div>
           <p style="position: absolute; bottom: -30px; left: 0; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgba(29,30,30,.3);">// infraestructura monitoreada</p>
@@ -276,13 +304,13 @@
             <span style="position: absolute; top: -1px; left: -1px; width: 16px; height: 16px; border-top: 2px solid #E71917; border-left: 2px solid #E71917;"></span>
             <span style="position: absolute; bottom: -1px; right: -1px; width: 16px; height: 16px; border-bottom: 2px solid #E71917; border-right: 2px solid #E71917;"></span>
             <div style="overflow: hidden; aspect-ratio: 3 / 4; background: #FAFBFC;">
-              <image-slot id="about-tech" shape="rect" placeholder="Foto vertical: equipo técnico / servidores"></image-slot>
+              <img src="./assets/foto-identidad-digital.jpg" alt="Profesional frente a un sistema de seguridad con huella digital" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
             </div>
           </div>
         </div>
         <div data-reveal="">
           <!-- TrueFocus (React Bits) -->
-          <div data-truefocus="" style="position: relative; display: flex; flex-wrap: wrap; gap: .3em; font-size: clamp(32px, 4.4vw, 62px); font-weight: 200; line-height: 1.08; letter-spacing: -0.015em; margin-bottom: 34px;">
+          <div data-truefocus="" style="position: relative; display: flex; flex-wrap: wrap; gap: .3em; font-size: clamp(26px, 4.4vw, 62px); font-weight: 200; line-height: 1.08; letter-spacing: -0.015em; margin-bottom: 34px;">
             <span class="om-tf-word">¿QUIÉNES</span><span class="om-tf-word" style="color: #E71917;">SOMOS?</span>
             <div class="om-tf-frame">
               <span class="om-tf-corner" style="top: -6px; left: -6px; border-right: none; border-bottom: none;"></span>
@@ -303,7 +331,7 @@
     <div style="max-width: 1280px; margin: 0 auto;">
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: clamp(36px, 5vw, 80px); align-items: start; margin-bottom: clamp(52px, 6vw, 90px);">
-        <h2 data-reveal="" style="font-size: clamp(34px, 5vw, 70px); font-weight: 200; line-height: 1.05; letter-spacing: -0.02em;">NUESTROS<br /><span class="om-glitch" data-text="SERVICIOS" style="color: #E71917;">SERVICIOS</span></h2>
+        <h2 data-reveal="" style="font-size: clamp(26px, 5vw, 70px); font-weight: 200; line-height: 1.05; letter-spacing: -0.02em;">NUESTROS<br /><span class="om-glitch" data-text="SERVICIOS" style="color: #E71917;">SERVICIOS</span></h2>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 22px; max-width: 560px; padding-top: 10px;">
           <p style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.85; font-weight: 300; color: rgba(29,30,30,.68);">Te ofrecemos un servicio completo y profesional. Nuestro equipo técnico cuenta con la experiencia y conocimientos necesarios que garantizan la correcta implementación de las soluciones y un acompañamiento constante en cada etapa.</p>
           <p style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.85; font-weight: 400; color: #1D1E1E;">En Tic's Solutions te ofrecemos un enfoque integral para proteger tu empresa.</p>
@@ -315,23 +343,14 @@
           <!-- SpotlightCard (React Bits) -->
           <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(29,30,30,.1); background: #FAFBFC; padding: clamp(28px, 3vw, 40px);" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-3px);">
             <div style="position: relative; z-index: 1;">
-              <h3 data-decrypt="" data-decrypt-scroll="" style="font-size: clamp(22px, 2.1vw, 30px); font-weight: 300; margin-bottom: 14px;">Protección de datos</h3>
+              <h3 data-decrypt="" data-decrypt-scroll="" style="font-size: clamp(19px, 2.1vw, 30px); font-weight: 300; margin-bottom: 14px;">Protección de datos</h3>
               <p style="font-size: 16px; line-height: 1.8; font-weight: 300; color: rgba(29,30,30,.64); max-width: 520px;">Blindamos tu información más valiosa con soluciones de respaldo y recuperación de vanguardia, para que tus datos estén siempre seguros y accesibles.</p>
             </div>
           </div>
           <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(29,30,30,.1); background: #FAFBFC; padding: clamp(28px, 3vw, 40px);" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-3px);">
             <div style="position: relative; z-index: 1;">
-              <h3 data-decrypt="" data-decrypt-scroll="" style="font-size: clamp(22px, 2.1vw, 30px); font-weight: 300; margin-bottom: 14px;">Monitoreo y gestión de riesgos</h3>
+              <h3 data-decrypt="" data-decrypt-scroll="" style="font-size: clamp(19px, 2.1vw, 30px); font-weight: 300; margin-bottom: 14px;">Monitoreo y gestión de riesgos</h3>
               <p style="font-size: 16px; line-height: 1.8; font-weight: 300; color: rgba(29,30,30,.64); max-width: 520px;">Vigilamos constantemente tu infraestructura para identificar y neutralizar posibles amenazas antes de que afecten tus operaciones.</p>
-            </div>
-          </div>
-        </div>
-        <div data-reveal="" style="position: relative; width: 100%; max-width: 460px; justify-self: center; align-self: center;">
-          <div style="position: relative; padding: 10px; border: 1px solid rgba(29,30,30,.1);">
-            <span style="position: absolute; top: -1px; right: -1px; width: 16px; height: 16px; border-top: 2px solid #E71917; border-right: 2px solid #E71917;"></span>
-            <span style="position: absolute; bottom: -1px; left: -1px; width: 16px; height: 16px; border-bottom: 2px solid #E71917; border-left: 2px solid #E71917;"></span>
-            <div style="overflow: hidden; aspect-ratio: 1 / 1; background: #FAFBFC;">
-              <image-slot id="services-tech" shape="rect" placeholder="Foto: ciberseguridad / monitoreo"></image-slot>
             </div>
           </div>
         </div>
@@ -348,7 +367,7 @@
     <div class="om-vig" style="background: radial-gradient(ellipse 80% 60% at 50% 50%, transparent 0%, rgba(245,246,248,.8) 70%, #F5F6F8 100%);"></div>
 
     <div style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto;">
-      <h2 data-reveal="" style="font-size: clamp(30px, 3.8vw, 54px); font-weight: 200; line-height: 1.12; letter-spacing: -0.015em; max-width: 760px; margin-bottom: clamp(48px, 6vw, 84px); text-wrap: pretty;">Tecnología que <span class="om-glitch" data-text="protege" style="color: #E71917;">protege</span> tu operación</h2>
+      <h2 data-reveal="" style="font-size: clamp(24px, 3.8vw, 54px); font-weight: 200; line-height: 1.12; letter-spacing: -0.015em; max-width: 760px; margin-bottom: clamp(48px, 6vw, 84px); text-wrap: pretty;">Tecnología que <span class="om-glitch" data-text="protege" style="color: #E71917;">protege</span> tu operación</h2>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: clamp(20px, 2.6vw, 34px);">
         <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(29,30,30,.1); background: rgba(255,255,255,.72); backdrop-filter: blur(6px); padding: 26px 24px 30px;" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-4px);">
@@ -375,7 +394,7 @@
   <section id="partners" data-screen-label="Partners" style="position: relative; padding: clamp(80px, 10vw, 140px) 0 clamp(84px, 10vw, 130px); background: #FFFFFF; overflow: hidden;">
     <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px);">
       <div style="max-width: 720px; margin-bottom: clamp(48px, 6vw, 80px);">
-        <h2 data-reveal="" style="font-size: clamp(30px, 4vw, 58px); font-weight: 200; line-height: 1.08; letter-spacing: -0.015em; margin-bottom: 24px;">MARCAS Y <span class="om-glitch" data-text="SERVICIOS" style="color: #E71917;">SERVICIOS</span></h2>
+        <h2 data-reveal="" style="font-size: clamp(24px, 4vw, 58px); font-weight: 200; line-height: 1.08; letter-spacing: -0.015em; margin-bottom: 24px;">MARCAS Y <span class="om-glitch" data-text="SERVICIOS" style="color: #E71917;">SERVICIOS</span></h2>
         <p data-reveal="" style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.8; font-weight: 300; color: rgba(29,30,30,.66);">Trabajamos con líderes del mercado para ofrecerte soluciones de la más alta calidad y confianza.</p>
       </div>
     </div>
@@ -428,7 +447,7 @@
     </sc-if>
 
     <div style="position: relative; z-index: 3; max-width: 1000px; margin: 0 auto;">
-      <h2 data-reveal="" style="font-size: clamp(32px, 4.6vw, 66px); font-weight: 200; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 40px; text-wrap: pretty;">Tu <span class="om-glitch" data-text="socio estratégico" style="color: #E71917;">socio estratégico</span> en el entorno digital</h2>
+      <h2 data-reveal="" style="font-size: clamp(26px, 4.6vw, 66px); font-weight: 200; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 40px; text-wrap: pretty;">Tu <span class="om-glitch" data-text="socio estratégico" style="color: #E71917;">socio estratégico</span> en el entorno digital</h2>
       <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 20px); line-height: 1.85; font-weight: 300; color: rgba(255,255,255,.72); max-width: 720px; margin-bottom: 26px;">Nuestra misión es ser tu socio estratégico en el entorno digital. Te proveemos de una infraestructura tecnológica robusta y de una defensa cibernética inquebrantable, permitiendo que tu empresa prospere sin interrupciones.</p>
       <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 20px); line-height: 1.85; font-weight: 300; color: rgba(255,255,255,.72); max-width: 720px; margin-bottom: 52px;">En Tic's Solutions, gestionamos los riesgos para que tú puedas capitalizar las oportunidades y enfocarte exclusivamente en tu crecimiento.</p>
       <a data-reveal="" data-magnet="" href="#contacto" class="om-star" style="color: #fff; height: 56px; padding: 0 36px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">Hablemos de tu empresa</a>
@@ -440,7 +459,7 @@
     <div style="max-width: 1280px; margin: 0 auto;">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: clamp(46px, 6vw, 96px);">
         <div data-reveal="">
-          <h2 style="font-size: clamp(32px, 4.4vw, 60px); font-weight: 200; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 30px;">Contactá con <span class="om-glitch" data-text="nosotros" style="color: #E71917;">nosotros</span></h2>
+          <h2 style="font-size: clamp(26px, 4.4vw, 60px); font-weight: 200; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 30px;">Contactá con <span class="om-glitch" data-text="nosotros" style="color: #E71917;">nosotros</span></h2>
           <p style="font-size: 17px; line-height: 1.8; font-weight: 300; color: rgba(29,30,30,.66); max-width: 460px; margin-bottom: 46px;">Conversemos sobre la infraestructura y la seguridad de tu empresa. Respondemos por teléfono, correo o WhatsApp.</p>
 
           <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 36px;">

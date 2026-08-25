@@ -240,18 +240,7 @@
         <a href="#nosotros" style="color: rgba(29,30,30,.72); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; transition: color .3s ease;" style-hover="color: #E71917;">Nosotros</a>
         <a href="#servicios" style="color: rgba(29,30,30,.72); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; transition: color .3s ease;" style-hover="color: #E71917;">Servicios</a>
         <a href="#partners" style="color: rgba(29,30,30,.72); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; transition: color .3s ease;" style-hover="color: #E71917;">Partners</a>
-        <div style="position: relative;">
-          <button onClick="{{ toggleContacto }}" aria-haspopup="true" aria-expanded="{{ contactoAbierto }}" style="background: none; border: none; padding: 0; cursor: pointer; color: rgba(29,30,30,.72); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; display: inline-flex; align-items: center; gap: 7px; transition: color .3s ease;" style-hover="color: #E71917;">Contacto<svg viewBox="0 0 10 6" aria-hidden="true" style="width: 9px; height: 6px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; transform: rotate({{ giroContacto }}); transition: transform .3s ease;"><path d="M1 1l4 4 4-4" /></svg></button>
-          <sc-if value="{{ contactoAbierto }}" hint-placeholder-val="{{ false }}">
-            <div style="position: absolute; top: calc(100% + 20px); right: 0; min-width: 272px; background: #FFFFFF; border: 1px solid rgba(29,30,30,.12); box-shadow: 0 22px 48px -20px rgba(29,30,30,.45); padding: 10px; display: flex; flex-direction: column; gap: 2px; z-index: 70;">
-              <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgba(29,30,30,.4); padding: 8px 12px 10px;">Arturo Osorio</p>
-              <a href="tel:+595981171372" onClick="{{ cerrarContacto }}" style="display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; color: #1D1E1E; transition: background .25s ease, color .25s ease;" style-hover="background: rgba(231,25,23,.06); color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.42);">Teléfono</span><span style="font-size: 15px;">(+595) 981 171 372</span></a>
-              <a href="mailto:arturo.osorio@tics-py.com" onClick="{{ cerrarContacto }}" style="display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; color: #1D1E1E; transition: background .25s ease, color .25s ease;" style-hover="background: rgba(231,25,23,.06); color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.42);">Correo</span><span style="font-size: 14px;">arturo.osorio@tics-py.com</span></a>
-              <a href="https://wa.me/595981171372" target="_blank" rel="noopener" onClick="{{ cerrarContacto }}" style="display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; color: #1D1E1E; transition: background .25s ease, color .25s ease;" style-hover="background: rgba(231,25,23,.06); color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.42);">WhatsApp</span><span style="font-size: 15px;">Escribinos ahora</span></a>
-              <a href="#contacto" onClick="{{ cerrarContacto }}" style="margin-top: 6px; border-top: 1px solid rgba(29,30,30,.1); padding: 13px 12px 6px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #E71917; transition: color .25s ease;" style-hover="color: #1D1E1E;">Ir al formulario &rarr;</a>
-            </div>
-          </sc-if>
-        </div>
+        <a href="#contacto" style="color: rgba(29,30,30,.72); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; transition: color .3s ease;" style-hover="color: #E71917;">Contacto</a>
         <a href="#contacto" class="om-star" data-magnet="" style="color: #fff; padding: 0 24px; height: 44px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">Contactanos</a>
       </nav>
       <button data-mobile="" onClick="{{ toggleMenu }}" aria-label="Menú" style="display: none; width: 46px; height: 46px; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; padding: 0; flex-direction: column; gap: 6px;">
@@ -612,7 +601,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;circuitos&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Identidad&quot;},&quot;glitch&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;squares&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;chispas&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;scanlines&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;animaciones&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamiento&quot;}}">
 class Component extends DCLogic {
-  state = { scrolled: false, menuOpen: false, enviado: false, scrollY: 0, contactoAbierto: false };
+  state = { scrolled: false, menuOpen: false, enviado: false, scrollY: 0 };
 
   // ============================================================
   //  Efectos inspirados en React Bits (reactbits.dev), reescritos
@@ -643,11 +632,8 @@ class Component extends DCLogic {
     };
     window.addEventListener('scroll', this._onScroll, { passive: true });
 
-    // El desplegable de contacto se cierra al hacer clic fuera o con Escape.
-    // Sin esto queda abierto de forma indefinida.
-    this._onDocClick = () => { if (this.state.contactoAbierto) this.setState({ contactoAbierto: false }); };
-    this._onKey = (e) => { if (e.key === 'Escape') this.setState({ contactoAbierto: false, menuOpen: false }); };
-    document.addEventListener('click', this._onDocClick);
+    // Escape cierra el menú móvil.
+    this._onKey = (e) => { if (e.key === 'Escape') this.setState({ menuOpen: false }); };
     document.addEventListener('keydown', this._onKey);
     this._onScroll();
 
@@ -680,7 +666,6 @@ class Component extends DCLogic {
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this._onScroll);
-    document.removeEventListener('click', this._onDocClick);
     document.removeEventListener('keydown', this._onKey);
     if (this._io) this._io.disconnect();
     if (this._fxIo) this._fxIo.disconnect();
@@ -1132,14 +1117,10 @@ class Component extends DCLogic {
       // "Inicio" solo aparece una vez que saliste del hero: enlazar a la
       // sección en la que ya estás no aporta nada.
       mostrarInicio: s.scrollY > 320,
-      contactoAbierto: s.contactoAbierto,
-      giroContacto: s.contactoAbierto ? '180deg' : '0deg',
       enviado: s.enviado,
       formVisible: !s.enviado,
       toggleMenu: () => this.setState((p) => ({ menuOpen: !p.menuOpen })),
       closeMenu: () => this.setState({ menuOpen: false }),
-      toggleContacto: (e) => { e.preventDefault(); e.stopPropagation(); this.setState((p) => ({ contactoAbierto: !p.contactoAbierto })); },
-      cerrarContacto: () => this.setState({ contactoAbierto: false }),
       enviarForm: (e) => { e.preventDefault(); this.setState({ enviado: true }); },
       partners: partners,
       marcas: marcas

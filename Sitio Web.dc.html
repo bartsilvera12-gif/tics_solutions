@@ -203,6 +203,11 @@
     .om-strip > * { height: 76px !important; font-size: 11px !important; }
     .om-strip img { max-height: 24px !important; }
   }
+  /* El texto del hero se acota al tercio limpio del fondo, donde el destello
+     no ilumina. En pantallas angostas ese reparto no existe y toma todo. */
+  .om-hero-txt { max-width: min(640px, 52%); }
+  @media (max-width: 900px) { .om-hero-txt { max-width: 100%; } }
+
   /* En pantallas angostas la columna de imagen del menú no entra: se oculta
      y la navegación pasa a ocupar todo el ancho. */
   @media (max-width: 820px) {
@@ -340,8 +345,8 @@
       </svg>
     </sc-if>
 
-    <div style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: clamp(44px, 6vw, 88px); align-items: center;">
-      <div>
+    <div style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; display: block;">
+      <div class="om-hero-txt">
         <h1 style="font-size: clamp(28px, 5.6vw, 76px); line-height: 1.05; font-weight: 200; letter-spacing: -0.02em; text-wrap: pretty; margin-bottom: 30px; color: #FFFFFF;">
           <span data-decrypt="" data-decrypt-delay="120" style="display: block;">Protegemos tu empresa.</span>
           <span data-decrypt="" data-decrypt-delay="620" style="display: block; color: #E71917;">Impulsamos su crecimiento.</span>
@@ -351,29 +356,6 @@
 
       </div>
 
-      <div style="position: relative; justify-self: center; width: 100%; max-width: 520px;">
-        <sc-if value="{{ circuitos }}" hint-placeholder-val="{{ true }}">
-          <svg class="om-circuit" viewBox="0 0 300 300" aria-hidden="true" style="position: absolute; right: -6%; bottom: -8%; width: 58%; height: auto; opacity: .8; pointer-events: none; z-index: 3;">
-            <g fill="none" stroke="#E71917" stroke-width="1.4">
-              <path d="M10 250 H90 L130 210 H240 L280 170" />
-              <path d="M40 290 H150 L190 250 H290" />
-              <path d="M240 210 V130" />
-            </g>
-            <g fill="#E71917"><circle cx="130" cy="210" r="5" /><circle cx="240" cy="130" r="6" /><circle cx="190" cy="250" r="5" /></g>
-          </svg>
-        </sc-if>
-        <div style="position: relative; padding: 12px; border: 1px solid rgba(231,25,23,.28); transform: translateY({{ parallaxHero }}); transition: transform .2s linear;">
-          <span style="position: absolute; top: -1px; left: -1px; width: 18px; height: 18px; border-top: 2px solid #E71917; border-left: 2px solid #E71917;"></span>
-          <span style="position: absolute; top: -1px; right: -1px; width: 18px; height: 18px; border-top: 2px solid #E71917; border-right: 2px solid #E71917;"></span>
-          <span style="position: absolute; bottom: -1px; left: -1px; width: 18px; height: 18px; border-bottom: 2px solid #E71917; border-left: 2px solid #E71917;"></span>
-          <span style="position: absolute; bottom: -1px; right: -1px; width: 18px; height: 18px; border-bottom: 2px solid #E71917; border-right: 2px solid #E71917;"></span>
-          <div style="position: relative; overflow: hidden; aspect-ratio: 4 / 5; background: #0D0F12;">
-            <img src="./assets/foto-ciberseguridad.jpg" alt="Candado digital sobre circuitos: protección de datos empresariales" loading="eager" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
-            <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(231,25,23,.10), transparent 40%, rgba(255,255,255,.55));"></div>
-          </div>
-          <p style="position: absolute; bottom: -30px; left: 0; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.55);">// infraestructura monitoreada</p>
-        </div>
-      </div>
     </div>
   </section>
   </sc-if>
@@ -457,7 +439,17 @@
     <div style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto;">
       <h2 data-reveal="" style="font-size: clamp(24px, 3.8vw, 54px); font-weight: 200; line-height: 1.12; letter-spacing: -0.015em; max-width: 760px; margin-bottom: clamp(48px, 6vw, 84px); text-wrap: pretty;">Tecnología que <span class="om-glitch" data-text="protege" style="color: #E71917;">protege</span> tu operación</h2>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: clamp(20px, 2.6vw, 34px);">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(32px, 4vw, 64px); align-items: center;">
+        <div data-reveal="" style="position: relative; width: 100%; max-width: 440px; justify-self: center; padding: 12px; border: 1px solid rgba(231,25,23,.28);">
+          <span style="position: absolute; top: -1px; left: -1px; width: 18px; height: 18px; border-top: 2px solid #E71917; border-left: 2px solid #E71917;"></span>
+          <span style="position: absolute; top: -1px; right: -1px; width: 18px; height: 18px; border-top: 2px solid #E71917; border-right: 2px solid #E71917;"></span>
+          <span style="position: absolute; bottom: -1px; left: -1px; width: 18px; height: 18px; border-bottom: 2px solid #E71917; border-left: 2px solid #E71917;"></span>
+          <span style="position: absolute; bottom: -1px; right: -1px; width: 18px; height: 18px; border-bottom: 2px solid #E71917; border-right: 2px solid #E71917;"></span>
+          <div style="position: relative; overflow: hidden; aspect-ratio: 4 / 5; background: #0D0F12;">
+            <img src="./assets/foto-ciberseguridad.jpg" alt="Candado digital sobre circuitos: protección de datos empresariales" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: clamp(20px, 2.6vw, 34px);">
         <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(29,30,30,.1); background: rgba(255,255,255,.72); backdrop-filter: blur(6px); padding: 26px 24px 30px;" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-4px);">
           <h3 data-decrypt="" data-decrypt-scroll="" style="position: relative; z-index: 1; font-size: 20px; font-weight: 400; margin-bottom: 12px;">Continuidad operativa</h3>
           <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 300; color: rgba(29,30,30,.7);">Infraestructura preparada para mantener tu empresa funcionando.</p>
@@ -474,6 +466,7 @@
           <h3 data-decrypt="" data-decrypt-scroll="" style="position: relative; z-index: 1; font-size: 20px; font-weight: 400; margin-bottom: 12px;">Acompañamiento técnico</h3>
           <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 300; color: rgba(29,30,30,.7);">Experiencia y soporte durante cada etapa de implementación.</p>
         </div>
+      </div>
       </div>
     </div>
   </section>

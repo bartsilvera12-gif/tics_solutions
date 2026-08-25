@@ -166,7 +166,11 @@
       font-size: 11px !important; letter-spacing: .06em !important;
       max-width: 100%; white-space: normal; text-align: center;
     }
-    .om-strip > * { height: 84px !important; }
+    /* Sin esto cada logo se queda con su ancho completo y ocupa una fila
+       entera. Dos por fila, y el ancho manda sobre el alto óptico. */
+    .om-strip { justify-content: center; }
+    .om-strip > * { flex: 0 0 50% !important; height: 84px !important; padding-left: 10px !important; padding-right: 10px !important; }
+    .om-strip img { max-width: 100% !important; max-height: 28px !important; }
   }
 
   /* Teléfonos chicos: iPhone SE, Galaxy A0x y similares */
@@ -176,6 +180,7 @@
       font-size: 10px !important; letter-spacing: .03em !important;
     }
     .om-strip > * { height: 76px !important; font-size: 11px !important; }
+    .om-strip img { max-height: 24px !important; }
   }
   @media (max-width: 900px) {
     [data-desktop] { display: none !important; }
@@ -405,7 +410,9 @@
       <div style="position: relative; border-top: 1px solid rgba(29,30,30,.09); border-bottom: 1px solid rgba(29,30,30,.09); overflow: hidden;">
         <div class="om-strip">
           <sc-for list="{{ partners }}" as="marca" hint-placeholder-count="5">
-            <div data-scramble="" data-scramble-hover="" style="flex: 1 1 auto; min-width: 0; height: 104px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 14px 12px; font-family: 'JetBrains Mono', monospace; font-size: clamp(10px, 1.05vw, 15px); font-weight: 400; letter-spacing: .08em; text-transform: uppercase; color: rgba(29,30,30,.42); cursor: default; transition: color .3s ease, background .3s ease;" style-hover="color: #E71917; background: rgba(231,25,23,.06);">{{ marca }}</div>
+            <div style="flex: 1 1 auto; min-width: 0; height: 104px; display: flex; align-items: center; justify-content: center; padding: 14px 18px;">
+              <img src="./assets/marcas/{{ marca.logo }}" alt="{{ marca.n }}" width="{{ marca.w }}" height="{{ marca.h }}" loading="lazy" decoding="async" style="max-width: 100%; max-height: {{ marca.alto }}; width: auto; height: auto; object-fit: contain; opacity: .62; transition: opacity .3s ease;" style-hover="opacity: 1;" />
+            </div>
           </sc-for>
         </div>
       </div>
@@ -415,8 +422,10 @@
       <p style="padding: 0 clamp(20px, 4vw, 48px); max-width: 1280px; margin: 0 auto 20px; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: #E71917;">Marcas</p>
       <div style="position: relative; border-top: 1px solid rgba(29,30,30,.09); border-bottom: 1px solid rgba(29,30,30,.09); overflow: hidden;">
         <div class="om-strip">
-          <sc-for list="{{ marcas }}" as="marca" hint-placeholder-count="6">
-            <div data-scramble="" data-scramble-hover="" style="flex: 1 1 auto; min-width: 0; height: 104px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 14px 12px; font-family: 'JetBrains Mono', monospace; font-size: clamp(10px, 1.05vw, 15px); font-weight: 400; letter-spacing: .08em; text-transform: uppercase; color: rgba(29,30,30,.42); cursor: default; transition: color .3s ease, background .3s ease;" style-hover="color: #E71917; background: rgba(231,25,23,.06);">{{ marca }}</div>
+          <sc-for list="{{ marcas }}" as="marca" hint-placeholder-count="5">
+            <div style="flex: 1 1 auto; min-width: 0; height: 104px; display: flex; align-items: center; justify-content: center; padding: 14px 18px;">
+              <img src="./assets/marcas/{{ marca.logo }}" alt="{{ marca.n }}" width="{{ marca.w }}" height="{{ marca.h }}" loading="lazy" decoding="async" style="max-width: 100%; max-height: {{ marca.alto }}; width: auto; height: auto; object-fit: contain; opacity: .62; transition: opacity .3s ease;" style-hover="opacity: 1;" />
+            </div>
           </sc-for>
         </div>
       </div>
@@ -1044,8 +1053,26 @@ class Component extends DCLogic {
 
   renderVals() {
     const s = this.state;
-    const partners = ['Arcserve', 'Kaspersky', 'ZWCAD', 'Veeam', 'Adobe'];
-    const marcas = ['Dell Technologies', 'HP', 'Zebra', 'Dahua Technology', 'APC by Schneider Electric', 'SonicWall'];
+    // Solo las marcas cuyo logo venía en el brochure. Veeam y Zebra no
+    // traían logo, así que quedan fuera hasta tener el archivo.
+    // w/h son las medidas reales del PNG: permiten al navegador reservar
+    // el espacio y evitan el salto de layout al cargar en diferido.
+    // "alto" normaliza ópticamente: los wordmarks anchos se muestran más
+    // bajos y los logos cuadrados o apilados más altos, para que todos
+    // pesen parecido en la cinta.
+    const partners = [
+      { n: 'Arcserve',  logo: 'arcserve.png',  w: 309, h: 46,  alto: '28px' },
+      { n: 'Kaspersky', logo: 'kaspersky.png', w: 395, h: 76,  alto: '30px' },
+      { n: 'ZWCAD',     logo: 'zwcad.png',     w: 281, h: 59,  alto: '30px' },
+      { n: 'Adobe',     logo: 'adobe.png',     w: 578, h: 140, alto: '34px' }
+    ];
+    const marcas = [
+      { n: 'Dell Technologies',         logo: 'dell.png',      w: 694, h: 89,  alto: '26px' },
+      { n: 'HP',                        logo: 'hp.png',        w: 205, h: 205, alto: '52px' },
+      { n: 'Dahua Technology',          logo: 'dahua.png',     w: 401, h: 120, alto: '40px' },
+      { n: 'APC by Schneider Electric', logo: 'apc.png',       w: 364, h: 176, alto: '48px' },
+      { n: 'SonicWall',                 logo: 'sonicwall.png', w: 394, h: 67,  alto: '28px' }
+    ];
     return {
       circuitos: this.props.circuitos !== false,
       glitch: this.props.glitch !== false,

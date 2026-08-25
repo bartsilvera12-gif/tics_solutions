@@ -197,6 +197,12 @@
     .om-strip > * { height: 76px !important; font-size: 11px !important; }
     .om-strip img { max-height: 24px !important; }
   }
+  /* En pantallas angostas la columna de imagen del menú no entra: se oculta
+     y la navegación pasa a ocupar todo el ancho. */
+  @media (max-width: 820px) {
+    .om-menu { grid-template-columns: 1fr !important; }
+    .om-menu [data-menu-art] { display: none !important; }
+  }
   @media (max-width: 900px) {
     [data-desktop] { display: none !important; }
     [data-mobile] { display: flex !important; }
@@ -229,39 +235,68 @@
   </a>
 
   <header style="position: sticky; top: 0; z-index: 60; background: {{ headerBg }}; backdrop-filter: blur(16px); border-bottom: 1px solid {{ headerBorder }}; transition: background .35s ease, border-color .35s ease;">
-    <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); height: clamp(68px, 8vw, 86px); display: flex; align-items: center; justify-content: space-between; gap: 24px;">
-      <a href="#inicio" style="display: flex; align-items: center; flex: 0 0 auto;">
-        <img src="./assets/logo-tics.png" alt="Tic's Solutions — Tecnología a tu alcance" style="height: clamp(34px, 4.2vw, 44px); width: auto; display: block;" />
-      </a>
-      <nav data-desktop="" style="display: flex; align-items: center; gap: clamp(18px, 2.4vw, 34px);">
-        <sc-if value="{{ mostrarInicio }}" hint-placeholder-val="{{ true }}">
-          <a href="#inicio" style="color: rgba(29,30,30,.72); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; transition: color .3s ease;" style-hover="color: #E71917;">Inicio</a>
-        </sc-if>
-        <a href="#nosotros" style="color: rgba(29,30,30,.72); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; transition: color .3s ease;" style-hover="color: #E71917;">Nosotros</a>
-        <a href="#servicios" style="color: rgba(29,30,30,.72); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; transition: color .3s ease;" style-hover="color: #E71917;">Servicios</a>
-        <a href="#partners" style="color: rgba(29,30,30,.72); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; transition: color .3s ease;" style-hover="color: #E71917;">Partners</a>
-        <a href="#contacto" style="color: rgba(29,30,30,.72); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; transition: color .3s ease;" style-hover="color: #E71917;">Contacto</a>
-        <a href="#contacto" class="om-star" data-magnet="" style="color: #fff; padding: 0 24px; height: 44px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">Contactanos</a>
-      </nav>
-      <button data-mobile="" onClick="{{ toggleMenu }}" aria-label="Menú" style="display: none; width: 46px; height: 46px; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; padding: 0; flex-direction: column; gap: 6px;">
-        <span style="display: block; width: 24px; height: 1.5px; background: #1D1E1E;"></span>
-        <span style="display: block; width: 24px; height: 1.5px; background: #1D1E1E;"></span>
-        <span style="display: block; width: 16px; height: 1.5px; background: #E71917;"></span>
-      </button>
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); height: clamp(68px, 8vw, 86px); display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+      <div style="display: flex; align-items: center; gap: clamp(14px, 2vw, 24px);">
+        <button onClick="{{ toggleMenu }}" aria-label="Abrir menú" aria-expanded="{{ menuOpen }}" style="width: 42px; height: 42px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; background: none; border: none; cursor: pointer; padding: 0; flex: 0 0 auto;">
+          <span style="width: 24px; height: 1.5px; background: #1D1E1E; display: block;"></span>
+          <span style="width: 24px; height: 1.5px; background: #1D1E1E; display: block;"></span>
+          <span style="width: 15px; height: 1.5px; background: #E71917; display: block; align-self: flex-start; margin-left: 9px;"></span>
+        </button>
+        <a href="#inicio" style="display: flex; align-items: center; flex: 0 0 auto;">
+          <img src="./assets/logo-tics.png" alt="Tic's Solutions — Tecnología a tu alcance" style="height: clamp(32px, 4.2vw, 44px); width: auto; display: block;" />
+        </a>
+      </div>
+      <a href="#contacto" class="om-star" data-magnet="" style="color: #fff; padding: 0 clamp(18px, 2vw, 26px); height: 44px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">Contactanos</a>
     </div>
-    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
-      <nav style="display: flex; flex-direction: column; gap: 2px; padding: 8px 24px 28px; background: rgba(255,255,255,.98); border-top: 1px solid rgba(231,25,23,.2);">
-        <sc-if value="{{ mostrarInicio }}" hint-placeholder-val="{{ true }}">
-          <a href="#inicio" onClick="{{ closeMenu }}" style="color: #1D1E1E; font-family: 'JetBrains Mono', monospace; font-size: 15px; letter-spacing: .1em; text-transform: uppercase; padding: 15px 0; border-bottom: 1px solid rgba(29,30,30,.07);">Inicio</a>
-        </sc-if>
-        <a href="#nosotros" onClick="{{ closeMenu }}" style="color: #1D1E1E; font-family: 'JetBrains Mono', monospace; font-size: 15px; letter-spacing: .1em; text-transform: uppercase; padding: 15px 0; border-bottom: 1px solid rgba(29,30,30,.07);">Nosotros</a>
-        <a href="#servicios" onClick="{{ closeMenu }}" style="color: #1D1E1E; font-family: 'JetBrains Mono', monospace; font-size: 15px; letter-spacing: .1em; text-transform: uppercase; padding: 15px 0; border-bottom: 1px solid rgba(29,30,30,.07);">Servicios</a>
-        <a href="#partners" onClick="{{ closeMenu }}" style="color: #1D1E1E; font-family: 'JetBrains Mono', monospace; font-size: 15px; letter-spacing: .1em; text-transform: uppercase; padding: 15px 0; border-bottom: 1px solid rgba(29,30,30,.07);">Partners</a>
-        <a href="#contacto" onClick="{{ closeMenu }}" style="color: #1D1E1E; font-family: 'JetBrains Mono', monospace; font-size: 15px; letter-spacing: .1em; text-transform: uppercase; padding: 15px 0;">Contacto</a>
-        <a href="#contacto" onClick="{{ closeMenu }}" style="margin-top: 14px; background: #E71917; color: #fff; height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: .14em; text-transform: uppercase;">Contactanos</a>
-      </nav>
-    </sc-if>
   </header>
+
+  <!-- Menú a pantalla completa: además de navegar, reúne datos de contacto
+       y servicios que no están sueltos en el inicio. -->
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div class="om-menu" style="position: fixed; inset: 0; z-index: 200; display: grid; grid-template-columns: minmax(300px, 36%) 1fr;">
+
+      <div style="background: #FFFFFF; border-right: 1px solid rgba(29,30,30,.1); padding: clamp(22px, 3vw, 38px) clamp(22px, 3vw, 44px) clamp(26px, 3vw, 38px); display: flex; flex-direction: column; gap: clamp(24px, 3vw, 38px); overflow-y: auto;">
+
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 18px;">
+          <img src="./assets/logo-tics.png" alt="Tic's Solutions" style="height: clamp(34px, 4vw, 44px); width: auto; display: block;" />
+          <button onClick="{{ closeMenu }}" aria-label="Cerrar menú" style="width: 40px; height: 40px; flex: 0 0 auto; display: flex; align-items: center; justify-content: center; background: none; border: 1px solid rgba(29,30,30,.14); border-radius: 999px; cursor: pointer; color: #1D1E1E; font-size: 19px; line-height: 1; transition: border-color .25s ease, color .25s ease;" style-hover="border-color: #E71917; color: #E71917;">&times;</button>
+        </div>
+
+        <nav style="display: flex; flex-direction: column;">
+          <a href="#inicio" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; border-bottom: 1px solid rgba(29,30,30,.08); color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 200; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #E71917; flex: 0 0 auto;">01</span>Inicio</a>
+          <a href="#nosotros" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; border-bottom: 1px solid rgba(29,30,30,.08); color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 200; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #E71917; flex: 0 0 auto;">02</span>Nosotros</a>
+          <a href="#servicios" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; border-bottom: 1px solid rgba(29,30,30,.08); color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 200; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #E71917; flex: 0 0 auto;">03</span>Servicios</a>
+          <a href="#partners" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; border-bottom: 1px solid rgba(29,30,30,.08); color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 200; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #E71917; flex: 0 0 auto;">04</span>Partners</a>
+          <a href="#contacto" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 200; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #E71917; flex: 0 0 auto;">05</span>Contacto</a>
+        </nav>
+
+        <div style="display: flex; flex-direction: column; gap: clamp(20px, 2.4vw, 30px); margin-top: auto;">
+          <div>
+            <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #E71917; margin-bottom: 12px;">[ Contacto ]</p>
+            <p style="font-size: 15px; color: rgba(29,30,30,.78); margin-bottom: 7px;">Arturo Osorio</p>
+            <a href="tel:+595981171372" style="display: block; font-size: 14px; color: rgba(29,30,30,.6); margin-bottom: 5px; transition: color .25s ease;" style-hover="color: #E71917;">Tel &middot; (+595) 981 171 372</a>
+            <a href="mailto:arturo.osorio@tics-py.com" style="display: block; font-size: 14px; color: rgba(29,30,30,.6); margin-bottom: 5px; transition: color .25s ease;" style-hover="color: #E71917;">Correo &middot; arturo.osorio@tics-py.com</a>
+            <a href="https://wa.me/595981171372" target="_blank" rel="noopener" style="display: block; font-size: 14px; color: rgba(29,30,30,.6); transition: color .25s ease;" style-hover="color: #E71917;">WhatsApp &middot; Escribinos ahora</a>
+          </div>
+          <div>
+            <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #E71917; margin-bottom: 12px;">[ Servicios ]</p>
+            <a href="#servicios" onClick="{{ closeMenu }}" style="display: block; font-size: 14px; color: rgba(29,30,30,.6); margin-bottom: 5px; transition: color .25s ease;" style-hover="color: #E71917;">Protección de datos</a>
+            <a href="#servicios" onClick="{{ closeMenu }}" style="display: block; font-size: 14px; color: rgba(29,30,30,.6); transition: color .25s ease;" style-hover="color: #E71917;">Monitoreo y gestión de riesgos</a>
+          </div>
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .12em; color: rgba(29,30,30,.35);">&copy; 2026 Tic's Solutions</p>
+        </div>
+      </div>
+
+      <div data-menu-art="" style="position: relative; overflow: hidden; background: #0D0F12;">
+        <img src="./assets/foto-ciberseguridad.jpg" alt="" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;" />
+        <div style="position: absolute; inset: 0; background: linear-gradient(160deg, rgba(13,15,18,.82), rgba(13,15,18,.45) 45%, rgba(231,25,23,.35));"></div>
+        <div style="position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(26px, 3.4vw, 52px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: rgba(255,255,255,.75);">Tecnología y ciberseguridad &nbsp;/&nbsp; Paraguay</p>
+          <p style="font-size: clamp(22px, 2.6vw, 38px); font-weight: 200; line-height: 1.25; color: #fff; max-width: 620px; text-wrap: pretty;">Tu <span style="color: #E71917;">socio estratégico</span> en el entorno digital.</p>
+        </div>
+      </div>
+    </div>
+  </sc-if>
 
   <!-- ================= HERO ================= -->
   <section id="inicio" data-screen-label="Hero" style="position: relative; padding: clamp(64px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 9vw, 130px); overflow: hidden; background: #FFFFFF;">
@@ -633,7 +668,7 @@ class Component extends DCLogic {
     window.addEventListener('scroll', this._onScroll, { passive: true });
 
     // Escape cierra el menú móvil.
-    this._onKey = (e) => { if (e.key === 'Escape') this.setState({ menuOpen: false }); };
+    this._onKey = (e) => { if (e.key === 'Escape') { document.body.style.overflow = ''; this.setState({ menuOpen: false }); } };
     document.addEventListener('keydown', this._onKey);
     this._onScroll();
 
@@ -671,6 +706,7 @@ class Component extends DCLogic {
     if (this._fxIo) this._fxIo.disconnect();
     if (this._timer) clearInterval(this._timer);
     if (this._failsafe) clearTimeout(this._failsafe);
+    document.body.style.overflow = '';
     this._cleanups.forEach((fn) => { try { fn(); } catch (err) {} });
   }
 
@@ -1119,8 +1155,14 @@ class Component extends DCLogic {
       mostrarInicio: s.scrollY > 320,
       enviado: s.enviado,
       formVisible: !s.enviado,
-      toggleMenu: () => this.setState((p) => ({ menuOpen: !p.menuOpen })),
-      closeMenu: () => this.setState({ menuOpen: false }),
+      // El menú tapa la pantalla completa: bloqueamos el scroll del fondo
+      // para que la rueda no mueva la página por detrás del overlay.
+      toggleMenu: () => this.setState((p) => {
+        const abierto = !p.menuOpen;
+        document.body.style.overflow = abierto ? 'hidden' : '';
+        return { menuOpen: abierto };
+      }),
+      closeMenu: () => { document.body.style.overflow = ''; this.setState({ menuOpen: false }); },
       enviarForm: (e) => { e.preventDefault(); this.setState({ enviado: true }); },
       partners: partners,
       marcas: marcas

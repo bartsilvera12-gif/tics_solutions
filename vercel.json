@@ -1,5 +1,6 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/Sitio Web.dc.html" }
+    { "source": "/", "destination": "/Sitio Web.dc.html" },
+    { "source": "/politicadeprivacidad", "destination": "/Sitio Web.dc.html" }
   ]
 }

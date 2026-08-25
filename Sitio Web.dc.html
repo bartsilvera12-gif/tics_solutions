@@ -317,15 +317,11 @@
 
   <!-- ================= HERO ================= -->
   <sc-if value="{{ esInicio }}" hint-placeholder-val="{{ true }}">
-  <section id="inicio" data-screen-label="Hero" style="position: relative; padding: clamp(64px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 9vw, 130px); overflow: hidden; background: #07080A;">
-    <!-- Destello del hero -->
-    <canvas id="fx-burst" data-fx="lightburst" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
+  <section id="inicio" data-screen-label="Hero" style="position: relative; padding: clamp(64px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 9vw, 130px); overflow: hidden; background: #000000;">
+    <!-- Fondo del hero: circuitos, señales y destello. Reemplaza al video. -->
+    <canvas id="fx-burst" data-fx="herofondo" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
 
-    <!-- LetterGlitch (React Bits) -->
-    <sc-if value="{{ glitch }}" hint-placeholder-val="{{ true }}">
-      <canvas id="fx-glitch" data-fx="letterglitch" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: .22; pointer-events: none;"></canvas>
-    </sc-if>
-    <div class="om-vig" style="background: radial-gradient(ellipse 95% 80% at 50% 45%, transparent 0%, rgba(7,8,10,.55) 60%, rgba(7,8,10,.92) 95%);"></div>
+    <div class="om-vig" style="background: linear-gradient(90deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.35) 30%, transparent 55%), radial-gradient(ellipse 120% 90% at 62% 46%, transparent 0%, rgba(0,0,0,.5) 65%, rgba(0,0,0,.9) 100%);"></div>
 
     <sc-if value="{{ circuitos }}" hint-placeholder-val="{{ true }}">
       <svg class="om-circuit" viewBox="0 0 600 500" aria-hidden="true" style="position: absolute; top: -40px; left: -80px; width: min(46vw, 560px); height: auto; opacity: .32; pointer-events: none;">
@@ -900,7 +896,7 @@ class Component extends DCLogic {
       if (c.dataset.omInit) return;
       c.dataset.omInit = '1';
       if (c.getAttribute('data-fx') === 'letterglitch') this.letterGlitch(c);
-      else if (c.getAttribute('data-fx') === 'lightburst') this.lightBurst(c);
+      else if (c.getAttribute('data-fx') === 'herofondo') this.heroFondo(c);
       else if (c.getAttribute('data-fx') === 'squares') this.squares(c);
     });
     const spark = document.getElementById('fx-spark');
@@ -1020,57 +1016,190 @@ class Component extends DCLogic {
     this._cleanups.push(() => { alive = false; });
   }
 
-  // ---------- Destello de luz del hero ----------
-  // Reproduce el fogonazo del video de referencia —núcleo brillante, halo y
-  // destellos horizontales— pero dibujado, y en el rojo de marca en vez del
-  // azul original. Se usa composición aditiva ('lighter'), que es como se
-  // comporta la luz real: los brillos se suman en lugar de taparse.
-  lightBurst(canvas) {
-    const CX = 0.5, CY = 0.46;          // posición del núcleo, en fracción
-    let ctx, w, h, alive = true, t0 = null;
+  // ---------- Fondo del hero ----------
+  // Reemplaza al video pedido: circuitos rojos que se encienden, señales
+  // recorriéndolos, nodos que se activan y un destello horizontal.
+  //
+  // Todo es función de la fase del ciclo de 10s, y cada oscilación usa un
+  // múltiplo entero de esa frecuencia. Así el estado en t=0 y en t=10s es
+  // idéntico y el bucle no tiene corte, que es lo difícil de lograr con un
+  // archivo de video.
+  //
+  // El tercio izquierdo se mantiene apagado a propósito: es donde va el
+  // titular y necesita contraste para el texto blanco.
+  heroFondo(canvas) {
+    const CICLO = 10000;          // duración del bucle, en ms
+    const ZONA_TEXTO = 0.38;      // fracción izquierda que se mantiene limpia
+    const FOCO_X = 0.62;          // núcleo del destello, centro-derecha
+    const FOCO_Y = 0.46;
+    const ROJO = '231,25,23';
 
-    const build = () => { const f = this.fitCanvas(canvas); ctx = f.ctx; w = f.w; h = f.h; paint(0); };
+    let ctx, w, h, capa = null, trazos = [], nodos = [], alive = true, t0 = null;
 
-    const paint = (t) => {
+    // Genera la red de circuitos: recorridos horizontales con quiebres a 45
+    // grados, como el motivo de placa de la marca.
+    const generar = () => {
+      trazos = []; nodos = [];
+      const filas = Math.max(5, Math.min(14, Math.round(h / 68)));
+      for (let i = 0; i < filas; i++) {
+        const y0 = h * ((i + 0.5) / filas + (Math.random() - 0.5) * 0.05);
+        const pts = [];
+        let x = -w * 0.05, y = y0;
+        pts.push({ x: x, y: y });
+        while (x < w * 1.05) {
+          const corrida = w * (0.06 + Math.random() * 0.16);
+          x += corrida;
+          pts.push({ x: x, y: y });
+          if (Math.random() < 0.55 && x < w) {
+            const salto = h * (0.03 + Math.random() * 0.05) * (Math.random() < 0.5 ? -1 : 1);
+            x += Math.abs(salto);
+            y = Math.max(h * 0.04, Math.min(h * 0.96, y + salto));
+            pts.push({ x: x, y: y });
+            nodos.push({ x: x, y: y, fase: Math.random(), k: 1 + Math.floor(Math.random() * 3) });
+          }
+        }
+        // Longitud acumulada, para poder ubicar la señal sobre el recorrido.
+        let largo = 0;
+        for (let k = 1; k < pts.length; k++) {
+          largo += Math.hypot(pts[k].x - pts[k - 1].x, pts[k].y - pts[k - 1].y);
+        }
+        trazos.push({ pts: pts, largo: largo, fase: Math.random(), vel: 1 + Math.floor(Math.random() * 2) });
+      }
+    };
+
+    // Atenuación por zona: apagado a la izquierda, pleno del centro a la derecha.
+    const atenua = (x) => {
+      const f = x / w;
+      if (f >= ZONA_TEXTO + 0.12) return 1;
+      if (f <= ZONA_TEXTO * 0.4) return 0.12;
+      return 0.12 + 0.88 * ((f - ZONA_TEXTO * 0.4) / (ZONA_TEXTO + 0.12 - ZONA_TEXTO * 0.4));
+    };
+
+    // Los trazos se dibujan una sola vez en una capa aparte y luego se
+    // componen: repintarlos en cada cuadro sería el grueso del costo.
+    const armarCapa = () => {
+      capa = document.createElement('canvas');
+      capa.width = canvas.width; capa.height = canvas.height;
+      const c2 = capa.getContext('2d');
+      c2.setTransform(canvas.width / w, 0, 0, canvas.height / h, 0, 0);
+      c2.lineWidth = 1;
+      c2.lineCap = 'round';
+      trazos.forEach((tr) => {
+        for (let k = 1; k < tr.pts.length; k++) {
+          const a = tr.pts[k - 1], b = tr.pts[k];
+          c2.strokeStyle = 'rgba(' + ROJO + ',' + (0.30 * atenua((a.x + b.x) / 2)) + ')';
+          c2.beginPath(); c2.moveTo(a.x, a.y); c2.lineTo(b.x, b.y); c2.stroke();
+        }
+      });
+      nodos.forEach((n) => {
+        c2.fillStyle = 'rgba(' + ROJO + ',' + (0.5 * atenua(n.x)) + ')';
+        c2.beginPath(); c2.arc(n.x, n.y, 1.6, 0, Math.PI * 2); c2.fill();
+      });
+    };
+
+    const build = () => {
+      const f = this.fitCanvas(canvas); ctx = f.ctx; w = f.w; h = f.h;
+      generar(); armarCapa(); pintar(0);
+    };
+
+    // Devuelve el punto a una distancia dada sobre el recorrido del trazo.
+    const puntoEn = (tr, d) => {
+      let acc = 0;
+      for (let k = 1; k < tr.pts.length; k++) {
+        const a = tr.pts[k - 1], b = tr.pts[k];
+        const seg = Math.hypot(b.x - a.x, b.y - a.y);
+        if (acc + seg >= d) {
+          const u = seg ? (d - acc) / seg : 0;
+          return { x: a.x + (b.x - a.x) * u, y: a.y + (b.y - a.y) * u };
+        }
+        acc += seg;
+      }
+      return tr.pts[tr.pts.length - 1];
+    };
+
+    const pintar = (ms) => {
       if (!ctx) return;
-      // La respiración combina dos ondas de periodo distinto para que el
-      // pulso no se sienta mecánicamente repetitivo.
-      const pulso = 0.82 + 0.12 * Math.sin(t / 2600) + 0.06 * Math.sin(t / 1100);
-      const cx = w * CX, cy = h * CY;
-      const R = Math.max(w, h) * 0.42 * pulso;
+      const u = (ms % CICLO) / CICLO;            // fase del ciclo, 0 a 1
+      const dosPi = Math.PI * 2;
 
       ctx.clearRect(0, 0, w, h);
+
+      // Fondo: negro con veladuras de carbón que respiran muy lento.
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, w, h);
       ctx.globalCompositeOperation = 'lighter';
+      const prof = ctx.createRadialGradient(w * 0.7, h * 0.5, 0, w * 0.7, h * 0.5, w * 0.7);
+      const respira = 0.5 + 0.5 * Math.sin(dosPi * u);
+      prof.addColorStop(0, 'rgba(29,30,30,' + (0.55 + 0.25 * respira) + ')');
+      prof.addColorStop(1, 'rgba(29,30,30,0)');
+      ctx.fillStyle = prof; ctx.fillRect(0, 0, w, h);
 
-      // Halo: del blanco del núcleo al rojo de marca, hasta desvanecerse.
-      const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, R);
-      halo.addColorStop(0.00, 'rgba(255,255,255,' + (0.95 * pulso) + ')');
-      halo.addColorStop(0.04, 'rgba(255,236,232,' + (0.72 * pulso) + ')');
-      halo.addColorStop(0.12, 'rgba(255,120,110,' + (0.42 * pulso) + ')');
-      halo.addColorStop(0.30, 'rgba(231,25,23,' + (0.20 * pulso) + ')');
-      halo.addColorStop(0.62, 'rgba(231,25,23,' + (0.06 * pulso) + ')');
-      halo.addColorStop(1.00, 'rgba(231,25,23,0)');
-      ctx.fillStyle = halo;
-      ctx.fillRect(0, 0, w, h);
+      // Circuitos: suben de intensidad en la primera mitad del ciclo.
+      const vidaCircuito = 0.45 + 0.55 * (0.5 - 0.5 * Math.cos(dosPi * u));
+      ctx.globalAlpha = vidaCircuito;
+      if (capa) ctx.drawImage(capa, 0, 0, w, h);
+      ctx.globalAlpha = 1;
 
-      // Destello horizontal: la banda de luz que cruza el encuadre.
-      const anchoBanda = Math.max(6, h * 0.012 * pulso);
-      const banda = ctx.createLinearGradient(0, 0, w, 0);
-      banda.addColorStop(0.00, 'rgba(231,25,23,0)');
-      banda.addColorStop(0.30, 'rgba(231,25,23,' + (0.16 * pulso) + ')');
-      banda.addColorStop(0.50, 'rgba(255,190,185,' + (0.55 * pulso) + ')');
-      banda.addColorStop(0.70, 'rgba(231,25,23,' + (0.16 * pulso) + ')');
-      banda.addColorStop(1.00, 'rgba(231,25,23,0)');
-      ctx.fillStyle = banda;
-      ctx.fillRect(0, cy - anchoBanda / 2, w, anchoBanda);
+      // Señales recorriendo los trazos.
+      trazos.forEach((tr) => {
+        const d = ((u * tr.vel + tr.fase) % 1) * tr.largo;
+        const p = puntoEn(tr, d);
+        const at = atenua(p.x);
+        if (at < 0.2) return;
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 26);
+        g.addColorStop(0, 'rgba(255,190,185,' + (0.5 * at) + ')');
+        g.addColorStop(0.35, 'rgba(' + ROJO + ',' + (0.3 * at) + ')');
+        g.addColorStop(1, 'rgba(' + ROJO + ',0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(p.x - 26, p.y - 26, 52, 52);
+      });
 
-      // Núcleo compacto, encima de todo.
-      const nucleo = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(w, h) * 0.045 * pulso);
-      nucleo.addColorStop(0, 'rgba(255,255,255,' + (0.98 * pulso) + ')');
-      nucleo.addColorStop(0.5, 'rgba(255,200,195,' + (0.5 * pulso) + ')');
-      nucleo.addColorStop(1, 'rgba(231,25,23,0)');
-      ctx.fillStyle = nucleo;
-      ctx.fillRect(0, 0, w, h);
+      // Nodos que se activan y se apagan.
+      nodos.forEach((n) => {
+        const brillo = Math.pow(0.5 + 0.5 * Math.sin(dosPi * (u * n.k + n.fase)), 3);
+        const at = atenua(n.x);
+        if (brillo * at < 0.05) return;
+        const g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 9);
+        g.addColorStop(0, 'rgba(255,210,205,' + (0.75 * brillo * at) + ')');
+        g.addColorStop(1, 'rgba(' + ROJO + ',0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(n.x - 9, n.y - 9, 18, 18);
+      });
+
+      // Destello: nace hacia el segundo 3, culmina en el 5 y baja hacia el 8.
+      // sin(pi*u) vale cero en los dos extremos del ciclo, así que el
+      // destello aparece y se apaga sin salto en el empalme.
+      const env = Math.pow(Math.sin(Math.PI * u), 3.5);
+      if (env > 0.004) {
+        const cx = w * FOCO_X, cy = h * FOCO_Y;
+
+        const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(w, h) * 0.42);
+        halo.addColorStop(0.00, 'rgba(255,255,255,' + (0.9 * env) + ')');
+        halo.addColorStop(0.05, 'rgba(255,232,228,' + (0.6 * env) + ')');
+        halo.addColorStop(0.16, 'rgba(255,110,100,' + (0.3 * env) + ')');
+        halo.addColorStop(0.42, 'rgba(' + ROJO + ',' + (0.13 * env) + ')');
+        halo.addColorStop(1.00, 'rgba(' + ROJO + ',0)');
+        ctx.fillStyle = halo; ctx.fillRect(0, 0, w, h);
+
+        // Banda horizontal: larga, fina y atenuada sobre la zona del texto.
+        const grosor = Math.max(3, h * 0.008 * (0.6 + env));
+        const banda = ctx.createLinearGradient(0, 0, w, 0);
+        banda.addColorStop(0.00, 'rgba(' + ROJO + ',0)');
+        banda.addColorStop(ZONA_TEXTO * 0.7, 'rgba(' + ROJO + ',' + (0.05 * env) + ')');
+        banda.addColorStop(FOCO_X - 0.16, 'rgba(' + ROJO + ',' + (0.22 * env) + ')');
+        banda.addColorStop(FOCO_X, 'rgba(255,235,232,' + (0.62 * env) + ')');
+        banda.addColorStop(Math.min(0.98, FOCO_X + 0.18), 'rgba(' + ROJO + ',' + (0.2 * env) + ')');
+        banda.addColorStop(1.00, 'rgba(' + ROJO + ',0)');
+        ctx.fillStyle = banda;
+        ctx.fillRect(0, cy - grosor / 2, w, grosor);
+
+        // Núcleo, breve y compacto.
+        const nucleo = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(w, h) * 0.035);
+        nucleo.addColorStop(0, 'rgba(255,255,255,' + (0.95 * env) + ')');
+        nucleo.addColorStop(0.45, 'rgba(255,205,200,' + (0.45 * env) + ')');
+        nucleo.addColorStop(1, 'rgba(' + ROJO + ',0)');
+        ctx.fillStyle = nucleo; ctx.fillRect(0, 0, w, h);
+      }
 
       ctx.globalCompositeOperation = 'source-over';
     };
@@ -1078,12 +1207,13 @@ class Component extends DCLogic {
     const tick = (t) => {
       if (!alive) return;
       if (t0 === null) t0 = t;
-      paint(t - t0);
+      pintar(t - t0);
       requestAnimationFrame(tick);
     };
 
     build();
-    // Con movimiento reducido queda el destello fijo, sin pulso.
+    // Expone el pintado para poder comprobar el empalme del bucle.
+    canvas.__pintar = pintar;
     if (!this._reduced) requestAnimationFrame(tick);
     this.onResize(build);
     this._cleanups.push(() => { alive = false; });

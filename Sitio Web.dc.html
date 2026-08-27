@@ -215,6 +215,38 @@
   .om-hero-txt { max-width: min(640px, 52%); }
   @media (max-width: 900px) { .om-hero-txt { max-width: 100%; } }
 
+  /* En un teléfono los enlaces del pie medían 20px de alto, muy por debajo
+     de lo que se puede tocar con el dedo sin errarle. Se les da altura y
+     área propia sin cambiar cómo se ven. */
+  @media (hover: none), (max-width: 900px) {
+    footer nav a, footer a[href^="tel"], footer a[href^="mailto"],
+    footer a[href^="#/"], footer a[href^="https://wa.me"] {
+      min-height: 44px; display: flex !important; align-items: center;
+    }
+    .om-enlace-tactil { min-height: 44px; display: inline-flex !important; align-items: center; }
+  }
+
+  /* Con poca altura, la columna de imagen del menú roba el ancho que la
+     navegación necesita y obliga a desplazar. En apaisado se oculta. */
+  @media (max-height: 560px) {
+    .om-menu { grid-template-columns: 1fr !important; }
+    .om-menu [data-menu-art] { display: none !important; }
+  }
+  /* Y si además hay ancho, el contenido del panel se reparte en dos
+     columnas: apilado obliga a desplazar para llegar al contacto. */
+  @media (max-height: 560px) and (min-width: 620px) {
+    .om-menu > :first-child {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr;
+      align-content: start;
+      column-gap: clamp(24px, 5vw, 64px);
+    }
+    .om-menu > :first-child > :first-child { grid-column: 1 / -1; }
+    .om-menu > :first-child > :last-child { margin-top: 0 !important; }
+    .om-menu > :first-child { padding-top: 16px !important; padding-bottom: 16px !important; row-gap: 14px !important; }
+    .om-menu nav a { padding-top: 7px !important; padding-bottom: 7px !important; }
+  }
+
   /* En pantallas angostas la columna de imagen del menú no entra: se oculta
      y la navegación pasa a ocupar todo el ancho. */
   @media (max-width: 820px) {
@@ -487,7 +519,7 @@
       <div style="max-width: 720px; margin-bottom: clamp(48px, 6vw, 80px);">
         <h2 data-reveal="" style="font-size: clamp(24px, 4vw, 58px); font-weight: 200; line-height: 1.08; letter-spacing: -0.015em; margin-bottom: 24px;">MARCAS Y <span class="om-glitch" data-text="SERVICIOS" style="color: #E71917;">SERVICIOS</span></h2>
         <p data-reveal="" style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.8; font-weight: 300; color: rgba(29,30,30,.74);">Trabajamos con líderes del mercado para ofrecerte soluciones de la más alta calidad y confianza.</p>
-        <p data-reveal="" style="margin-top: 22px;"><a href="#/zwcad" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #E71917; transition: color .3s ease;" style-hover="color: #1D1E1E;">Conocé ZWCAD 2026 &rarr;</a></p>
+        <p data-reveal="" style="margin-top: 22px;"><a href="#/zwcad" class="om-enlace-tactil" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #E71917; transition: color .3s ease;" style-hover="color: #1D1E1E;">Conocé ZWCAD 2026 &rarr;</a></p>
       </div>
     </div>
 
@@ -821,7 +853,7 @@
       </svg>
     </sc-if>
     <div style="border-top: 1px solid rgba(255,255,255,.1); padding: 16px 0 clamp(24px, 3vw, 30px); text-align: center;">
-      <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: .06em; color: rgba(255,255,255,.6);">Desarrollado por <a href="https://neura.com.py" target="_blank" rel="noopener" style="color: rgba(255,255,255,.75); letter-spacing: .12em; transition: color .3s ease;" style-hover="color: #E71917;">NEURA</a></p>
+      <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: .06em; color: rgba(255,255,255,.6);">Desarrollado por <a href="https://neura.com.py" target="_blank" rel="noopener" class="om-enlace-tactil" style="color: rgba(255,255,255,.75); letter-spacing: .12em; transition: color .3s ease;" style-hover="color: #E71917;">NEURA</a></p>
     </div>
   </footer>
 </div>
@@ -854,6 +886,10 @@ class Component extends DCLogic {
     this._raf = null;
     this._cleanups = [];
     this._reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Marca los equipos donde conviene aligerar el dibujo: pantalla angosta
+    // o entrada táctil sin ratón.
+    this._movil = (window.innerWidth <= 900) ||
+      (window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches);
 
     // ---- scroll (throttled con rAF) ----
     let ticking = false;
@@ -992,7 +1028,11 @@ class Component extends DCLogic {
   // ---------- utilidades de canvas ----------
   fitCanvas(canvas) {
     const r = canvas.getBoundingClientRect();
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    // En teléfonos el lienzo se dibuja a resolución 1:1. Los móviles suelen
+    // reportar 2 o 3 de densidad, y multiplicar por eso cuadruplica o
+    // nonuplica los píxeles a pintar en cada cuadro, con cuatro animaciones
+    // a pantalla completa corriendo a la vez.
+    const dpr = this._movil ? 1 : Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = Math.max(1, Math.floor(r.width * dpr));
     canvas.height = Math.max(1, Math.floor(r.height * dpr));
     const ctx = canvas.getContext('2d');
@@ -1000,9 +1040,25 @@ class Component extends DCLogic {
     return { ctx, w: r.width, h: r.height };
   }
 
+  // Rehacer un lienzo implica regenerar su contenido, y en el caso de la red
+  // eso reubica todos los nodos. En el teléfono, mostrar u ocultar la barra
+  // del navegador al desplazarse cambia la altura y dispara `resize` una y
+  // otra vez: rehacer ahí produce un parpadeo constante mientras se scrollea.
+  // Por eso solo se rehace cuando cambia el ancho, o cuando la altura cambia
+  // mucho de golpe, que es una rotación de pantalla y no la barra.
   onResize(fn) {
-    window.addEventListener('resize', fn);
-    this._cleanups.push(() => window.removeEventListener('resize', fn));
+    let ancho = window.innerWidth;
+    let alto = window.innerHeight;
+    let pendiente = null;
+    const manejar = () => {
+      const w = window.innerWidth, h = window.innerHeight;
+      if (w === ancho && Math.abs(h - alto) < 160) return;
+      ancho = w; alto = h;
+      clearTimeout(pendiente);
+      pendiente = setTimeout(fn, 120);
+    };
+    window.addEventListener('resize', manejar);
+    this._cleanups.push(() => { clearTimeout(pendiente); window.removeEventListener('resize', manejar); });
   }
 
   // ---------- LetterGlitch (React Bits) ----------
@@ -1153,11 +1209,17 @@ class Component extends DCLogic {
 
     };
 
+    // En móvil se dibuja un cuadro sí y otro no, y el grano se deja quieto:
+    // regenerarlo obliga a recorrer la textura entera cada pocos cuadros.
+    let salto = 0;
     const tick = () => {
       if (!alive) return;
-      off += VEL;
-      if (++granoCuadro % 6 === 0) armarGrano();
-      pintar();
+      salto++;
+      if (!this._movil || salto % 2 === 0) {
+        off += VEL * (this._movil ? 2 : 1);
+        if (!this._movil && salto % 6 === 0) armarGrano();
+        pintar();
+      }
       requestAnimationFrame(tick);
     };
 
@@ -1216,7 +1278,10 @@ class Component extends DCLogic {
     const generar = () => {
       // La cantidad se ajusta al área: un número fijo satura en móvil y
       // queda ralo en pantallas anchas.
-      const n = Math.max(26, Math.min(70, Math.round((w * h) / DENSIDAD)));
+      // Menos nodos en móvil: el costo crece con el cuadrado, porque cada nodo
+      // se compara con todos los demás para armar sus conexiones.
+      const tope = this._movil ? 26 : 70;
+      const n = Math.max(this._movil ? 12 : 26, Math.min(tope, Math.round((w * h) / DENSIDAD)));
       nodos = [];
       for (let i = 0; i < n; i++) {
         nodos.push({
@@ -1296,9 +1361,13 @@ class Component extends DCLogic {
       ctx.globalCompositeOperation = 'source-over';
     };
 
+    // En móvil se pinta un cuadro sí y otro no. La estela se compensa para
+    // que el rastro dure lo mismo aunque se dibuje la mitad de veces.
+    let salto = 0;
     const tick = () => {
       if (!alive) return;
-      pintar();
+      salto++;
+      if (!this._movil || salto % 2 === 0) pintar();
       requestAnimationFrame(tick);
     };
 

@@ -519,7 +519,18 @@
       <div style="max-width: 720px; margin-bottom: clamp(48px, 6vw, 80px);">
         <h2 data-reveal="" style="font-size: clamp(24px, 4vw, 58px); font-weight: 300; line-height: 1.08; letter-spacing: -0.015em; margin-bottom: 24px;">MARCAS Y <span class="om-glitch" data-text="SERVICIOS" style="color: #E71917;">SERVICIOS</span></h2>
         <p data-reveal="" style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.8; font-weight: 400; color: rgba(29,30,30,.74);">Trabajamos con líderes del mercado para ofrecerte soluciones de la más alta calidad y confianza.</p>
-        <p data-reveal="" style="margin-top: 22px;"><a href="#/zwcad" class="om-enlace-tactil" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #E71917; transition: color .3s ease;" style-hover="color: #1D1E1E;">Conocé ZWCAD 2026 &rarr;</a></p>
+      </div>
+
+      <!-- Partners de software con página propia -->
+      <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: clamp(18px, 2.4vw, 28px); margin-bottom: clamp(52px, 6vw, 84px);">
+        <sc-for list="{{ fichas }}" as="f" hint-placeholder-count="3">
+          <a href="{{ f.ruta }}" class="om-spot" data-spotlight="" style="display: flex; flex-direction: column; border: 1px solid rgba(29,30,30,.14); background: rgba(255,255,255,.7); padding: clamp(24px, 2.8vw, 32px); transition: border-color .3s ease;" style-hover="border-color: rgba(231,25,23,.55);">
+            <img src="./assets/marcas/{{ f.logo }}" alt="{{ f.n }}" width="{{ f.w }}" height="{{ f.h }}" loading="lazy" decoding="async" style="position: relative; z-index: 1; max-height: {{ f.alto }}; width: auto; max-width: 74%; object-fit: contain; object-position: left center; margin-bottom: 22px;" />
+            <p style="position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #E71917; margin-bottom: 12px;">{{ f.rotulo }}</p>
+            <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 400; color: rgba(29,30,30,.78); margin-bottom: 20px;">{{ f.txt }}</p>
+            <span style="position: relative; z-index: 1; margin-top: auto; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #1D1E1E;">Ver detalle &rarr;</span>
+          </a>
+        </sc-for>
       </div>
     </div>
 
@@ -675,7 +686,9 @@
 
       <h1 data-reveal="" style="font-size: clamp(26px, 4.4vw, 58px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; text-wrap: pretty;">Diseño CAD profesional, <span style="color: #E71917;">sin suscripción</span>.</h1>
 
-      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 400; color: rgba(29,30,30,.76); max-width: 680px; margin-bottom: clamp(46px, 6vw, 70px);">ZWCAD es una alternativa completa para dibujo 2D y modelado 3D, compatible con los formatos y flujos de trabajo que ya usás. En Tic&rsquo;s Solutions lo licenciamos, lo implementamos y te acompañamos localmente.</p>
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 400; color: rgba(29,30,30,.76); max-width: 680px; margin-bottom: clamp(34px, 4vw, 48px);">ZWCAD es una potente solución CAD para dibujo 2D y navegación 3D. Totalmente compatible con DWG, permite una colaboración fluida entre distintas industrias, y su interfaz familiar ayuda a diseñar de forma más rápida. En Tic&rsquo;s Solutions lo licenciamos, lo implementamos y te acompañamos localmente.</p>
+
+      <img data-reveal="" src="./assets/zwcad-2026.jpg" alt="ZWCAD 2026 — diseño paramétrico y administrador de parámetros" width="1800" height="809" loading="lazy" decoding="async" style="display: block; width: 100%; height: auto; border: 1px solid rgba(29,30,30,.12); margin-bottom: clamp(46px, 6vw, 70px);" />
 
       <!-- Licencia perpetua frente a suscripción -->
       <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 2.6vw, 32px); margin-bottom: clamp(46px, 6vw, 72px);">
@@ -699,32 +712,45 @@
         </div>
       </div>
 
-      <!-- Qué incluye -->
-      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #E71917; margin-bottom: 26px;">Qué incluye</p>
+      <!-- Por qué elegir ZWCAD -->
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #E71917; margin-bottom: 26px;">Por qué elegir ZWCAD</p>
       <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: clamp(18px, 2.4vw, 30px); margin-bottom: clamp(46px, 6vw, 72px);">
         <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
-          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Compatibilidad</h3>
-          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Trabaja con los formatos y flujos que ya tenés, sin rehacer tus archivos.</p>
+          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Amplia compatibilidad</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Compatible con DWG, DXF y DWT para una colaboración fluida.</p>
         </div>
         <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
-          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Dibujo y anotación</h3>
-          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Pestañas flotantes, multilíneas y estilos, tabla de áreas y comparación de archivos.</p>
+          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Interfaz familiar</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Interfaz clásica y Ribbon, con modos oscuro y claro, para una transición sencilla.</p>
         </div>
         <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
-          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Funciones avanzadas</h3>
-          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Administrador de conjuntos de planos, búsqueda de similares y coincidencia inteligente.</p>
+          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Altamente personalizable</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Compatible con LISP, VBA, ZRX y APIs .NET.</p>
         </div>
         <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
-          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Modelado 3D</h3>
-          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Sólidos, mallas y superficies, con gizmo y órbita 3D.</p>
+          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Migración sencilla</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Transferís tus impresoras, plantillas y personalizaciones sin rehacer el trabajo.</p>
         </div>
+      </div>
+
+      <!-- Novedades de la versión 2026 -->
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #E71917; margin-bottom: 10px;">Qué hay de nuevo en 2026</p>
+      <p data-reveal="" style="font-size: clamp(17px, 1.8vw, 22px); font-weight: 400; color: rgba(29,30,30,.84); max-width: 620px; margin-bottom: 30px;">Nuestra mejor solución CAD, ahora aún más potente.</p>
+      <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: clamp(18px, 2.4vw, 26px); margin-bottom: clamp(46px, 6vw, 72px);">
+        <sc-for list="{{ novedades }}" as="nv" hint-placeholder-count="6">
+          <div style="border: 1px solid rgba(29,30,30,.12); background: rgba(255,255,255,.62); padding: clamp(20px, 2.4vw, 26px);">
+            <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: {{ nv.color }}; margin-bottom: 12px;">{{ nv.etiqueta }}</p>
+            <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">{{ nv.n }}</h3>
+            <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">{{ nv.txt }}</p>
+          </div>
+        </sc-for>
       </div>
 
       <!-- Ediciones -->
       <div data-reveal="" style="border: 1px solid rgba(29,30,30,.14); background: rgba(255,255,255,.62); padding: clamp(24px, 3vw, 34px); margin-bottom: clamp(40px, 5vw, 60px);">
         <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.7); margin-bottom: 14px;">Ediciones disponibles</p>
-        <p style="font-size: clamp(17px, 1.8vw, 21px); font-weight: 400; color: rgba(29,30,30,.84);">Standard &nbsp;&middot;&nbsp; LT &nbsp;&middot;&nbsp; Professional</p>
-        <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72); margin-top: 12px;">Cada edición cubre un alcance distinto. Te ayudamos a elegir la que corresponde según cómo trabaja tu equipo.</p>
+        <p style="font-size: clamp(17px, 1.8vw, 21px); font-weight: 400; color: rgba(29,30,30,.84);">Standard &nbsp;&middot;&nbsp; Professional &nbsp;&middot;&nbsp; Full</p>
+        <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72); margin-top: 12px;">Cada edición cubre un alcance distinto en compatibilidad, dibujo, funciones avanzadas, modelado 3D y programación. Te ayudamos a elegir la que corresponde según cómo trabaja tu equipo.</p>
       </div>
 
       <!-- Llamado a la acción, hacia Tic's y no hacia el fabricante -->
@@ -740,6 +766,168 @@
     </div>
   </section>
   </sc-if>
+  <!-- ================= APLITOP ================= -->
+  <sc-if value="{{ esAplitop }}" hint-placeholder-val="{{ true }}">
+  <section data-screen-label="Aplitop" style="position: relative; padding: clamp(70px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px); background: rgba(255,255,255,.30);">
+    <div style="position: relative; z-index: 2; max-width: 1100px; margin: 0 auto;">
+
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #E71917; margin-bottom: 26px;">[ Partner ] &nbsp;//&nbsp; Topografía e ingeniería civil</p>
+
+      <div data-reveal="" style="display: flex; align-items: center; gap: clamp(16px, 2.4vw, 28px); flex-wrap: wrap; margin-bottom: 22px;">
+        <img src="./assets/marcas/aplitop.png" alt="Aplitop" width="522" height="160" style="height: clamp(26px, 3vw, 36px); width: auto; display: block;" />
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: clamp(20px, 2.6vw, 30px); font-weight: 500; letter-spacing: .04em; color: #1D1E1E;">tcpMDT 26</span>
+      </div>
+
+      <h1 data-reveal="" style="font-size: clamp(26px, 4.4vw, 58px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; text-wrap: pretty;">Del dato de campo al <span style="color: #E71917;">proyecto terminado</span>.</h1>
+
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 400; color: rgba(29,30,30,.76); max-width: 700px; margin-bottom: clamp(34px, 4vw, 48px);">tcpMDT 26 potencia tu CAD con un entorno completo para topografía, ingeniería civil y modelado del terreno. Su diseño modular combina facilidad de uso, precisión y productividad, cubriendo desde el tratamiento de datos de campo hasta el diseño, mediciones, replanteo e intercambio BIM y GIS.</p>
+
+      <img data-reveal="" src="./assets/aplitop-terreno.jpg" alt="Aplitop — modelado digital del terreno" width="1280" height="720" loading="lazy" decoding="async" style="display: block; width: 100%; height: auto; border: 1px solid rgba(29,30,30,.12); margin-bottom: clamp(46px, 6vw, 70px);" />
+
+      <!-- Las dos versiones -->
+      <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 2.6vw, 32px); margin-bottom: clamp(46px, 6vw, 72px);">
+        <div style="border: 1px solid rgba(29,30,30,.14); background: rgba(255,255,255,.7); padding: clamp(26px, 3vw, 36px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.68); margin-bottom: 16px;">Versión Estándar</p>
+          <p style="font-size: clamp(18px, 1.9vw, 22px); font-weight: 400; margin-bottom: 18px;">Modelado del terreno y trabajo topográfico.</p>
+          <p style="font-size: 15px; line-height: 1.75; font-weight: 400; color: rgba(29,30,30,.76); margin-bottom: 16px;">Creá y editá modelos digitales del terreno a partir de puntos, líneas de rotura, archivos CAD, datos GNSS, estaciones totales, TcpGPS y nubes de puntos.</p>
+          <ul style="padding-left: 18px; display: flex; flex-direction: column; gap: 9px; font-size: 15px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.76);">
+            <li>Gestión de puntos, códigos de campo y triangulación.</li>
+            <li>Curvas de nivel, perfiles longitudinales y transversales.</li>
+            <li>Cálculo de volúmenes, visualización 3D y mapas de pendientes.</li>
+            <li>Parcelas e intercambio de datos GIS.</li>
+          </ul>
+        </div>
+        <div class="om-spot" data-spotlight="" style="border: 1px solid rgba(231,25,23,.4); background: rgba(255,255,255,.7); padding: clamp(26px, 3vw, 36px);">
+          <p style="position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #E71917; margin-bottom: 16px;">Versión Profesional</p>
+          <p style="position: relative; z-index: 1; font-size: clamp(18px, 1.9vw, 22px); font-weight: 400; margin-bottom: 18px;">Todo lo anterior, más obra lineal completa.</p>
+          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 400; color: rgba(29,30,30,.76); margin-bottom: 16px;">Pensada para carreteras, urbanizaciones, canteras, plataformas, infraestructuras hidráulicas y obras lineales.</p>
+          <ul style="position: relative; z-index: 1; padding-left: 18px; display: flex; flex-direction: column; gap: 9px; font-size: 15px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.76);">
+            <li>Diseño de ejes en planta y alzado, y secciones tipo.</li>
+            <li>Carreteras y viales, cálculo de taludes y movimientos de tierras.</li>
+            <li>Mediciones y replanteo.</li>
+            <li>Redes de agua, saneamiento y pluviales.</li>
+            <li>Intercambio IFC 4.3 y LandXML para flujos OpenBIM.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Módulos -->
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #E71917; margin-bottom: 26px;">Módulos</p>
+      <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: clamp(18px, 2.4vw, 30px); margin-bottom: clamp(46px, 6vw, 72px);">
+        <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
+          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Topografía</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Sistemas de referencia con cobertura mundial y transformaciones globales o locales. Procesa observaciones de estación total y se integra con TcpGPS para dar continuidad entre campo y oficina.</p>
+        </div>
+        <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
+          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Fotovoltaicas &mdash; tcpMDT PV</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Sobre la versión profesional, optimiza los movimientos de tierras en plantas solares emplazadas en terrenos complejos.</p>
+        </div>
+        <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
+          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Nubes de puntos</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Trabaja con archivos LAS/LAZ para generar superficies, mallas y modelos del terreno, y se complementa con Tcp PointCloud Editor.</p>
+        </div>
+        <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
+          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Asistente con IA</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Incluye asistencia basada en inteligencia artificial y conexión MCP para consultar información y ejecutar instrucciones dentro del flujo de trabajo.</p>
+        </div>
+      </div>
+
+      <img data-reveal="" src="./assets/aplitop-campo.jpg" alt="Levantamiento topográfico en campo" width="1400" height="787" loading="lazy" decoding="async" style="display: block; width: 100%; height: auto; border: 1px solid rgba(29,30,30,.12); margin-bottom: clamp(46px, 6vw, 72px);" />
+
+      <!-- Requisitos -->
+      <div data-reveal="" style="border: 1px solid rgba(29,30,30,.14); background: rgba(255,255,255,.62); padding: clamp(24px, 3vw, 34px); margin-bottom: clamp(40px, 5vw, 60px);">
+        <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.7); margin-bottom: 18px;">Sobre qué CAD funciona</p>
+        <ul style="padding-left: 18px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.78);">
+          <li>ZWCAD Professional / Enterprise 2021 a 2026 (64 bits) &mdash; <a href="#/zwcad" style="color: #E71917;">lo licenciamos nosotros mismos</a>.</li>
+          <li>AutoCAD 2019 a 2027 (64 bits).</li>
+          <li>BricsCAD BIM / Pro / Ultimate 19 a 26.</li>
+          <li>GstarCAD Professional / Plus 2023 a 2027 (64 bits).</li>
+          <li>progeCAD Professional 2025 a 2026.</li>
+        </ul>
+        <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72); margin-top: 18px;">Requiere Windows 10 u 11 de 64 bits, 16 GB de memoria como mínimo y una placa gráfica compatible con OpenGL 3.3 o superior a 1920&times;1080. Esta información es orientativa: confirmá siempre los requisitos vigentes antes de comprar.</p>
+      </div>
+
+      <div data-reveal="" style="border-top: 2px solid #E71917; padding-top: clamp(28px, 3.4vw, 40px); display: flex; flex-wrap: wrap; align-items: center; gap: clamp(18px, 3vw, 36px); justify-content: space-between;">
+        <div>
+          <p style="font-size: clamp(19px, 2.2vw, 26px); font-weight: 400; margin-bottom: 8px;">¿Qué versión necesita tu equipo?</p>
+          <p style="font-size: 15px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.74); max-width: 460px;">Escribinos y revisamos juntos el tipo de proyecto, el CAD que ya usás y los módulos que te hacen falta.</p>
+        </div>
+        <a href="#/contacto" class="om-star" style="color: #fff; height: 54px; padding: 0 32px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Pedir asesoramiento</a>
+      </div>
+
+      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.64);">tcpMDT es un producto de Aplitop S.L. (Málaga, España). Tic&rsquo;s Solutions lo comercializa e implementa en Paraguay; AutoCAD, BricsCAD, GstarCAD y progeCAD son marcas registradas de sus respectivos titulares.</p>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= CADPROFI ================= -->
+  <sc-if value="{{ esCadprofi }}" hint-placeholder-val="{{ true }}">
+  <section data-screen-label="CADprofi" style="position: relative; padding: clamp(70px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px); background: rgba(255,255,255,.30);">
+    <div style="position: relative; z-index: 2; max-width: 1100px; margin: 0 auto;">
+
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #E71917; margin-bottom: 26px;">[ Partner ] &nbsp;//&nbsp; Complemento CAD</p>
+
+      <div data-reveal="" style="margin-bottom: 22px;">
+        <img src="./assets/marcas/cadprofi.png" alt="CADprofi" width="587" height="160" style="height: clamp(30px, 3.4vw, 42px); width: auto; display: block;" />
+      </div>
+
+      <h1 data-reveal="" style="font-size: clamp(26px, 4.4vw, 58px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; text-wrap: pretty;">Dejá de dibujar <span style="color: #E71917;">lo mismo dos veces</span>.</h1>
+
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 400; color: rgba(29,30,30,.76); max-width: 700px; margin-bottom: clamp(46px, 6vw, 70px);">CADprofi es un complemento que se instala sobre el CAD que ya usás y le agrega bibliotecas de símbolos y objetos normalizados, además de comandos específicos para cada especialidad. En lugar de redibujar cada elemento, lo insertás desde la biblioteca y el programa mantiene la coherencia del plano.</p>
+
+      <!-- Módulos -->
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #E71917; margin-bottom: 26px;">Módulos</p>
+      <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: clamp(18px, 2.4vw, 28px); margin-bottom: clamp(46px, 6vw, 72px);">
+        <div style="border: 1px solid rgba(29,30,30,.12); background: rgba(255,255,255,.62); padding: clamp(22px, 2.6vw, 30px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #E71917; margin-bottom: 12px;">Módulo 01</p>
+          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Arquitectura</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Muros, aberturas, escaleras y mobiliario, con la documentación del plano asociada a los elementos que insertás.</p>
+        </div>
+        <div style="border: 1px solid rgba(29,30,30,.12); background: rgba(255,255,255,.62); padding: clamp(22px, 2.6vw, 30px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #E71917; margin-bottom: 12px;">Módulo 02</p>
+          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Electricidad</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Esquemas unifilares y multifilares, canalizaciones, tableros y símbolos normalizados para instalaciones eléctricas.</p>
+        </div>
+        <div style="border: 1px solid rgba(29,30,30,.12); background: rgba(255,255,255,.62); padding: clamp(22px, 2.6vw, 30px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #E71917; margin-bottom: 12px;">Módulo 03</p>
+          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">HVAC &amp; Piping</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Climatización, calefacción y redes de tuberías, con catálogos de fabricantes y accesorios listos para insertar.</p>
+        </div>
+      </div>
+
+      <!-- Por qué conviene -->
+      <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: clamp(18px, 2.4vw, 30px); margin-bottom: clamp(46px, 6vw, 72px);">
+        <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
+          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Se suma a tu CAD</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">No reemplaza tu programa de dibujo: se instala encima y aparece como una barra de herramientas más.</p>
+        </div>
+        <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
+          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Bibliotecas normalizadas</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Miles de símbolos y objetos siguiendo normas del sector, en lugar de bloques sueltos hechos a mano.</p>
+        </div>
+        <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
+          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Planos consistentes</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Capas, cotas y descripciones se generan con el mismo criterio en todo el proyecto y en todo el equipo.</p>
+        </div>
+        <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
+          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Multilingüe</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Las descripciones de los elementos se traducen solas, algo útil cuando el proyecto se comparte fuera del país.</p>
+        </div>
+      </div>
+
+      <div data-reveal="" style="border-top: 2px solid #E71917; padding-top: clamp(28px, 3.4vw, 40px); display: flex; flex-wrap: wrap; align-items: center; gap: clamp(18px, 3vw, 36px); justify-content: space-between;">
+        <div>
+          <p style="font-size: clamp(19px, 2.2vw, 26px); font-weight: 400; margin-bottom: 8px;">¿Qué módulo te sirve?</p>
+          <p style="font-size: 15px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.74); max-width: 460px;">Contanos qué especialidad trabajás y sobre qué CAD, y te decimos qué configuración conviene.</p>
+        </div>
+        <a href="#/contacto" class="om-star" style="color: #fff; height: 54px; padding: 0 32px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Consultar</a>
+      </div>
+
+      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.64);">CADprofi es un producto de CADprofi Sp. z o.o. Tic&rsquo;s Solutions lo comercializa e implementa en Paraguay; las marcas y nombres citados pertenecen a sus respectivos titulares.</p>
+    </div>
+  </section>
+  </sc-if>
+
   <sc-if value="{{ esPrivacidad }}" hint-placeholder-val="{{ true }}">
   <section data-screen-label="Política de privacidad" style="position: relative; padding: clamp(70px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px); background: rgba(255,255,255,.30);">
     <div style="max-width: 820px; margin: 0 auto;">
@@ -866,7 +1054,7 @@ class Component extends DCLogic {
   // depender de reescrituras del servidor y funciona en cualquier hosting
   // estático, incluido abrir el archivo en local.
   static leerRuta() {
-    const VALIDAS = ['/', '/nosotros', '/servicios', '/partners', '/contacto', '/zwcad', '/politicadeprivacidad'];
+    const VALIDAS = ['/', '/nosotros', '/servicios', '/partners', '/contacto', '/zwcad', '/aplitop', '/cadprofi', '/politicadeprivacidad'];
     // La política se pide por URL real (/politicadeprivacidad), no por hash:
     // se mira primero el pathname y se cae al hash para el resto.
     const p = '/' + (window.location.pathname || '').split('/').filter(Boolean).pop();
@@ -1481,8 +1669,42 @@ class Component extends DCLogic {
     const partners = [
       { n: 'Arcserve',  logo: 'arcserve.png',  w: 309, h: 46,  alto: '28px' },
       { n: 'Kaspersky', logo: 'kaspersky.png', w: 395, h: 76,  alto: '30px' },
-      { n: 'ZWCAD',     logo: 'zwcad.png',     w: 281, h: 59,  alto: '30px' },
+      { n: 'ZWCAD',     logo: 'zwcad.png',     w: 561, h: 117, alto: '34px' },
+      { n: 'Aplitop',   logo: 'aplitop.png',   w: 522, h: 160, alto: '32px' },
+      { n: 'CADprofi',  logo: 'cadprofi.png',  w: 587, h: 160, alto: '34px' },
       { n: 'Adobe',     logo: 'adobe.png',     w: 578, h: 140, alto: '34px' }
+    ];
+    // Novedades de ZWCAD 2026, tomadas del material del fabricante.
+    const NUEVO = '#E71917', MEJOR = 'rgba(29,30,30,.6)';
+    const novedades = [
+      { n: 'Diseño paramétrico', etiqueta: 'Nuevo', color: NUEVO,
+        txt: 'Añadí restricciones geométricas y dimensionales a las entidades para ajustar rápidamente tamaño y forma, facilitando los cambios y la reutilización de dibujos.' },
+      { n: 'Caja de herramientas ZWCAD', etiqueta: 'Nuevo', color: NUEVO,
+        txt: 'Accedé a herramientas de capas, cotas y selección en un único panel, con diseños personalizables.' },
+      { n: 'Smart Match', etiqueta: 'Nuevo', color: NUEVO,
+        txt: 'Identificá automáticamente formas idénticas y editalas por lotes para mejorar la eficiencia.' },
+      { n: 'Cota inteligente', etiqueta: 'Nuevo', color: NUEVO,
+        txt: 'Reconoce automáticamente los tipos de objeto y genera las cotas correspondientes, evitando cambiar de comando a cada paso.' },
+      { n: 'Menú de pinzamientos de cota', etiqueta: 'Nuevo', color: NUEVO,
+        txt: 'Hacé clic en los pinzamientos para editar rápidamente cotas y textos por separado desde el menú.' },
+      { n: 'Agregar selección', etiqueta: 'Nuevo', color: NUEVO,
+        txt: 'Creá objetos con los mismos atributos básicos que los existentes para evitar tareas repetitivas.' },
+      { n: 'Búsqueda similar', etiqueta: 'Mejorado', color: MEJOR,
+        txt: 'Reutilizá bloques históricos encontrando los similares, y ahorrá tiempo en cada dibujo.' },
+      { n: 'Smart Plot', etiqueta: 'Mejorado', color: MEJOR,
+        txt: 'Interfaz optimizada y mayor eficiencia en el ploteo.' }
+    ];
+    // Cada partner de software tiene su propia subpágina.
+    const fichas = [
+      { n: 'ZWCAD 2026',  logo: 'zwcad.png',    w: 561, h: 117, alto: '30px', ruta: '#/zwcad',
+        rotulo: 'CAD 2D y 3D',
+        txt: 'Solución CAD completa para dibujo 2D y navegación 3D, con licencia perpetua y compatibilidad total con DWG.' },
+      { n: 'Aplitop tcpMDT 26', logo: 'aplitop.png', w: 522, h: 160, alto: '26px', ruta: '#/aplitop',
+        rotulo: 'Topografía e ingeniería civil',
+        txt: 'Modelado digital del terreno, obra lineal y replanteo sobre tu CAD, con intercambio BIM y GIS.' },
+      { n: 'CADprofi',    logo: 'cadprofi.png', w: 587, h: 160, alto: '28px', ruta: '#/cadprofi',
+        rotulo: 'Instalaciones y bibliotecas',
+        txt: 'Complemento con bibliotecas de símbolos y objetos normalizados para arquitectura, electricidad y HVAC.' }
     ];
     const marcas = [
       { n: 'Dell Technologies',         logo: 'dell.png',      w: 694, h: 89,  alto: '26px' },
@@ -1497,6 +1719,8 @@ class Component extends DCLogic {
       esServicios: s.ruta === '/servicios',
       esPartners: s.ruta === '/partners',
       esZwcad: s.ruta === '/zwcad',
+      esAplitop: s.ruta === '/aplitop',
+      esCadprofi: s.ruta === '/cadprofi',
       esContacto: s.ruta === '/contacto',
       esPrivacidad: s.ruta === '/politicadeprivacidad',
       circuitos: this.props.circuitos !== false,
@@ -1534,7 +1758,9 @@ class Component extends DCLogic {
       closeMenu: () => { document.body.style.overflow = ''; this.setState({ menuOpen: false }); },
       enviarForm: (e) => { e.preventDefault(); this.setState({ enviado: true }); },
       partners: partners,
-      marcas: marcas
+      marcas: marcas,
+      fichas: fichas,
+      novedades: novedades
     };
   }
 }

@@ -1,0 +1,8 @@
+{
+  "name": "tics-solutions",
+  "private": true,
+  "description": "Sitio de Tic's Solutions. El sitio en sí es estático; esto existe solo para que Vercel instale la dependencia de la función de contacto.",
+  "dependencies": {
+    "nodemailer": "^6.9.0"
+  }
+}

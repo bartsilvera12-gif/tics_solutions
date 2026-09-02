@@ -1,2 +1,11 @@
 # Config local de Claude Code: apunta a rutas absolutas de esta máquina
 .claude/
+
+# Credenciales: nunca al repositorio. En producción van en las
+# variables de entorno del proyecto en Vercel.
+.env
+.env.*
+!.env.example
+
+# Dependencias de la función de contacto: las instala Vercel al desplegar
+node_modules/

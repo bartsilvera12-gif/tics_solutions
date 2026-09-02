@@ -805,7 +805,7 @@
               <sc-if value="{{ formVisible }}" hint-placeholder-val="{{ true }}">
                 <form onSubmit="{{ enviarForm }}" style="display: flex; flex-direction: column; gap: 24px;">
                   <!-- Campo trampa: invisible para una persona, tentador para un robot. -->
-                  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0;" />
+                  <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0;" />
                   <label style="display: flex; flex-direction: column; gap: 8px;">
                     <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4F5050;">&gt; nombre</span>
                     <input type="text" name="nombre" required="required" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 500; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
@@ -824,7 +824,7 @@
                   </label>
                   <label style="display: flex; flex-direction: column; gap: 8px;">
                     <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4F5050;">&gt; mensaje</span>
-                    <textarea name="mensaje" rows="3" maxlength="900" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 500; color: #1D1E1E; outline: none; resize: vertical; transition: border-color .3s ease;" style-focus="border-color: #E71917;"></textarea>
+                    <textarea name="mensaje" rows="3" maxlength="5000" required="required" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 500; color: #1D1E1E; outline: none; resize: vertical; transition: border-color .3s ease;" style-focus="border-color: #E71917;"></textarea>
                   </label>
                   <button type="submit" class="om-star" disabled="{{ enviando }}" style="align-self: flex-start; margin-top: 8px; color: #fff; background: transparent; border: none; height: 54px; padding: 0 34px; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">{{ textoBoton }}</button>
                   <sc-if value="{{ hayError }}" hint-placeholder-val="{{ false }}">
@@ -1341,7 +1341,7 @@
 
         <div>
           <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 500; color: #1D1E1E; margin-bottom: 12px;">2. Qué datos recogemos</h2>
-          <p>Solamente los que nos entregás de forma voluntaria. En el formulario de contacto te pedimos nombre, empresa, correo electrónico, teléfono y el mensaje que quieras enviarnos. De esos campos, únicamente el nombre y el correo son obligatorios.</p>
+          <p>Solamente los que nos entregás de forma voluntaria. En el formulario de contacto te pedimos nombre, empresa, correo electrónico, teléfono y el mensaje que quieras enviarnos. De esos campos, son obligatorios el nombre, el correo y el mensaje.</p>
           <p style="margin-top: 12px;">Lo que escribas en ese formulario se nos reenvía por correo a consulta@tics-py.com. No queda guardado en este sitio: llega a nuestra casilla y ahí lo tratamos.</p>
           <p style="margin-top: 12px;">Si preferís escribirnos por correo, teléfono o WhatsApp, los datos que tratamos son los que aparezcan en esa comunicación.</p>
           <p style="margin-top: 12px;">No pedimos ni almacenamos datos sensibles, ni información financiera, ni documentos de identidad a través de este sitio.</p>
@@ -1363,7 +1363,7 @@
           <ul style="margin-top: 14px; padding-left: 20px; display: flex; flex-direction: column; gap: 10px;">
             <li><strong style="font-weight: 500; color: #1D1E1E;">Vercel</strong> aloja el sitio y registra datos técnicos de conexión, como la dirección IP, en sus registros de servidor.</li>
             <li><strong style="font-weight: 500; color: #1D1E1E;">Google Fonts</strong> provee las tipografías. Tu navegador las solicita a servidores de Google, que reciben tu dirección IP al hacerlo.</li>
-            <li><strong style="font-weight: 500; color: #1D1E1E;">FormSubmit</strong> se encarga de reenviarnos por correo lo que escribas en el formulario de contacto. Recibe esos datos para poder entregarlos y no los usa para otra cosa. Si preferís no pasar por ahí, escribinos directo al correo, al teléfono o por WhatsApp.</li>
+            <li><strong style="font-weight: 500; color: #1D1E1E;">Google Workspace</strong> es el servicio de correo de Tic&rsquo;s Solutions, y por ahí pasa lo que envíes desde el formulario para llegar a nuestra casilla.</li>
             <li><strong style="font-weight: 500; color: #1D1E1E;">WhatsApp</strong> interviene únicamente si elegís usar ese enlace para escribirnos, y en ese caso aplica la política de privacidad de esa plataforma.</li>
           </ul>
         </div>
@@ -1449,23 +1449,17 @@
 // ============================================================
 //  Dónde van a parar las consultas del formulario.
 //
-//  El sitio es estático: no hay servidor propio que pueda mandar un correo,
-//  así que la entrega la hace FormSubmit, que reenvía a la casilla de abajo.
-//  No requiere cuenta, pero sí una activación por única vez: el primer
-//  envío dispara un correo de confirmación a esa casilla, y hasta que se
-//  toque el enlace de ese correo las consultas no se reenvían.
+//  El envío lo hace /api/contact, una función de Vercel que corre en el
+//  servidor con Nodemailer sobre el SMTP de Google Workspace. Acá no hay
+//  ninguna credencial: viven en las variables de entorno del proyecto y el
+//  navegador nunca las ve.
 //
-//  Una vez activado, FormSubmit entrega un alias del tipo
-//  https://formsubmit.co/ajax/a1b2c3... que conviene pegar en `url` para
-//  dejar de exponer la dirección real a los rastreadores de spam.
-//
-//  Para mover las consultas a otro servicio (Formspree, Web3Forms) alcanza
-//  con cambiar `url`. Con tipo 'whatsapp' vuelve a abrir el chat en lugar
-//  de enviar por correo.
+//  Si el envío no sale, se le ofrecen al visitante el correo y WhatsApp con
+//  el mensaje ya redactado, para que la consulta no se pierda.
 // ============================================================
 const DESTINO_CONSULTAS = {
   tipo: 'correo',
-  url: 'https://formsubmit.co/ajax/consulta@tics-py.com',
+  url: '/api/contact',
   correo: 'consulta@tics-py.com',
   numero: '595981171372'          // respaldo que se ofrece si el envío falla
 };
@@ -2199,15 +2193,16 @@ class Component extends DCLogic {
           nombre: val('nombre'), empresa: val('empresa'), correo: val('correo'),
           telefono: val('telefono'), mensaje: val('mensaje')
         };
-        if (!datos.nombre || !datos.correo) {
-          this.setState({ errorForm: 'Necesitamos al menos tu nombre y tu correo.' });
+        if (!datos.nombre || !datos.correo || !datos.mensaje) {
+          this.setState({ errorForm: 'Necesitamos tu nombre, tu correo y el mensaje.' });
           return;
         }
 
         // Trampa para robots: es un campo escondido que una persona nunca ve
         // ni completa. Si viene con algo, se descarta sin avisar, para que el
-        // robot no sepa que fue filtrado y no vuelva a probar.
-        if (val('_gotcha')) { this.setState({ enviado: true, errorForm: '' }); return; }
+        // robot no sepa que fue filtrado y no vuelva a probar. El servidor
+        // hace la misma comprobación, que es la que realmente cuenta.
+        if (val('website')) { this.setState({ enviado: true, errorForm: '' }); return; }
 
         // El mismo texto sirve para WhatsApp y para el correo de respaldo.
         const lineas = ['Consulta desde la web', '', 'Nombre: ' + datos.nombre];
@@ -2232,24 +2227,11 @@ class Component extends DCLogic {
         fetch(DESTINO_CONSULTAS.url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({
-            Nombre: datos.nombre,
-            Empresa: datos.empresa || '—',
-            Correo: datos.correo,
-            Teléfono: datos.telefono || '—',
-            Mensaje: datos.mensaje || '—',
-            _subject: 'Consulta desde la web — ' + datos.nombre,
-            _replyto: datos.correo,       // así "responder" le contesta a quien escribió
-            _template: 'table',
-            _captcha: 'false'
-          })
+          body: JSON.stringify(Object.assign({ website: val('website') }, datos))
         })
           .then((r) => r.json().catch(() => ({})).then((j) => ({ ok: r.ok, j })))
           .then(({ ok, j }) => {
-            // No alcanza con el código HTTP: antes de activar la casilla el
-            // servicio responde 200 igual, pero con success en falso.
-            const bien = ok && (j.success === true || j.success === 'true');
-            if (!bien) throw new Error('sin confirmar');
+            if (!ok || !j.success) throw new Error(j.error || 'sin confirmar');
             this.setState({ enviando: false, enviado: true });
           })
           // Si el envío automático no sale, no se pierde lo escrito: se le

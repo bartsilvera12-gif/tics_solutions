@@ -124,6 +124,74 @@
   .om-strip { display: flex; flex-wrap: wrap; width: 100%; }
   .om-strip > * + * { border-left: 1px solid rgba(29,30,30,.07); }
 
+  /* ---------- desplegable de soluciones ----------
+     Se abre por hover y por foco de teclado. Solo existe de 900px para
+     arriba, que es donde la barra de escritorio está visible; en teléfonos
+     las mismas secciones viven dentro del menú hamburguesa. */
+  .om-drop { position: relative; align-self: stretch; display: flex; align-items: center; }
+  .om-drop-flecha { display: inline-block; margin-left: 7px; font-size: 9px; transition: transform .25s ease; }
+  .om-drop:hover .om-drop-flecha, .om-drop:focus-within .om-drop-flecha { transform: rotate(180deg); }
+
+  .om-drop-panel {
+    position: absolute; top: 100%; left: 50%; z-index: 70;
+    transform: translateX(-50%) translateY(8px);
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity .22s ease, transform .22s ease, visibility .22s;
+    display: grid; grid-template-columns: repeat(2, minmax(250px, 1fr));
+    gap: clamp(20px, 2.4vw, 34px);
+    padding: clamp(22px, 2.4vw, 30px);
+    background: #fff; border: 1px solid rgba(29,30,30,.14);
+    box-shadow: 0 20px 54px rgba(29,30,30,.16);
+  }
+  .om-drop:hover .om-drop-panel, .om-drop:focus-within .om-drop-panel {
+    opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(0);
+  }
+  /* El puente cubre el hueco entre el enlace y el panel: sin él, el puntero
+     "sale" del desplegable al bajar y el panel se cierra a mitad de camino. */
+  .om-drop-panel::before { content: ""; position: absolute; left: 0; right: 0; top: -10px; height: 10px; }
+
+  .om-drop-titulo {
+    display: block; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase; color: #BC1310;
+    padding-bottom: 10px; border-bottom: 1px solid rgba(231,25,23,.35); margin-bottom: 6px;
+    transition: color .25s ease;
+  }
+  .om-drop-titulo:hover { color: #1D1E1E; }
+  .om-drop-sub { font-size: 12px; line-height: 1.6; font-weight: 500; color: #4F5050; margin-bottom: 14px; }
+
+  .om-drop-item {
+    display: flex; align-items: center; gap: 13px;
+    padding: 9px 10px; margin: 0 -10px; border-radius: 3px;
+    transition: background-color .22s ease;
+  }
+  .om-drop-item:hover, .om-drop-item:focus-visible { background: #F4F6F9; }
+  .om-drop-item img { height: 21px; width: 74px; object-fit: contain; object-position: left center; flex: 0 0 auto; }
+  /* Ocupa el mismo hueco que un logo, para que la fila no se desalinee. */
+  .om-drop-item .om-marca-texto {
+    width: 74px; flex: 0 0 auto; font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; font-weight: 600; letter-spacing: .02em; color: #1D1E1E;
+  }
+  .om-drop-item span { font-size: 13px; line-height: 1.5; font-weight: 500; color: #353636; }
+
+  /* ---------- soluciones dentro del menú de teléfono ---------- */
+  .om-menu-grupo { padding: clamp(9px, 1.2vw, 13px) 0 4px; border-bottom: 1px solid rgba(29,30,30,.08); }
+  /* 44px es el mínimo cómodo para tocar con el pulgar. */
+  .om-menu-cat {
+    display: flex; align-items: flex-end; min-height: 44px; padding: 12px 0 4px 30px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase; color: #BC1310;
+  }
+  .om-menu-marca {
+    display: flex; align-items: center; gap: 11px; min-height: 44px; padding: 4px 0 4px 16px;
+    border-left: 1px solid rgba(231,25,23,.3); margin-left: 2px;
+    font-size: clamp(15px, 1.7vw, 18px); font-weight: 500; color: #353636;
+  }
+  .om-menu-marca img { height: 17px; width: 62px; object-fit: contain; object-position: left center; flex: 0 0 auto; }
+  .om-menu-marca .om-marca-texto {
+    width: 62px; flex: 0 0 auto; font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; font-weight: 600; color: #1D1E1E;
+  }
+
   /* ---------- volver a partners ----------
      Va en las subpáginas de producto, que se abren desde Partners. Enlaza a esa
      sección en lugar de usar history.back(): si alguien llega por un enlace
@@ -275,6 +343,8 @@
     .om-menu { grid-template-columns: 1fr !important; }
     .om-menu [data-menu-art] { display: none !important; }
   }
+  /* Al quitar Contacto de la barra vuelve a entrar en 900px, que es donde
+     arranca el menú hamburguesa. */
   @media (max-width: 900px) {
     [data-desktop] { display: none !important; }
     [data-mobile] { display: flex !important; }
@@ -328,8 +398,51 @@
           </sc-if>
           <a href="#/nosotros" style="color: {{ colorNosotros }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Nosotros</a>
           <a href="#/servicios" style="color: {{ colorServicios }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Servicios</a>
-          <a href="#/partners" style="color: {{ colorPartners }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Partners</a>
-          <a href="#/contacto" style="color: {{ colorContacto }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Contacto</a>
+          <!-- El enlace sigue funcionando por sí solo: en un equipo táctil de
+               más de 900px, donde no hay hover, tocarlo lleva a Partners. -->
+          <div class="om-drop">
+            <a href="#/partners" style="color: {{ colorSoluciones }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Soluciones<span class="om-drop-flecha" aria-hidden="true">&#9660;</span></a>
+
+            <div class="om-drop-panel">
+              <div>
+                <a href="#/unidad-aec" class="om-drop-titulo">Unidad AEC</a>
+                <p class="om-drop-sub">CAD, topografía, electricidad y diseño de maquinarias.</p>
+                <a href="#/zwcad" class="om-drop-item">
+                  <img src="./assets/marcas/zwcad.png" alt="ZWCAD" width="561" height="117" loading="lazy" decoding="async" />
+                  <span>Dibujo 2D y modelado 3D, con licencia perpetua.</span>
+                </a>
+                <a href="#/aplitop" class="om-drop-item">
+                  <img src="./assets/marcas/aplitop.png" alt="Aplitop" width="522" height="160" loading="lazy" decoding="async" />
+                  <span>Topografía, obra lineal y modelado del terreno.</span>
+                </a>
+                <a href="#/cadprofi" class="om-drop-item">
+                  <img src="./assets/marcas/cadprofi.png" alt="CADprofi" width="587" height="160" loading="lazy" decoding="async" />
+                  <span>Bibliotecas de símbolos para instalaciones.</span>
+                </a>
+                <!-- ZW3D todavía no tiene logo propio: va con marca tipográfica. -->
+                <a href="#/zw3d" class="om-drop-item">
+                  <span class="om-marca-texto" aria-hidden="true">ZW3D</span>
+                  <span>Diseño de maquinaria en 3D, con CAM integrado.</span>
+                </a>
+              </div>
+
+              <div>
+                <a href="#/ciberseguridad" class="om-drop-titulo">Ciberseguridad</a>
+                <p class="om-drop-sub">Respaldo, recuperación y protección de los equipos.</p>
+                <a href="#/ciberseguridad" class="om-drop-item">
+                  <img src="./assets/marcas/arcserve.png" alt="Arcserve" width="309" height="46" loading="lazy" decoding="async" />
+                  <span>Respaldo y recuperación ante desastres.</span>
+                </a>
+                <a href="#/ciberseguridad" class="om-drop-item">
+                  <img src="./assets/marcas/kaspersky.png" alt="Kaspersky" width="395" height="76" loading="lazy" decoding="async" />
+                  <span>Protección de equipos, servidores y correo.</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <a href="#/novedades" style="color: {{ colorNovedades }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Novedades</a>
+          <!-- Sin enlace a Contacto: el botón "Contactanos" que sigue lleva al
+               mismo lugar, y tenerlos a los dos en la barra es repetir. -->
         </nav>
         <a href="#/contacto" class="om-star" style="color: #fff; padding: 0 clamp(18px, 2vw, 26px); height: 44px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Contactanos</a>
       </div>
@@ -352,8 +465,23 @@
           <a href="#/" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; border-bottom: 1px solid rgba(29,30,30,.08); color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 400; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #BC1310; flex: 0 0 auto;">01</span>Inicio</a>
           <a href="#/nosotros" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; border-bottom: 1px solid rgba(29,30,30,.08); color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 400; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #BC1310; flex: 0 0 auto;">02</span>Nosotros</a>
           <a href="#/servicios" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; border-bottom: 1px solid rgba(29,30,30,.08); color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 400; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #BC1310; flex: 0 0 auto;">03</span>Servicios</a>
-          <a href="#/partners" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; border-bottom: 1px solid rgba(29,30,30,.08); color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 400; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #BC1310; flex: 0 0 auto;">04</span>Partners</a>
-          <a href="#/contacto" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 400; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #BC1310; flex: 0 0 auto;">05</span>Contacto</a>
+          <!-- En el teléfono no hay hover, así que las soluciones van
+               desplegadas: son cinco marcas y entran sin plegarse. -->
+          <div class="om-menu-grupo">
+            <a href="#/partners" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: 0 0 6px; min-height: 44px; color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 400; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #BC1310; flex: 0 0 auto;">04</span>Soluciones</a>
+
+            <a href="#/unidad-aec" onClick="{{ closeMenu }}" class="om-menu-cat">Unidad AEC</a>
+            <a href="#/zwcad" onClick="{{ closeMenu }}" class="om-menu-marca" style="margin-left: 30px;"><img src="./assets/marcas/zwcad.png" alt="" aria-hidden="true" loading="lazy" />ZWCAD</a>
+            <a href="#/aplitop" onClick="{{ closeMenu }}" class="om-menu-marca" style="margin-left: 30px;"><img src="./assets/marcas/aplitop.png" alt="" aria-hidden="true" loading="lazy" />Aplitop</a>
+            <a href="#/cadprofi" onClick="{{ closeMenu }}" class="om-menu-marca" style="margin-left: 30px;"><img src="./assets/marcas/cadprofi.png" alt="" aria-hidden="true" loading="lazy" />CADprofi</a>
+            <a href="#/zw3d" onClick="{{ closeMenu }}" class="om-menu-marca" style="margin-left: 30px;"><span class="om-marca-texto">ZW3D</span></a>
+
+            <a href="#/ciberseguridad" onClick="{{ closeMenu }}" class="om-menu-cat">Ciberseguridad</a>
+            <a href="#/ciberseguridad" onClick="{{ closeMenu }}" class="om-menu-marca" style="margin-left: 30px;"><img src="./assets/marcas/arcserve.png" alt="" aria-hidden="true" loading="lazy" />Arcserve</a>
+            <a href="#/ciberseguridad" onClick="{{ closeMenu }}" class="om-menu-marca" style="margin-left: 30px; margin-bottom: 8px;"><img src="./assets/marcas/kaspersky.png" alt="" aria-hidden="true" loading="lazy" />Kaspersky</a>
+          </div>
+          <a href="#/novedades" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; border-bottom: 1px solid rgba(29,30,30,.08); color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 400; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #BC1310; flex: 0 0 auto;">05</span>Novedades</a>
+          <a href="#/contacto" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 400; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #BC1310; flex: 0 0 auto;">06</span>Contacto</a>
         </nav>
 
         <div style="display: flex; flex-direction: column; gap: clamp(20px, 2.4vw, 30px); margin-top: auto;">
@@ -543,17 +671,33 @@
         <p data-reveal="" style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.8; font-weight: 500; color: #3B3C3C;">Trabajamos con líderes del mercado para ofrecerte soluciones de la más alta calidad y confianza.</p>
       </div>
 
-      <!-- Partners de software con página propia -->
-      <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: clamp(18px, 2.4vw, 28px); margin-bottom: clamp(52px, 6vw, 84px);">
-        <sc-for list="{{ fichas }}" as="f" hint-placeholder-count="3">
-          <a href="{{ f.ruta }}" class="om-spot" data-spotlight="" style="display: flex; flex-direction: column; border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(24px, 2.8vw, 32px); transition: border-color .3s ease;" style-hover="border-color: rgba(231,25,23,.55);">
-            <img src="./assets/marcas/{{ f.logo }}" alt="{{ f.n }}" width="{{ f.w }}" height="{{ f.h }}" loading="lazy" decoding="async" style="position: relative; z-index: 1; max-height: {{ f.alto }}; width: auto; max-width: 74%; object-fit: contain; object-position: left center; margin-bottom: 22px;" />
-            <p style="position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">{{ f.rotulo }}</p>
-            <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 500; color: #353636; margin-bottom: 20px;">{{ f.txt }}</p>
-            <span style="position: relative; z-index: 1; margin-top: auto; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #1D1E1E;">Ver detalle &rarr;</span>
-          </a>
-        </sc-for>
+      <!-- Las dos unidades, con las mismas marcas que muestra el desplegable -->
+      <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: clamp(20px, 2.6vw, 32px); margin-bottom: clamp(52px, 6vw, 84px);">
+        <a href="#/unidad-aec" class="om-spot" data-spotlight="" style="display: flex; flex-direction: column; border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(26px, 3vw, 36px); transition: border-color .3s ease;" style-hover="border-color: rgba(231,25,23,.55);">
+          <p style="position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #BC1310; margin-bottom: 14px;">Unidad AEC</p>
+          <p style="position: relative; z-index: 1; font-size: clamp(19px, 2vw, 24px); font-weight: 500; margin-bottom: 14px;">CAD, topografía, electricidad y diseño de maquinarias.</p>
+          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 500; color: #3B3C3C; margin-bottom: 26px;">El software técnico con el que trabajan estudios, constructoras y empresas de topografía.</p>
+          <div style="position: relative; z-index: 1; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; margin-bottom: 26px;">
+            <img src="./assets/marcas/zwcad.png" alt="ZWCAD" width="561" height="117" loading="lazy" decoding="async" style="height: 24px; width: auto;" />
+            <img src="./assets/marcas/aplitop.png" alt="Aplitop" width="522" height="160" loading="lazy" decoding="async" style="height: 21px; width: auto;" />
+            <img src="./assets/marcas/cadprofi.png" alt="CADprofi" width="587" height="160" loading="lazy" decoding="async" style="height: 23px; width: auto;" />
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 17px; font-weight: 600; color: #1D1E1E;">ZW3D</span>
+          </div>
+          <span style="position: relative; z-index: 1; margin-top: auto; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #1D1E1E;">Ver la unidad &rarr;</span>
+        </a>
+
+        <a href="#/ciberseguridad" class="om-spot" data-spotlight="" style="display: flex; flex-direction: column; border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(26px, 3vw, 36px); transition: border-color .3s ease;" style-hover="border-color: rgba(231,25,23,.55);">
+          <p style="position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #BC1310; margin-bottom: 14px;">Ciberseguridad</p>
+          <p style="position: relative; z-index: 1; font-size: clamp(19px, 2vw, 24px); font-weight: 500; margin-bottom: 14px;">Respaldo, recuperación y protección de los equipos.</p>
+          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 500; color: #3B3C3C; margin-bottom: 26px;">Evitar que la amenaza entre, y poder volver a trabajar rápido si algo pasa igual.</p>
+          <div style="position: relative; z-index: 1; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; margin-bottom: 26px;">
+            <img src="./assets/marcas/arcserve.png" alt="Arcserve" width="309" height="46" loading="lazy" decoding="async" style="height: 20px; width: auto;" />
+            <img src="./assets/marcas/kaspersky.png" alt="Kaspersky" width="395" height="76" loading="lazy" decoding="async" style="height: 22px; width: auto;" />
+          </div>
+          <span style="position: relative; z-index: 1; margin-top: auto; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #1D1E1E;">Ver la unidad &rarr;</span>
+        </a>
       </div>
+
     </div>
 
     <!-- Cintas estáticas de partners y marcas -->
@@ -792,6 +936,96 @@
     </div>
   </section>
   </sc-if>
+  <!-- ================= UNIDAD AEC ================= -->
+  <sc-if value="{{ esUnidadAec }}" hint-placeholder-val="{{ true }}">
+  <section data-screen-label="Unidad AEC" style="position: relative; padding: clamp(70px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px); background: rgba(255,255,255,.55);">
+    <div style="position: relative; z-index: 2; max-width: 1100px; margin: 0 auto;">
+
+      <a href="#/partners" class="om-volver om-enlace-tactil" style="margin-bottom: clamp(26px, 3vw, 34px);"><span aria-hidden="true" style="font-size: 15px; line-height: 1;">&larr;</span>Volver</a>
+
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 26px;">[ Unidad ] &nbsp;//&nbsp; AEC</p>
+
+      <h1 data-reveal="" style="font-size: clamp(26px, 4.4vw, 58px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; text-wrap: pretty;">CAD, topografía, electricidad y <span style="color: #E71917;">diseño de maquinarias</span>.</h1>
+
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 500; color: #3B3C3C; max-width: 700px; margin-bottom: clamp(46px, 6vw, 70px);">Licenciamos, implementamos y damos soporte local al software técnico con el que trabajan los estudios de arquitectura, las constructoras y las empresas de topografía e ingeniería. Cada marca cubre una parte del flujo, y se complementan entre sí sobre el mismo dibujo.</p>
+
+      <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: clamp(18px, 2.4vw, 28px); margin-bottom: clamp(46px, 6vw, 72px);">
+        <a href="#/zwcad" class="om-spot" data-spotlight="" style="display: flex; flex-direction: column; border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(24px, 2.8vw, 32px); transition: border-color .3s ease;" style-hover="border-color: rgba(231,25,23,.55);">
+          <img src="./assets/marcas/zwcad.png" alt="ZWCAD" width="561" height="117" loading="lazy" decoding="async" style="position: relative; z-index: 1; max-height: 30px; width: auto; max-width: 74%; object-fit: contain; object-position: left center; margin-bottom: 22px;" />
+          <p style="position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">CAD 2D y 3D</p>
+          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 500; color: #3B3C3C; margin-bottom: 20px;">La base del dibujo: 2D y navegación 3D, compatible con DWG y con licencia perpetua.</p>
+          <span style="position: relative; z-index: 1; margin-top: auto; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #1D1E1E;">Ver detalle &rarr;</span>
+        </a>
+        <a href="#/aplitop" class="om-spot" data-spotlight="" style="display: flex; flex-direction: column; border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(24px, 2.8vw, 32px); transition: border-color .3s ease;" style-hover="border-color: rgba(231,25,23,.55);">
+          <img src="./assets/marcas/aplitop.png" alt="Aplitop" width="522" height="160" loading="lazy" decoding="async" style="position: relative; z-index: 1; max-height: 26px; width: auto; max-width: 74%; object-fit: contain; object-position: left center; margin-bottom: 22px;" />
+          <p style="position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">Topografía e ingeniería civil</p>
+          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 500; color: #3B3C3C; margin-bottom: 20px;">Modelado del terreno, obra lineal y replanteo. Corre sobre ZWCAD Professional, entre otros CAD.</p>
+          <span style="position: relative; z-index: 1; margin-top: auto; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #1D1E1E;">Ver detalle &rarr;</span>
+        </a>
+        <a href="#/cadprofi" class="om-spot" data-spotlight="" style="display: flex; flex-direction: column; border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(24px, 2.8vw, 32px); transition: border-color .3s ease;" style-hover="border-color: rgba(231,25,23,.55);">
+          <img src="./assets/marcas/cadprofi.png" alt="CADprofi" width="587" height="160" loading="lazy" decoding="async" style="position: relative; z-index: 1; max-height: 28px; width: auto; max-width: 74%; object-fit: contain; object-position: left center; margin-bottom: 22px;" />
+          <p style="position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">Instalaciones y bibliotecas</p>
+          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 500; color: #3B3C3C; margin-bottom: 20px;">Símbolos y objetos normalizados para arquitectura, electricidad y climatización.</p>
+          <span style="position: relative; z-index: 1; margin-top: auto; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #1D1E1E;">Ver detalle &rarr;</span>
+        </a>
+        <a href="#/zw3d" class="om-spot" data-spotlight="" style="display: flex; flex-direction: column; border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(24px, 2.8vw, 32px); transition: border-color .3s ease;" style-hover="border-color: rgba(231,25,23,.55);">
+          <span style="position: relative; z-index: 1; display: block; height: 28px; margin-bottom: 22px; font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 600; letter-spacing: .01em; color: #1D1E1E;">ZW3D</span>
+          <p style="position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">Diseño de maquinarias</p>
+          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 500; color: #3B3C3C; margin-bottom: 20px;">CAD 3D con simulación y mecanizado integrados, del concepto a la manufactura.</p>
+          <span style="position: relative; z-index: 1; margin-top: auto; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #1D1E1E;">Ver detalle &rarr;</span>
+        </a>
+      </div>
+
+      <div data-reveal="" style="border-top: 2px solid #E71917; padding-top: clamp(28px, 3.4vw, 40px); display: flex; flex-wrap: wrap; align-items: center; gap: clamp(18px, 3vw, 36px); justify-content: space-between;">
+        <div>
+          <p style="font-size: clamp(19px, 2.2vw, 26px); font-weight: 500; margin-bottom: 8px;">¿No sabés por dónde empezar?</p>
+          <p style="font-size: 15px; line-height: 1.7; font-weight: 500; color: #3B3C3C; max-width: 460px;">Contanos qué tipo de proyecto trabajás y armamos la combinación de licencias que te sirve.</p>
+        </div>
+        <a href="#/contacto" class="om-star" style="color: #fff; height: 54px; padding: 0 32px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Pedir asesoramiento</a>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= CIBERSEGURIDAD ================= -->
+  <sc-if value="{{ esCiberseguridad }}" hint-placeholder-val="{{ true }}">
+  <section data-screen-label="Ciberseguridad" style="position: relative; padding: clamp(70px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px); background: rgba(255,255,255,.55);">
+    <div style="position: relative; z-index: 2; max-width: 1100px; margin: 0 auto;">
+
+      <a href="#/partners" class="om-volver om-enlace-tactil" style="margin-bottom: clamp(26px, 3vw, 34px);"><span aria-hidden="true" style="font-size: 15px; line-height: 1;">&larr;</span>Volver</a>
+
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 26px;">[ Unidad ] &nbsp;//&nbsp; Ciberseguridad</p>
+
+      <h1 data-reveal="" style="font-size: clamp(26px, 4.4vw, 58px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; text-wrap: pretty;">Que un incidente no te <span style="color: #E71917;">frene la operación</span>.</h1>
+
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 500; color: #3B3C3C; max-width: 700px; margin-bottom: clamp(46px, 6vw, 70px);">Trabajamos sobre dos frentes que se complementan: evitar que la amenaza entre, y poder volver a trabajar rápido si algo pasa igual. Licenciamos, implementamos y acompañamos localmente las dos partes.</p>
+
+      <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 2.6vw, 32px); margin-bottom: clamp(46px, 6vw, 72px);">
+        <div class="om-spot" data-spotlight="" style="border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(26px, 3vw, 36px);">
+          <img src="./assets/marcas/arcserve.png" alt="Arcserve" width="309" height="46" loading="lazy" decoding="async" style="position: relative; z-index: 1; max-height: 26px; width: auto; max-width: 70%; object-fit: contain; object-position: left center; margin-bottom: 22px;" />
+          <p style="position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #BC1310; margin-bottom: 14px;">Respaldo y recuperación</p>
+          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 500; color: #3B3C3C;">Copias de seguridad y recuperación ante desastres. La red de contención para cuando algo falla: un equipo que se rompe, un archivo borrado por error o un ataque que llegó a cifrar información.</p>
+        </div>
+        <div class="om-spot" data-spotlight="" style="border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(26px, 3vw, 36px);">
+          <img src="./assets/marcas/kaspersky.png" alt="Kaspersky" width="395" height="76" loading="lazy" decoding="async" style="position: relative; z-index: 1; max-height: 28px; width: auto; max-width: 70%; object-fit: contain; object-position: left center; margin-bottom: 22px;" />
+          <p style="position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #BC1310; margin-bottom: 14px;">Protección de equipos</p>
+          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 500; color: #3B3C3C;">Protección para las computadoras, los servidores y el correo de la empresa, administrada desde una sola consola en lugar de equipo por equipo.</p>
+        </div>
+      </div>
+
+      <div data-reveal="" style="border-top: 2px solid #E71917; padding-top: clamp(28px, 3.4vw, 40px); display: flex; flex-wrap: wrap; align-items: center; gap: clamp(18px, 3vw, 36px); justify-content: space-between;">
+        <div>
+          <p style="font-size: clamp(19px, 2.2vw, 26px); font-weight: 500; margin-bottom: 8px;">Revisemos cómo estás hoy.</p>
+          <p style="font-size: 15px; line-height: 1.7; font-weight: 500; color: #3B3C3C; max-width: 460px;">Contanos cuántos equipos tenés y qué se respalda hoy, y te decimos qué conviene reforzar primero.</p>
+        </div>
+        <a href="#/contacto" class="om-star" style="color: #fff; height: 54px; padding: 0 32px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Hablemos</a>
+      </div>
+
+      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 500; color: #4F5050;">Arcserve y Kaspersky son marcas de sus respectivos titulares. Tic&rsquo;s Solutions las comercializa e implementa en Paraguay.</p>
+    </div>
+  </section>
+  </sc-if>
+
   <!-- ================= APLITOP ================= -->
   <sc-if value="{{ esAplitop }}" hint-placeholder-val="{{ true }}">
   <section data-screen-label="Aplitop" style="position: relative; padding: clamp(70px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px); background: rgba(255,255,255,.55);">
@@ -958,6 +1192,125 @@
   </section>
   </sc-if>
 
+  <!-- ================= ZW3D ================= -->
+  <sc-if value="{{ esZw3d }}" hint-placeholder-val="{{ true }}">
+  <section data-screen-label="ZW3D" style="position: relative; padding: clamp(70px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px); background: rgba(255,255,255,.55);">
+    <div style="position: relative; z-index: 2; max-width: 1100px; margin: 0 auto;">
+
+      <a href="#/unidad-aec" class="om-volver om-enlace-tactil" style="margin-bottom: clamp(26px, 3vw, 34px);"><span aria-hidden="true" style="font-size: 15px; line-height: 1;">&larr;</span>Volver</a>
+
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 26px;">[ Partner ] &nbsp;//&nbsp; Diseño de maquinarias</p>
+
+      <div data-reveal="" style="display: flex; align-items: baseline; gap: clamp(14px, 2vw, 22px); flex-wrap: wrap; margin-bottom: 22px;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: clamp(30px, 4.2vw, 48px); font-weight: 600; letter-spacing: .01em; color: #1D1E1E;">ZW3D</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: clamp(13px, 1.4vw, 16px); font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: #4F5050;">de ZWSOFT</span>
+      </div>
+
+      <h1 data-reveal="" style="font-size: clamp(26px, 4.4vw, 58px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; text-wrap: pretty;">Del concepto a la <span style="color: #E71917;">manufactura</span>, en un solo programa.</h1>
+
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 500; color: #3B3C3C; max-width: 700px; margin-bottom: clamp(46px, 6vw, 70px);">ZW3D es la solución CAD 3D de ZWSOFT para diseño de maquinaria. Integra diseño, simulación y fabricación en una sola plataforma, así que la pieza que modelás es la misma que después se mecaniza, sin exportar de un programa a otro.</p>
+
+      <!-- Las tres patas: CAD, CAE y CAM -->
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 26px;">Qué cubre</p>
+      <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: clamp(18px, 2.4vw, 28px); margin-bottom: clamp(46px, 6vw, 72px);">
+        <div style="border: 1px solid rgba(29,30,30,.12); background: #fff; padding: clamp(22px, 2.6vw, 30px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">Diseño &mdash; CAD</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Modelado paramétrico y directo</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Piezas y ensamblajes, con el dibujo 2D sincronizado al modelo 3D. Suma herramientas de chapa metálica, diseño estructural, tuberías, moldes, arneses e integración ECAD/MCAD.</p>
+        </div>
+        <div style="border: 1px solid rgba(29,30,30,.12); background: #fff; padding: clamp(22px, 2.6vw, 30px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">Simulación &mdash; CAE</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Probarlo antes de fabricarlo</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Análisis estructurales, de vibraciones, de transferencia de calor y de fatiga, sobre el mismo modelo con el que venís trabajando.</p>
+        </div>
+        <div style="border: 1px solid rgba(29,30,30,.12); background: #fff; padding: clamp(22px, 2.6vw, 30px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">Fabricación &mdash; CAM</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Mecanizado de 2 a 5 ejes</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Estrategias de desbaste, acabado y taladrado, con VoluMill disponible como complemento.</p>
+        </div>
+      </div>
+
+      <!-- Industrias e intercambio -->
+      <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 2.6vw, 32px); margin-bottom: clamp(46px, 6vw, 72px);">
+        <div style="border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(26px, 3vw, 36px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #4F5050; margin-bottom: 16px;">Para qué rubros</p>
+          <ul style="padding-left: 18px; display: flex; flex-direction: column; gap: 9px; font-size: 15px; line-height: 1.7; font-weight: 500; color: #3B3C3C;">
+            <li>Diseño de maquinaria general.</li>
+            <li>Robótica.</li>
+            <li>Ingeniería de precisión.</li>
+            <li>Mobiliario de acero.</li>
+            <li>Máquinas de inyección.</li>
+          </ul>
+        </div>
+        <div class="om-spot" data-spotlight="" style="border: 1px solid rgba(231,25,23,.4); background: #fff; padding: clamp(26px, 3vw, 36px);">
+          <p style="position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #BC1310; margin-bottom: 16px;">Intercambio de archivos</p>
+          <p style="position: relative; z-index: 1; font-size: clamp(18px, 1.9vw, 22px); font-weight: 500; margin-bottom: 16px;">Más de 25 formatos, para no quedar encerrado.</p>
+          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 500; color: #3B3C3C;">Importa y exporta STEP, IGES, STL, JT y Parasolid, además de archivos de CATIA, SolidWorks, Inventor y Pro/ENGINEER. Sumá gestión de datos, control de versiones y acceso web para trabajar en equipo.</p>
+        </div>
+      </div>
+
+      <div data-reveal="" style="border-top: 2px solid #E71917; padding-top: clamp(28px, 3.4vw, 40px); display: flex; flex-wrap: wrap; align-items: center; gap: clamp(18px, 3vw, 36px); justify-content: space-between;">
+        <div>
+          <p style="font-size: clamp(19px, 2.2vw, 26px); font-weight: 500; margin-bottom: 8px;">¿Diseñás y además fabricás?</p>
+          <p style="font-size: 15px; line-height: 1.7; font-weight: 500; color: #3B3C3C; max-width: 460px;">Contanos qué piezas hacés y con qué máquinas trabajás, y te mostramos cómo queda el flujo completo.</p>
+        </div>
+        <a href="#/contacto" class="om-star" style="color: #fff; height: 54px; padding: 0 32px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Pedir una demo</a>
+      </div>
+
+      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 500; color: #4F5050;">ZW3D es un producto de ZWSOFT, el mismo fabricante de <a href="#/zwcad" style="color: #BC1310;">ZWCAD</a>. Las características descritas corresponden a la información publicada por el fabricante; CATIA, SolidWorks, Inventor y Pro/ENGINEER son marcas de sus respectivos titulares.</p>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= NOVEDADES ================= -->
+  <sc-if value="{{ esNovedades }}" hint-placeholder-val="{{ true }}">
+  <section data-screen-label="Novedades" style="position: relative; padding: clamp(70px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px); background: rgba(255,255,255,.55);">
+    <div style="position: relative; z-index: 2; max-width: 900px; margin: 0 auto;">
+
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 26px;">[ Novedades ] &nbsp;//&nbsp; Eventos</p>
+
+      <h1 data-reveal="" style="font-size: clamp(26px, 4.4vw, 58px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; text-wrap: pretty;">En qué <span style="color: #E71917;">andamos</span>.</h1>
+
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 500; color: #3B3C3C; max-width: 640px; margin-bottom: clamp(46px, 6vw, 70px);">Ferias, alianzas y novedades de las marcas que representamos.</p>
+
+      <div data-reveal="" style="display: flex; flex-direction: column; gap: clamp(26px, 3vw, 38px);">
+
+        <article style="border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(26px, 3vw, 38px);">
+          <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 16px;">
+            <time datetime="2026-05-25" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4F5050;">25 de mayo de 2026</time>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; border: 1px solid rgba(231,25,23,.35); padding: 4px 10px;">Evento</span>
+          </div>
+          <h2 style="font-size: clamp(21px, 2.4vw, 30px); font-weight: 500; line-height: 1.25; margin-bottom: 14px;">Estuvimos en Constructecnia 2026</h2>
+          <p style="font-size: 16px; line-height: 1.8; font-weight: 500; color: #3B3C3C; margin-bottom: 20px;">Una semana intensa de visitas a clientes del sector público y privado, y participación en la feria. Compartimos las novedades de ZWCAD junto al equipo de ZWSOFT que vino desde México y al director de ZWCAD para Argentina, Paraguay y Uruguay, y conversamos con profesionales del rubro sobre lo que necesita el mercado local.</p>
+          <a href="https://www.linkedin.com/posts/arturo-miguel-osorio-c%C3%A9spedes-62717a36_luego-de-una-semana-intensa-y-muy-fruct%C3%ADfera-ugcPost-7464764864838914048-l-wA" target="_blank" rel="noopener" class="om-enlace-tactil" style="display: inline-flex; align-items: center; gap: 9px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #BC1310; transition: color .3s ease;" style-hover="color: #1D1E1E;">Ver la publicación en LinkedIn<span aria-hidden="true">&nearr;</span></a>
+        </article>
+
+        <article style="border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(26px, 3vw, 38px);">
+          <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 16px;">
+            <time datetime="2026-04-15" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4F5050;">15 de abril de 2026</time>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; border: 1px solid rgba(231,25,23,.35); padding: 4px 10px;">Alianza</span>
+          </div>
+          <h2 style="font-size: clamp(21px, 2.4vw, 30px); font-weight: 500; line-height: 1.25; margin-bottom: 14px;">Somos distribuidor autorizado de ZWCAD en Paraguay</h2>
+          <p style="font-size: 16px; line-height: 1.8; font-weight: 500; color: #3B3C3C; margin-bottom: 20px;">Arranca una nueva etapa de ZWCAD en el país, de la mano de Tic&rsquo;s Solutions. Es una herramienta ágil y potente, que no consume muchos recursos, y con licenciamiento perpetuo: se paga una vez y se sigue trabajando sin estar pendiente de que venza una suscripción.</p>
+          <div style="display: flex; align-items: center; gap: 22px; flex-wrap: wrap;">
+            <a href="https://www.linkedin.com/posts/arturo-miguel-osorio-c%C3%A9spedes-62717a36_muchas-gracias-por-la-bienvenida-don-alfredo-activity-7450252190016892930-prbj" target="_blank" rel="noopener" class="om-enlace-tactil" style="display: inline-flex; align-items: center; gap: 9px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #BC1310; transition: color .3s ease;" style-hover="color: #1D1E1E;">Ver la publicación en LinkedIn<span aria-hidden="true">&nearr;</span></a>
+            <a href="#/zwcad" class="om-enlace-tactil" style="display: inline-flex; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #1D1E1E; transition: color .3s ease;" style-hover="color: #E71917;">Conocer ZWCAD &rarr;</a>
+          </div>
+        </article>
+
+      </div>
+
+      <div data-reveal="" style="border-top: 2px solid #E71917; margin-top: clamp(40px, 5vw, 60px); padding-top: clamp(28px, 3.4vw, 40px); display: flex; flex-wrap: wrap; align-items: center; gap: clamp(18px, 3vw, 36px); justify-content: space-between;">
+        <div>
+          <p style="font-size: clamp(19px, 2.2vw, 26px); font-weight: 500; margin-bottom: 8px;">Seguinos en LinkedIn</p>
+          <p style="font-size: 15px; line-height: 1.7; font-weight: 500; color: #3B3C3C; max-width: 460px;">Ahí publicamos primero las ferias, las capacitaciones y las novedades de las marcas.</p>
+        </div>
+        <a href="https://www.linkedin.com/in/arturo-miguel-osorio-c%C3%A9spedes-62717a36" target="_blank" rel="noopener" class="om-star" style="color: #fff; height: 54px; padding: 0 32px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Ir al perfil</a>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
   <sc-if value="{{ esPrivacidad }}" hint-placeholder-val="{{ true }}">
   <section data-screen-label="Política de privacidad" style="position: relative; padding: clamp(70px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px); background: rgba(255,255,255,.55);">
     <div style="max-width: 820px; margin: 0 auto;">
@@ -1046,7 +1399,8 @@
         <a href="#/" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">Inicio</a>
         <a href="#/nosotros" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">Nosotros</a>
         <a href="#/servicios" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">Servicios</a>
-        <a href="#/partners" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">Partners</a>
+        <a href="#/partners" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">Soluciones</a>
+        <a href="#/novedades" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">Novedades</a>
         <a href="#/contacto" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">Contacto</a>
       </div>
       <div style="display: flex; flex-direction: column; gap: 9px;">
@@ -1084,7 +1438,7 @@ class Component extends DCLogic {
   // depender de reescrituras del servidor y funciona en cualquier hosting
   // estático, incluido abrir el archivo en local.
   static leerRuta() {
-    const VALIDAS = ['/', '/nosotros', '/servicios', '/partners', '/contacto', '/zwcad', '/aplitop', '/cadprofi', '/politicadeprivacidad'];
+    const VALIDAS = ['/', '/nosotros', '/servicios', '/partners', '/novedades', '/contacto', '/unidad-aec', '/ciberseguridad', '/zwcad', '/zw3d', '/aplitop', '/cadprofi', '/politicadeprivacidad'];
     // La política se pide por URL real (/politicadeprivacidad), no por hash:
     // se mira primero el pathname y se cae al hash para el resto.
     const p = '/' + (window.location.pathname || '').split('/').filter(Boolean).pop();
@@ -1727,18 +2081,6 @@ class Component extends DCLogic {
       { n: 'Smart Plot', etiqueta: 'Mejorado', color: MEJOR,
         txt: 'Interfaz optimizada y mayor eficiencia en el ploteo.' }
     ];
-    // Cada partner de software tiene su propia subpágina.
-    const fichas = [
-      { n: 'ZWCAD 2026',  logo: 'zwcad.png',    w: 561, h: 117, alto: '30px', ruta: '#/zwcad',
-        rotulo: 'CAD 2D y 3D',
-        txt: 'Solución CAD completa para dibujo 2D y navegación 3D, con licencia perpetua y compatibilidad total con DWG.' },
-      { n: 'Aplitop tcpMDT 26', logo: 'aplitop.png', w: 522, h: 160, alto: '26px', ruta: '#/aplitop',
-        rotulo: 'Topografía e ingeniería civil',
-        txt: 'Modelado digital del terreno, obra lineal y replanteo sobre tu CAD, con intercambio BIM y GIS.' },
-      { n: 'CADprofi',    logo: 'cadprofi.png', w: 587, h: 160, alto: '28px', ruta: '#/cadprofi',
-        rotulo: 'Instalaciones y bibliotecas',
-        txt: 'Complemento con bibliotecas de símbolos y objetos normalizados para arquitectura, electricidad y HVAC.' }
-    ];
     const marcas = [
       { n: 'Dell Technologies',         logo: 'dell.png',      w: 694, h: 89,  alto: '26px' },
       { n: 'HP',                        logo: 'hp.png',        w: 205, h: 205, alto: '52px' },
@@ -1754,6 +2096,13 @@ class Component extends DCLogic {
       esZwcad: s.ruta === '/zwcad',
       esAplitop: s.ruta === '/aplitop',
       esCadprofi: s.ruta === '/cadprofi',
+      esUnidadAec: s.ruta === '/unidad-aec',
+      esCiberseguridad: s.ruta === '/ciberseguridad',
+      esZw3d: s.ruta === '/zw3d',
+      esNovedades: s.ruta === '/novedades',
+      // La barra marca "Soluciones" mientras estés en cualquier página de marca.
+      colorSoluciones: ['/partners','/unidad-aec','/ciberseguridad','/zwcad','/zw3d','/aplitop','/cadprofi'].indexOf(s.ruta) >= 0 ? '#E71917' : '#414242',
+      colorNovedades: s.ruta === '/novedades' ? '#E71917' : '#414242',
       esContacto: s.ruta === '/contacto',
       esPrivacidad: s.ruta === '/politicadeprivacidad',
       circuitos: this.props.circuitos !== false,
@@ -1774,11 +2123,9 @@ class Component extends DCLogic {
       // desaparecería mientras se navega y correría al resto de la barra.
       mostrarInicio: s.ruta !== '/',
       // La barra marca en rojo la sección en la que estás.
-      colorInicio: s.ruta === '/' ? '#E71917' : 'rgba(29,30,30,.72)',
-      colorNosotros: s.ruta === '/nosotros' ? '#E71917' : 'rgba(29,30,30,.72)',
-      colorServicios: s.ruta === '/servicios' ? '#E71917' : 'rgba(29,30,30,.72)',
-      colorPartners: s.ruta === '/partners' ? '#E71917' : 'rgba(29,30,30,.72)',
-      colorContacto: s.ruta === '/contacto' ? '#E71917' : 'rgba(29,30,30,.72)',
+      colorInicio: s.ruta === '/' ? '#E71917' : '#414242',
+      colorNosotros: s.ruta === '/nosotros' ? '#E71917' : '#414242',
+      colorServicios: s.ruta === '/servicios' ? '#E71917' : '#414242',
       enviado: s.enviado,
       formVisible: !s.enviado,
       // El menú tapa la pantalla completa: bloqueamos el scroll del fondo
@@ -1792,7 +2139,6 @@ class Component extends DCLogic {
       enviarForm: (e) => { e.preventDefault(); this.setState({ enviado: true }); },
       partners: partners,
       marcas: marcas,
-      fichas: fichas,
       novedades: novedades
     };
   }

@@ -797,16 +797,16 @@
             <div style="padding: clamp(26px, 3vw, 38px);">
               <sc-if value="{{ enviado }}" hint-placeholder-val="{{ false }}">
                 <div style="border-left: 2px solid #E71917; padding-left: 20px;">
-                  <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 16px;">&gt; transmisión completa</p>
-                  <p style="font-size: 24px; font-weight: 500; margin-bottom: 12px;">Gracias por tu consulta.</p>
-                  <p style="font-size: 16px; line-height: 1.75; font-weight: 500; color: #414242;">Nuestro equipo te va a responder a la brevedad.</p>
+                  <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 16px;">{{ confirmaRotulo }}</p>
+                  <p style="font-size: 24px; font-weight: 500; margin-bottom: 12px;">{{ confirmaTitulo }}</p>
+                  <p style="font-size: 16px; line-height: 1.75; font-weight: 500; color: #414242;">{{ confirmaTexto }}</p>
                 </div>
               </sc-if>
               <sc-if value="{{ formVisible }}" hint-placeholder-val="{{ true }}">
                 <form onSubmit="{{ enviarForm }}" style="display: flex; flex-direction: column; gap: 24px;">
                   <label style="display: flex; flex-direction: column; gap: 8px;">
                     <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4F5050;">&gt; nombre</span>
-                    <input type="text" name="nombre" required="" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 500; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
+                    <input type="text" name="nombre" required="required" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 500; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
                   </label>
                   <label style="display: flex; flex-direction: column; gap: 8px;">
                     <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4F5050;">&gt; empresa</span>
@@ -814,7 +814,7 @@
                   </label>
                   <label style="display: flex; flex-direction: column; gap: 8px;">
                     <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4F5050;">&gt; correo</span>
-                    <input type="email" name="correo" required="" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 500; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
+                    <input type="email" name="correo" required="required" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 500; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
                   </label>
                   <label style="display: flex; flex-direction: column; gap: 8px;">
                     <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4F5050;">&gt; teléfono</span>
@@ -822,9 +822,12 @@
                   </label>
                   <label style="display: flex; flex-direction: column; gap: 8px;">
                     <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4F5050;">&gt; mensaje</span>
-                    <textarea name="mensaje" rows="3" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 500; color: #1D1E1E; outline: none; resize: vertical; transition: border-color .3s ease;" style-focus="border-color: #E71917;"></textarea>
+                    <textarea name="mensaje" rows="3" maxlength="900" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 500; color: #1D1E1E; outline: none; resize: vertical; transition: border-color .3s ease;" style-focus="border-color: #E71917;"></textarea>
                   </label>
-                  <button type="submit" class="om-star" style="align-self: flex-start; margin-top: 8px; color: #fff; background: transparent; border: none; height: 54px; padding: 0 34px; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">Enviar consulta</button>
+                  <button type="submit" class="om-star" disabled="{{ enviando }}" style="align-self: flex-start; margin-top: 8px; color: #fff; background: transparent; border: none; height: 54px; padding: 0 34px; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">{{ textoBoton }}</button>
+                  <sc-if value="{{ hayError }}" hint-placeholder-val="{{ false }}">
+                    <p role="alert" style="border-left: 2px solid #E71917; padding-left: 14px; font-size: 15px; line-height: 1.7; font-weight: 500; color: #BC1310;">{{ errorForm }}</p>
+                  </sc-if>
                 </form>
               </sc-if>
             </div>
@@ -1329,6 +1332,7 @@
         <div>
           <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 500; color: #1D1E1E; margin-bottom: 12px;">2. Qué datos recogemos</h2>
           <p>Solamente los que nos entregás de forma voluntaria. En el formulario de contacto te pedimos nombre, empresa, correo electrónico, teléfono y el mensaje que quieras enviarnos. De esos campos, únicamente el nombre y el correo son obligatorios.</p>
+          <p style="margin-top: 12px;">Ese formulario no envía nada por su cuenta: al completarlo se abre WhatsApp con el mensaje ya redactado, y sos vos quien decide enviarlo. Hasta que lo envíes, nosotros no recibimos nada, y los datos no quedan guardados en este sitio.</p>
           <p style="margin-top: 12px;">Si preferís escribirnos por correo, teléfono o WhatsApp, los datos que tratamos son los que aparezcan en esa comunicación.</p>
           <p style="margin-top: 12px;">No pedimos ni almacenamos datos sensibles, ni información financiera, ni documentos de identidad a través de este sitio.</p>
         </div>
@@ -1431,8 +1435,22 @@
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;circuitos&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Identidad&quot;},&quot;glitch&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;malla&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;chispas&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;scanlines&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;animaciones&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamiento&quot;}}">
+// ============================================================
+//  Dónde van a parar las consultas del formulario.
+//
+//  'whatsapp' arma el mensaje y abre el chat con el número de abajo. No
+//  necesita servidor ni cuenta en ningún servicio, que es lo que permite
+//  que el sitio siga siendo estático.
+//
+//  Para que las consultas lleguen por correo: creá una cuenta gratuita en
+//  un servicio de formularios (Formspree, Web3Forms o similar), y cambiá
+//  tipo a 'endpoint' pegando la URL que te den en `url`. El resto del
+//  código ya está preparado; no hay que tocar nada más.
+// ============================================================
+const DESTINO_CONSULTAS = { tipo: 'whatsapp', numero: '595981171372', url: '' };
+
 class Component extends DCLogic {
-  state = { scrolled: false, menuOpen: false, enviado: false, scrollY: 0, ruta: '/' };
+  state = { scrolled: false, menuOpen: false, enviado: false, enviando: false, errorForm: '', scrollY: 0, ruta: '/' };
 
   // Enrutado por hash: una sola página que intercambia vistas. Evita
   // depender de reescrituras del servidor y funciona en cualquier hosting
@@ -2128,6 +2146,18 @@ class Component extends DCLogic {
       colorServicios: s.ruta === '/servicios' ? '#E71917' : '#414242',
       enviado: s.enviado,
       formVisible: !s.enviado,
+      enviando: s.enviando,
+      hayError: !!s.errorForm,
+      errorForm: s.errorForm,
+      textoBoton: s.enviando ? 'Enviando…' : 'Enviar consulta',
+      // Por WhatsApp el mensaje queda listo pero lo manda la persona desde su
+      // teléfono: decir "gracias por tu consulta" sería mentirle, porque
+      // todavía no llegó nada.
+      confirmaRotulo: DESTINO_CONSULTAS.tipo === 'whatsapp' ? '> mensaje preparado' : '> transmisión recibida',
+      confirmaTitulo: DESTINO_CONSULTAS.tipo === 'whatsapp' ? 'Te abrimos WhatsApp con la consulta lista.' : 'Gracias por tu consulta.',
+      confirmaTexto: DESTINO_CONSULTAS.tipo === 'whatsapp'
+        ? 'Solo falta que toques enviar en WhatsApp y nos llega. Si no se abrió, escribinos al (+595) 981 171 372.'
+        : 'Nuestro equipo te va a responder a la brevedad.',
       // El menú tapa la pantalla completa: bloqueamos el scroll del fondo
       // para que la rueda no mueva la página por detrás del overlay.
       toggleMenu: () => this.setState((p) => {
@@ -2136,7 +2166,49 @@ class Component extends DCLogic {
         return { menuOpen: abierto };
       }),
       closeMenu: () => { document.body.style.overflow = ''; this.setState({ menuOpen: false }); },
-      enviarForm: (e) => { e.preventDefault(); this.setState({ enviado: true }); },
+      enviarForm: (e) => {
+        e.preventDefault();
+        if (this.state.enviando) return;                 // evita el doble envío
+        const f = e.target;
+        const val = (n) => ((f.elements[n] && f.elements[n].value) || '').trim();
+        const datos = {
+          nombre: val('nombre'), empresa: val('empresa'), correo: val('correo'),
+          telefono: val('telefono'), mensaje: val('mensaje')
+        };
+        if (!datos.nombre || !datos.correo) {
+          this.setState({ errorForm: 'Necesitamos al menos tu nombre y tu correo.' });
+          return;
+        }
+
+        if (DESTINO_CONSULTAS.tipo === 'whatsapp') {
+          const lineas = ['Consulta desde la web', '', 'Nombre: ' + datos.nombre];
+          if (datos.empresa)  lineas.push('Empresa: ' + datos.empresa);
+          lineas.push('Correo: ' + datos.correo);
+          if (datos.telefono) lineas.push('Teléfono: ' + datos.telefono);
+          if (datos.mensaje)  lineas.push('', 'Mensaje:', datos.mensaje);
+          const url = 'https://wa.me/' + DESTINO_CONSULTAS.numero +
+                      '?text=' + encodeURIComponent(lineas.join('\n'));
+          // Si el navegador bloquea la pestaña nueva, se navega en la misma:
+          // peor que abrir al lado, pero mejor que no pasar nada al tocar.
+          const w = window.open(url, '_blank', 'noopener');
+          if (!w) window.location.href = url;
+          this.setState({ enviado: true, errorForm: '' });
+          return;
+        }
+
+        this.setState({ enviando: true, errorForm: '' });
+        fetch(DESTINO_CONSULTAS.url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(datos)
+        })
+          .then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); })
+          .then(() => this.setState({ enviando: false, enviado: true }))
+          .catch(() => this.setState({
+            enviando: false,
+            errorForm: 'No pudimos enviar la consulta. Escribinos por WhatsApp o al correo.'
+          }));
+      },
       partners: partners,
       marcas: marcas,
       novedades: novedades

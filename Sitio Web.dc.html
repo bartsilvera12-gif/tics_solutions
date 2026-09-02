@@ -804,6 +804,8 @@
               </sc-if>
               <sc-if value="{{ formVisible }}" hint-placeholder-val="{{ true }}">
                 <form onSubmit="{{ enviarForm }}" style="display: flex; flex-direction: column; gap: 24px;">
+                  <!-- Campo trampa: invisible para una persona, tentador para un robot. -->
+                  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0;" />
                   <label style="display: flex; flex-direction: column; gap: 8px;">
                     <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4F5050;">&gt; nombre</span>
                     <input type="text" name="nombre" required="required" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 500; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
@@ -1332,7 +1334,7 @@
         <div>
           <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 500; color: #1D1E1E; margin-bottom: 12px;">2. Qué datos recogemos</h2>
           <p>Solamente los que nos entregás de forma voluntaria. En el formulario de contacto te pedimos nombre, empresa, correo electrónico, teléfono y el mensaje que quieras enviarnos. De esos campos, únicamente el nombre y el correo son obligatorios.</p>
-          <p style="margin-top: 12px;">Ese formulario no envía nada por su cuenta: al completarlo se abre WhatsApp con el mensaje ya redactado, y sos vos quien decide enviarlo. Hasta que lo envíes, nosotros no recibimos nada, y los datos no quedan guardados en este sitio.</p>
+          <p style="margin-top: 12px;">Lo que escribas en ese formulario se nos reenvía por correo a consulta@tics-py.com. No queda guardado en este sitio: llega a nuestra casilla y ahí lo tratamos.</p>
           <p style="margin-top: 12px;">Si preferís escribirnos por correo, teléfono o WhatsApp, los datos que tratamos son los que aparezcan en esa comunicación.</p>
           <p style="margin-top: 12px;">No pedimos ni almacenamos datos sensibles, ni información financiera, ni documentos de identidad a través de este sitio.</p>
         </div>
@@ -1353,6 +1355,7 @@
           <ul style="margin-top: 14px; padding-left: 20px; display: flex; flex-direction: column; gap: 10px;">
             <li><strong style="font-weight: 500; color: #1D1E1E;">Vercel</strong> aloja el sitio y registra datos técnicos de conexión, como la dirección IP, en sus registros de servidor.</li>
             <li><strong style="font-weight: 500; color: #1D1E1E;">Google Fonts</strong> provee las tipografías. Tu navegador las solicita a servidores de Google, que reciben tu dirección IP al hacerlo.</li>
+            <li><strong style="font-weight: 500; color: #1D1E1E;">FormSubmit</strong> se encarga de reenviarnos por correo lo que escribas en el formulario de contacto. Recibe esos datos para poder entregarlos y no los usa para otra cosa. Si preferís no pasar por ahí, escribinos directo al correo, al teléfono o por WhatsApp.</li>
             <li><strong style="font-weight: 500; color: #1D1E1E;">WhatsApp</strong> interviene únicamente si elegís usar ese enlace para escribirnos, y en ese caso aplica la política de privacidad de esa plataforma.</li>
           </ul>
         </div>
@@ -1438,16 +1441,26 @@
 // ============================================================
 //  Dónde van a parar las consultas del formulario.
 //
-//  'whatsapp' arma el mensaje y abre el chat con el número de abajo. No
-//  necesita servidor ni cuenta en ningún servicio, que es lo que permite
-//  que el sitio siga siendo estático.
+//  El sitio es estático: no hay servidor propio que pueda mandar un correo,
+//  así que la entrega la hace FormSubmit, que reenvía a la casilla de abajo.
+//  No requiere cuenta, pero sí una activación por única vez: el primer
+//  envío dispara un correo de confirmación a esa casilla, y hasta que se
+//  toque el enlace de ese correo las consultas no se reenvían.
 //
-//  Para que las consultas lleguen por correo: creá una cuenta gratuita en
-//  un servicio de formularios (Formspree, Web3Forms o similar), y cambiá
-//  tipo a 'endpoint' pegando la URL que te den en `url`. El resto del
-//  código ya está preparado; no hay que tocar nada más.
+//  Una vez activado, FormSubmit entrega un alias del tipo
+//  https://formsubmit.co/ajax/a1b2c3... que conviene pegar en `url` para
+//  dejar de exponer la dirección real a los rastreadores de spam.
+//
+//  Para mover las consultas a otro servicio (Formspree, Web3Forms) alcanza
+//  con cambiar `url`. Con tipo 'whatsapp' vuelve a abrir el chat en lugar
+//  de enviar por correo.
 // ============================================================
-const DESTINO_CONSULTAS = { tipo: 'whatsapp', numero: '595981171372', url: '' };
+const DESTINO_CONSULTAS = {
+  tipo: 'correo',
+  url: 'https://formsubmit.co/ajax/consulta@tics-py.com',
+  correo: 'consulta@tics-py.com',
+  numero: '595981171372'          // respaldo que se ofrece si el envío falla
+};
 
 class Component extends DCLogic {
   state = { scrolled: false, menuOpen: false, enviado: false, enviando: false, errorForm: '', scrollY: 0, ruta: '/' };
@@ -2152,12 +2165,12 @@ class Component extends DCLogic {
       textoBoton: s.enviando ? 'Enviando…' : 'Enviar consulta',
       // Por WhatsApp el mensaje queda listo pero lo manda la persona desde su
       // teléfono: decir "gracias por tu consulta" sería mentirle, porque
-      // todavía no llegó nada.
-      confirmaRotulo: DESTINO_CONSULTAS.tipo === 'whatsapp' ? '> mensaje preparado' : '> transmisión recibida',
+      // todavía no llegó nada. Por correo sí llegó, y ahí el texto vale.
+      confirmaRotulo: DESTINO_CONSULTAS.tipo === 'whatsapp' ? '> mensaje preparado' : '> consulta recibida',
       confirmaTitulo: DESTINO_CONSULTAS.tipo === 'whatsapp' ? 'Te abrimos WhatsApp con la consulta lista.' : 'Gracias por tu consulta.',
       confirmaTexto: DESTINO_CONSULTAS.tipo === 'whatsapp'
         ? 'Solo falta que toques enviar en WhatsApp y nos llega. Si no se abrió, escribinos al (+595) 981 171 372.'
-        : 'Nuestro equipo te va a responder a la brevedad.',
+        : 'Ya nos llegó a ' + DESTINO_CONSULTAS.correo + ' y te vamos a responder a la brevedad.',
       // El menú tapa la pantalla completa: bloqueamos el scroll del fondo
       // para que la rueda no mueva la página por detrás del overlay.
       toggleMenu: () => this.setState((p) => {
@@ -2180,6 +2193,11 @@ class Component extends DCLogic {
           return;
         }
 
+        // Trampa para robots: es un campo escondido que una persona nunca ve
+        // ni completa. Si viene con algo, se descarta sin avisar, para que el
+        // robot no sepa que fue filtrado y no vuelva a probar.
+        if (val('_gotcha')) { this.setState({ enviado: true, errorForm: '' }); return; }
+
         if (DESTINO_CONSULTAS.tipo === 'whatsapp') {
           const lineas = ['Consulta desde la web', '', 'Nombre: ' + datos.nombre];
           if (datos.empresa)  lineas.push('Empresa: ' + datos.empresa);
@@ -2200,13 +2218,30 @@ class Component extends DCLogic {
         fetch(DESTINO_CONSULTAS.url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(datos)
+          body: JSON.stringify({
+            Nombre: datos.nombre,
+            Empresa: datos.empresa || '—',
+            Correo: datos.correo,
+            Teléfono: datos.telefono || '—',
+            Mensaje: datos.mensaje || '—',
+            _subject: 'Consulta desde la web — ' + datos.nombre,
+            _replyto: datos.correo,       // así "responder" le contesta a quien escribió
+            _template: 'table',
+            _captcha: 'false'
+          })
         })
-          .then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); })
-          .then(() => this.setState({ enviando: false, enviado: true }))
+          .then((r) => r.json().catch(() => ({})).then((j) => ({ ok: r.ok, j })))
+          .then(({ ok, j }) => {
+            // No alcanza con el código HTTP: antes de activar la casilla el
+            // servicio responde 200 igual, pero con success en falso.
+            const bien = ok && (j.success === true || j.success === 'true');
+            if (!bien) throw new Error('sin confirmar');
+            this.setState({ enviando: false, enviado: true });
+          })
           .catch(() => this.setState({
             enviando: false,
-            errorForm: 'No pudimos enviar la consulta. Escribinos por WhatsApp o al correo.'
+            errorForm: 'No pudimos enviar la consulta desde acá. Escribinos a ' +
+                       DESTINO_CONSULTAS.correo + ' o al (+595) 981 171 372 y la vemos igual.'
           }));
       },
       partners: partners,

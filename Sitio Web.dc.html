@@ -14,7 +14,7 @@
 <meta name="theme-color" content="#FFFFFF" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <script src="./image-slot.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; }
@@ -22,7 +22,7 @@
   body {
     margin: 0;
     font-family: Nunito, Helvetica, Arial, sans-serif;
-    font-weight: 400;
+    font-weight: 500;
     color: #1D1E1E;
     background: #FFFFFF;
     overflow-x: hidden;
@@ -131,13 +131,13 @@
   .om-volver {
     display: inline-flex; align-items: center; gap: 10px;
     height: 40px; padding: 0 20px 0 15px;
-    border: 1px solid rgba(29,30,30,.18); background: rgba(255,255,255,.72);
-    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500;
-    letter-spacing: .16em; text-transform: uppercase; color: rgba(29,30,30,.8);
+    border: 1px solid rgba(29,30,30,.18); background: #fff;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+    letter-spacing: .16em; text-transform: uppercase; color: #353636;
     transition: color .3s ease, border-color .3s ease, background-color .3s ease;
   }
   .om-volver:hover, .om-volver:focus-visible {
-    color: #E71917; border-color: rgba(231,25,23,.55); background: rgba(255,255,255,.92);
+    color: #E71917; border-color: rgba(231,25,23,.55); background: #fff;
   }
   /* La flecha se corre sola: deja claro hacia dónde lleva sin mover el botón. */
   .om-volver > span { transition: transform .3s ease; }
@@ -324,14 +324,14 @@
       <div style="display: flex; align-items: center; gap: clamp(16px, 2.2vw, 30px);">
         <nav data-desktop="" style="display: flex; align-items: center; gap: clamp(16px, 2.2vw, 30px);">
           <sc-if value="{{ mostrarInicio }}" hint-placeholder-val="{{ true }}">
-            <a href="#/" style="color: {{ colorInicio }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Inicio</a>
+            <a href="#/" style="color: {{ colorInicio }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Inicio</a>
           </sc-if>
-          <a href="#/nosotros" style="color: {{ colorNosotros }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Nosotros</a>
-          <a href="#/servicios" style="color: {{ colorServicios }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Servicios</a>
-          <a href="#/partners" style="color: {{ colorPartners }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Partners</a>
-          <a href="#/contacto" style="color: {{ colorContacto }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Contacto</a>
+          <a href="#/nosotros" style="color: {{ colorNosotros }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Nosotros</a>
+          <a href="#/servicios" style="color: {{ colorServicios }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Servicios</a>
+          <a href="#/partners" style="color: {{ colorPartners }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Partners</a>
+          <a href="#/contacto" style="color: {{ colorContacto }}; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Contacto</a>
         </nav>
-        <a href="#/contacto" class="om-star" style="color: #fff; padding: 0 clamp(18px, 2vw, 26px); height: 44px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Contactanos</a>
+        <a href="#/contacto" class="om-star" style="color: #fff; padding: 0 clamp(18px, 2vw, 26px); height: 44px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Contactanos</a>
       </div>
     </div>
   </header>
@@ -349,29 +349,29 @@
         </div>
 
         <nav style="display: flex; flex-direction: column;">
-          <a href="#/" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; border-bottom: 1px solid rgba(29,30,30,.08); color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 300; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #E71917; flex: 0 0 auto;">01</span>Inicio</a>
-          <a href="#/nosotros" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; border-bottom: 1px solid rgba(29,30,30,.08); color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 300; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #E71917; flex: 0 0 auto;">02</span>Nosotros</a>
-          <a href="#/servicios" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; border-bottom: 1px solid rgba(29,30,30,.08); color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 300; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #E71917; flex: 0 0 auto;">03</span>Servicios</a>
-          <a href="#/partners" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; border-bottom: 1px solid rgba(29,30,30,.08); color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 300; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #E71917; flex: 0 0 auto;">04</span>Partners</a>
-          <a href="#/contacto" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 300; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #E71917; flex: 0 0 auto;">05</span>Contacto</a>
+          <a href="#/" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; border-bottom: 1px solid rgba(29,30,30,.08); color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 400; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #BC1310; flex: 0 0 auto;">01</span>Inicio</a>
+          <a href="#/nosotros" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; border-bottom: 1px solid rgba(29,30,30,.08); color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 400; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #BC1310; flex: 0 0 auto;">02</span>Nosotros</a>
+          <a href="#/servicios" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; border-bottom: 1px solid rgba(29,30,30,.08); color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 400; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #BC1310; flex: 0 0 auto;">03</span>Servicios</a>
+          <a href="#/partners" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; border-bottom: 1px solid rgba(29,30,30,.08); color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 400; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #BC1310; flex: 0 0 auto;">04</span>Partners</a>
+          <a href="#/contacto" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 400; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #BC1310; flex: 0 0 auto;">05</span>Contacto</a>
         </nav>
 
         <div style="display: flex; flex-direction: column; gap: clamp(20px, 2.4vw, 30px); margin-top: auto;">
           <div>
-            <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #E71917; margin-bottom: 12px;">[ Contacto ]</p>
-            <p style="font-size: 15px; color: rgba(29,30,30,.84); margin-bottom: 7px;">Arturo Osorio</p>
-            <p style="font-size: 13px; color: rgba(29,30,30,.62); margin-bottom: 9px;">Director Ejecutivo &middot; Asunción, Paraguay</p>
-            <a href="tel:+595981171372" style="display: block; font-size: 14px; color: rgba(29,30,30,.7); margin-bottom: 5px; transition: color .25s ease;" style-hover="color: #E71917;">Tel &middot; (+595) 981 171 372</a>
-            <a href="mailto:arturo.osorio@tics-py.com" style="display: block; font-size: 14px; color: rgba(29,30,30,.7); margin-bottom: 5px; transition: color .25s ease;" style-hover="color: #E71917;">Correo &middot; arturo.osorio@tics-py.com</a>
-            <a href="https://wa.me/595981171372" target="_blank" rel="noopener" style="display: block; font-size: 14px; color: rgba(29,30,30,.7); transition: color .25s ease;" style-hover="color: #E71917;">WhatsApp &middot; Escribinos ahora</a>
+            <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">[ Contacto ]</p>
+            <p style="font-size: 15px; color: #2E2F2F; margin-bottom: 7px;">Arturo Osorio</p>
+            <p style="font-size: 13px; color: #4F5050; margin-bottom: 9px;">Director Ejecutivo &middot; Asunción, Paraguay</p>
+            <a href="tel:+595981171372" style="display: block; font-size: 14px; color: #414242; margin-bottom: 5px; transition: color .25s ease;" style-hover="color: #E71917;">Tel &middot; (+595) 981 171 372</a>
+            <a href="mailto:arturo.osorio@tics-py.com" style="display: block; font-size: 14px; color: #414242; margin-bottom: 5px; transition: color .25s ease;" style-hover="color: #E71917;">Correo &middot; arturo.osorio@tics-py.com</a>
+            <a href="https://wa.me/595981171372" target="_blank" rel="noopener" style="display: block; font-size: 14px; color: #414242; transition: color .25s ease;" style-hover="color: #E71917;">WhatsApp &middot; Escribinos ahora</a>
           </div>
           <div>
-            <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #E71917; margin-bottom: 12px;">[ Servicios ]</p>
-            <a href="#/servicios" onClick="{{ closeMenu }}" style="display: block; font-size: 14px; color: rgba(29,30,30,.7); margin-bottom: 5px; transition: color .25s ease;" style-hover="color: #E71917;">Protección de datos</a>
-            <a href="#/servicios" onClick="{{ closeMenu }}" style="display: block; font-size: 14px; color: rgba(29,30,30,.7); transition: color .25s ease;" style-hover="color: #E71917;">Monitoreo y gestión de riesgos</a>
-            <a href="#/zwcad" onClick="{{ closeMenu }}" style="display: block; font-size: 14px; color: rgba(29,30,30,.7); margin-top: 5px; transition: color .25s ease;" style-hover="color: #E71917;">ZWCAD 2026</a>
+            <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">[ Servicios ]</p>
+            <a href="#/servicios" onClick="{{ closeMenu }}" style="display: block; font-size: 14px; color: #414242; margin-bottom: 5px; transition: color .25s ease;" style-hover="color: #E71917;">Protección de datos</a>
+            <a href="#/servicios" onClick="{{ closeMenu }}" style="display: block; font-size: 14px; color: #414242; transition: color .25s ease;" style-hover="color: #E71917;">Monitoreo y gestión de riesgos</a>
+            <a href="#/zwcad" onClick="{{ closeMenu }}" style="display: block; font-size: 14px; color: #414242; margin-top: 5px; transition: color .25s ease;" style-hover="color: #E71917;">ZWCAD 2026</a>
           </div>
-          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .12em; color: rgba(29,30,30,.62);">&copy; 2026 Tic's Solutions</p>
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .12em; color: #4F5050;">&copy; 2026 Tic's Solutions</p>
         </div>
       </div>
 
@@ -379,8 +379,8 @@
         <img src="./assets/foto-ciberseguridad.jpg" alt="" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;" />
         <div style="position: absolute; inset: 0; background: linear-gradient(160deg, rgba(13,15,18,.82), rgba(13,15,18,.45) 45%, rgba(231,25,23,.35));"></div>
         <div style="position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(26px, 3.4vw, 52px);">
-          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: rgba(255,255,255,.75);">Tecnología y ciberseguridad &nbsp;/&nbsp; Paraguay</p>
-          <p style="font-size: clamp(22px, 2.6vw, 38px); font-weight: 300; line-height: 1.25; color: #fff; max-width: 620px; text-wrap: pretty;">Tu <span style="color: #E71917;">socio estratégico</span> en el entorno digital.</p>
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: #E7E8EA;">Tecnología y ciberseguridad &nbsp;/&nbsp; Paraguay</p>
+          <p style="font-size: clamp(22px, 2.6vw, 38px); font-weight: 400; line-height: 1.25; color: #fff; max-width: 620px; text-wrap: pretty;">Tu <span style="color: #E71917;">socio estratégico</span> en el entorno digital.</p>
         </div>
       </div>
     </div>
@@ -413,12 +413,12 @@
 
     <div style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; display: block;">
       <div class="om-hero-txt">
-        <h1 style="font-size: clamp(28px, 5.6vw, 76px); line-height: 1.05; font-weight: 300; letter-spacing: -0.02em; text-wrap: pretty; margin-bottom: 30px; color: #FFFFFF;">
+        <h1 style="font-size: clamp(28px, 5.6vw, 76px); line-height: 1.05; font-weight: 400; letter-spacing: -0.02em; text-wrap: pretty; margin-bottom: 30px; color: #FFFFFF;">
           <span style="display: block;">Protegemos tu empresa.</span>
           <span style="display: block; color: #E71917;">Impulsamos su crecimiento.</span>
         </h1>
 
-        <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.75; font-weight: 400; color: rgba(255,255,255,.8); max-width: 540px;">Soluciones tecnológicas y de ciberseguridad diseñadas para proteger tu información, optimizar tus procesos y garantizar la continuidad de tus operaciones.</p>
+        <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.75; font-weight: 500; color: #EDEEEF; max-width: 540px;">Soluciones tecnológicas y de ciberseguridad diseñadas para proteger tu información, optimizar tus procesos y garantizar la continuidad de tus operaciones.</p>
 
       </div>
 
@@ -428,7 +428,7 @@
 
   <!-- ================= NOSOTROS ================= -->
   <sc-if value="{{ esNosotros }}" hint-placeholder-val="{{ true }}">
-  <section id="nosotros" data-screen-label="Nosotros" style="position: relative; padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px); background: rgba(245,246,248,.34); border-top: 1px solid rgba(29,30,30,.06);">
+  <section id="nosotros" data-screen-label="Nosotros" style="position: relative; padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px); background: rgba(245,246,248,.58); border-top: 1px solid rgba(29,30,30,.06);">
     <div style="max-width: 1280px; margin: 0 auto;">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(40px, 6vw, 96px); align-items: center;">
         <div style="position: relative; width: 100%; max-width: 460px; justify-self: center;">
@@ -442,7 +442,7 @@
         </div>
         <div data-reveal="">
           <!-- TrueFocus (React Bits) -->
-          <div data-truefocus="" style="position: relative; display: flex; flex-wrap: wrap; gap: .3em; font-size: clamp(26px, 4.4vw, 62px); font-weight: 300; line-height: 1.08; letter-spacing: -0.015em; margin-bottom: 34px;">
+          <div data-truefocus="" style="position: relative; display: flex; flex-wrap: wrap; gap: .3em; font-size: clamp(26px, 4.4vw, 62px); font-weight: 400; line-height: 1.08; letter-spacing: -0.015em; margin-bottom: 34px;">
             <span class="om-tf-word">¿QUIÉNES</span><span class="om-tf-word" style="color: #E71917;">SOMOS?</span>
             <div class="om-tf-frame">
               <span class="om-tf-corner" style="top: -6px; left: -6px; border-right: none; border-bottom: none;"></span>
@@ -451,7 +451,7 @@
               <span class="om-tf-corner" style="bottom: -6px; right: -6px; border-left: none; border-top: none;"></span>
             </div>
           </div>
-          <p style="font-size: clamp(16px, 1.2vw, 19px); line-height: 1.85; font-weight: 400; color: rgba(29,30,30,.76); max-width: 560px;">Somos una empresa con 5 años de experiencia, especializada en soluciones tecnológicas y ciberseguridad. Nos dedicamos a proteger la información y a optimizar los procesos de nuestros clientes, garantizando la continuidad y seguridad de sus operaciones en el entorno digital.</p>
+          <p style="font-size: clamp(16px, 1.2vw, 19px); line-height: 1.85; font-weight: 500; color: #3B3C3C; max-width: 560px;">Somos una empresa con 5 años de experiencia, especializada en soluciones tecnológicas y ciberseguridad. Nos dedicamos a proteger la información y a optimizar los procesos de nuestros clientes, garantizando la continuidad y seguridad de sus operaciones en el entorno digital.</p>
           <div style="margin-top: 46px; height: 2px; width: 120px; background: #E71917; box-shadow: 0 0 18px rgba(231,25,23,.7);"></div>
         </div>
       </div>
@@ -461,14 +461,14 @@
 
   <!-- ================= SERVICIOS ================= -->
   <sc-if value="{{ esServicios }}" hint-placeholder-val="{{ true }}">
-  <section id="servicios" data-screen-label="Servicios" style="position: relative; padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px); background: rgba(255,255,255,.30);">
+  <section id="servicios" data-screen-label="Servicios" style="position: relative; padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px); background: rgba(255,255,255,.55);">
     <div style="max-width: 1280px; margin: 0 auto;">
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: clamp(36px, 5vw, 80px); align-items: start; margin-bottom: clamp(52px, 6vw, 90px);">
-        <h2 data-reveal="" style="font-size: clamp(26px, 5vw, 70px); font-weight: 300; line-height: 1.05; letter-spacing: -0.02em;">NUESTROS<br /><span class="om-glitch" data-text="SERVICIOS" style="color: #E71917;">SERVICIOS</span></h2>
+        <h2 data-reveal="" style="font-size: clamp(26px, 5vw, 70px); font-weight: 400; line-height: 1.05; letter-spacing: -0.02em;">NUESTROS<br /><span class="om-glitch" data-text="SERVICIOS" style="color: #E71917;">SERVICIOS</span></h2>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 22px; max-width: 560px; padding-top: 10px;">
-          <p style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.85; font-weight: 400; color: rgba(29,30,30,.74);">Te ofrecemos un servicio completo y profesional. Nuestro equipo técnico cuenta con la experiencia y conocimientos necesarios que garantizan la correcta implementación de las soluciones y un acompañamiento constante en cada etapa.</p>
-          <p style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.85; font-weight: 400; color: #1D1E1E;">En Tic's Solutions te ofrecemos un enfoque integral para proteger tu empresa.</p>
+          <p style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.85; font-weight: 500; color: #3B3C3C;">Te ofrecemos un servicio completo y profesional. Nuestro equipo técnico cuenta con la experiencia y conocimientos necesarios que garantizan la correcta implementación de las soluciones y un acompañamiento constante en cada etapa.</p>
+          <p style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.85; font-weight: 500; color: #1D1E1E;">En Tic's Solutions te ofrecemos un enfoque integral para proteger tu empresa.</p>
         </div>
       </div>
 
@@ -477,14 +477,14 @@
           <!-- SpotlightCard (React Bits) -->
           <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(29,30,30,.1); background: #FAFBFC; padding: clamp(28px, 3vw, 40px);" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-3px);">
             <div style="position: relative; z-index: 1;">
-              <h3 style="font-size: clamp(19px, 2.1vw, 30px); font-weight: 500; margin-bottom: 14px;">Protección de datos</h3>
-              <p style="font-size: 16px; line-height: 1.8; font-weight: 400; color: rgba(29,30,30,.72); max-width: 520px;">Blindamos tu información más valiosa con soluciones de respaldo y recuperación de vanguardia, para que tus datos estén siempre seguros y accesibles.</p>
+              <h3 style="font-size: clamp(19px, 2.1vw, 30px); font-weight: 600; margin-bottom: 14px;">Protección de datos</h3>
+              <p style="font-size: 16px; line-height: 1.8; font-weight: 500; color: #414242; max-width: 520px;">Blindamos tu información más valiosa con soluciones de respaldo y recuperación de vanguardia, para que tus datos estén siempre seguros y accesibles.</p>
             </div>
           </div>
           <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(29,30,30,.1); background: #FAFBFC; padding: clamp(28px, 3vw, 40px);" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-3px);">
             <div style="position: relative; z-index: 1;">
-              <h3 style="font-size: clamp(19px, 2.1vw, 30px); font-weight: 500; margin-bottom: 14px;">Monitoreo y gestión de riesgos</h3>
-              <p style="font-size: 16px; line-height: 1.8; font-weight: 400; color: rgba(29,30,30,.72); max-width: 520px;">Vigilamos constantemente tu infraestructura para identificar y neutralizar posibles amenazas antes de que afecten tus operaciones.</p>
+              <h3 style="font-size: clamp(19px, 2.1vw, 30px); font-weight: 600; margin-bottom: 14px;">Monitoreo y gestión de riesgos</h3>
+              <p style="font-size: 16px; line-height: 1.8; font-weight: 500; color: #414242; max-width: 520px;">Vigilamos constantemente tu infraestructura para identificar y neutralizar posibles amenazas antes de que afecten tus operaciones.</p>
             </div>
           </div>
         </div>
@@ -495,11 +495,11 @@
 
   <!-- ================= BENEFICIOS ================= -->
   <sc-if value="{{ esInicio }}" hint-placeholder-val="{{ true }}">
-  <section data-screen-label="Beneficios" style="position: relative; padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px); background: rgba(245,246,248,.34); border-top: 1px solid rgba(29,30,30,.06); overflow: hidden;">
+  <section data-screen-label="Beneficios" style="position: relative; padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px); background: rgba(245,246,248,.58); border-top: 1px solid rgba(29,30,30,.06); overflow: hidden;">
     <div class="om-vig" style="background: radial-gradient(ellipse 80% 60% at 50% 50%, transparent 0%, rgba(245,246,248,.8) 70%, #F5F6F8 100%);"></div>
 
     <div style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto;">
-      <h2 data-reveal="" style="font-size: clamp(24px, 3.8vw, 54px); font-weight: 300; line-height: 1.12; letter-spacing: -0.015em; max-width: 760px; margin-bottom: clamp(48px, 6vw, 84px); text-wrap: pretty;">Tecnología que <span class="om-glitch" data-text="protege" style="color: #E71917;">protege</span> tu operación</h2>
+      <h2 data-reveal="" style="font-size: clamp(24px, 3.8vw, 54px); font-weight: 400; line-height: 1.12; letter-spacing: -0.015em; max-width: 760px; margin-bottom: clamp(48px, 6vw, 84px); text-wrap: pretty;">Tecnología que <span class="om-glitch" data-text="protege" style="color: #E71917;">protege</span> tu operación</h2>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(32px, 4vw, 64px); align-items: center;">
         <div data-reveal="" style="position: relative; width: 100%; max-width: 440px; justify-self: center; padding: 12px; border: 1px solid rgba(231,25,23,.28);">
@@ -512,21 +512,21 @@
           </div>
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: clamp(20px, 2.6vw, 34px);">
-        <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(29,30,30,.1); background: rgba(255,255,255,.72); backdrop-filter: blur(6px); padding: 26px 24px 30px;" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-4px);">
-          <h3 style="position: relative; z-index: 1; font-size: 20px; font-weight: 500; margin-bottom: 12px;">Continuidad operativa</h3>
-          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 400; color: rgba(29,30,30,.7);">Infraestructura preparada para mantener tu empresa funcionando.</p>
+        <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(29,30,30,.1); background: #fff; backdrop-filter: blur(6px); padding: 26px 24px 30px;" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-4px);">
+          <h3 style="position: relative; z-index: 1; font-size: 20px; font-weight: 600; margin-bottom: 12px;">Continuidad operativa</h3>
+          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 500; color: #414242;">Infraestructura preparada para mantener tu empresa funcionando.</p>
         </div>
-        <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(29,30,30,.1); background: rgba(255,255,255,.72); backdrop-filter: blur(6px); padding: 26px 24px 30px;" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-4px);">
-          <h3 style="position: relative; z-index: 1; font-size: 20px; font-weight: 500; margin-bottom: 12px;">Información protegida</h3>
-          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 400; color: rgba(29,30,30,.7);">Respaldo y recuperación para tus datos más importantes.</p>
+        <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(29,30,30,.1); background: #fff; backdrop-filter: blur(6px); padding: 26px 24px 30px;" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-4px);">
+          <h3 style="position: relative; z-index: 1; font-size: 20px; font-weight: 600; margin-bottom: 12px;">Información protegida</h3>
+          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 500; color: #414242;">Respaldo y recuperación para tus datos más importantes.</p>
         </div>
-        <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(29,30,30,.1); background: rgba(255,255,255,.72); backdrop-filter: blur(6px); padding: 26px 24px 30px;" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-4px);">
-          <h3 style="position: relative; z-index: 1; font-size: 20px; font-weight: 500; margin-bottom: 12px;">Gestión de riesgos</h3>
-          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 400; color: rgba(29,30,30,.7);">Detección y neutralización temprana de amenazas.</p>
+        <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(29,30,30,.1); background: #fff; backdrop-filter: blur(6px); padding: 26px 24px 30px;" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-4px);">
+          <h3 style="position: relative; z-index: 1; font-size: 20px; font-weight: 600; margin-bottom: 12px;">Gestión de riesgos</h3>
+          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 500; color: #414242;">Detección y neutralización temprana de amenazas.</p>
         </div>
-        <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(29,30,30,.1); background: rgba(255,255,255,.72); backdrop-filter: blur(6px); padding: 26px 24px 30px;" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-4px);">
-          <h3 style="position: relative; z-index: 1; font-size: 20px; font-weight: 500; margin-bottom: 12px;">Acompañamiento técnico</h3>
-          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 400; color: rgba(29,30,30,.7);">Experiencia y soporte durante cada etapa de implementación.</p>
+        <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(29,30,30,.1); background: #fff; backdrop-filter: blur(6px); padding: 26px 24px 30px;" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-4px);">
+          <h3 style="position: relative; z-index: 1; font-size: 20px; font-weight: 600; margin-bottom: 12px;">Acompañamiento técnico</h3>
+          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 500; color: #414242;">Experiencia y soporte durante cada etapa de implementación.</p>
         </div>
       </div>
       </div>
@@ -536,20 +536,20 @@
 
   <!-- ================= PARTNERS ================= -->
   <sc-if value="{{ esPartners }}" hint-placeholder-val="{{ true }}">
-  <section id="partners" data-screen-label="Partners" style="position: relative; padding: clamp(80px, 10vw, 140px) 0 clamp(84px, 10vw, 130px); background: rgba(255,255,255,.30); overflow: hidden;">
+  <section id="partners" data-screen-label="Partners" style="position: relative; padding: clamp(80px, 10vw, 140px) 0 clamp(84px, 10vw, 130px); background: rgba(255,255,255,.55); overflow: hidden;">
     <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px);">
       <div style="max-width: 720px; margin-bottom: clamp(48px, 6vw, 80px);">
-        <h2 data-reveal="" style="font-size: clamp(24px, 4vw, 58px); font-weight: 300; line-height: 1.08; letter-spacing: -0.015em; margin-bottom: 24px;">MARCAS Y <span class="om-glitch" data-text="SERVICIOS" style="color: #E71917;">SERVICIOS</span></h2>
-        <p data-reveal="" style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.8; font-weight: 400; color: rgba(29,30,30,.74);">Trabajamos con líderes del mercado para ofrecerte soluciones de la más alta calidad y confianza.</p>
+        <h2 data-reveal="" style="font-size: clamp(24px, 4vw, 58px); font-weight: 400; line-height: 1.08; letter-spacing: -0.015em; margin-bottom: 24px;">MARCAS Y <span class="om-glitch" data-text="SERVICIOS" style="color: #E71917;">SERVICIOS</span></h2>
+        <p data-reveal="" style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.8; font-weight: 500; color: #3B3C3C;">Trabajamos con líderes del mercado para ofrecerte soluciones de la más alta calidad y confianza.</p>
       </div>
 
       <!-- Partners de software con página propia -->
       <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: clamp(18px, 2.4vw, 28px); margin-bottom: clamp(52px, 6vw, 84px);">
         <sc-for list="{{ fichas }}" as="f" hint-placeholder-count="3">
-          <a href="{{ f.ruta }}" class="om-spot" data-spotlight="" style="display: flex; flex-direction: column; border: 1px solid rgba(29,30,30,.14); background: rgba(255,255,255,.7); padding: clamp(24px, 2.8vw, 32px); transition: border-color .3s ease;" style-hover="border-color: rgba(231,25,23,.55);">
+          <a href="{{ f.ruta }}" class="om-spot" data-spotlight="" style="display: flex; flex-direction: column; border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(24px, 2.8vw, 32px); transition: border-color .3s ease;" style-hover="border-color: rgba(231,25,23,.55);">
             <img src="./assets/marcas/{{ f.logo }}" alt="{{ f.n }}" width="{{ f.w }}" height="{{ f.h }}" loading="lazy" decoding="async" style="position: relative; z-index: 1; max-height: {{ f.alto }}; width: auto; max-width: 74%; object-fit: contain; object-position: left center; margin-bottom: 22px;" />
-            <p style="position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #E71917; margin-bottom: 12px;">{{ f.rotulo }}</p>
-            <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 400; color: rgba(29,30,30,.78); margin-bottom: 20px;">{{ f.txt }}</p>
+            <p style="position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">{{ f.rotulo }}</p>
+            <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 500; color: #353636; margin-bottom: 20px;">{{ f.txt }}</p>
             <span style="position: relative; z-index: 1; margin-top: auto; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #1D1E1E;">Ver detalle &rarr;</span>
           </a>
         </sc-for>
@@ -558,7 +558,7 @@
 
     <!-- Cintas estáticas de partners y marcas -->
     <div data-reveal="" style="margin-bottom: 44px;">
-      <p style="padding: 0 clamp(20px, 4vw, 48px); max-width: 1280px; margin: 0 auto 20px; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: #E71917;">Partners</p>
+      <p style="padding: 0 clamp(20px, 4vw, 48px); max-width: 1280px; margin: 0 auto 20px; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: #BC1310;">Partners</p>
       <div style="position: relative; border-top: 1px solid rgba(29,30,30,.09); border-bottom: 1px solid rgba(29,30,30,.09); overflow: hidden;">
         <div class="om-strip">
           <sc-for list="{{ partners }}" as="marca" hint-placeholder-count="5">
@@ -571,7 +571,7 @@
     </div>
 
     <div data-reveal="">
-      <p style="padding: 0 clamp(20px, 4vw, 48px); max-width: 1280px; margin: 0 auto 20px; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: #E71917;">Marcas</p>
+      <p style="padding: 0 clamp(20px, 4vw, 48px); max-width: 1280px; margin: 0 auto 20px; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: #BC1310;">Marcas</p>
       <div style="position: relative; border-top: 1px solid rgba(29,30,30,.09); border-bottom: 1px solid rgba(29,30,30,.09); overflow: hidden;">
         <div class="om-strip">
           <sc-for list="{{ marcas }}" as="marca" hint-placeholder-count="5">
@@ -610,33 +610,33 @@
     </sc-if>
 
     <div style="position: relative; z-index: 3; max-width: 1000px; margin: 0 auto;">
-      <h2 data-reveal="" style="font-size: clamp(26px, 4.6vw, 66px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 40px; text-wrap: pretty;">Tu <span class="om-glitch" data-text="socio estratégico" style="color: #E71917;">socio estratégico</span> en el entorno digital</h2>
-      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 20px); line-height: 1.85; font-weight: 400; color: rgba(255,255,255,.72); max-width: 720px; margin-bottom: 26px;">Nuestra misión es ser tu socio estratégico en el entorno digital. Te proveemos de una infraestructura tecnológica robusta y de una defensa cibernética inquebrantable, permitiendo que tu empresa prospere sin interrupciones.</p>
-      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 20px); line-height: 1.85; font-weight: 400; color: rgba(255,255,255,.72); max-width: 720px; margin-bottom: 52px;">En Tic's Solutions, gestionamos los riesgos para que tú puedas capitalizar las oportunidades y enfocarte exclusivamente en tu crecimiento.</p>
-      <a data-reveal="" href="#/contacto" class="om-star" style="color: #fff; height: 56px; padding: 0 36px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">Hablemos de tu empresa</a>
+      <h2 data-reveal="" style="font-size: clamp(26px, 4.6vw, 66px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 40px; text-wrap: pretty;">Tu <span class="om-glitch" data-text="socio estratégico" style="color: #E71917;">socio estratégico</span> en el entorno digital</h2>
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 20px); line-height: 1.85; font-weight: 500; color: #E3E4E6; max-width: 720px; margin-bottom: 26px;">Nuestra misión es ser tu socio estratégico en el entorno digital. Te proveemos de una infraestructura tecnológica robusta y de una defensa cibernética inquebrantable, permitiendo que tu empresa prospere sin interrupciones.</p>
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 20px); line-height: 1.85; font-weight: 500; color: #E3E4E6; max-width: 720px; margin-bottom: 52px;">En Tic's Solutions, gestionamos los riesgos para que tú puedas capitalizar las oportunidades y enfocarte exclusivamente en tu crecimiento.</p>
+      <a data-reveal="" href="#/contacto" class="om-star" style="color: #fff; height: 56px; padding: 0 36px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">Hablemos de tu empresa</a>
     </div>
   </section>
   </sc-if>
 
   <!-- ================= CONTACTO ================= -->
   <sc-if value="{{ esContacto }}" hint-placeholder-val="{{ true }}">
-  <section id="contacto" data-screen-label="Contacto" style="position: relative; padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px); background: rgba(255,255,255,.30);">
+  <section id="contacto" data-screen-label="Contacto" style="position: relative; padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px); background: rgba(255,255,255,.55);">
     <div style="max-width: 1280px; margin: 0 auto;">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: clamp(46px, 6vw, 96px);">
         <div data-reveal="">
-          <h2 style="font-size: clamp(26px, 4.4vw, 60px); font-weight: 300; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 30px;">Contactá con <span class="om-glitch" data-text="nosotros" style="color: #E71917;">nosotros</span></h2>
-          <p style="font-size: 17px; line-height: 1.8; font-weight: 400; color: rgba(29,30,30,.74); max-width: 460px; margin-bottom: 46px;">Conversemos sobre la infraestructura y la seguridad de tu empresa. Respondemos por teléfono, correo o WhatsApp.</p>
+          <h2 style="font-size: clamp(26px, 4.4vw, 60px); font-weight: 400; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 30px;">Contactá con <span class="om-glitch" data-text="nosotros" style="color: #E71917;">nosotros</span></h2>
+          <p style="font-size: 17px; line-height: 1.8; font-weight: 500; color: #3B3C3C; max-width: 460px; margin-bottom: 46px;">Conversemos sobre la infraestructura y la seguridad de tu empresa. Respondemos por teléfono, correo o WhatsApp.</p>
 
           <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 36px;">
-            <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: rgba(29,30,30,.62);">Contacto comercial</p>
-            <p style="font-size: 26px; font-weight: 400; margin-top: 12px;">Arturo Osorio</p>
-            <p style="font-size: 15px; font-weight: 400; color: rgba(29,30,30,.7); margin-top: 4px;">Director Ejecutivo</p>
-            <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .12em; color: rgba(29,30,30,.62); margin-top: 10px;">Asunción, Paraguay</p>
+            <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #4F5050;">Contacto comercial</p>
+            <p style="font-size: 26px; font-weight: 500; margin-top: 12px;">Arturo Osorio</p>
+            <p style="font-size: 15px; font-weight: 500; color: #414242; margin-top: 4px;">Director Ejecutivo</p>
+            <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .12em; color: #4F5050; margin-top: 10px;">Asunción, Paraguay</p>
           </div>
 
           <div style="display: flex; flex-direction: column; gap: 12px; max-width: 440px;">
-            <a href="tel:+595981171372" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 58px; padding: 0 22px; border: 1px solid rgba(29,30,30,.12); background: #FAFBFC; color: #1D1E1E; font-family: 'JetBrains Mono', monospace; font-size: 14px; transition: border-color .3s ease, color .3s ease, background .3s ease;" style-hover="border-color: #E71917; color: #E71917; background: rgba(231,25,23,.06);"><span>(+595) 981 171 372</span><span style="font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.62);">Llamar</span></a>
-            <a href="mailto:arturo.osorio@tics-py.com" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 58px; padding: 0 22px; border: 1px solid rgba(29,30,30,.12); background: #FAFBFC; color: #1D1E1E; font-family: 'JetBrains Mono', monospace; font-size: 13px; transition: border-color .3s ease, color .3s ease, background .3s ease;" style-hover="border-color: #E71917; color: #E71917; background: rgba(231,25,23,.06);"><span>arturo.osorio@tics-py.com</span><span style="font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.62);">Correo</span></a>
+            <a href="tel:+595981171372" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 58px; padding: 0 22px; border: 1px solid rgba(29,30,30,.12); background: #FAFBFC; color: #1D1E1E; font-family: 'JetBrains Mono', monospace; font-size: 14px; transition: border-color .3s ease, color .3s ease, background .3s ease;" style-hover="border-color: #E71917; color: #E71917; background: #FEF1F1;"><span>(+595) 981 171 372</span><span style="font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: #4F5050;">Llamar</span></a>
+            <a href="mailto:arturo.osorio@tics-py.com" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 58px; padding: 0 22px; border: 1px solid rgba(29,30,30,.12); background: #FAFBFC; color: #1D1E1E; font-family: 'JetBrains Mono', monospace; font-size: 13px; transition: border-color .3s ease, color .3s ease, background .3s ease;" style-hover="border-color: #E71917; color: #E71917; background: #FEF1F1;"><span>arturo.osorio@tics-py.com</span><span style="font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: #4F5050;">Correo</span></a>
             <a href="https://wa.me/595981171372" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 58px; padding: 0 22px; background: #E71917; border: 1px solid #E71917; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 13px; transition: background .3s ease, color .3s ease;" style-hover="background: transparent; color: #E71917;"><span>Escribinos por WhatsApp</span><span style="font-size: 10px; letter-spacing: .18em; text-transform: uppercase; opacity: .75;">Chat</span></a>
           </div>
         </div>
@@ -648,39 +648,39 @@
               <span style="width: 9px; height: 9px; border-radius: 999px; background: #E71917;"></span>
               <span style="width: 9px; height: 9px; border-radius: 999px; background: rgba(29,30,30,.22);"></span>
               <span style="width: 9px; height: 9px; border-radius: 999px; background: rgba(29,30,30,.22);"></span>
-              <span style="margin-left: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .14em; color: rgba(29,30,30,.64);">consulta@tics-py.com</span>
+              <span style="margin-left: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .14em; color: #4F5050;">consulta@tics-py.com</span>
             </div>
             <div style="padding: clamp(26px, 3vw, 38px);">
               <sc-if value="{{ enviado }}" hint-placeholder-val="{{ false }}">
                 <div style="border-left: 2px solid #E71917; padding-left: 20px;">
-                  <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #E71917; margin-bottom: 16px;">&gt; transmisión completa</p>
-                  <p style="font-size: 24px; font-weight: 400; margin-bottom: 12px;">Gracias por tu consulta.</p>
-                  <p style="font-size: 16px; line-height: 1.75; font-weight: 400; color: rgba(29,30,30,.72);">Nuestro equipo te va a responder a la brevedad.</p>
+                  <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 16px;">&gt; transmisión completa</p>
+                  <p style="font-size: 24px; font-weight: 500; margin-bottom: 12px;">Gracias por tu consulta.</p>
+                  <p style="font-size: 16px; line-height: 1.75; font-weight: 500; color: #414242;">Nuestro equipo te va a responder a la brevedad.</p>
                 </div>
               </sc-if>
               <sc-if value="{{ formVisible }}" hint-placeholder-val="{{ true }}">
                 <form onSubmit="{{ enviarForm }}" style="display: flex; flex-direction: column; gap: 24px;">
                   <label style="display: flex; flex-direction: column; gap: 8px;">
-                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(29,30,30,.64);">&gt; nombre</span>
-                    <input type="text" name="nombre" required="" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 400; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
+                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4F5050;">&gt; nombre</span>
+                    <input type="text" name="nombre" required="" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 500; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
                   </label>
                   <label style="display: flex; flex-direction: column; gap: 8px;">
-                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(29,30,30,.64);">&gt; empresa</span>
-                    <input type="text" name="empresa" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 400; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
+                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4F5050;">&gt; empresa</span>
+                    <input type="text" name="empresa" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 500; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
                   </label>
                   <label style="display: flex; flex-direction: column; gap: 8px;">
-                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(29,30,30,.64);">&gt; correo</span>
-                    <input type="email" name="correo" required="" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 400; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
+                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4F5050;">&gt; correo</span>
+                    <input type="email" name="correo" required="" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 500; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
                   </label>
                   <label style="display: flex; flex-direction: column; gap: 8px;">
-                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(29,30,30,.64);">&gt; teléfono</span>
-                    <input type="tel" name="telefono" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 400; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
+                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4F5050;">&gt; teléfono</span>
+                    <input type="tel" name="telefono" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 500; color: #1D1E1E; outline: none; transition: border-color .3s ease;" style-focus="border-color: #E71917;" />
                   </label>
                   <label style="display: flex; flex-direction: column; gap: 8px;">
-                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(29,30,30,.64);">&gt; mensaje</span>
-                    <textarea name="mensaje" rows="3" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 400; color: #1D1E1E; outline: none; resize: vertical; transition: border-color .3s ease;" style-focus="border-color: #E71917;"></textarea>
+                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4F5050;">&gt; mensaje</span>
+                    <textarea name="mensaje" rows="3" style="border: none; border-bottom: 1px solid rgba(29,30,30,.16); background: transparent; padding: 10px 0; font-size: 17px; font-weight: 500; color: #1D1E1E; outline: none; resize: vertical; transition: border-color .3s ease;" style-focus="border-color: #E71917;"></textarea>
                   </label>
-                  <button type="submit" class="om-star" style="align-self: flex-start; margin-top: 8px; color: #fff; background: transparent; border: none; height: 54px; padding: 0 34px; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">Enviar consulta</button>
+                  <button type="submit" class="om-star" style="align-self: flex-start; margin-top: 8px; color: #fff; background: transparent; border: none; height: 54px; padding: 0 34px; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">Enviar consulta</button>
                 </form>
               </sc-if>
             </div>
@@ -696,41 +696,41 @@
 
   <!-- ================= ZWCAD ================= -->
   <sc-if value="{{ esZwcad }}" hint-placeholder-val="{{ true }}">
-  <section data-screen-label="ZWCAD" style="position: relative; padding: clamp(70px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px); background: rgba(255,255,255,.30);">
+  <section data-screen-label="ZWCAD" style="position: relative; padding: clamp(70px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px); background: rgba(255,255,255,.55);">
     <div style="position: relative; z-index: 2; max-width: 1100px; margin: 0 auto;">
 
       <!-- Sin data-reveal: un control de navegación tiene que estar desde el
            primer momento, no aparecer con la animación del contenido. -->
       <a href="#/partners" class="om-volver om-enlace-tactil" style="margin-bottom: clamp(26px, 3vw, 34px);"><span aria-hidden="true" style="font-size: 15px; line-height: 1;">&larr;</span>Volver</a>
 
-      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #E71917; margin-bottom: 26px;">[ Partner ] &nbsp;//&nbsp; Software CAD</p>
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 26px;">[ Partner ] &nbsp;//&nbsp; Software CAD</p>
 
       <div data-reveal="" style="display: flex; align-items: center; gap: clamp(16px, 2.4vw, 28px); flex-wrap: wrap; margin-bottom: 22px;">
         <img src="./assets/marcas/zwcad.png" alt="ZWCAD" width="281" height="59" style="height: clamp(30px, 3.4vw, 42px); width: auto; display: block;" />
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: clamp(20px, 2.6vw, 30px); font-weight: 500; letter-spacing: .04em; color: #1D1E1E;">2026</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: clamp(20px, 2.6vw, 30px); font-weight: 600; letter-spacing: .04em; color: #1D1E1E;">2026</span>
       </div>
 
-      <h1 data-reveal="" style="font-size: clamp(26px, 4.4vw, 58px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; text-wrap: pretty;">Diseño CAD profesional, <span style="color: #E71917;">sin suscripción</span>.</h1>
+      <h1 data-reveal="" style="font-size: clamp(26px, 4.4vw, 58px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; text-wrap: pretty;">Diseño CAD profesional, <span style="color: #E71917;">sin suscripción</span>.</h1>
 
-      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 400; color: rgba(29,30,30,.76); max-width: 680px; margin-bottom: clamp(34px, 4vw, 48px);">ZWCAD es una potente solución CAD para dibujo 2D y navegación 3D. Totalmente compatible con DWG, permite una colaboración fluida entre distintas industrias, y su interfaz familiar ayuda a diseñar de forma más rápida. En Tic&rsquo;s Solutions lo licenciamos, lo implementamos y te acompañamos localmente.</p>
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 500; color: #3B3C3C; max-width: 680px; margin-bottom: clamp(34px, 4vw, 48px);">ZWCAD es una potente solución CAD para dibujo 2D y navegación 3D. Totalmente compatible con DWG, permite una colaboración fluida entre distintas industrias, y su interfaz familiar ayuda a diseñar de forma más rápida. En Tic&rsquo;s Solutions lo licenciamos, lo implementamos y te acompañamos localmente.</p>
 
       <img data-reveal="" src="./assets/zwcad-2026.jpg" alt="ZWCAD 2026 — diseño paramétrico y administrador de parámetros" width="1800" height="809" loading="lazy" decoding="async" style="display: block; width: 100%; height: auto; border: 1px solid rgba(29,30,30,.12); margin-bottom: clamp(46px, 6vw, 70px);" />
 
       <!-- Licencia perpetua frente a suscripción -->
       <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 2.6vw, 32px); margin-bottom: clamp(46px, 6vw, 72px);">
-        <div class="om-spot" data-spotlight="" style="border: 1px solid rgba(231,25,23,.4); background: rgba(255,255,255,.7); padding: clamp(26px, 3vw, 36px);">
-          <p style="position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #E71917; margin-bottom: 16px;">Licencia perpetua</p>
-          <p style="position: relative; z-index: 1; font-size: clamp(19px, 2vw, 24px); font-weight: 400; margin-bottom: 18px;">Se paga una vez y es tuya de por vida.</p>
-          <ul style="position: relative; z-index: 1; padding-left: 18px; display: flex; flex-direction: column; gap: 9px; font-size: 15px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.76);">
+        <div class="om-spot" data-spotlight="" style="border: 1px solid rgba(231,25,23,.4); background: #fff; padding: clamp(26px, 3vw, 36px);">
+          <p style="position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #BC1310; margin-bottom: 16px;">Licencia perpetua</p>
+          <p style="position: relative; z-index: 1; font-size: clamp(19px, 2vw, 24px); font-weight: 500; margin-bottom: 18px;">Se paga una vez y es tuya de por vida.</p>
+          <ul style="position: relative; z-index: 1; padding-left: 18px; display: flex; flex-direction: column; gap: 9px; font-size: 15px; line-height: 1.7; font-weight: 500; color: #3B3C3C;">
             <li>Sin cuotas anuales ni renovaciones obligatorias.</li>
             <li>El costo no se acumula año tras año.</li>
             <li>Actualizás cuando te conviene, no cuando te obligan.</li>
           </ul>
         </div>
-        <div style="border: 1px solid rgba(29,30,30,.14); background: rgba(245,246,248,.6); padding: clamp(26px, 3vw, 36px);">
-          <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.68); margin-bottom: 16px;">Modelo por suscripción</p>
-          <p style="font-size: clamp(19px, 2vw, 24px); font-weight: 400; margin-bottom: 18px; color: rgba(29,30,30,.72);">Se paga todos los años, siempre.</p>
-          <ul style="padding-left: 18px; display: flex; flex-direction: column; gap: 9px; font-size: 15px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.66);">
+        <div style="border: 1px solid rgba(29,30,30,.14); background: #F1F3F7; padding: clamp(26px, 3vw, 36px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #494A4A; margin-bottom: 16px;">Modelo por suscripción</p>
+          <p style="font-size: clamp(19px, 2vw, 24px); font-weight: 500; margin-bottom: 18px; color: #414242;">Se paga todos los años, siempre.</p>
+          <ul style="padding-left: 18px; display: flex; flex-direction: column; gap: 9px; font-size: 15px; line-height: 1.7; font-weight: 500; color: #494A4A;">
             <li>Cuota recurrente cada año.</li>
             <li>El gasto se acumula sin techo.</li>
             <li>Actualizaciones obligatorias para seguir usándolo.</li>
@@ -739,97 +739,97 @@
       </div>
 
       <!-- Por qué elegir ZWCAD -->
-      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #E71917; margin-bottom: 26px;">Por qué elegir ZWCAD</p>
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 26px;">Por qué elegir ZWCAD</p>
       <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: clamp(18px, 2.4vw, 30px); margin-bottom: clamp(46px, 6vw, 72px);">
         <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
-          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Amplia compatibilidad</h3>
-          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Compatible con DWG, DXF y DWT para una colaboración fluida.</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Amplia compatibilidad</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Compatible con DWG, DXF y DWT para una colaboración fluida.</p>
         </div>
         <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
-          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Interfaz familiar</h3>
-          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Interfaz clásica y Ribbon, con modos oscuro y claro, para una transición sencilla.</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Interfaz familiar</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Interfaz clásica y Ribbon, con modos oscuro y claro, para una transición sencilla.</p>
         </div>
         <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
-          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Altamente personalizable</h3>
-          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Compatible con LISP, VBA, ZRX y APIs .NET.</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Altamente personalizable</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Compatible con LISP, VBA, ZRX y APIs .NET.</p>
         </div>
         <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
-          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Migración sencilla</h3>
-          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Transferís tus impresoras, plantillas y personalizaciones sin rehacer el trabajo.</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Migración sencilla</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Transferís tus impresoras, plantillas y personalizaciones sin rehacer el trabajo.</p>
         </div>
       </div>
 
       <!-- Novedades de la versión 2026 -->
-      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #E71917; margin-bottom: 10px;">Qué hay de nuevo en 2026</p>
-      <p data-reveal="" style="font-size: clamp(17px, 1.8vw, 22px); font-weight: 400; color: rgba(29,30,30,.84); max-width: 620px; margin-bottom: 30px;">Nuestra mejor solución CAD, ahora aún más potente.</p>
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 10px;">Qué hay de nuevo en 2026</p>
+      <p data-reveal="" style="font-size: clamp(17px, 1.8vw, 22px); font-weight: 500; color: #2E2F2F; max-width: 620px; margin-bottom: 30px;">Nuestra mejor solución CAD, ahora aún más potente.</p>
       <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: clamp(18px, 2.4vw, 26px); margin-bottom: clamp(46px, 6vw, 72px);">
         <sc-for list="{{ novedades }}" as="nv" hint-placeholder-count="6">
-          <div style="border: 1px solid rgba(29,30,30,.12); background: rgba(255,255,255,.62); padding: clamp(20px, 2.4vw, 26px);">
+          <div style="border: 1px solid rgba(29,30,30,.12); background: #fff; padding: clamp(20px, 2.4vw, 26px);">
             <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: {{ nv.color }}; margin-bottom: 12px;">{{ nv.etiqueta }}</p>
-            <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">{{ nv.n }}</h3>
-            <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">{{ nv.txt }}</p>
+            <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">{{ nv.n }}</h3>
+            <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">{{ nv.txt }}</p>
           </div>
         </sc-for>
       </div>
 
       <!-- Ediciones -->
-      <div data-reveal="" style="border: 1px solid rgba(29,30,30,.14); background: rgba(255,255,255,.62); padding: clamp(24px, 3vw, 34px); margin-bottom: clamp(40px, 5vw, 60px);">
-        <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.7); margin-bottom: 14px;">Ediciones disponibles</p>
-        <p style="font-size: clamp(17px, 1.8vw, 21px); font-weight: 400; color: rgba(29,30,30,.84);">Standard &nbsp;&middot;&nbsp; Professional &nbsp;&middot;&nbsp; Full</p>
-        <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72); margin-top: 12px;">Cada edición cubre un alcance distinto en compatibilidad, dibujo, funciones avanzadas, modelado 3D y programación. Te ayudamos a elegir la que corresponde según cómo trabaja tu equipo.</p>
+      <div data-reveal="" style="border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(24px, 3vw, 34px); margin-bottom: clamp(40px, 5vw, 60px);">
+        <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #414242; margin-bottom: 14px;">Ediciones disponibles</p>
+        <p style="font-size: clamp(17px, 1.8vw, 21px); font-weight: 500; color: #2E2F2F;">Standard &nbsp;&middot;&nbsp; Professional &nbsp;&middot;&nbsp; Full</p>
+        <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242; margin-top: 12px;">Cada edición cubre un alcance distinto en compatibilidad, dibujo, funciones avanzadas, modelado 3D y programación. Te ayudamos a elegir la que corresponde según cómo trabaja tu equipo.</p>
       </div>
 
       <!-- Llamado a la acción, hacia Tic's y no hacia el fabricante -->
       <div data-reveal="" style="border-top: 2px solid #E71917; padding-top: clamp(28px, 3.4vw, 40px); display: flex; flex-wrap: wrap; align-items: center; gap: clamp(18px, 3vw, 36px); justify-content: space-between;">
         <div>
-          <p style="font-size: clamp(19px, 2.2vw, 26px); font-weight: 400; margin-bottom: 8px;">Hay una prueba gratuita de 30 días.</p>
-          <p style="font-size: 15px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.74); max-width: 460px;">Escribinos y coordinamos la prueba, el licenciamiento y la puesta en marcha con tu equipo.</p>
+          <p style="font-size: clamp(19px, 2.2vw, 26px); font-weight: 500; margin-bottom: 8px;">Hay una prueba gratuita de 30 días.</p>
+          <p style="font-size: 15px; line-height: 1.7; font-weight: 500; color: #3B3C3C; max-width: 460px;">Escribinos y coordinamos la prueba, el licenciamiento y la puesta en marcha con tu equipo.</p>
         </div>
-        <a href="#/contacto" class="om-star" style="color: #fff; height: 54px; padding: 0 32px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Solicitar la prueba</a>
+        <a href="#/contacto" class="om-star" style="color: #fff; height: 54px; padding: 0 32px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Solicitar la prueba</a>
       </div>
 
-      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.64);">ZWCAD es un producto de ZWSOFT. Tic&rsquo;s Solutions es su partner en Paraguay; las marcas y nombres citados pertenecen a sus respectivos titulares.</p>
+      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 500; color: #4F5050;">ZWCAD es un producto de ZWSOFT. Tic&rsquo;s Solutions es su partner en Paraguay; las marcas y nombres citados pertenecen a sus respectivos titulares.</p>
     </div>
   </section>
   </sc-if>
   <!-- ================= APLITOP ================= -->
   <sc-if value="{{ esAplitop }}" hint-placeholder-val="{{ true }}">
-  <section data-screen-label="Aplitop" style="position: relative; padding: clamp(70px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px); background: rgba(255,255,255,.30);">
+  <section data-screen-label="Aplitop" style="position: relative; padding: clamp(70px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px); background: rgba(255,255,255,.55);">
     <div style="position: relative; z-index: 2; max-width: 1100px; margin: 0 auto;">
 
       <a href="#/partners" class="om-volver om-enlace-tactil" style="margin-bottom: clamp(26px, 3vw, 34px);"><span aria-hidden="true" style="font-size: 15px; line-height: 1;">&larr;</span>Volver</a>
 
-      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #E71917; margin-bottom: 26px;">[ Partner ] &nbsp;//&nbsp; Topografía e ingeniería civil</p>
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 26px;">[ Partner ] &nbsp;//&nbsp; Topografía e ingeniería civil</p>
 
       <div data-reveal="" style="display: flex; align-items: center; gap: clamp(16px, 2.4vw, 28px); flex-wrap: wrap; margin-bottom: 22px;">
         <img src="./assets/marcas/aplitop.png" alt="Aplitop" width="522" height="160" style="height: clamp(26px, 3vw, 36px); width: auto; display: block;" />
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: clamp(20px, 2.6vw, 30px); font-weight: 500; letter-spacing: .04em; color: #1D1E1E;">tcpMDT 26</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: clamp(20px, 2.6vw, 30px); font-weight: 600; letter-spacing: .04em; color: #1D1E1E;">tcpMDT 26</span>
       </div>
 
-      <h1 data-reveal="" style="font-size: clamp(26px, 4.4vw, 58px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; text-wrap: pretty;">Del dato de campo al <span style="color: #E71917;">proyecto terminado</span>.</h1>
+      <h1 data-reveal="" style="font-size: clamp(26px, 4.4vw, 58px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; text-wrap: pretty;">Del dato de campo al <span style="color: #E71917;">proyecto terminado</span>.</h1>
 
-      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 400; color: rgba(29,30,30,.76); max-width: 700px; margin-bottom: clamp(34px, 4vw, 48px);">tcpMDT 26 potencia tu CAD con un entorno completo para topografía, ingeniería civil y modelado del terreno. Su diseño modular combina facilidad de uso, precisión y productividad, cubriendo desde el tratamiento de datos de campo hasta el diseño, mediciones, replanteo e intercambio BIM y GIS.</p>
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 500; color: #3B3C3C; max-width: 700px; margin-bottom: clamp(34px, 4vw, 48px);">tcpMDT 26 potencia tu CAD con un entorno completo para topografía, ingeniería civil y modelado del terreno. Su diseño modular combina facilidad de uso, precisión y productividad, cubriendo desde el tratamiento de datos de campo hasta el diseño, mediciones, replanteo e intercambio BIM y GIS.</p>
 
       <img data-reveal="" src="./assets/aplitop-terreno.jpg" alt="Aplitop — modelado digital del terreno" width="1280" height="720" loading="lazy" decoding="async" style="display: block; width: 100%; height: auto; border: 1px solid rgba(29,30,30,.12); margin-bottom: clamp(46px, 6vw, 70px);" />
 
       <!-- Las dos versiones -->
       <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 2.6vw, 32px); margin-bottom: clamp(46px, 6vw, 72px);">
-        <div style="border: 1px solid rgba(29,30,30,.14); background: rgba(255,255,255,.7); padding: clamp(26px, 3vw, 36px);">
-          <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.68); margin-bottom: 16px;">Versión Estándar</p>
-          <p style="font-size: clamp(18px, 1.9vw, 22px); font-weight: 400; margin-bottom: 18px;">Modelado del terreno y trabajo topográfico.</p>
-          <p style="font-size: 15px; line-height: 1.75; font-weight: 400; color: rgba(29,30,30,.76); margin-bottom: 16px;">Creá y editá modelos digitales del terreno a partir de puntos, líneas de rotura, archivos CAD, datos GNSS, estaciones totales, TcpGPS y nubes de puntos.</p>
-          <ul style="padding-left: 18px; display: flex; flex-direction: column; gap: 9px; font-size: 15px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.76);">
+        <div style="border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(26px, 3vw, 36px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #494A4A; margin-bottom: 16px;">Versión Estándar</p>
+          <p style="font-size: clamp(18px, 1.9vw, 22px); font-weight: 500; margin-bottom: 18px;">Modelado del terreno y trabajo topográfico.</p>
+          <p style="font-size: 15px; line-height: 1.75; font-weight: 500; color: #3B3C3C; margin-bottom: 16px;">Creá y editá modelos digitales del terreno a partir de puntos, líneas de rotura, archivos CAD, datos GNSS, estaciones totales, TcpGPS y nubes de puntos.</p>
+          <ul style="padding-left: 18px; display: flex; flex-direction: column; gap: 9px; font-size: 15px; line-height: 1.7; font-weight: 500; color: #3B3C3C;">
             <li>Gestión de puntos, códigos de campo y triangulación.</li>
             <li>Curvas de nivel, perfiles longitudinales y transversales.</li>
             <li>Cálculo de volúmenes, visualización 3D y mapas de pendientes.</li>
             <li>Parcelas e intercambio de datos GIS.</li>
           </ul>
         </div>
-        <div class="om-spot" data-spotlight="" style="border: 1px solid rgba(231,25,23,.4); background: rgba(255,255,255,.7); padding: clamp(26px, 3vw, 36px);">
-          <p style="position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #E71917; margin-bottom: 16px;">Versión Profesional</p>
-          <p style="position: relative; z-index: 1; font-size: clamp(18px, 1.9vw, 22px); font-weight: 400; margin-bottom: 18px;">Todo lo anterior, más obra lineal completa.</p>
-          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 400; color: rgba(29,30,30,.76); margin-bottom: 16px;">Pensada para carreteras, urbanizaciones, canteras, plataformas, infraestructuras hidráulicas y obras lineales.</p>
-          <ul style="position: relative; z-index: 1; padding-left: 18px; display: flex; flex-direction: column; gap: 9px; font-size: 15px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.76);">
+        <div class="om-spot" data-spotlight="" style="border: 1px solid rgba(231,25,23,.4); background: #fff; padding: clamp(26px, 3vw, 36px);">
+          <p style="position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #BC1310; margin-bottom: 16px;">Versión Profesional</p>
+          <p style="position: relative; z-index: 1; font-size: clamp(18px, 1.9vw, 22px); font-weight: 500; margin-bottom: 18px;">Todo lo anterior, más obra lineal completa.</p>
+          <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 500; color: #3B3C3C; margin-bottom: 16px;">Pensada para carreteras, urbanizaciones, canteras, plataformas, infraestructuras hidráulicas y obras lineales.</p>
+          <ul style="position: relative; z-index: 1; padding-left: 18px; display: flex; flex-direction: column; gap: 9px; font-size: 15px; line-height: 1.7; font-weight: 500; color: #3B3C3C;">
             <li>Diseño de ejes en planta y alzado, y secciones tipo.</li>
             <li>Carreteras y viales, cálculo de taludes y movimientos de tierras.</li>
             <li>Mediciones y replanteo.</li>
@@ -840,195 +840,195 @@
       </div>
 
       <!-- Módulos -->
-      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #E71917; margin-bottom: 26px;">Módulos</p>
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 26px;">Módulos</p>
       <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: clamp(18px, 2.4vw, 30px); margin-bottom: clamp(46px, 6vw, 72px);">
         <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
-          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Topografía</h3>
-          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Sistemas de referencia con cobertura mundial y transformaciones globales o locales. Procesa observaciones de estación total y se integra con TcpGPS para dar continuidad entre campo y oficina.</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Topografía</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Sistemas de referencia con cobertura mundial y transformaciones globales o locales. Procesa observaciones de estación total y se integra con TcpGPS para dar continuidad entre campo y oficina.</p>
         </div>
         <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
-          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Fotovoltaicas &mdash; tcpMDT PV</h3>
-          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Sobre la versión profesional, optimiza los movimientos de tierras en plantas solares emplazadas en terrenos complejos.</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Fotovoltaicas &mdash; tcpMDT PV</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Sobre la versión profesional, optimiza los movimientos de tierras en plantas solares emplazadas en terrenos complejos.</p>
         </div>
         <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
-          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Nubes de puntos</h3>
-          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Trabaja con archivos LAS/LAZ para generar superficies, mallas y modelos del terreno, y se complementa con Tcp PointCloud Editor.</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Nubes de puntos</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Trabaja con archivos LAS/LAZ para generar superficies, mallas y modelos del terreno, y se complementa con Tcp PointCloud Editor.</p>
         </div>
         <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
-          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Asistente con IA</h3>
-          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Incluye asistencia basada en inteligencia artificial y conexión MCP para consultar información y ejecutar instrucciones dentro del flujo de trabajo.</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Asistente con IA</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Incluye asistencia basada en inteligencia artificial y conexión MCP para consultar información y ejecutar instrucciones dentro del flujo de trabajo.</p>
         </div>
       </div>
 
       <img data-reveal="" src="./assets/aplitop-campo.jpg" alt="Levantamiento topográfico en campo" width="1400" height="787" loading="lazy" decoding="async" style="display: block; width: 100%; height: auto; border: 1px solid rgba(29,30,30,.12); margin-bottom: clamp(46px, 6vw, 72px);" />
 
       <!-- Requisitos -->
-      <div data-reveal="" style="border: 1px solid rgba(29,30,30,.14); background: rgba(255,255,255,.62); padding: clamp(24px, 3vw, 34px); margin-bottom: clamp(40px, 5vw, 60px);">
-        <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: rgba(29,30,30,.7); margin-bottom: 18px;">Sobre qué CAD funciona</p>
-        <ul style="padding-left: 18px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.78);">
+      <div data-reveal="" style="border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(24px, 3vw, 34px); margin-bottom: clamp(40px, 5vw, 60px);">
+        <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #414242; margin-bottom: 18px;">Sobre qué CAD funciona</p>
+        <ul style="padding-left: 18px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.7; font-weight: 500; color: #353636;">
           <li>ZWCAD Professional / Enterprise 2021 a 2026 (64 bits) &mdash; <a href="#/zwcad" style="color: #E71917;">lo licenciamos nosotros mismos</a>.</li>
           <li>AutoCAD 2019 a 2027 (64 bits).</li>
           <li>BricsCAD BIM / Pro / Ultimate 19 a 26.</li>
           <li>GstarCAD Professional / Plus 2023 a 2027 (64 bits).</li>
           <li>progeCAD Professional 2025 a 2026.</li>
         </ul>
-        <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72); margin-top: 18px;">Requiere Windows 10 u 11 de 64 bits, 16 GB de memoria como mínimo y una placa gráfica compatible con OpenGL 3.3 o superior a 1920&times;1080. Esta información es orientativa: confirmá siempre los requisitos vigentes antes de comprar.</p>
+        <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242; margin-top: 18px;">Requiere Windows 10 u 11 de 64 bits, 16 GB de memoria como mínimo y una placa gráfica compatible con OpenGL 3.3 o superior a 1920&times;1080. Esta información es orientativa: confirmá siempre los requisitos vigentes antes de comprar.</p>
       </div>
 
       <div data-reveal="" style="border-top: 2px solid #E71917; padding-top: clamp(28px, 3.4vw, 40px); display: flex; flex-wrap: wrap; align-items: center; gap: clamp(18px, 3vw, 36px); justify-content: space-between;">
         <div>
-          <p style="font-size: clamp(19px, 2.2vw, 26px); font-weight: 400; margin-bottom: 8px;">¿Qué versión necesita tu equipo?</p>
-          <p style="font-size: 15px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.74); max-width: 460px;">Escribinos y revisamos juntos el tipo de proyecto, el CAD que ya usás y los módulos que te hacen falta.</p>
+          <p style="font-size: clamp(19px, 2.2vw, 26px); font-weight: 500; margin-bottom: 8px;">¿Qué versión necesita tu equipo?</p>
+          <p style="font-size: 15px; line-height: 1.7; font-weight: 500; color: #3B3C3C; max-width: 460px;">Escribinos y revisamos juntos el tipo de proyecto, el CAD que ya usás y los módulos que te hacen falta.</p>
         </div>
-        <a href="#/contacto" class="om-star" style="color: #fff; height: 54px; padding: 0 32px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Pedir asesoramiento</a>
+        <a href="#/contacto" class="om-star" style="color: #fff; height: 54px; padding: 0 32px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Pedir asesoramiento</a>
       </div>
 
-      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.64);">tcpMDT es un producto de Aplitop S.L. (Málaga, España). Tic&rsquo;s Solutions lo comercializa e implementa en Paraguay; AutoCAD, BricsCAD, GstarCAD y progeCAD son marcas registradas de sus respectivos titulares.</p>
+      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 500; color: #4F5050;">tcpMDT es un producto de Aplitop S.L. (Málaga, España). Tic&rsquo;s Solutions lo comercializa e implementa en Paraguay; AutoCAD, BricsCAD, GstarCAD y progeCAD son marcas registradas de sus respectivos titulares.</p>
     </div>
   </section>
   </sc-if>
 
   <!-- ================= CADPROFI ================= -->
   <sc-if value="{{ esCadprofi }}" hint-placeholder-val="{{ true }}">
-  <section data-screen-label="CADprofi" style="position: relative; padding: clamp(70px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px); background: rgba(255,255,255,.30);">
+  <section data-screen-label="CADprofi" style="position: relative; padding: clamp(70px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px); background: rgba(255,255,255,.55);">
     <div style="position: relative; z-index: 2; max-width: 1100px; margin: 0 auto;">
 
       <a href="#/partners" class="om-volver om-enlace-tactil" style="margin-bottom: clamp(26px, 3vw, 34px);"><span aria-hidden="true" style="font-size: 15px; line-height: 1;">&larr;</span>Volver</a>
 
-      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #E71917; margin-bottom: 26px;">[ Partner ] &nbsp;//&nbsp; Complemento CAD</p>
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 26px;">[ Partner ] &nbsp;//&nbsp; Complemento CAD</p>
 
       <div data-reveal="" style="margin-bottom: 22px;">
         <img src="./assets/marcas/cadprofi.png" alt="CADprofi" width="587" height="160" style="height: clamp(30px, 3.4vw, 42px); width: auto; display: block;" />
       </div>
 
-      <h1 data-reveal="" style="font-size: clamp(26px, 4.4vw, 58px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; text-wrap: pretty;">Dejá de dibujar <span style="color: #E71917;">lo mismo dos veces</span>.</h1>
+      <h1 data-reveal="" style="font-size: clamp(26px, 4.4vw, 58px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; text-wrap: pretty;">Dejá de dibujar <span style="color: #E71917;">lo mismo dos veces</span>.</h1>
 
-      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 400; color: rgba(29,30,30,.76); max-width: 700px; margin-bottom: clamp(46px, 6vw, 70px);">CADprofi es un complemento que se instala sobre el CAD que ya usás y le agrega bibliotecas de símbolos y objetos normalizados, además de comandos específicos para cada especialidad. En lugar de redibujar cada elemento, lo insertás desde la biblioteca y el programa mantiene la coherencia del plano.</p>
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 500; color: #3B3C3C; max-width: 700px; margin-bottom: clamp(46px, 6vw, 70px);">CADprofi es un complemento que se instala sobre el CAD que ya usás y le agrega bibliotecas de símbolos y objetos normalizados, además de comandos específicos para cada especialidad. En lugar de redibujar cada elemento, lo insertás desde la biblioteca y el programa mantiene la coherencia del plano.</p>
 
       <!-- Módulos -->
-      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #E71917; margin-bottom: 26px;">Módulos</p>
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 26px;">Módulos</p>
       <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: clamp(18px, 2.4vw, 28px); margin-bottom: clamp(46px, 6vw, 72px);">
-        <div style="border: 1px solid rgba(29,30,30,.12); background: rgba(255,255,255,.62); padding: clamp(22px, 2.6vw, 30px);">
-          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #E71917; margin-bottom: 12px;">Módulo 01</p>
-          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Arquitectura</h3>
-          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Muros, aberturas, escaleras y mobiliario, con la documentación del plano asociada a los elementos que insertás.</p>
+        <div style="border: 1px solid rgba(29,30,30,.12); background: #fff; padding: clamp(22px, 2.6vw, 30px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">Módulo 01</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Arquitectura</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Muros, aberturas, escaleras y mobiliario, con la documentación del plano asociada a los elementos que insertás.</p>
         </div>
-        <div style="border: 1px solid rgba(29,30,30,.12); background: rgba(255,255,255,.62); padding: clamp(22px, 2.6vw, 30px);">
-          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #E71917; margin-bottom: 12px;">Módulo 02</p>
-          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Electricidad</h3>
-          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Esquemas unifilares y multifilares, canalizaciones, tableros y símbolos normalizados para instalaciones eléctricas.</p>
+        <div style="border: 1px solid rgba(29,30,30,.12); background: #fff; padding: clamp(22px, 2.6vw, 30px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">Módulo 02</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Electricidad</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Esquemas unifilares y multifilares, canalizaciones, tableros y símbolos normalizados para instalaciones eléctricas.</p>
         </div>
-        <div style="border: 1px solid rgba(29,30,30,.12); background: rgba(255,255,255,.62); padding: clamp(22px, 2.6vw, 30px);">
-          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #E71917; margin-bottom: 12px;">Módulo 03</p>
-          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">HVAC &amp; Piping</h3>
-          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Climatización, calefacción y redes de tuberías, con catálogos de fabricantes y accesorios listos para insertar.</p>
+        <div style="border: 1px solid rgba(29,30,30,.12); background: #fff; padding: clamp(22px, 2.6vw, 30px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">Módulo 03</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">HVAC &amp; Piping</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Climatización, calefacción y redes de tuberías, con catálogos de fabricantes y accesorios listos para insertar.</p>
         </div>
       </div>
 
       <!-- Por qué conviene -->
       <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: clamp(18px, 2.4vw, 30px); margin-bottom: clamp(46px, 6vw, 72px);">
         <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
-          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Se suma a tu CAD</h3>
-          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">No reemplaza tu programa de dibujo: se instala encima y aparece como una barra de herramientas más.</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Se suma a tu CAD</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">No reemplaza tu programa de dibujo: se instala encima y aparece como una barra de herramientas más.</p>
         </div>
         <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
-          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Bibliotecas normalizadas</h3>
-          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Miles de símbolos y objetos siguiendo normas del sector, en lugar de bloques sueltos hechos a mano.</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Bibliotecas normalizadas</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Miles de símbolos y objetos siguiendo normas del sector, en lugar de bloques sueltos hechos a mano.</p>
         </div>
         <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
-          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Planos consistentes</h3>
-          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Capas, cotas y descripciones se generan con el mismo criterio en todo el proyecto y en todo el equipo.</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Planos consistentes</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Capas, cotas y descripciones se generan con el mismo criterio en todo el proyecto y en todo el equipo.</p>
         </div>
         <div style="border-top: 1px solid rgba(231,25,23,.5); padding-top: 18px;">
-          <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 10px;">Multilingüe</h3>
-          <p style="font-size: 14px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.72);">Las descripciones de los elementos se traducen solas, algo útil cuando el proyecto se comparte fuera del país.</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Multilingüe</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Las descripciones de los elementos se traducen solas, algo útil cuando el proyecto se comparte fuera del país.</p>
         </div>
       </div>
 
       <div data-reveal="" style="border-top: 2px solid #E71917; padding-top: clamp(28px, 3.4vw, 40px); display: flex; flex-wrap: wrap; align-items: center; gap: clamp(18px, 3vw, 36px); justify-content: space-between;">
         <div>
-          <p style="font-size: clamp(19px, 2.2vw, 26px); font-weight: 400; margin-bottom: 8px;">¿Qué módulo te sirve?</p>
-          <p style="font-size: 15px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.74); max-width: 460px;">Contanos qué especialidad trabajás y sobre qué CAD, y te decimos qué configuración conviene.</p>
+          <p style="font-size: clamp(19px, 2.2vw, 26px); font-weight: 500; margin-bottom: 8px;">¿Qué módulo te sirve?</p>
+          <p style="font-size: 15px; line-height: 1.7; font-weight: 500; color: #3B3C3C; max-width: 460px;">Contanos qué especialidad trabajás y sobre qué CAD, y te decimos qué configuración conviene.</p>
         </div>
-        <a href="#/contacto" class="om-star" style="color: #fff; height: 54px; padding: 0 32px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Consultar</a>
+        <a href="#/contacto" class="om-star" style="color: #fff; height: 54px; padding: 0 32px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Consultar</a>
       </div>
 
-      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 400; color: rgba(29,30,30,.64);">CADprofi es un producto de CADprofi Sp. z o.o. Tic&rsquo;s Solutions lo comercializa e implementa en Paraguay; las marcas y nombres citados pertenecen a sus respectivos titulares.</p>
+      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 500; color: #4F5050;">CADprofi es un producto de CADprofi Sp. z o.o. Tic&rsquo;s Solutions lo comercializa e implementa en Paraguay; las marcas y nombres citados pertenecen a sus respectivos titulares.</p>
     </div>
   </section>
   </sc-if>
 
   <sc-if value="{{ esPrivacidad }}" hint-placeholder-val="{{ true }}">
-  <section data-screen-label="Política de privacidad" style="position: relative; padding: clamp(70px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px); background: rgba(255,255,255,.30);">
+  <section data-screen-label="Política de privacidad" style="position: relative; padding: clamp(70px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px); background: rgba(255,255,255,.55);">
     <div style="max-width: 820px; margin: 0 auto;">
-      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #E71917; margin-bottom: 26px;">[ Legal ]</p>
-      <h1 data-reveal="" style="font-size: clamp(30px, 4.4vw, 58px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 18px;">Política de <span style="color: #E71917;">privacidad</span></h1>
-      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .1em; color: rgba(29,30,30,.64); margin-bottom: clamp(40px, 5vw, 60px);">Última actualización: 25 de agosto de 2026</p>
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 26px;">[ Legal ]</p>
+      <h1 data-reveal="" style="font-size: clamp(30px, 4.4vw, 58px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 18px;">Política de <span style="color: #E71917;">privacidad</span></h1>
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .1em; color: #4F5050; margin-bottom: clamp(40px, 5vw, 60px);">Última actualización: 25 de agosto de 2026</p>
 
-      <div data-reveal="" style="display: flex; flex-direction: column; gap: clamp(30px, 3.6vw, 44px); font-size: 16px; line-height: 1.85; font-weight: 400; color: rgba(29,30,30,.82);">
+      <div data-reveal="" style="display: flex; flex-direction: column; gap: clamp(30px, 3.6vw, 44px); font-size: 16px; line-height: 1.85; font-weight: 500; color: #2E2F2F;">
 
         <div>
-          <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 400; color: #1D1E1E; margin-bottom: 12px;">1. Quién es responsable de tus datos</h2>
+          <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 500; color: #1D1E1E; margin-bottom: 12px;">1. Quién es responsable de tus datos</h2>
           <p>Tic's Solutions, empresa de soluciones tecnológicas y ciberseguridad con domicilio en Asunción, Paraguay, es responsable del tratamiento de los datos personales que recibimos a través de este sitio.</p>
-          <p style="margin-top: 12px;">Para cualquier consulta sobre esta política podés escribir a <a href="mailto:arturo.osorio@tics-py.com" style="color: #E71917;">arturo.osorio@tics-py.com</a> o llamar al <a href="tel:+595981171372" style="color: #E71917;">(+595) 981 171 372</a>.</p>
+          <p style="margin-top: 12px;">Para cualquier consulta sobre esta política podés escribir a <a href="mailto:arturo.osorio@tics-py.com" style="color: #BC1310;">arturo.osorio@tics-py.com</a> o llamar al <a href="tel:+595981171372" style="color: #BC1310;">(+595) 981 171 372</a>.</p>
         </div>
 
         <div>
-          <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 400; color: #1D1E1E; margin-bottom: 12px;">2. Qué datos recogemos</h2>
+          <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 500; color: #1D1E1E; margin-bottom: 12px;">2. Qué datos recogemos</h2>
           <p>Solamente los que nos entregás de forma voluntaria. En el formulario de contacto te pedimos nombre, empresa, correo electrónico, teléfono y el mensaje que quieras enviarnos. De esos campos, únicamente el nombre y el correo son obligatorios.</p>
           <p style="margin-top: 12px;">Si preferís escribirnos por correo, teléfono o WhatsApp, los datos que tratamos son los que aparezcan en esa comunicación.</p>
           <p style="margin-top: 12px;">No pedimos ni almacenamos datos sensibles, ni información financiera, ni documentos de identidad a través de este sitio.</p>
         </div>
 
         <div>
-          <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 400; color: #1D1E1E; margin-bottom: 12px;">3. Para qué los usamos</h2>
+          <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 500; color: #1D1E1E; margin-bottom: 12px;">3. Para qué los usamos</h2>
           <p>Para responder tu consulta, preparar una propuesta y darle seguimiento comercial. Nada más. No usamos tus datos para publicidad de terceros ni para elaborar perfiles.</p>
         </div>
 
         <div>
-          <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 400; color: #1D1E1E; margin-bottom: 12px;">4. Con quién los compartimos</h2>
+          <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 500; color: #1D1E1E; margin-bottom: 12px;">4. Con quién los compartimos</h2>
           <p>No vendemos, alquilamos ni cedemos tus datos personales. Solo los entregaríamos a una autoridad competente si una obligación legal nos lo exigiera.</p>
         </div>
 
         <div>
-          <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 400; color: #1D1E1E; margin-bottom: 12px;">5. Servicios de terceros que intervienen</h2>
+          <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 500; color: #1D1E1E; margin-bottom: 12px;">5. Servicios de terceros que intervienen</h2>
           <p>Para que este sitio funcione intervienen proveedores que, por la naturaleza técnica de una página web, pueden recibir ciertos datos:</p>
           <ul style="margin-top: 14px; padding-left: 20px; display: flex; flex-direction: column; gap: 10px;">
-            <li><strong style="font-weight: 400; color: #1D1E1E;">Vercel</strong> aloja el sitio y registra datos técnicos de conexión, como la dirección IP, en sus registros de servidor.</li>
-            <li><strong style="font-weight: 400; color: #1D1E1E;">Google Fonts</strong> provee las tipografías. Tu navegador las solicita a servidores de Google, que reciben tu dirección IP al hacerlo.</li>
-            <li><strong style="font-weight: 400; color: #1D1E1E;">WhatsApp</strong> interviene únicamente si elegís usar ese enlace para escribirnos, y en ese caso aplica la política de privacidad de esa plataforma.</li>
+            <li><strong style="font-weight: 500; color: #1D1E1E;">Vercel</strong> aloja el sitio y registra datos técnicos de conexión, como la dirección IP, en sus registros de servidor.</li>
+            <li><strong style="font-weight: 500; color: #1D1E1E;">Google Fonts</strong> provee las tipografías. Tu navegador las solicita a servidores de Google, que reciben tu dirección IP al hacerlo.</li>
+            <li><strong style="font-weight: 500; color: #1D1E1E;">WhatsApp</strong> interviene únicamente si elegís usar ese enlace para escribirnos, y en ese caso aplica la política de privacidad de esa plataforma.</li>
           </ul>
         </div>
 
         <div>
-          <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 400; color: #1D1E1E; margin-bottom: 12px;">6. Cookies</h2>
+          <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 500; color: #1D1E1E; margin-bottom: 12px;">6. Cookies</h2>
           <p>Este sitio no instala cookies propias ni utiliza herramientas de analítica, seguimiento o publicidad. No registramos tu navegación.</p>
         </div>
 
         <div>
-          <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 400; color: #1D1E1E; margin-bottom: 12px;">7. Cuánto tiempo los conservamos</h2>
+          <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 500; color: #1D1E1E; margin-bottom: 12px;">7. Cuánto tiempo los conservamos</h2>
           <p>Conservamos los datos de tu consulta mientras dure la gestión y el tiempo necesario para atender la relación comercial que pueda surgir. Si nos pedís que los borremos y no existe una obligación legal de conservarlos, lo hacemos.</p>
         </div>
 
         <div>
-          <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 400; color: #1D1E1E; margin-bottom: 12px;">8. Tus derechos</h2>
+          <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 500; color: #1D1E1E; margin-bottom: 12px;">8. Tus derechos</h2>
           <p>Podés pedirnos en cualquier momento acceder a los datos que tengamos sobre vos, corregirlos si están equivocados, actualizarlos o solicitar que los eliminemos. También podés retirar tu consentimiento.</p>
-          <p style="margin-top: 12px;">Para ejercer cualquiera de estos derechos escribinos a <a href="mailto:arturo.osorio@tics-py.com" style="color: #E71917;">arturo.osorio@tics-py.com</a>. Respondemos a la brevedad.</p>
+          <p style="margin-top: 12px;">Para ejercer cualquiera de estos derechos escribinos a <a href="mailto:arturo.osorio@tics-py.com" style="color: #BC1310;">arturo.osorio@tics-py.com</a>. Respondemos a la brevedad.</p>
         </div>
 
         <div>
-          <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 400; color: #1D1E1E; margin-bottom: 12px;">9. Seguridad</h2>
+          <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 500; color: #1D1E1E; margin-bottom: 12px;">9. Seguridad</h2>
           <p>Aplicamos medidas técnicas y organizativas razonables para proteger la información que nos confiás. Aun así, ningún medio de transmisión por internet es completamente infalible, y no podemos garantizar seguridad absoluta.</p>
         </div>
 
         <div>
-          <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 400; color: #1D1E1E; margin-bottom: 12px;">10. Cambios en esta política</h2>
+          <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 500; color: #1D1E1E; margin-bottom: 12px;">10. Cambios en esta política</h2>
           <p>Si modificamos esta política, publicaremos la versión actualizada en esta misma dirección y cambiaremos la fecha de última actualización que figura arriba.</p>
         </div>
 
         <div style="border-top: 1px solid rgba(29,30,30,.12); padding-top: clamp(24px, 3vw, 34px);">
-          <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(29,30,30,.64); margin-bottom: 12px;">Contacto</p>
-          <p>Tic's Solutions &middot; Arturo Osorio, Director Ejecutivo<br />Asunción, Paraguay<br /><a href="tel:+595981171372" style="color: #E71917;">(+595) 981 171 372</a> &middot; <a href="mailto:arturo.osorio@tics-py.com" style="color: #E71917;">arturo.osorio@tics-py.com</a></p>
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4F5050; margin-bottom: 12px;">Contacto</p>
+          <p>Tic's Solutions &middot; Arturo Osorio, Director Ejecutivo<br />Asunción, Paraguay<br /><a href="tel:+595981171372" style="color: #BC1310;">(+595) 981 171 372</a> &middot; <a href="mailto:arturo.osorio@tics-py.com" style="color: #BC1310;">arturo.osorio@tics-py.com</a></p>
         </div>
       </div>
     </div>
@@ -1039,23 +1039,23 @@
     <div style="position: relative; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: clamp(28px, 4vw, 56px); padding-bottom: clamp(28px, 3.4vw, 42px);">
       <div>
         <img src="./assets/logo-tics-oscuro.png" alt="Tic's Solutions" style="height: 52px; width: auto; display: block;" />
-        <p class="om-shiny" style="margin-top: 22px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase;">Tecnología a tu alcance</p>
+        <p class="om-shiny" style="margin-top: 22px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;">Tecnología a tu alcance</p>
       </div>
       <div style="display: flex; flex-direction: column; gap: 9px;">
         <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #FF6B62; margin-bottom: 8px;">Navegación</p>
-        <a href="#/" style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400; transition: color .3s ease;" style-hover="color: #E71917;">Inicio</a>
-        <a href="#/nosotros" style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400; transition: color .3s ease;" style-hover="color: #E71917;">Nosotros</a>
-        <a href="#/servicios" style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400; transition: color .3s ease;" style-hover="color: #E71917;">Servicios</a>
-        <a href="#/partners" style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400; transition: color .3s ease;" style-hover="color: #E71917;">Partners</a>
-        <a href="#/contacto" style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400; transition: color .3s ease;" style-hover="color: #E71917;">Contacto</a>
+        <a href="#/" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">Inicio</a>
+        <a href="#/nosotros" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">Nosotros</a>
+        <a href="#/servicios" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">Servicios</a>
+        <a href="#/partners" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">Partners</a>
+        <a href="#/contacto" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">Contacto</a>
       </div>
       <div style="display: flex; flex-direction: column; gap: 9px;">
         <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #FF6B62; margin-bottom: 8px;">Contacto</p>
-        <p style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400;">Arturo Osorio</p>
-        <p style="color: rgba(255,255,255,.62); font-size: 13px;">Director Ejecutivo</p>
-        <a href="tel:+595981171372" style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400; transition: color .3s ease;" style-hover="color: #E71917;">(+595) 981 171 372</a>
-        <a href="mailto:arturo.osorio@tics-py.com" style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400; transition: color .3s ease;" style-hover="color: #E71917;">arturo.osorio@tics-py.com</a>
-        <a href="https://wa.me/595981171372" target="_blank" rel="noopener" style="color: rgba(255,255,255,.88); font-size: 15px; font-weight: 400; transition: color .3s ease;" style-hover="color: #E71917;">WhatsApp</a>
+        <p style="color: #F5F6F7; font-size: 15px; font-weight: 500;">Arturo Osorio</p>
+        <p style="color: #D6D8DA; font-size: 13px;">Director Ejecutivo</p>
+        <a href="tel:+595981171372" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">(+595) 981 171 372</a>
+        <a href="mailto:arturo.osorio@tics-py.com" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">arturo.osorio@tics-py.com</a>
+        <a href="https://wa.me/595981171372" target="_blank" rel="noopener" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">WhatsApp</a>
       </div>
     </div>
     <sc-if value="{{ circuitos }}" hint-placeholder-val="{{ true }}">
@@ -1071,7 +1071,7 @@
       </svg>
     </sc-if>
     <div style="border-top: 1px solid rgba(255,255,255,.1); padding: 16px 0 clamp(24px, 3vw, 30px); text-align: center;">
-      <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: .06em; color: rgba(255,255,255,.6);">Desarrollado por <a href="https://neura.com.py" target="_blank" rel="noopener" class="om-enlace-tactil" style="color: rgba(255,255,255,.75); letter-spacing: .12em; transition: color .3s ease;" style-hover="color: #E71917;">NEURA</a></p>
+      <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .06em; color: #D2D4D6;">Desarrollado por <a href="https://neura.com.py" target="_blank" rel="noopener" class="om-enlace-tactil" style="color: #E7E8EA; letter-spacing: .12em; transition: color .3s ease;" style-hover="color: #E71917;">NEURA</a></p>
     </div>
   </footer>
 </div>
@@ -1319,7 +1319,10 @@ class Component extends DCLogic {
       ctx.globalAlpha = 1;
     };
 
-    const tick = () => {
+    // requestAnimationFrame entrega la marca de tiempo por parámetro; sin
+    // recibirla, "t" quedaba sin definir y la animación moría en el primer
+    // fotograma con un error en consola.
+    const tick = (t) => {
       if (!alive) return;
       if (t - last > 55) {
         last = t;
@@ -1357,7 +1360,7 @@ class Component extends DCLogic {
   malla(canvas) {
     const CELDA = 46;
     const VEL = 0.18;                 // deriva en px por cuadro
-    const LINEA = 'rgba(34,86,178,.95)';
+    const LINEA = 'rgba(34,86,178,.30)';
     const RELLENO = 'rgba(56,130,225,.30)';
     const BORDE = 'rgba(30,84,175,.95)';
     const RESPLANDOR = 'rgba(96,164,245,.6)';
@@ -1705,7 +1708,7 @@ class Component extends DCLogic {
       { n: 'Adobe',     logo: 'adobe.png',     w: 578, h: 140, alto: '34px' }
     ];
     // Novedades de ZWCAD 2026, tomadas del material del fabricante.
-    const NUEVO = '#E71917', MEJOR = 'rgba(29,30,30,.6)';
+    const NUEVO = '#BC1310', MEJOR = '#4F5050';
     const novedades = [
       { n: 'Diseño paramétrico', etiqueta: 'Nuevo', color: NUEVO,
         txt: 'Añadí restricciones geométricas y dimensionales a las entidades para ajustar rápidamente tamaño y forma, facilitando los cambios y la reutilización de dibujos.' },

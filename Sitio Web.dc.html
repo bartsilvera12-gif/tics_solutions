@@ -828,7 +828,15 @@
                   </label>
                   <button type="submit" class="om-star" disabled="{{ enviando }}" style="align-self: flex-start; margin-top: 8px; color: #fff; background: transparent; border: none; height: 54px; padding: 0 34px; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">{{ textoBoton }}</button>
                   <sc-if value="{{ hayError }}" hint-placeholder-val="{{ false }}">
-                    <p role="alert" style="border-left: 2px solid #E71917; padding-left: 14px; font-size: 15px; line-height: 1.7; font-weight: 500; color: #BC1310;">{{ errorForm }}</p>
+                    <div style="border-left: 2px solid #E71917; padding-left: 14px;">
+                      <p role="alert" style="font-size: 15px; line-height: 1.7; font-weight: 500; color: #BC1310;">{{ errorForm }}</p>
+                      <sc-if value="{{ hayRespaldo }}" hint-placeholder-val="{{ false }}">
+                        <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px;">
+                          <a href="{{ respaldoCorreo }}" class="om-enlace-tactil" style="display: inline-flex; align-items: center; height: 46px; padding: 0 22px; border: 1px solid rgba(29,30,30,.24); background: #fff; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #1D1E1E; transition: border-color .3s ease, color .3s ease;" style-hover="border-color: #E71917; color: #E71917;">Abrir mi correo</a>
+                          <a href="{{ respaldoWhatsapp }}" target="_blank" rel="noopener" class="om-enlace-tactil" style="display: inline-flex; align-items: center; height: 46px; padding: 0 22px; border: 1px solid rgba(29,30,30,.24); background: #fff; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #1D1E1E; transition: border-color .3s ease, color .3s ease;" style-hover="border-color: #E71917; color: #E71917;">Enviar por WhatsApp</a>
+                        </div>
+                      </sc-if>
+                    </div>
                   </sc-if>
                 </form>
               </sc-if>
@@ -1463,7 +1471,7 @@ const DESTINO_CONSULTAS = {
 };
 
 class Component extends DCLogic {
-  state = { scrolled: false, menuOpen: false, enviado: false, enviando: false, errorForm: '', scrollY: 0, ruta: '/' };
+  state = { scrolled: false, menuOpen: false, enviado: false, enviando: false, errorForm: '', respaldoCorreo: '', respaldoWhatsapp: '', scrollY: 0, ruta: '/' };
 
   // Enrutado por hash: una sola página que intercambia vistas. Evita
   // depender de reescrituras del servidor y funciona en cualquier hosting
@@ -2162,6 +2170,9 @@ class Component extends DCLogic {
       enviando: s.enviando,
       hayError: !!s.errorForm,
       errorForm: s.errorForm,
+      hayRespaldo: !!s.respaldoCorreo,
+      respaldoCorreo: s.respaldoCorreo,
+      respaldoWhatsapp: s.respaldoWhatsapp,
       textoBoton: s.enviando ? 'Enviando…' : 'Enviar consulta',
       // Por WhatsApp el mensaje queda listo pero lo manda la persona desde su
       // teléfono: decir "gracias por tu consulta" sería mentirle, porque
@@ -2198,14 +2209,17 @@ class Component extends DCLogic {
         // robot no sepa que fue filtrado y no vuelva a probar.
         if (val('_gotcha')) { this.setState({ enviado: true, errorForm: '' }); return; }
 
+        // El mismo texto sirve para WhatsApp y para el correo de respaldo.
+        const lineas = ['Consulta desde la web', '', 'Nombre: ' + datos.nombre];
+        if (datos.empresa)  lineas.push('Empresa: ' + datos.empresa);
+        lineas.push('Correo: ' + datos.correo);
+        if (datos.telefono) lineas.push('Teléfono: ' + datos.telefono);
+        if (datos.mensaje)  lineas.push('', 'Mensaje:', datos.mensaje);
+        const cuerpo = lineas.join('\n');
+
         if (DESTINO_CONSULTAS.tipo === 'whatsapp') {
-          const lineas = ['Consulta desde la web', '', 'Nombre: ' + datos.nombre];
-          if (datos.empresa)  lineas.push('Empresa: ' + datos.empresa);
-          lineas.push('Correo: ' + datos.correo);
-          if (datos.telefono) lineas.push('Teléfono: ' + datos.telefono);
-          if (datos.mensaje)  lineas.push('', 'Mensaje:', datos.mensaje);
           const url = 'https://wa.me/' + DESTINO_CONSULTAS.numero +
-                      '?text=' + encodeURIComponent(lineas.join('\n'));
+                      '?text=' + encodeURIComponent(cuerpo);
           // Si el navegador bloquea la pestaña nueva, se navega en la misma:
           // peor que abrir al lado, pero mejor que no pasar nada al tocar.
           const w = window.open(url, '_blank', 'noopener');
@@ -2238,10 +2252,17 @@ class Component extends DCLogic {
             if (!bien) throw new Error('sin confirmar');
             this.setState({ enviando: false, enviado: true });
           })
+          // Si el envío automático no sale, no se pierde lo escrito: se le
+          // ofrecen las dos vías con el mensaje ya redactado, que es como lo
+          // resuelve un sitio estático sin depender de ningún servicio.
           .catch(() => this.setState({
             enviando: false,
-            errorForm: 'No pudimos enviar la consulta desde acá. Escribinos a ' +
-                       DESTINO_CONSULTAS.correo + ' o al (+595) 981 171 372 y la vemos igual.'
+            errorForm: 'No pudimos enviarla automáticamente. Elegí por dónde mandarla y va con todo escrito:',
+            respaldoCorreo: 'mailto:' + DESTINO_CONSULTAS.correo +
+                            '?subject=' + encodeURIComponent('Consulta desde la web — ' + datos.nombre) +
+                            '&body=' + encodeURIComponent(cuerpo),
+            respaldoWhatsapp: 'https://wa.me/' + DESTINO_CONSULTAS.numero +
+                              '?text=' + encodeURIComponent(cuerpo)
           }));
       },
       partners: partners,

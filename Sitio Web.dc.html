@@ -932,10 +932,14 @@
       <p data-reveal="" style="font-size: clamp(17px, 1.8vw, 22px); font-weight: 500; color: #2E2F2F; max-width: 620px; margin-bottom: 30px;">Nuestra mejor solución CAD, ahora aún más potente.</p>
       <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: clamp(18px, 2.4vw, 26px); margin-bottom: clamp(46px, 6vw, 72px);">
         <sc-for list="{{ novedades }}" as="nv" hint-placeholder-count="6">
-          <div style="border: 1px solid rgba(29,30,30,.12); background: #fff; padding: clamp(20px, 2.4vw, 26px);">
-            <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: {{ nv.color }}; margin-bottom: 12px;">{{ nv.etiqueta }}</p>
-            <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">{{ nv.n }}</h3>
-            <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">{{ nv.txt }}</p>
+          <div style="border: 1px solid rgba(29,30,30,.12); background: #fff; display: flex; flex-direction: column;">
+            <!-- Captura de la función, a sangre contra el borde de la tarjeta. -->
+            <img src="./assets/zwcad/{{ nv.img }}.jpg" alt="{{ nv.n }} en ZWCAD 2026" width="760" height="422" loading="lazy" decoding="async" style="display: block; width: 100%; height: auto; border-bottom: 1px solid rgba(29,30,30,.12);" />
+            <div style="padding: clamp(20px, 2.4vw, 26px);">
+              <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: {{ nv.color }}; margin-bottom: 12px;">{{ nv.etiqueta }}</p>
+              <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">{{ nv.n }}</h3>
+              <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">{{ nv.txt }}</p>
+            </div>
           </div>
         </sc-for>
       </div>
@@ -2109,21 +2113,21 @@ class Component extends DCLogic {
     // Novedades de ZWCAD 2026, tomadas del material del fabricante.
     const NUEVO = '#BC1310', MEJOR = '#4F5050';
     const novedades = [
-      { n: 'Diseño paramétrico', etiqueta: 'Nuevo', color: NUEVO,
+      { n: 'Diseño paramétrico', etiqueta: 'Nuevo', color: NUEVO, img: 'parametrico',
         txt: 'Añadí restricciones geométricas y dimensionales a las entidades para ajustar rápidamente tamaño y forma, facilitando los cambios y la reutilización de dibujos.' },
-      { n: 'Caja de herramientas ZWCAD', etiqueta: 'Nuevo', color: NUEVO,
+      { n: 'Caja de herramientas ZWCAD', etiqueta: 'Nuevo', color: NUEVO, img: 'caja-herramientas',
         txt: 'Accedé a herramientas de capas, cotas y selección en un único panel, con diseños personalizables.' },
-      { n: 'Smart Match', etiqueta: 'Nuevo', color: NUEVO,
+      { n: 'Smart Match', etiqueta: 'Nuevo', color: NUEVO, img: 'smart-match',
         txt: 'Identificá automáticamente formas idénticas y editalas por lotes para mejorar la eficiencia.' },
-      { n: 'Cota inteligente', etiqueta: 'Nuevo', color: NUEVO,
+      { n: 'Cota inteligente', etiqueta: 'Nuevo', color: NUEVO, img: 'cota-inteligente',
         txt: 'Reconoce automáticamente los tipos de objeto y genera las cotas correspondientes, evitando cambiar de comando a cada paso.' },
-      { n: 'Menú de pinzamientos de cota', etiqueta: 'Nuevo', color: NUEVO,
+      { n: 'Menú de pinzamientos de cota', etiqueta: 'Nuevo', color: NUEVO, img: 'pinzamientos',
         txt: 'Hacé clic en los pinzamientos para editar rápidamente cotas y textos por separado desde el menú.' },
-      { n: 'Agregar selección', etiqueta: 'Nuevo', color: NUEVO,
+      { n: 'Agregar selección', etiqueta: 'Nuevo', color: NUEVO, img: 'agregar-seleccion',
         txt: 'Creá objetos con los mismos atributos básicos que los existentes para evitar tareas repetitivas.' },
-      { n: 'Búsqueda similar', etiqueta: 'Mejorado', color: MEJOR,
+      { n: 'Búsqueda similar', etiqueta: 'Mejorado', color: MEJOR, img: 'busqueda-similar',
         txt: 'Reutilizá bloques históricos encontrando los similares, y ahorrá tiempo en cada dibujo.' },
-      { n: 'Smart Plot', etiqueta: 'Mejorado', color: MEJOR,
+      { n: 'Smart Plot', etiqueta: 'Mejorado', color: MEJOR, img: 'smart-plot',
         txt: 'Interfaz optimizada y mayor eficiencia en el ploteo.' }
     ];
     const marcas = [

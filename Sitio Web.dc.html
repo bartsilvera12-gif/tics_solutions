@@ -130,11 +130,17 @@
   .om-novedad {
     position: relative;
     background: #EEF2F8;
+    border: 1px solid rgba(231,25,23,.42);
     border-radius: 12px;
     padding: 14px;
     display: flex;
     flex-direction: column;
+    transition: border-color .3s ease, box-shadow .3s ease;
   }
+  /* Al pasar por encima el borde se llena: el mismo gesto que ya hacen las
+     otras tarjetas del sitio. */
+  .om-novedad:hover { border-color: #E71917; box-shadow: 0 6px 22px rgba(231,25,23,.16); }
+  @media (prefers-reduced-motion: reduce) { .om-novedad { transition: none; } }
   /* Más angosta que el texto, como en el flyer: la captura acompaña, no manda. */
   .om-novedad img { display: block; width: 74%; margin: 6px auto 0; height: auto; border-radius: 6px; }
   .om-novedad-txt { padding: 18px 6px 6px; }

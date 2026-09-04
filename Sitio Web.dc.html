@@ -124,6 +124,27 @@
   .om-strip { display: flex; flex-wrap: wrap; width: 100%; }
   .om-strip > * + * { border-left: 1px solid rgba(29,30,30,.07); }
 
+  /* ---------- tarjetas de novedades de ZWCAD ----------
+     La captura va embutida con margen en lugar de pegada al borde, y la
+     etiqueta como pastilla asomando por arriba, a la derecha. */
+  .om-novedad {
+    position: relative;
+    background: #EEF2F8;
+    border-radius: 12px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+  }
+  .om-novedad img { display: block; width: 100%; height: auto; border-radius: 7px; }
+  .om-novedad-txt { padding: 18px 6px 6px; }
+  .om-novedad-etiqueta {
+    position: absolute; top: -9px; right: 14px; z-index: 1;
+    padding: 5px 13px; border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600;
+    letter-spacing: .12em; text-transform: uppercase; color: #fff;
+    box-shadow: 0 2px 8px rgba(29,30,30,.18);
+  }
+
   /* ---------- desplegable de soluciones ----------
      Se abre por hover y por foco de teclado. Solo existe de 900px para
      arriba, que es donde la barra de escritorio está visible; en teléfonos
@@ -932,12 +953,11 @@
       <p data-reveal="" style="font-size: clamp(17px, 1.8vw, 22px); font-weight: 500; color: #2E2F2F; max-width: 620px; margin-bottom: 30px;">Nuestra mejor solución CAD, ahora aún más potente.</p>
       <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: clamp(18px, 2.4vw, 26px); margin-bottom: clamp(46px, 6vw, 72px);">
         <sc-for list="{{ novedades }}" as="nv" hint-placeholder-count="6">
-          <div style="border: 1px solid rgba(29,30,30,.12); background: #fff; display: flex; flex-direction: column;">
-            <!-- Captura de la función, a sangre contra el borde de la tarjeta. -->
-            <img src="./assets/zwcad/{{ nv.img }}.jpg" alt="{{ nv.n }} en ZWCAD 2026" width="760" height="422" loading="lazy" decoding="async" style="display: block; width: 100%; height: auto; border-bottom: 1px solid rgba(29,30,30,.12);" />
-            <div style="padding: clamp(20px, 2.4vw, 26px);">
-              <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: {{ nv.color }}; margin-bottom: 12px;">{{ nv.etiqueta }}</p>
-              <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">{{ nv.n }}</h3>
+          <div class="om-novedad">
+            <span class="om-novedad-etiqueta" style="background: {{ nv.color }};">{{ nv.etiqueta }}</span>
+            <img src="./assets/zwcad/{{ nv.img }}.jpg" alt="{{ nv.n }} en ZWCAD 2026" width="760" height="422" loading="lazy" decoding="async" />
+            <div class="om-novedad-txt">
+              <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">{{ nv.n }}</h3>
               <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">{{ nv.txt }}</p>
             </div>
           </div>

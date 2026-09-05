@@ -164,8 +164,24 @@
   }
   .om-demo:hover { border-color: #E71917; box-shadow: 0 6px 22px rgba(231,25,23,.16); }
   .om-demo video { display: block; width: 100%; height: auto; border-radius: 6px; background: #0D0F12; }
-  .om-demo-txt { padding: 18px 6px 6px; }
+  .om-demo-txt { padding: 20px 8px 8px; }
   @media (prefers-reduced-motion: reduce) { .om-demo { transition: none; } }
+
+  /* La grilla se sale del ancho de lectura del texto para que los videos
+     entren más grandes, pero se mantiene en tres por fila: con auto-fit y
+     más ancho disponible pasarían a cuatro y se verían más chicos otra vez.
+     El ensanche va por margen y no por transform: la animación de aparición
+     escribe transform sobre este mismo elemento y lo pisaría. */
+  .om-demos {
+    --ancho-demos: min(1460px, calc(100vw - clamp(40px, 7vw, 90px)));
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(18px, 2.2vw, 28px);
+    width: var(--ancho-demos);
+    margin-left: calc((100% - var(--ancho-demos)) / 2);
+  }
+  @media (max-width: 1040px) { .om-demos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 680px)  { .om-demos { grid-template-columns: minmax(0, 1fr); } }
 
   /* ---------- desplegable de soluciones ----------
      Se abre por hover y por foco de teclado. Solo existe de 900px para
@@ -1230,7 +1246,7 @@
       <!-- El módulo eléctrico en detalle, con las demostraciones del fabricante -->
       <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 10px;">El módulo eléctrico, en detalle</p>
       <p data-reveal="" style="font-size: clamp(17px, 1.8vw, 22px); font-weight: 500; color: #2E2F2F; max-width: 660px; margin-bottom: 30px;">Así se dibuja cuando los elementos ya vienen hechos.</p>
-      <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(18px, 2.4vw, 26px); margin-bottom: clamp(46px, 6vw, 72px);">
+      <div data-reveal="" class="om-demos" style="margin-bottom: clamp(46px, 6vw, 72px);">
         <sc-for list="{{ demosElectrico }}" as="d" hint-placeholder-count="7">
           <div class="om-demo">
             <video data-demo="" src="./assets/cadprofi/{{ d.v }}.mp4" preload="none" aria-label="{{ d.n }}"></video>

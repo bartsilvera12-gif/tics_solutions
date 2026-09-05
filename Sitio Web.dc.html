@@ -1019,7 +1019,7 @@
         </div>
         <div class="om-esp">
           <!-- Pesa 11 MB: en manual, no se baja hasta que alguien lo pide. -->
-          <video data-demo="manual" src="./assets/zwcad/comparacion-3d.mp4" preload="none" aria-label="Comparación de navegación 3D entre ZWCAD y AutoCAD" style="height: auto; width: 100%;"></video>
+          <video data-demo="manual" data-fuente="./assets/zwcad/comparacion-3d.mp4" preload="metadata" aria-label="Comparación de navegación 3D entre ZWCAD y AutoCAD" style="height: auto; width: 100%;"></video>
           <div class="om-esp-txt">
             <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 10px;">Navegación 3D avanzada</p>
             <p style="font-size: clamp(19px, 2vw, 24px); font-weight: 600; color: #1D1E1E;">3&times; más rápido que AutoCAD&reg;</p>
@@ -1759,8 +1759,8 @@ class Component extends DCLogic {
   // que el editor pudo haber remontado al togglear un prop.
   // ---------- demostraciones en video ----------
   // Solo se reproduce lo que está en pantalla: siete videos corriendo a la vez
-  // calientan el equipo y gastan batería sin que nadie los mire. Con
-  // preload="none" tampoco se descargan hasta que hacen falta.
+  // calientan el equipo y gastan batería sin que nadie los mire. Los pesados
+  // ni siquiera se piden hasta que el cuadro asoma.
   bindDemo(v) {
     v.muted = true;              // como propiedad, no como atributo: si va en el
     v.playsInline = true;        // HTML el renderizador lo puede evaluar como falso
@@ -1777,7 +1777,15 @@ class Component extends DCLogic {
     if (v.readyState >= 1) primerCuadro();
     else v.addEventListener('loadedmetadata', primerCuadro, { once: true });
 
+    // Los videos pesados guardan la ruta en data-fuente y no en src: así el
+    // navegador no pide un solo byte hasta que hace falta.
+    const asegurarFuente = () => {
+      const fuente = v.dataset.fuente;
+      if (fuente && !v.getAttribute('src')) v.src = fuente;
+    };
+
     const arrancar = () => {
+      asegurarFuente();
       if (v.ended) v.currentTime = 0;   // si ya terminó, vuelve a empezar
       const p = v.play();
       if (p && p.catch) p.catch(() => {});
@@ -1789,14 +1797,41 @@ class Component extends DCLogic {
     v.addEventListener('click', alTocar);
     this._cleanups.push(() => v.removeEventListener('click', alTocar));
 
+    // data-demo="manual": no arranca solo. Es para los videos pesados, donde
+    // reproducir al pasar significaría bajar megas a alguien que quizá solo
+    // estaba desplazándose. La fuente se engancha recién cuando el cuadro
+    // asoma, así quien nunca baje hasta ahí no paga nada.
+    if (v.dataset.demo === 'manual') {
+      v.controls = true;
+      if (!v.dataset.fuente || v.getAttribute('src')) return;
+      let ioFuente = null;
+      const soltar = () => {
+        if (ioFuente) { ioFuente.disconnect(); ioFuente = null; }
+        document.removeEventListener('scroll', alDesplazar, true);
+      };
+      const alDesplazar = () => {
+        const r = v.getBoundingClientRect();
+        const alto = window.innerHeight || document.documentElement.clientHeight || 0;
+        if (r.top < alto + 200 && r.bottom > -200) { asegurarFuente(); soltar(); }
+      };
+      if ('IntersectionObserver' in window) {
+        ioFuente = new IntersectionObserver((entradas) => {
+          if (entradas.some((e) => e.isIntersecting)) { asegurarFuente(); soltar(); }
+        }, { rootMargin: '200px' });
+        ioFuente.observe(v);
+      } else {
+        alDesplazar();
+      }
+      // Red de seguridad: si el observer no llega a dispararse, el propio
+      // desplazamiento alcanza para decidir cuando el cuadro ya está cerca.
+      document.addEventListener('scroll', alDesplazar, { passive: true, capture: true });
+      this._cleanups.push(soltar);
+      return;
+    }
+
     // Si el sistema pide menos movimiento, no arranca solo: se muestra el
     // primer cuadro y se reproduce solo si la persona lo toca.
     if (this._reduced) return;
-
-    // data-demo="manual": tampoco arranca solo. Es para los videos pesados,
-    // donde reproducir al pasar significaría bajar megas a alguien que quizá
-    // solo estaba desplazándose.
-    if (v.dataset.demo === 'manual') { v.controls = true; return; }
 
     const io = new IntersectionObserver((entradas) => {
       entradas.forEach((e) => {

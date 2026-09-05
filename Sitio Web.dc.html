@@ -152,6 +152,21 @@
     box-shadow: 0 2px 8px rgba(29,30,30,.18);
   }
 
+  /* ---------- demostraciones en video de CADprofi ----------
+     Mismo lenguaje que las tarjetas de novedades. */
+  .om-demo {
+    background: #EEF2F8;
+    border: 1px solid rgba(231,25,23,.42);
+    border-radius: 12px;
+    padding: 14px;
+    display: flex; flex-direction: column;
+    transition: border-color .3s ease, box-shadow .3s ease;
+  }
+  .om-demo:hover { border-color: #E71917; box-shadow: 0 6px 22px rgba(231,25,23,.16); }
+  .om-demo video { display: block; width: 100%; height: auto; border-radius: 6px; background: #0D0F12; }
+  .om-demo-txt { padding: 18px 6px 6px; }
+  @media (prefers-reduced-motion: reduce) { .om-demo { transition: none; } }
+
   /* ---------- desplegable de soluciones ----------
      Se abre por hover y por foco de teclado. Solo existe de 900px para
      arriba, que es donde la barra de escritorio está visible; en teléfonos
@@ -1190,6 +1205,8 @@
 
       <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 500; color: #3B3C3C; max-width: 700px; margin-bottom: clamp(46px, 6vw, 70px);">CADprofi es un complemento que se instala sobre el CAD que ya usás y le agrega bibliotecas de símbolos y objetos normalizados, además de comandos específicos para cada especialidad. En lugar de redibujar cada elemento, lo insertás desde la biblioteca y el programa mantiene la coherencia del plano.</p>
 
+      <img data-reveal="" src="./assets/cadprofi/cadprofi-2026.webp" alt="CADprofi 2026" width="1106" height="801" loading="lazy" decoding="async" style="display: block; width: 100%; max-width: 720px; height: auto; border: 1px solid rgba(29,30,30,.12); border-radius: 10px; margin-bottom: clamp(46px, 6vw, 70px);" />
+
       <!-- Módulos -->
       <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 26px;">Módulos</p>
       <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: clamp(18px, 2.4vw, 28px); margin-bottom: clamp(46px, 6vw, 72px);">
@@ -1208,6 +1225,21 @@
           <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">HVAC &amp; Piping</h3>
           <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Climatización, calefacción y redes de tuberías, con catálogos de fabricantes y accesorios listos para insertar.</p>
         </div>
+      </div>
+
+      <!-- El módulo eléctrico en detalle, con las demostraciones del fabricante -->
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 10px;">El módulo eléctrico, en detalle</p>
+      <p data-reveal="" style="font-size: clamp(17px, 1.8vw, 22px); font-weight: 500; color: #2E2F2F; max-width: 660px; margin-bottom: 30px;">Así se dibuja cuando los elementos ya vienen hechos.</p>
+      <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(18px, 2.4vw, 26px); margin-bottom: clamp(46px, 6vw, 72px);">
+        <sc-for list="{{ demosElectrico }}" as="d" hint-placeholder-count="7">
+          <div class="om-demo">
+            <video data-demo="" src="./assets/cadprofi/{{ d.v }}.mp4" preload="none" aria-label="{{ d.n }}"></video>
+            <div class="om-demo-txt">
+              <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">{{ d.n }}</h3>
+              <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">{{ d.txt }}</p>
+            </div>
+          </div>
+        </sc-for>
       </div>
 
       <!-- Por qué conviene -->
@@ -1612,6 +1644,37 @@ class Component extends DCLogic {
 
   // Re-escanea el DOM: monta efectos nuevos y (re)inicializa canvases
   // que el editor pudo haber remontado al togglear un prop.
+  // ---------- demostraciones en video ----------
+  // Solo se reproduce lo que está en pantalla: siete videos corriendo a la vez
+  // calientan el equipo y gastan batería sin que nadie los mire. Con
+  // preload="none" tampoco se descargan hasta que hacen falta.
+  bindDemo(v) {
+    v.muted = true;              // como propiedad, no como atributo: si va en el
+    v.loop = true;               // HTML el renderizador lo puede evaluar como falso
+    v.playsInline = true;
+    v.setAttribute('playsinline', '');
+    v.controls = true;           // si el autoplay no arranca, igual se puede ver
+
+    // Sin póster, un video que no arranca es un rectángulo negro. Pidiendo los
+    // metadatos y saltando al primer cuadro siempre se ve el dibujo, aunque no
+    // llegue a reproducirse nunca.
+    v.preload = 'metadata';
+    if (v.src && v.src.indexOf('#t=') < 0) v.src = v.src + '#t=0.1';
+
+    // Si el sistema pide menos movimiento, no arranca solo: quedan los
+    // controles y que la persona decida.
+    if (this._reduced) return;
+
+    const io = new IntersectionObserver((entradas) => {
+      entradas.forEach((e) => {
+        if (e.isIntersecting) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+        else if (!v.paused) v.pause();
+      });
+    }, { threshold: 0.35 });
+    io.observe(v);
+    this._cleanups.push(() => { io.disconnect(); try { v.pause(); } catch (err) {} });
+  }
+
   scan() {
     if (this._io) {
       document.querySelectorAll('[data-reveal]:not(.om-in)').forEach((el, i) => {
@@ -1627,6 +1690,11 @@ class Component extends DCLogic {
         this._cleanups.push(() => clearTimeout(t));
       });
     }
+    document.querySelectorAll('[data-demo]').forEach((el) => {
+      if (el.dataset.omVid) return;
+      el.dataset.omVid = '1';
+      this.bindDemo(el);
+    });
     document.querySelectorAll('[data-spotlight]').forEach((el) => {
       if (el.dataset.omSpot) return;
       el.dataset.omSpot = '1';
@@ -2153,6 +2221,24 @@ class Component extends DCLogic {
       { n: 'Smart Plot', etiqueta: 'Mejorado', color: MEJOR, img: 'smart-plot',
         txt: 'Interfaz optimizada y mayor eficiencia en el ploteo.' }
     ];
+    // Demostraciones del módulo eléctrico de CADprofi. Los textos salen de la
+    // documentación del fabricante, condensados.
+    const demosElectrico = [
+      { v: 'energia', n: 'Instalaciones de energía eléctrica',
+        txt: 'El creador de esquemas arma el proyecto rápido: elegís productos en lugar de dibujar a mano, con plantillas listas de líneas, circuitos, cuadros eléctricos y arrancadores de motor.' },
+      { v: 'baja-tension', n: 'Sistemas de extra baja tensión',
+        txt: 'Objetos listos para armarios IT y multimedia, y paneles de alarma contra incendios, para edificios residenciales, públicos e industriales.' },
+      { v: 'iluminacion', n: 'Equipos de instalación e iluminación',
+        txt: 'Numera los circuitos, les asigna los objetos y arma los cuadros y listas que reflejan esas conexiones. Exporta los locales a DIALux para el cálculo de iluminación.' },
+      { v: 'bandejas', n: 'Bandejas de cables y barras colectoras',
+        txt: 'Traza recorridos de bandejas y conductos de protección, con inserción automática de codos según los parámetros elegidos, y los elementos de sistemas de barras colectoras.' },
+      { v: 'automatizacion', n: 'Automatización industrial y medición',
+        txt: 'Símbolos multivariantes para sistemas de control y medición: puntos de medición, sensores, transductores y controladores.' },
+      { v: 'mapas', n: 'Mapas, líneas y pilares',
+        txt: 'Biblioteca de símbolos, objetos y marcas para los planos de redes de transmisión y de telecomunicaciones.' },
+      { v: 'pararrayos', n: 'Protección contra rayos',
+        txt: 'Todo lo necesario para el sistema completo: mástiles, varillas, conductores, conectores, envolventes, electrodos de puesta a tierra y accesorios.' }
+    ];
     const marcas = [
       { n: 'Dell Technologies',         logo: 'dell.png',      w: 694, h: 89,  alto: '26px' },
       { n: 'HP',                        logo: 'hp.png',        w: 205, h: 205, alto: '52px' },
@@ -2288,7 +2374,8 @@ class Component extends DCLogic {
       },
       partners: partners,
       marcas: marcas,
-      novedades: novedades
+      novedades: novedades,
+      demosElectrico: demosElectrico
     };
   }
 }

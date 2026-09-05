@@ -1650,24 +1650,39 @@ class Component extends DCLogic {
   // preload="none" tampoco se descargan hasta que hacen falta.
   bindDemo(v) {
     v.muted = true;              // como propiedad, no como atributo: si va en el
-    v.loop = true;               // HTML el renderizador lo puede evaluar como falso
-    v.playsInline = true;
+    v.playsInline = true;        // HTML el renderizador lo puede evaluar como falso
     v.setAttribute('playsinline', '');
-    v.controls = true;           // si el autoplay no arranca, igual se puede ver
+    v.loop = false;              // corre una vez y se queda en el último cuadro
+    v.controls = false;
 
-    // Sin póster, un video que no arranca es un rectángulo negro. Pidiendo los
-    // metadatos y saltando al primer cuadro siempre se ve el dibujo, aunque no
-    // llegue a reproducirse nunca.
+    // Sin póster, un video que no arranca es un rectángulo negro. Se piden los
+    // metadatos y se avanza un cuadro para que se vea el dibujo aunque nunca
+    // llegue a reproducirse. El salto va por código y no como "#t=" en la URL:
+    // ese fragmento condiciona el rango de reproducción y rompe el posicionado.
     v.preload = 'metadata';
-    if (v.src && v.src.indexOf('#t=') < 0) v.src = v.src + '#t=0.1';
+    const primerCuadro = () => { try { if (v.currentTime < 0.01) v.currentTime = 0.05; } catch (err) {} };
+    if (v.readyState >= 1) primerCuadro();
+    else v.addEventListener('loadedmetadata', primerCuadro, { once: true });
 
-    // Si el sistema pide menos movimiento, no arranca solo: quedan los
-    // controles y que la persona decida.
+    const arrancar = () => {
+      if (v.ended) v.currentTime = 0;   // si ya terminó, vuelve a empezar
+      const p = v.play();
+      if (p && p.catch) p.catch(() => {});
+    };
+
+    // Sin controles a la vista, el clic queda como única forma de repetirlo.
+    v.style.cursor = 'pointer';
+    const alTocar = () => { if (v.paused || v.ended) arrancar(); else v.pause(); };
+    v.addEventListener('click', alTocar);
+    this._cleanups.push(() => v.removeEventListener('click', alTocar));
+
+    // Si el sistema pide menos movimiento, no arranca solo: se muestra el
+    // primer cuadro y se reproduce solo si la persona lo toca.
     if (this._reduced) return;
 
     const io = new IntersectionObserver((entradas) => {
       entradas.forEach((e) => {
-        if (e.isIntersecting) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+        if (e.isIntersecting) arrancar();
         else if (!v.paused) v.pause();
       });
     }, { threshold: 0.35 });

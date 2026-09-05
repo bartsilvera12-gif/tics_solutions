@@ -7,9 +7,9 @@
 //   SMTP_HOST       smtp.gmail.com
 //   SMTP_PORT       465
 //   SMTP_SECURE     true
-//   SMTP_USER       consulta@tics-py.com
+//   SMTP_USER       arturo.osorio@tics-py.com
 //   SMTP_PASSWORD   contraseña de aplicación de Google (no la del correo)
-//   CONTACT_EMAIL   consulta@tics-py.com
+//   CONTACT_EMAIL   arturo.osorio@tics-py.com
 
 const nodemailer = require('nodemailer');
 

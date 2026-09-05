@@ -165,9 +165,14 @@
     transition: border-color .3s ease, box-shadow .3s ease;
   }
   .om-esp:hover { border-color: #E71917; box-shadow: 0 6px 22px rgba(231,25,23,.16); }
+  /* Cada captura conserva su forma y se limita por altura: con un marco de
+     proporción fija, la tarjeta (que es flex y se estira para igualar a sus
+     vecinas) lo alargaba a 570px y dejaba un hueco blanco enorme debajo.
+     flex: 0 0 auto es lo que impide ese estirado. */
   .om-esp img {
-    display: block; width: 100%; aspect-ratio: 4 / 3;
-    object-fit: contain; background: #fff; border-radius: 6px;
+    display: block; flex: 0 0 auto;
+    width: 100%; height: 175px; object-fit: contain;
+    margin: 4px auto 0; background: #fff; border-radius: 6px;
   }
   .om-esp-txt { padding: 18px 6px 6px; }
   .om-esp ul { margin: 0; padding-left: 17px; display: flex; flex-direction: column; gap: 8px; }
@@ -1345,8 +1350,6 @@
 
       <img data-reveal="" src="./assets/zw3d/capacidades.jpg" alt="Capacidades de ZW3D: diseño de piezas, ensambles, dibujo 2D, CAE, CAM y PDM" width="1500" height="613" loading="lazy" decoding="async" style="display: block; width: 100%; max-width: 1500px; height: auto; margin: 0 auto clamp(30px, 3.6vw, 44px);" />
 
-      <img data-reveal="" src="./assets/zw3d/formatos.jpg" alt="Formatos que ZW3D importa y exporta" width="1200" height="803" loading="lazy" decoding="async" style="display: block; width: 100%; max-width: 900px; height: auto; margin: 0 auto clamp(46px, 6vw, 70px);" />
-
       <!-- Las tres patas: CAD, CAE y CAM -->
       <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 10px;">Qué cubre</p>
       <p data-reveal="" style="font-size: clamp(17px, 1.8vw, 22px); font-weight: 500; color: #2E2F2F; max-width: 660px; margin-bottom: 30px;">Seis frentes, una sola plataforma y un mismo archivo.</p>
@@ -1382,6 +1385,8 @@
           <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Control de versiones y acceso web, para que el equipo trabaje sobre la misma información y no sobre copias sueltas.</p>
         </div>
       </div>
+
+      <img data-reveal="" src="./assets/zw3d/formatos.jpg" alt="Formatos que ZW3D importa y exporta" width="1200" height="803" loading="lazy" decoding="async" style="display: block; width: 100%; max-width: 900px; height: auto; margin: 0 auto clamp(46px, 6vw, 70px);" />
 
       <!-- Módulos de diseño especializado -->
       <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 10px;">Diseño especializado</p>

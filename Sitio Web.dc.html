@@ -1004,6 +1004,31 @@
         </div>
       </div>
 
+      <!-- Comparación con AutoCAD, según las mediciones del fabricante -->
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 10px;">Comparación con AutoCAD&reg;</p>
+      <p data-reveal="" style="font-size: clamp(17px, 1.8vw, 22px); font-weight: 500; color: #2E2F2F; max-width: 700px; margin-bottom: 12px;">En archivos pesados, la diferencia se nota en el reloj.</p>
+      <p data-reveal="" style="font-size: 15px; line-height: 1.8; font-weight: 500; color: #3B3C3C; max-width: 700px; margin-bottom: 30px;">Estas son las pruebas de rendimiento que publica ZWSOFT sobre dibujo 2D y navegación 3D, con compatibilidad DWG para trabajar sin fricción con quien ya usa otro CAD.</p>
+
+      <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: clamp(20px, 2.6vw, 32px); margin-bottom: clamp(24px, 3vw, 34px);">
+        <div class="om-esp">
+          <img src="./assets/zwcad/comparacion-2d.gif" alt="ZWCAD 44,2 segundos frente a AutoCAD 87,6 segundos en dibujo 2D" width="1280" height="680" loading="lazy" decoding="async" style="height: auto; width: 100%;" />
+          <div class="om-esp-txt">
+            <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 10px;">Dibujo 2D complejo</p>
+            <p style="font-size: clamp(19px, 2vw, 24px); font-weight: 600; color: #1D1E1E;">1,98&times; más rápido que AutoCAD&reg;</p>
+          </div>
+        </div>
+        <div class="om-esp">
+          <!-- Pesa 11 MB: en manual, no se baja hasta que alguien lo pide. -->
+          <video data-demo="manual" src="./assets/zwcad/comparacion-3d.mp4" preload="none" aria-label="Comparación de navegación 3D entre ZWCAD y AutoCAD" style="height: auto; width: 100%;"></video>
+          <div class="om-esp-txt">
+            <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 10px;">Navegación 3D avanzada</p>
+            <p style="font-size: clamp(19px, 2vw, 24px); font-weight: 600; color: #1D1E1E;">3&times; más rápido que AutoCAD&reg;</p>
+          </div>
+        </div>
+      </div>
+
+      <p data-reveal="" style="font-size: 12px; line-height: 1.75; font-weight: 500; color: #4F5050; max-width: 860px; margin-bottom: clamp(46px, 6vw, 72px);"><strong style="font-weight: 600; color: #3B3C3C;">Cómo se midió.</strong> ZWSOFT ejecutó operaciones sobre más de 500 archivos DWG de 0,017 MB a 1237,66 MB para dibujo 2D (abrir, encuadre, zoom, copiar, mover, seleccionar, borrar, copiar y pegar desde el portapapeles, y guardar) y sobre más de 600 archivos DWG de 0,017 MB a 922,37 MB para navegación 3D (abrir, zoom, encuadre, guardar y modo sombreado). Las pruebas corrieron en Windows 10 de 64 bits, con CPU i7, placa NVIDIA GeForce RTX 3060 y 32 GB de RAM. Los resultados dependen del equipo, del sistema y de los archivos: con otra configuración pueden variar. AutoCAD es una marca registrada de Autodesk, Inc.</p>
+
       <!-- Por qué elegir ZWCAD -->
       <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 26px;">Por qué elegir ZWCAD</p>
       <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: clamp(18px, 2.4vw, 30px); margin-bottom: clamp(46px, 6vw, 72px);">
@@ -1767,6 +1792,11 @@ class Component extends DCLogic {
     // Si el sistema pide menos movimiento, no arranca solo: se muestra el
     // primer cuadro y se reproduce solo si la persona lo toca.
     if (this._reduced) return;
+
+    // data-demo="manual": tampoco arranca solo. Es para los videos pesados,
+    // donde reproducir al pasar significaría bajar megas a alguien que quizá
+    // solo estaba desplazándose.
+    if (v.dataset.demo === 'manual') { v.controls = true; return; }
 
     const io = new IntersectionObserver((entradas) => {
       entradas.forEach((e) => {

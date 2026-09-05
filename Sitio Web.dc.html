@@ -1803,9 +1803,9 @@ class Component extends DCLogic {
     // data-demo="manual": no arranca solo. Es para los videos pesados, donde
     // reproducir al pasar significaría bajar megas a alguien que quizá solo
     // estaba desplazándose. La fuente se engancha recién cuando el cuadro
-    // asoma, así quien nunca baje hasta ahí no paga nada.
+    // asoma, así quien nunca baje hasta ahí no paga nada. Sin controles a la
+    // vista, como el resto de las demostraciones: el clic reproduce y pausa.
     if (v.dataset.demo === 'manual') {
-      v.controls = true;
       if (!v.dataset.fuente || v.getAttribute('src')) return;
       let ioFuente = null;
       const soltar = () => {

@@ -152,6 +152,40 @@
     box-shadow: 0 2px 8px rgba(29,30,30,.18);
   }
 
+  /* ---------- módulos de diseño especializado de ZW3D ----------
+     Las cuatro capturas tienen proporciones distintas, así que van dentro de
+     un marco fijo y entran completas: recortarlas a una forma común dejaría
+     media pieza afuera. */
+  .om-esp {
+    background: #EEF2F8;
+    border: 1px solid rgba(231,25,23,.42);
+    border-radius: 12px;
+    padding: 14px;
+    display: flex; flex-direction: column;
+    transition: border-color .3s ease, box-shadow .3s ease;
+  }
+  .om-esp:hover { border-color: #E71917; box-shadow: 0 6px 22px rgba(231,25,23,.16); }
+  .om-esp img {
+    display: block; width: 100%; aspect-ratio: 4 / 3;
+    object-fit: contain; background: #fff; border-radius: 6px;
+  }
+  .om-esp-txt { padding: 18px 6px 6px; }
+  .om-esp ul { margin: 0; padding-left: 17px; display: flex; flex-direction: column; gap: 8px; }
+  @media (prefers-reduced-motion: reduce) { .om-esp { transition: none; } }
+
+  /* Son cuatro: en tres columnas quedaría una huérfana en la segunda fila.
+     Se ensancha igual que las demostraciones y se fijan 4, 2 y 1. */
+  .om-esps {
+    --ancho-esp: min(1460px, calc(100vw - clamp(40px, 7vw, 90px)));
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(18px, 2.2vw, 26px);
+    width: var(--ancho-esp);
+    margin-left: calc((100% - var(--ancho-esp)) / 2);
+  }
+  @media (max-width: 1180px) { .om-esps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px)  { .om-esps { grid-template-columns: minmax(0, 1fr); } }
+
   /* ---------- demostraciones en video de CADprofi ----------
      Mismo lenguaje que las tarjetas de novedades. */
   .om-demo {
@@ -1349,6 +1383,25 @@
         </div>
       </div>
 
+      <!-- Módulos de diseño especializado -->
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 10px;">Diseño especializado</p>
+      <p data-reveal="" style="font-size: clamp(17px, 1.8vw, 22px); font-weight: 500; color: #2E2F2F; max-width: 660px; margin-bottom: 30px;">Módulos para las piezas que no se modelan como una pieza cualquiera.</p>
+      <div data-reveal="" class="om-esps" style="margin-bottom: clamp(46px, 6vw, 72px);">
+        <sc-for list="{{ zw3dEspecializado }}" as="e" hint-placeholder-count="4">
+          <div class="om-esp">
+            <img src="./assets/zw3d/esp-{{ e.img }}.jpg" alt="{{ e.n }} en ZW3D" width="760" height="570" loading="lazy" decoding="async" />
+            <div class="om-esp-txt">
+              <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 12px;">{{ e.n }}</h3>
+              <ul style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">
+                <sc-for list="{{ e.puntos }}" as="p" hint-placeholder-count="2">
+                  <li>{{ p }}</li>
+                </sc-for>
+              </ul>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
       <!-- Industrias e intercambio -->
       <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 2.6vw, 32px); margin-bottom: clamp(46px, 6vw, 72px);">
         <div style="border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(26px, 3vw, 36px);">
@@ -2295,6 +2348,21 @@ class Component extends DCLogic {
       { v: 'pararrayos', n: 'Protección contra rayos',
         txt: 'Todo lo necesario para el sistema completo: mástiles, varillas, conductores, conectores, envolventes, electrodos de puesta a tierra y accesorios.' }
     ];
+    // Módulos de diseño especializado de ZW3D, con el texto del fabricante.
+    const zw3dEspecializado = [
+      { img: 'chapa', n: 'Diseño de chapa metálica', puntos: [
+        'Herramientas profesionales para un diseño rápido de chapa metálica.',
+        'Soporta dobleces complejos y desplegado preciso, incorporando propiedades del material y tolerancias de doblado.' ] },
+      { img: 'estructuras', n: 'Diseño de estructuras de acero', puntos: [
+        'Acelera el proceso de modelado de estructuras de acero.',
+        'Soporta perfiles estándar y personalizados, soluciones de uniones en esquinas y elementos estructurales.' ] },
+      { img: 'tuberias', n: 'Diseño de tuberías', puntos: [
+        'Simplifica el modelado de tuberías y la generación de dibujos.',
+        'Enrutamiento flexible, biblioteca de piezas estándar y colocación automática de bridas, empaques y uniones. Dibujos 2D con un solo clic.' ] },
+      { img: 'renderizado', n: 'Renderizado', puntos: [
+        'Creá renderizados 3D fotorrealistas para comunicación visual.',
+        'Configuración mínima, con iluminación interactiva e iluminación global para mejorar el impacto visual.' ] }
+    ];
     // Formatos que abre y guarda ZW3D, tal como los lista el fabricante.
     const formatosZw3d = [
       '.step', '.stp', '.stpz', '.iges', '.igs', '.stl', '.jt', '.vda',
@@ -2438,7 +2506,8 @@ class Component extends DCLogic {
       marcas: marcas,
       novedades: novedades,
       demosElectrico: demosElectrico,
-      formatosZw3d: formatosZw3d
+      formatosZw3d: formatosZw3d,
+      zw3dEspecializado: zw3dEspecializado
     };
   }
 }

@@ -6,7 +6,6 @@
 // Variables que hay que cargar en Vercel (Settings -> Environment Variables):
 //   SMTP_HOST       smtp.gmail.com
 //   SMTP_PORT       465
-//   SMTP_SECURE     true
 //   SMTP_USER       arturo.osorio@tics-py.com
 //   SMTP_PASSWORD   contraseña de aplicación de Google (no la del correo)
 //   CONTACT_EMAIL   arturo.osorio@tics-py.com
@@ -81,7 +80,7 @@ module.exports = async (req, res) => {
   const transporte = nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp.gmail.com',
     port: Number(process.env.SMTP_PORT || 465),
-    secure: String(process.env.SMTP_SECURE || 'true') === 'true',
+    secure: true,                 // el 465 abre en TLS: no hay caso en que sea falso
     auth: { user: SMTP_USER, pass: SMTP_PASSWORD }
   });
 
@@ -125,7 +124,7 @@ module.exports = async (req, res) => {
     // Hay que esperarlo: Vercel congela la función apenas se responde, y un
     // envío a medio camino se corta sin llegar.
     await transporte.sendMail({
-      from: '"Sitio Web Tic\'s Solutions" <' + SMTP_USER + '>',
+      from: '"Sitio Web TIC\'S Solutions" <' + SMTP_USER + '>',
       to: CONTACT_EMAIL,
       replyTo: datos.correo,          // responder en Gmail le contesta al visitante
       subject: 'Nueva consulta web - ' + datos.nombre,
@@ -133,7 +132,15 @@ module.exports = async (req, res) => {
       html: html
     });
   } catch (error) {
-    console.error('Error enviando el formulario:', error);
+    // Detalle para los registros de Vercel: el código y la respuesta del
+    // servidor son lo único que distingue una clave rechazada de una cuenta
+    // bloqueada. Al navegador no le llega nada de esto.
+    console.error('Error SMTP:', {
+      message: error instanceof Error ? error.message : error,
+      code: error && error.code,
+      response: error && error.response,
+      responseCode: error && error.responseCode
+    });
     return res.status(500).json({
       error: 'No pudimos enviar tu consulta en este momento. Intentá nuevamente.'
     });

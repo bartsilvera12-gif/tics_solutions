@@ -16,6 +16,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <script src="./image-slot.js"></script>
+<!-- Configuracion del CMS. Solo lleva la URL publica y la anon key: lo que
+     decide quien puede escribir son las politicas RLS de Postgres. -->
+<script src="./js/config.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -840,7 +843,7 @@
         <div class="om-strip">
           <sc-for list="{{ partners }}" as="marca" hint-placeholder-count="5">
             <div style="flex: 1 1 auto; min-width: 0; height: 104px; display: flex; align-items: center; justify-content: center; padding: 14px 18px;">
-              <img src="./assets/marcas/{{ marca.logo }}" alt="{{ marca.n }}" width="{{ marca.w }}" height="{{ marca.h }}" loading="lazy" decoding="async" style="max-width: 100%; max-height: {{ marca.alto }}; width: auto; height: auto; object-fit: contain; opacity: .62; transition: opacity .3s ease;" style-hover="opacity: 1;" />
+              <img src="{{ marca.logo }}" alt="{{ marca.n }}" width="{{ marca.w }}" height="{{ marca.h }}" loading="lazy" decoding="async" style="max-width: 100%; max-height: {{ marca.alto }}; width: auto; height: auto; object-fit: contain; opacity: .62; transition: opacity .3s ease;" style-hover="opacity: 1;" />
             </div>
           </sc-for>
         </div>
@@ -853,7 +856,7 @@
         <div class="om-strip">
           <sc-for list="{{ marcas }}" as="marca" hint-placeholder-count="5">
             <div style="flex: 1 1 auto; min-width: 0; height: 104px; display: flex; align-items: center; justify-content: center; padding: 14px 18px;">
-              <img src="./assets/marcas/{{ marca.logo }}" alt="{{ marca.n }}" width="{{ marca.w }}" height="{{ marca.h }}" loading="lazy" decoding="async" style="max-width: 100%; max-height: {{ marca.alto }}; width: auto; height: auto; object-fit: contain; opacity: .62; transition: opacity .3s ease;" style-hover="opacity: 1;" />
+              <img src="{{ marca.logo }}" alt="{{ marca.n }}" width="{{ marca.w }}" height="{{ marca.h }}" loading="lazy" decoding="async" style="max-width: 100%; max-height: {{ marca.alto }}; width: auto; height: auto; object-fit: contain; opacity: .62; transition: opacity .3s ease;" style-hover="opacity: 1;" />
             </div>
           </sc-for>
         </div>
@@ -1076,7 +1079,7 @@
         <sc-for list="{{ novedades }}" as="nv" hint-placeholder-count="6">
           <div class="om-novedad">
             <span class="om-novedad-etiqueta" style="background: {{ nv.color }};">{{ nv.etiqueta }}</span>
-            <img src="./assets/zwcad/{{ nv.img }}.jpg" alt="{{ nv.n }} en ZWCAD 2026" width="760" height="422" loading="lazy" decoding="async" />
+            <img src="{{ nv.img }}" alt="{{ nv.n }} en ZWCAD 2026" width="760" height="422" loading="lazy" decoding="async" />
             <div class="om-novedad-txt">
               <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">{{ nv.n }}</h3>
               <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">{{ nv.txt }}</p>
@@ -1331,7 +1334,7 @@
       <div data-reveal="" class="om-demos" style="margin-bottom: clamp(46px, 6vw, 72px);">
         <sc-for list="{{ demosElectrico }}" as="d" hint-placeholder-count="7">
           <div class="om-demo">
-            <video data-demo="" src="./assets/cadprofi/{{ d.v }}.mp4" preload="none" aria-label="{{ d.n }}"></video>
+            <video data-demo="" src="{{ d.video }}" preload="none" aria-label="{{ d.n }}"></video>
             <div class="om-demo-txt">
               <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">{{ d.n }}</h3>
               <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">{{ d.txt }}</p>
@@ -1537,7 +1540,7 @@
       <div data-reveal="" class="om-esps" style="margin-bottom: clamp(46px, 6vw, 72px);">
         <sc-for list="{{ zw3dEspecializado }}" as="e" hint-placeholder-count="4">
           <div class="om-esp">
-            <img src="./assets/zw3d/esp-{{ e.img }}.jpg" alt="{{ e.n }} en ZW3D" width="760" height="570" loading="lazy" decoding="async" />
+            <img src="{{ e.img }}" alt="{{ e.n }} en ZW3D" width="760" height="570" loading="lazy" decoding="async" />
             <div class="om-esp-txt">
               <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 12px;">{{ e.n }}</h3>
               <ul style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">
@@ -1768,7 +1771,68 @@ const DESTINO_CONSULTAS = {
 };
 
 class Component extends DCLogic {
-  state = { scrolled: false, menuOpen: false, enviado: false, enviando: false, errorForm: '', respaldoCorreo: '', respaldoWhatsapp: '', scrollY: 0, ruta: '/' };
+  state = { scrolled: false, menuOpen: false, enviado: false, enviando: false, errorForm: '', respaldoCorreo: '', respaldoWhatsapp: '', scrollY: 0, ruta: '/', cms: null };
+
+  // ---------- contenido administrable ----------
+  // El sitio arranca con el contenido escrito en este archivo y pide el de la
+  // base en segundo plano. Si llega, repinta con eso; si no llega, nadie se
+  // entera. Nunca se espera a la red para mostrar la página: eso es lo que
+  // evita el parpadeo y la pantalla en blanco.
+  cargarCms() {
+    const cfg = window.TICS_CONFIG;
+    if (!cfg || !cfg.SUPABASE_URL || !cfg.SUPABASE_ANON_KEY) return;
+
+    const cab = {
+      apikey: cfg.SUPABASE_ANON_KEY,
+      'Accept-Profile': cfg.SCHEMA || 'ticspy'
+    };
+
+    // Se corta a los 6 segundos: sin esto, una API colgada deja la promesa
+    // viva para siempre.
+    const corte = new AbortController();
+    const reloj = setTimeout(() => corte.abort(), 6000);
+    this._cortarCms = corte;
+
+    const pedir = (ruta) =>
+      fetch(cfg.SUPABASE_URL + '/rest/v1/' + ruta, { headers: cab, signal: corte.signal })
+        .then((r) => (r.ok ? r.json() : []))
+        .catch(() => []);
+
+    Promise.all([
+      pedir('brands?select=name,route,display_height,brand_type,media_assets!brands_media_id_fkey(public_url)&status=eq.published&order=sort_order'),
+      pedir('solution_features?select=label,title,description,group_key,media_assets!solution_features_media_id_fkey(public_url),solutions!inner(slug)&status=eq.published&order=sort_order'),
+      pedir('solution_demos?select=slug,title,description,media_assets!solution_demos_video_media_id_fkey(public_url),solutions!inner(slug)&status=eq.published&order=sort_order')
+    ]).then(([marcasDb, featuresDb, demosDb]) => {
+      clearTimeout(reloj);
+      if (this._muerto) return;
+
+      const logo = (f) => (f.media_assets && f.media_assets.public_url) || null;
+      const noVacio = (a) => (a && a.length ? a : null);
+
+      // La cinta de marcas y la de partners salen de la misma tabla.
+      const porTipo = (tipo) => noVacio((marcasDb || [])
+        .filter((b) => b.brand_type === tipo && logo(b))
+        .map((b) => ({ n: b.name, logo: logo(b), ruta: b.route || '', alto: b.display_height || '30px' })));
+
+      const deSolucion = (slug, grupo) => noVacio((featuresDb || [])
+        .filter((f) => f.solutions && f.solutions.slug === slug && f.group_key === grupo)
+        .map((f) => ({ n: f.title, etiqueta: f.label || '', txt: f.description || '', img: logo(f) })));
+
+      const cms = {
+        partners: porTipo('partner'),
+        marcas: porTipo('brand'),
+        novedades: deSolucion('zwcad', 'novedades'),
+        demosElectrico: noVacio((demosDb || [])
+          .filter((d) => d.solutions && d.solutions.slug === 'cadprofi')
+          .map((d) => ({ v: d.slug, n: d.title, txt: d.description || '', video: logo(d) })))
+      };
+
+      // Si no vino nada útil, no se toca el estado: repintar con vacío sería
+      // peor que dejar lo que ya se está viendo.
+      if (!cms.partners && !cms.marcas && !cms.novedades && !cms.demosElectrico) return;
+      this.setState({ cms: cms });
+    }).catch(() => { clearTimeout(reloj); });
+  }
 
   // Enrutado por hash: una sola página que intercambia vistas. Evita
   // depender de reescrituras del servidor y funciona en cualquier hosting
@@ -1816,6 +1880,11 @@ class Component extends DCLogic {
     };
     window.addEventListener('scroll', this._onScroll, { passive: true });
 
+    // ---- contenido administrable ----
+    // Se pide una sola vez, no en cada cambio de ruta: son tres consultas
+    // chicas y el sitio entero cabe en ellas.
+    this.cargarCms();
+
     // ---- enrutador ----
     this.setState({ ruta: Component.leerRuta() });
     this._onHash = () => {
@@ -1849,6 +1918,10 @@ class Component extends DCLogic {
   }
 
   componentWillUnmount() {
+    // Si el pedido al CMS sigue en el aire, se corta: sin esto, la respuesta
+    // vuelve sobre un componente que ya no existe y llama a setState.
+    this._muerto = true;
+    if (this._cortarCms) { try { this._cortarCms.abort(); } catch (err) {} }
     window.removeEventListener('scroll', this._onScroll);
     document.removeEventListener('keydown', this._onKey);
     window.removeEventListener('hashchange', this._onHash);
@@ -2483,79 +2556,79 @@ class Component extends DCLogic {
     const partners = [
       // Primero las de CAD, que es hacia donde apunta el sitio, y después
       // las de ciberseguridad. Mismo orden que el desplegable de Soluciones.
-      { n: 'ZWCAD',     logo: 'zwcad.png',     w: 561, h: 117, alto: '34px' },
-      { n: 'Aplitop',   logo: 'aplitop.png',   w: 522, h: 160, alto: '32px' },
-      { n: 'CADprofi',  logo: 'cadprofi.png',  w: 587, h: 160, alto: '34px' },
-      { n: 'Arcserve',  logo: 'arcserve.png',  w: 640, h: 91,  alto: '28px' },
-      { n: 'Kaspersky', logo: 'kaspersky.png', w: 395, h: 76,  alto: '30px' }
+      { n: 'ZWCAD',     logo: './assets/marcas/zwcad.png',     w: 561, h: 117, alto: '34px' },
+      { n: 'Aplitop',   logo: './assets/marcas/aplitop.png',   w: 522, h: 160, alto: '32px' },
+      { n: 'CADprofi',  logo: './assets/marcas/cadprofi.png',  w: 587, h: 160, alto: '34px' },
+      { n: 'Arcserve',  logo: './assets/marcas/arcserve.png',  w: 640, h: 91,  alto: '28px' },
+      { n: 'Kaspersky', logo: './assets/marcas/kaspersky.png', w: 395, h: 76,  alto: '30px' }
     ];
     // Novedades de ZWCAD 2026, tomadas del material del fabricante.
     const NUEVO = '#BC1310', MEJOR = '#4F5050';
     const novedades = [
-      { n: 'Importación de RVT', etiqueta: 'Nuevo', color: NUEVO, img: 'importar-rvt',
+      { n: 'Importación de RVT', etiqueta: 'Nuevo', color: NUEVO, img: './assets/zwcad/importar-rvt.jpg',
         txt: 'Importá archivos RVT de las versiones 2015 a 2025: conserva parte de las propiedades del modelo y lo gestionás desde el administrador de capas.' },
-      { n: 'Vista de sección', etiqueta: 'Nuevo', color: NUEVO, img: 'vista-seccion',
+      { n: 'Vista de sección', etiqueta: 'Nuevo', color: NUEVO, img: './assets/zwcad/vista-seccion.jpg',
         txt: 'Explorá modelos 3D seccionándolos por caja o por plano, para ver lo que queda adentro.' },
-      { n: 'Extracción de datos', etiqueta: 'Nuevo', color: NUEVO, img: 'extraccion-datos',
+      { n: 'Extracción de datos', etiqueta: 'Nuevo', color: NUEVO, img: './assets/zwcad/extraccion-datos.jpg',
         txt: 'Extracción por lotes desde varios archivos a la vez, con más objetos y propiedades disponibles y plantillas que se reutilizan.' },
-      { n: 'Importar, editar y exportar IFC', etiqueta: 'Nuevo', color: NUEVO, img: 'ifc',
+      { n: 'Importar, editar y exportar IFC', etiqueta: 'Nuevo', color: NUEVO, img: './assets/zwcad/ifc.jpg',
         txt: 'Filtrá componentes al importar y exportá atributos propios, con recuperación del árbol de estructura y vinculación de referencias para trabajar con otras disciplinas sobre el mismo modelo.' },
-      { n: 'Diseño paramétrico', etiqueta: 'Nuevo', color: NUEVO, img: 'parametrico',
+      { n: 'Diseño paramétrico', etiqueta: 'Nuevo', color: NUEVO, img: './assets/zwcad/parametrico.jpg',
         txt: 'Añadí restricciones geométricas y dimensionales a las entidades para ajustar rápidamente tamaño y forma, facilitando los cambios y la reutilización de dibujos.' },
-      { n: 'Caja de herramientas ZWCAD', etiqueta: 'Nuevo', color: NUEVO, img: 'caja-herramientas',
+      { n: 'Caja de herramientas ZWCAD', etiqueta: 'Nuevo', color: NUEVO, img: './assets/zwcad/caja-herramientas.jpg',
         txt: 'Accedé a herramientas de capas, cotas y selección en un único panel, con diseños personalizables.' },
-      { n: 'Smart Match', etiqueta: 'Nuevo', color: NUEVO, img: 'smart-match',
+      { n: 'Smart Match', etiqueta: 'Nuevo', color: NUEVO, img: './assets/zwcad/smart-match.jpg',
         txt: 'Identificá automáticamente formas idénticas y editalas por lotes para mejorar la eficiencia.' },
-      { n: 'Cota inteligente', etiqueta: 'Nuevo', color: NUEVO, img: 'cota-inteligente',
+      { n: 'Cota inteligente', etiqueta: 'Nuevo', color: NUEVO, img: './assets/zwcad/cota-inteligente.jpg',
         txt: 'Reconoce automáticamente los tipos de objeto y genera las cotas correspondientes, evitando cambiar de comando a cada paso.' },
-      { n: 'Menú de pinzamientos de cota', etiqueta: 'Nuevo', color: NUEVO, img: 'pinzamientos',
+      { n: 'Menú de pinzamientos de cota', etiqueta: 'Nuevo', color: NUEVO, img: './assets/zwcad/pinzamientos.jpg',
         txt: 'Hacé clic en los pinzamientos para editar rápidamente cotas y textos por separado desde el menú.' },
-      { n: 'Agregar selección', etiqueta: 'Nuevo', color: NUEVO, img: 'agregar-seleccion',
+      { n: 'Agregar selección', etiqueta: 'Nuevo', color: NUEVO, img: './assets/zwcad/agregar-seleccion.jpg',
         txt: 'Creá objetos con los mismos atributos básicos que los existentes para evitar tareas repetitivas.' },
-      { n: 'Búsqueda similar', etiqueta: 'Mejorado', color: MEJOR, img: 'busqueda-similar',
+      { n: 'Búsqueda similar', etiqueta: 'Mejorado', color: MEJOR, img: './assets/zwcad/busqueda-similar.jpg',
         txt: 'Reutilizá bloques históricos encontrando los similares, y ahorrá tiempo en cada dibujo.' },
-      { n: 'Smart Plot', etiqueta: 'Mejorado', color: MEJOR, img: 'smart-plot',
+      { n: 'Smart Plot', etiqueta: 'Mejorado', color: MEJOR, img: './assets/zwcad/smart-plot.jpg',
         txt: 'Interfaz optimizada y mayor eficiencia en el ploteo.' }
     ];
     // Demostraciones del módulo eléctrico de CADprofi. Los textos salen de la
     // documentación del fabricante, condensados.
     const demosElectrico = [
-      { v: 'energia', n: 'Instalaciones de energía eléctrica',
+      { v: 'energia', video: './assets/cadprofi/energia.mp4', n: 'Instalaciones de energía eléctrica',
         txt: 'El creador de esquemas arma el proyecto rápido: elegís productos en lugar de dibujar a mano, con plantillas listas de líneas, circuitos, cuadros eléctricos y arrancadores de motor.' },
-      { v: 'baja-tension', n: 'Sistemas de extra baja tensión',
+      { v: 'baja-tension', video: './assets/cadprofi/baja-tension.mp4', n: 'Sistemas de extra baja tensión',
         txt: 'Objetos listos para armarios IT y multimedia, y paneles de alarma contra incendios, para edificios residenciales, públicos e industriales.' },
-      { v: 'iluminacion', n: 'Equipos de instalación e iluminación',
+      { v: 'iluminacion', video: './assets/cadprofi/iluminacion.mp4', n: 'Equipos de instalación e iluminación',
         txt: 'Numera los circuitos, les asigna los objetos y arma los cuadros y listas que reflejan esas conexiones. Exporta los locales a DIALux para el cálculo de iluminación.' },
-      { v: 'bandejas', n: 'Bandejas de cables y barras colectoras',
+      { v: 'bandejas', video: './assets/cadprofi/bandejas.mp4', n: 'Bandejas de cables y barras colectoras',
         txt: 'Traza recorridos de bandejas y conductos de protección, con inserción automática de codos según los parámetros elegidos, y los elementos de sistemas de barras colectoras.' },
-      { v: 'automatizacion', n: 'Automatización industrial y medición',
+      { v: 'automatizacion', video: './assets/cadprofi/automatizacion.mp4', n: 'Automatización industrial y medición',
         txt: 'Símbolos multivariantes para sistemas de control y medición: puntos de medición, sensores, transductores y controladores.' },
-      { v: 'mapas', n: 'Mapas, líneas y pilares',
+      { v: 'mapas', video: './assets/cadprofi/mapas.mp4', n: 'Mapas, líneas y pilares',
         txt: 'Biblioteca de símbolos, objetos y marcas para los planos de redes de transmisión y de telecomunicaciones.' },
-      { v: 'pararrayos', n: 'Protección contra rayos',
+      { v: 'pararrayos', video: './assets/cadprofi/pararrayos.mp4', n: 'Protección contra rayos',
         txt: 'Todo lo necesario para el sistema completo: mástiles, varillas, conductores, conectores, envolventes, electrodos de puesta a tierra y accesorios.' }
     ];
     // Módulos de diseño especializado de ZW3D, con el texto del fabricante.
     const zw3dEspecializado = [
-      { img: 'chapa', n: 'Diseño de chapa metálica', puntos: [
+      { img: './assets/zw3d/esp-chapa.jpg', n: 'Diseño de chapa metálica', puntos: [
         'Herramientas profesionales para un diseño rápido de chapa metálica.',
         'Soporta dobleces complejos y desplegado preciso, incorporando propiedades del material y tolerancias de doblado.' ] },
-      { img: 'estructuras', n: 'Diseño de estructuras de acero', puntos: [
+      { img: './assets/zw3d/esp-estructuras.jpg', n: 'Diseño de estructuras de acero', puntos: [
         'Acelera el proceso de modelado de estructuras de acero.',
         'Soporta perfiles estándar y personalizados, soluciones de uniones en esquinas y elementos estructurales.' ] },
-      { img: 'tuberias', n: 'Diseño de tuberías', puntos: [
+      { img: './assets/zw3d/esp-tuberias.jpg', n: 'Diseño de tuberías', puntos: [
         'Simplifica el modelado de tuberías y la generación de dibujos.',
         'Enrutamiento flexible, biblioteca de piezas estándar y colocación automática de bridas, empaques y uniones. Dibujos 2D con un solo clic.' ] },
-      { img: 'renderizado', n: 'Renderizado', puntos: [
+      { img: './assets/zw3d/esp-renderizado.jpg', n: 'Renderizado', puntos: [
         'Creá renderizados 3D fotorrealistas para comunicación visual.',
         'Configuración mínima, con iluminación interactiva e iluminación global para mejorar el impacto visual.' ] }
     ];
     const marcas = [
-      { n: 'Dell Technologies',         logo: 'dell.png',      w: 694, h: 89,  alto: '26px' },
-      { n: 'Hewlett Packard Enterprise', logo: 'hpe.png',       w: 330, h: 138, alto: '60px' },
-      { n: 'Dahua Technology',          logo: 'dahua.png',     w: 401, h: 120, alto: '40px' },
-      { n: 'APC by Schneider Electric', logo: 'apc.png',       w: 364, h: 176, alto: '48px' },
-      { n: 'SonicWall',                 logo: 'sonicwall.png', w: 394, h: 67,  alto: '28px' }
+      { n: 'Dell Technologies',         logo: './assets/marcas/dell.png',      w: 694, h: 89,  alto: '26px' },
+      { n: 'Hewlett Packard Enterprise', logo: './assets/marcas/hpe.png',       w: 330, h: 138, alto: '60px' },
+      { n: 'Dahua Technology',          logo: './assets/marcas/dahua.png',     w: 401, h: 120, alto: '40px' },
+      { n: 'APC by Schneider Electric', logo: './assets/marcas/apc.png',       w: 364, h: 176, alto: '48px' },
+      { n: 'SonicWall',                 logo: './assets/marcas/sonicwall.png', w: 394, h: 67,  alto: '28px' }
     ];
     return {
       esInicio: s.ruta === '/',
@@ -2684,10 +2757,14 @@ class Component extends DCLogic {
                               '?text=' + encodeURIComponent(cuerpo)
           }));
       },
-      partners: partners,
-      marcas: marcas,
-      novedades: novedades,
-      demosElectrico: demosElectrico,
+      // El contenido del CMS pisa al del archivo cuando llegó y trae algo.
+      // Si la base no responde, si tarda, o si una colección vuelve vacía,
+      // queda lo que está escrito acá abajo y el sitio se ve igual que
+      // siempre. Nunca hay pantalla en blanco ni carga eterna.
+      partners: (s.cms && s.cms.partners) || partners,
+      marcas: (s.cms && s.cms.marcas) || marcas,
+      novedades: (s.cms && s.cms.novedades) || novedades,
+      demosElectrico: (s.cms && s.cms.demosElectrico) || demosElectrico,
       zw3dEspecializado: zw3dEspecializado
     };
   }

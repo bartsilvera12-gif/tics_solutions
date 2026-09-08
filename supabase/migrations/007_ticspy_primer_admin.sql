@@ -26,8 +26,9 @@
 
 do $blk$
 declare
-  correo  constant text := 'arturo.osorio@tics-py.com';
-  nombre  constant text := 'Arturo Osorio';
+  correo  constant text := 'admin@ticspy.com';
+  -- El apostrofo va doblado: si no, cierra la cadena y el bloque no compila.
+  nombre  constant text := 'Administrador Tic''s Solutions';
   id_auth uuid;
 begin
   select id into id_auth from auth.users where email = correo;

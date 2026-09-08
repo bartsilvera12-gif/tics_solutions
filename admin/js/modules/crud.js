@@ -24,7 +24,7 @@
      *   filtro     (fila, texto) -> bool    opcional, para el buscador
      *   sinCrear   true si la tabla no admite altas nuevas
      */
-    var estado = { filas: [], busqueda: "" };
+    var estado = { filas: [], base: [], busqueda: "" };
 
     function orden() { return spec.orden || "sort_order"; }
 
@@ -126,7 +126,9 @@
 
     /* --------------------------------------------------- reordenar --- */
     async function mover(fila, delta) {
-      var lista = estado.filas.slice();
+      // Sobre la lista visible, no sobre todas: en una pantalla con pestañas,
+      // mover contra estado.filas intercambiaria un partner con una marca.
+      var lista = estado.base.slice();
       var i = lista.findIndex(function (f) { return f.id === fila.id; });
       var j = i + delta;
       if (i < 0 || j < 0 || j >= lista.length) return;
@@ -150,14 +152,25 @@
     function pintar(nodo) {
       UI.vaciar(nodo);
 
-      var visibles = estado.filas.filter(function (f) {
+      // El filtro fijo se aplica siempre: es el que separa, por ejemplo, los
+      // partners de las marcas. El buscador se suma encima. Si se los mezcla
+      // en uno solo, la pestaña no filtra hasta que alguien escribe algo.
+      var base = spec.filtroFijo
+        ? estado.filas.filter(function (f) { return spec.filtroFijo(f); })
+        : estado.filas;
+
+      // Reordenar trabaja sobre esta lista y no sobre todas las filas: en una
+      // pantalla con pestañas, mover contra el total intercambiaría un
+      // partner con una marca.
+      estado.base = base;
+
+      var visibles = base.filter(function (f) {
         if (!estado.busqueda) return true;
-        if (spec.filtro) return spec.filtro(f, estado.busqueda);
         var t = (f.name || "") + " " + (f.title || "") + " " + (f.slug || "");
         return t.toLowerCase().indexOf(estado.busqueda.toLowerCase()) >= 0;
       });
 
-      if (!estado.filas.length) {
+      if (!base.length) {
         nodo.appendChild(el("div.tarjeta", {}, [
           UI.vacio("Todavía no hay " + spec.plural,
             "Cuando cargues el primero va a aparecer acá.",
@@ -245,8 +258,14 @@
         estado.filas = filas;
         UI.vaciar(nodo);
 
-        // Buscador y botón de alta, en la barra de arriba.
-        if (!spec.sinBuscar && filas.length > 6) {
+        // Buscador y botón de alta, en la barra de arriba. El buscador
+        // aparece según cuántas filas se ven en esta pestaña, no según el
+        // total de la tabla.
+        var cuantas = spec.filtroFijo
+          ? filas.filter(function (f) { return spec.filtroFijo(f); }).length
+          : filas.length;
+
+        if (!spec.sinBuscar && cuantas > 6) {
           var buscador = el("input.control", {
             type: "search", placeholder: "Buscar…",
             estilo: "height:38px;width:210px",

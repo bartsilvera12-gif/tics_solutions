@@ -119,7 +119,9 @@ my %mime = (jpg=>'image/jpeg', jpeg=>'image/jpeg', png=>'image/png',
 for my $a (@assets) {
   my ($ext) = $a->{rel} =~ /\.(\w+)$/;
   my $m = $mime{lc($ext // '')} // 'application/octet-stream';
-  my $url = "./assets/" . $a->{rel};
+  # Absoluta desde la raiz: el panel vive en /admin y una ruta que empiece
+  # con "./" resolveria a /admin/assets y daria 404.
+  my $url = "/assets/" . $a->{rel};
   my ($nombre) = $a->{rel} =~ m{([^/]+)$};
   push @SQL, sprintf(
     "INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)\n" .

@@ -67,10 +67,7 @@
           tabla: "brands",
           titulo: tipo === "partner" ? "partner" : "marca",
           plural: tipo === "partner" ? "partners" : "marcas",
-          filtro: function (f, t) {
-            return f.brand_type === tipo &&
-                   (f.name || "").toLowerCase().indexOf(t.toLowerCase()) >= 0;
-          },
+          filtroFijo: function (f) { return f.brand_type === tipo; },
           columnas: [
             { titulo: "", ancho: "62px", celda: function (f) { return logo(f, media); } },
             { titulo: "Marca", celda: function (f) {
@@ -100,8 +97,6 @@
         }).render(cuerpo);
       }
 
-      // El buscador del CRUD filtra por tipo además del texto; para que la
-      // pestaña funcione sin escribir nada, se arranca con el tipo puesto.
       pintarPestanas();
       nodo.appendChild(barra);
       nodo.appendChild(cuerpo);

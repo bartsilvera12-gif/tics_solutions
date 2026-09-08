@@ -6,6 +6,7 @@
 // Variables que hay que cargar en Vercel (Settings -> Environment Variables):
 //   SMTP_HOST       smtp.gmail.com
 //   SMTP_PORT       465
+//   SMTP_SECURE     true
 //   SMTP_USER       arturo.osorio@tics-py.com
 //   SMTP_PASSWORD   contraseña de aplicación de Google (no la del correo)
 //   CONTACT_EMAIL   arturo.osorio@tics-py.com
@@ -80,7 +81,9 @@ module.exports = async (req, res) => {
   const transporte = nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp.gmail.com',
     port: Number(process.env.SMTP_PORT || 465),
-    secure: true,                 // el 465 abre en TLS: no hay caso en que sea falso
+    // El 465 abre en TLS desde el saludo. La variable existe por si alguna vez
+    // hay que ir a 587, pero cualquier valor que no sea "false" deja el TLS puesto.
+    secure: String(process.env.SMTP_SECURE || 'true') !== 'false',
     auth: { user: SMTP_USER, pass: SMTP_PASSWORD }
   });
 

@@ -1,0 +1,18 @@
+# Lo que no tiene por qué llegar al servidor web.
+#
+# Vercel sirve como estático todo lo que sube, incluidas las carpetas que solo
+# existen para trabajar. Sin este archivo quedaban públicos:
+#
+#   supabase/PGRST_DB_SCHEMAS.*.txt  la lista de los 119 schemas de la
+#                                    instancia compartida, o sea el nombre de
+#                                    todos los clientes de NEURA
+#   supabase/migrations/*.sql        el esquema completo de la base
+#
+# Ninguno lleva contraseñas, pero no hay razón para publicarlos.
+
+supabase/
+uploads/
+
+*.ps1
+*.pl
+.thumbnail

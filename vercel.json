@@ -1,6 +1,18 @@
 {
   "rewrites": [
     { "source": "/", "destination": "/Sitio Web.dc.html" },
-    { "source": "/politicadeprivacidad", "destination": "/Sitio Web.dc.html" }
+    { "source": "/politicadeprivacidad", "destination": "/Sitio Web.dc.html" },
+    { "source": "/admin", "destination": "/admin/index.html" },
+    { "source": "/admin/login", "destination": "/admin/login.html" }
+  ],
+  "headers": [
+    {
+      "source": "/admin/(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    }
   ]
 }

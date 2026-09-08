@@ -527,7 +527,7 @@
               <div>
                 <a href="#/ciberseguridad" class="om-drop-titulo">Ciberseguridad</a>
                 <p class="om-drop-sub">Respaldo, recuperación y protección de los equipos.</p>
-                <a href="#/ciberseguridad" class="om-drop-item">
+                <a href="#/arcserve" class="om-drop-item">
                   <img src="./assets/marcas/arcserve.png" alt="Arcserve" width="640" height="91" loading="lazy" decoding="async" />
                   <span>Respaldo y recuperación ante desastres.</span>
                 </a>
@@ -575,7 +575,7 @@
             <a href="#/cadprofi" onClick="{{ closeMenu }}" class="om-menu-marca" style="margin-left: 30px;"><img src="./assets/marcas/cadprofi.png" alt="" aria-hidden="true" loading="lazy" />CADprofi</a>
 
             <a href="#/ciberseguridad" onClick="{{ closeMenu }}" class="om-menu-cat">Ciberseguridad</a>
-            <a href="#/ciberseguridad" onClick="{{ closeMenu }}" class="om-menu-marca" style="margin-left: 30px;"><img src="./assets/marcas/arcserve.png" alt="" aria-hidden="true" loading="lazy" />Arcserve</a>
+            <a href="#/arcserve" onClick="{{ closeMenu }}" class="om-menu-marca" style="margin-left: 30px;"><img src="./assets/marcas/arcserve.png" alt="" aria-hidden="true" loading="lazy" />Arcserve</a>
             <a href="#/ciberseguridad" onClick="{{ closeMenu }}" class="om-menu-marca" style="margin-left: 30px; margin-bottom: 8px;"><img src="./assets/marcas/kaspersky.png" alt="" aria-hidden="true" loading="lazy" />Kaspersky</a>
           </div>
           <a href="#/novedades" onClick="{{ closeMenu }}" class="om-menu-link" style="display: flex; align-items: baseline; gap: 14px; padding: clamp(9px, 1.2vw, 13px) 0; border-bottom: 1px solid rgba(29,30,30,.08); color: #1D1E1E; font-size: clamp(21px, 2.4vw, 30px); font-weight: 400; letter-spacing: -0.01em; transition: color .25s ease;" style-hover="color: #E71917;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #BC1310; flex: 0 0 auto;">05</span>Novedades</a>
@@ -1149,11 +1149,12 @@
       <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 500; color: #3B3C3C; max-width: 700px; margin-bottom: clamp(46px, 6vw, 70px);">Trabajamos sobre dos frentes que se complementan: evitar que la amenaza entre, y poder volver a trabajar rápido si algo pasa igual. Licenciamos, implementamos y acompañamos localmente las dos partes.</p>
 
       <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 2.6vw, 32px); margin-bottom: clamp(46px, 6vw, 72px);">
-        <div class="om-spot" data-spotlight="" style="border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(26px, 3vw, 36px);">
+        <a href="#/arcserve" class="om-spot" data-spotlight="" style="display: flex; flex-direction: column; border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(26px, 3vw, 36px); transition: border-color .3s ease;" style-hover="border-color: rgba(231,25,23,.55);">
           <img src="./assets/marcas/arcserve.png" alt="Arcserve" width="640" height="91" loading="lazy" decoding="async" style="position: relative; z-index: 1; max-height: 26px; width: auto; max-width: 70%; object-fit: contain; object-position: left center; margin-bottom: 22px;" />
           <p style="position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #BC1310; margin-bottom: 14px;">Respaldo y recuperación</p>
           <p style="position: relative; z-index: 1; font-size: 15px; line-height: 1.75; font-weight: 500; color: #3B3C3C;">Copias de seguridad y recuperación ante desastres. La red de contención para cuando algo falla: un equipo que se rompe, un archivo borrado por error o un ataque que llegó a cifrar información.</p>
-        </div>
+          <span style="position: relative; z-index: 1; margin-top: 22px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #1D1E1E;">Ver las soluciones &rarr;</span>
+        </a>
         <div class="om-spot" data-spotlight="" style="border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(26px, 3vw, 36px);">
           <img src="./assets/marcas/kaspersky.png" alt="Kaspersky" width="395" height="76" loading="lazy" decoding="async" style="position: relative; z-index: 1; max-height: 28px; width: auto; max-width: 70%; object-fit: contain; object-position: left center; margin-bottom: 22px;" />
           <p style="position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #BC1310; margin-bottom: 14px;">Protección de equipos</p>
@@ -1347,6 +1348,89 @@
       </div>
 
       <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 500; color: #4F5050;">CADprofi es un producto de CADprofi Sp. z o.o. Tic&rsquo;s Solutions lo comercializa e implementa en Paraguay; las marcas y nombres citados pertenecen a sus respectivos titulares.</p>
+    </div>
+  </section>
+  </sc-if>
+
+
+  <!-- ================= ARCSERVE ================= -->
+  <sc-if value="{{ esArcserve }}" hint-placeholder-val="{{ true }}">
+  <section data-screen-label="Arcserve" style="position: relative; padding: clamp(70px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px); background: rgba(255,255,255,.55);">
+    <div style="position: relative; z-index: 2; max-width: 1100px; margin: 0 auto;">
+
+      <a href="#/ciberseguridad" class="om-volver om-enlace-tactil" style="margin-bottom: clamp(26px, 3vw, 34px);"><span aria-hidden="true" style="font-size: 15px; line-height: 1;">&larr;</span>Volver</a>
+
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 26px;">[ Partner ] &nbsp;//&nbsp; Respaldo y recuperación</p>
+
+      <div data-reveal="" style="margin-bottom: 22px;">
+        <img src="./assets/marcas/arcserve.png" alt="Arcserve" width="640" height="91" style="height: clamp(28px, 3.2vw, 40px); width: auto; display: block;" />
+      </div>
+
+      <h1 data-reveal="" style="font-size: clamp(26px, 4.4vw, 58px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; text-wrap: pretty;">Que los datos <span style="color: #E71917;">vuelvan</span>, pase lo que pase.</h1>
+
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 500; color: #3B3C3C; max-width: 700px; margin-bottom: clamp(46px, 6vw, 70px);">Arcserve cubre el respaldo y la recuperación de punta a punta: servidores físicos y virtuales, la nube y las plataformas donde hoy vive el trabajo diario. Estas son las soluciones de la línea, cada una para un escenario distinto.</p>
+
+      <!-- Las nueve soluciones de la línea -->
+      <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 10px;">Soluciones</p>
+      <p data-reveal="" style="font-size: clamp(17px, 1.8vw, 22px); font-weight: 500; color: #2E2F2F; max-width: 660px; margin-bottom: 30px;">Nueve piezas que se combinan según lo que haya que proteger.</p>
+
+      <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: clamp(18px, 2.4vw, 26px); margin-bottom: clamp(46px, 6vw, 72px);">
+        <div style="border: 1px solid rgba(29,30,30,.12); background: #fff; padding: clamp(22px, 2.6vw, 30px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">01 &mdash; UDP</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Unified Data Protection</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Copias de seguridad, restauración granular y recuperación ante desastres en entornos físicos, virtuales y en la nube. Suma protección contra ransomware asistida por inteligencia artificial e integración con almacenamiento local y en la nube.</p>
+        </div>
+        <div style="border: 1px solid rgba(29,30,30,.12); background: #fff; padding: clamp(22px, 2.6vw, 30px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">02</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Cyber Resilient Storage</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Copias inmutables y coherentes en entornos locales, híbridos y en la nube: una vez escritas, no se pueden alterar. Se integra con UDP y baja el costo con deduplicación y compresión.</p>
+        </div>
+        <div style="border: 1px solid rgba(29,30,30,.12); background: #fff; padding: clamp(22px, 2.6vw, 30px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">03</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Cloud Cyber Resilient Storage</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Las mismas copias inmutables, pero alojadas en la nube, para entornos locales, híbridos y en la nube. Pieza central de una estrategia contra ransomware e integrada con UDP.</p>
+        </div>
+        <div style="border: 1px solid rgba(29,30,30,.12); background: #fff; padding: clamp(22px, 2.6vw, 30px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">04</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Cloud Storage</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Almacenamiento en la nube seguro y de baja latencia, en centros de datos repartidos por el mundo. Se administra desde la misma consola de UDP, con deduplicación y compresión.</p>
+        </div>
+        <div style="border: 1px solid rgba(29,30,30,.12); background: #fff; padding: clamp(22px, 2.6vw, 30px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">05 &mdash; SaaS</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">SaaS Backup</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Respaldo de nube a nube para lo que ya no vive en tus servidores: Microsoft 365, Entra ID, Google Workspace, Salesforce, Zendesk, Jira y Confluence, entre otras. Automatizado y escalable.</p>
+        </div>
+        <div style="border: 1px solid rgba(29,30,30,.12); background: #fff; padding: clamp(22px, 2.6vw, 30px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">06</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Cloud Hybrid</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Copia de seguridad y recuperación ante desastres sobre la nube privada de Arcserve, integradas con UDP, para repartir el respaldo en más de un lugar.</p>
+        </div>
+        <div style="border: 1px solid rgba(29,30,30,.12); background: #fff; padding: clamp(22px, 2.6vw, 30px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">07 &mdash; RHA</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Replication and High Availability</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Replicación en tiempo real y alta disponibilidad para Windows y Linux, locales, remotos o en la nube. Replica a nivel de sistema de archivos: archivos, carpetas, aplicaciones y equipos enteros.</p>
+        </div>
+        <div style="border: 1px solid rgba(29,30,30,.12); background: #fff; padding: clamp(22px, 2.6vw, 30px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">08</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Backup</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Copias en cinta para varias sedes y plataformas: una capa más de protección, pensada para cumplir normativas. Compatible con Windows y Linux, reduce costos de almacenamiento y trabajo de administración.</p>
+        </div>
+        <div style="border: 1px solid rgba(29,30,30,.12); background: #fff; padding: clamp(22px, 2.6vw, 30px);">
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">09</p>
+          <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Cloud Direct</h3>
+          <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Respaldo directo a la nube, totalmente gestionado: no hace falta un servidor ni un equipo de copias en cada sede. Protege servidores físicos y virtuales, y acelera la vuelta después de una pérdida de datos, un ransomware o un desastre.</p>
+        </div>
+      </div>
+
+      <div data-reveal="" style="border-top: 2px solid #E71917; padding-top: clamp(28px, 3.4vw, 40px); display: flex; flex-wrap: wrap; align-items: center; gap: clamp(18px, 3vw, 36px); justify-content: space-between;">
+        <div>
+          <p style="font-size: clamp(19px, 2.2vw, 26px); font-weight: 500; margin-bottom: 8px;">&iquest;Cu&aacute;l te sirve a vos?</p>
+          <p style="font-size: 15px; line-height: 1.7; font-weight: 500; color: #3B3C3C; max-width: 460px;">Contanos qu&eacute; se respalda hoy y d&oacute;nde, y armamos juntos la combinaci&oacute;n que corresponde.</p>
+        </div>
+        <a href="#/contacto" class="om-star" style="color: #fff; height: 54px; padding: 0 32px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Consultar</a>
+      </div>
+
+      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 500; color: #4F5050;">Arcserve es una marca de Arcserve LLC. Tic&rsquo;s Solutions la comercializa e implementa en Paraguay; las marcas y nombres citados pertenecen a sus respectivos titulares.</p>
     </div>
   </section>
   </sc-if>
@@ -1650,7 +1734,7 @@ class Component extends DCLogic {
   // depender de reescrituras del servidor y funciona en cualquier hosting
   // estático, incluido abrir el archivo en local.
   static leerRuta() {
-    const VALIDAS = ['/', '/nosotros', '/servicios', '/partners', '/novedades', '/contacto', '/unidad-aec', '/ciberseguridad', '/zwcad', '/zw3d', '/aplitop', '/cadprofi', '/politicadeprivacidad'];
+    const VALIDAS = ['/', '/nosotros', '/servicios', '/partners', '/novedades', '/contacto', '/unidad-aec', '/ciberseguridad', '/zwcad', '/zw3d', '/aplitop', '/cadprofi', '/arcserve', '/politicadeprivacidad'];
     // La política se pide por URL real (/politicadeprivacidad), no por hash:
     // se mira primero el pathname y se cae al hash para el resto.
     const p = '/' + (window.location.pathname || '').split('/').filter(Boolean).pop();
@@ -2362,7 +2446,7 @@ class Component extends DCLogic {
       { n: 'ZWCAD',     logo: 'zwcad.png',     w: 561, h: 117, alto: '34px' },
       { n: 'Aplitop',   logo: 'aplitop.png',   w: 522, h: 160, alto: '32px' },
       { n: 'CADprofi',  logo: 'cadprofi.png',  w: 587, h: 160, alto: '34px' },
-      { n: 'Arcserve',  logo: 'arcserve.png',  w: 309, h: 46,  alto: '28px' },
+      { n: 'Arcserve',  logo: 'arcserve.png',  w: 640, h: 91,  alto: '28px' },
       { n: 'Kaspersky', logo: 'kaspersky.png', w: 395, h: 76,  alto: '30px' }
     ];
     // Novedades de ZWCAD 2026, tomadas del material del fabricante.
@@ -2443,10 +2527,11 @@ class Component extends DCLogic {
       esCadprofi: s.ruta === '/cadprofi',
       esUnidadAec: s.ruta === '/unidad-aec',
       esCiberseguridad: s.ruta === '/ciberseguridad',
+      esArcserve: s.ruta === '/arcserve',
       esZw3d: s.ruta === '/zw3d',
       esNovedades: s.ruta === '/novedades',
       // La barra marca "Soluciones" mientras estés en cualquier página de marca.
-      colorSoluciones: ['/partners','/unidad-aec','/ciberseguridad','/zwcad','/zw3d','/aplitop','/cadprofi'].indexOf(s.ruta) >= 0 ? '#E71917' : '#414242',
+      colorSoluciones: ['/partners','/unidad-aec','/ciberseguridad','/zwcad','/zw3d','/aplitop','/cadprofi','/arcserve'].indexOf(s.ruta) >= 0 ? '#E71917' : '#414242',
       colorNovedades: s.ruta === '/novedades' ? '#E71917' : '#414242',
       esContacto: s.ruta === '/contacto',
       esPrivacidad: s.ruta === '/politicadeprivacidad',

@@ -163,6 +163,14 @@
     transition: border-color .3s ease, box-shadow .3s ease;
   }
   .om-modulo:hover { border-color: #E71917; box-shadow: 0 6px 22px rgba(231,25,23,.16); }
+  /* Las marcas de producto vienen con proporciones distintas: entran dentro
+     de una caja del mismo tamaño y se alinean a la izquierda. */
+  .om-modulo-marca {
+    display: block; width: auto; height: auto;
+    max-width: 150px; max-height: 52px;
+    object-fit: contain; object-position: left center;
+    margin-bottom: 18px;
+  }
   @media (prefers-reduced-motion: reduce) { .om-modulo { transition: none; } }
 
   /* ---------- módulos de diseño especializado de ZW3D ----------
@@ -1389,46 +1397,55 @@
 
       <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: clamp(18px, 2.4vw, 26px); margin-bottom: clamp(46px, 6vw, 72px);">
         <div class="om-modulo">
+          <img src="./assets/marcas/arcserve/udp.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="om-modulo-marca" />
           <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">01 &mdash; UDP</p>
           <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Unified Data Protection</h3>
           <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Copias de seguridad, restauración granular y recuperación ante desastres en entornos físicos, virtuales y en la nube. Suma protección contra ransomware asistida por inteligencia artificial e integración con almacenamiento local y en la nube.</p>
         </div>
         <div class="om-modulo">
+          <img src="./assets/marcas/arcserve/cyber-resilient-storage.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="om-modulo-marca" />
           <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">02</p>
           <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Cyber Resilient Storage</h3>
           <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Copias inmutables y coherentes en entornos locales, híbridos y en la nube: una vez escritas, no se pueden alterar. Se integra con UDP y baja el costo con deduplicación y compresión.</p>
         </div>
         <div class="om-modulo">
+          <img src="./assets/marcas/arcserve/cloud-cyber-resilient-storage.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="om-modulo-marca" />
           <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">03</p>
           <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Cloud Cyber Resilient Storage</h3>
           <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Las mismas copias inmutables, pero alojadas en la nube, para entornos locales, híbridos y en la nube. Pieza central de una estrategia contra ransomware e integrada con UDP.</p>
         </div>
         <div class="om-modulo">
+          <img src="./assets/marcas/arcserve/cloud-storage.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="om-modulo-marca" />
           <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">04</p>
           <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Cloud Storage</h3>
           <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Almacenamiento en la nube seguro y de baja latencia, en centros de datos repartidos por el mundo. Se administra desde la misma consola de UDP, con deduplicación y compresión.</p>
         </div>
         <div class="om-modulo">
+          <img src="./assets/marcas/arcserve/saas-backup.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="om-modulo-marca" />
           <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">05 &mdash; SaaS</p>
           <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">SaaS Backup</h3>
           <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Respaldo de nube a nube para lo que ya no vive en tus servidores: Microsoft 365, Entra ID, Google Workspace, Salesforce, Zendesk, Jira y Confluence, entre otras. Automatizado y escalable.</p>
         </div>
         <div class="om-modulo">
+          <img src="./assets/marcas/arcserve/cloud-hybrid.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="om-modulo-marca" />
           <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">06</p>
           <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Cloud Hybrid</h3>
           <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Copia de seguridad y recuperación ante desastres sobre la nube privada de Arcserve, integradas con UDP, para repartir el respaldo en más de un lugar.</p>
         </div>
         <div class="om-modulo">
+          <img src="./assets/marcas/arcserve/rha.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="om-modulo-marca" />
           <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">07 &mdash; RHA</p>
           <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Replication and High Availability</h3>
           <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Replicación en tiempo real y alta disponibilidad para Windows y Linux, locales, remotos o en la nube. Replica a nivel de sistema de archivos: archivos, carpetas, aplicaciones y equipos enteros.</p>
         </div>
         <div class="om-modulo">
+          <img src="./assets/marcas/arcserve/backup.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="om-modulo-marca" />
           <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">08</p>
           <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Backup</h3>
           <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Copias en cinta para varias sedes y plataformas: una capa más de protección, pensada para cumplir normativas. Compatible con Windows y Linux, reduce costos de almacenamiento y trabajo de administración.</p>
         </div>
         <div class="om-modulo">
+          <img src="./assets/marcas/arcserve/cloud-direct.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="om-modulo-marca" />
           <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">09</p>
           <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">Cloud Direct</h3>
           <p style="font-size: 14px; line-height: 1.7; font-weight: 500; color: #414242;">Respaldo directo a la nube, totalmente gestionado: no hace falta un servidor ni un equipo de copias en cada sede. Protege servidores físicos y virtuales, y acelera la vuelta después de una pérdida de datos, un ransomware o un desastre.</p>

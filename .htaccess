@@ -1,0 +1,60 @@
+# Tic's Solutions — sitio estático sobre Apache (Hostinger).
+#
+# Traduce los rewrites de vercel.json. El contenido lo sirve Supabase desde el
+# navegador; acá no corre nada del lado del servidor.
+
+DirectoryIndex "Sitio Web.dc.html"
+
+# Sin listados de carpeta: entrar a /assets mostraba los archivos.
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Un archivo que existe se sirve tal cual: las imágenes y los videos de
+  # /assets tienen que ganarle a las rutas de más abajo.
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule ^ - [L]
+
+  # El panel.
+  RewriteRule ^admin/login/?$ /admin/login.html [L]
+  RewriteRule ^admin/?$ /admin/index.html [L]
+
+  # El resto de las rutas las resuelve el sitio leyendo la URL. La política
+  # de privacidad es la única que no va por hash.
+  RewriteRule ^politicadeprivacidad/?$ /Sitio%20Web.dc.html [L]
+
+  # Cualquier otra carpeta real se sirve tal cual.
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  # El HTML se revalida siempre, para que un cambio se vea al recargar.
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+
+  <FilesMatch "\.(js|css|woff2)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+
+  # Las imágenes se pueden reemplazar desde el panel conservando el nombre,
+  # así que no se cachean a ciegas.
+  <FilesMatch "\.(jpg|jpeg|png|webp|svg|ico|gif|mp4)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
+# Compresión de texto. Las imágenes y las woff2 no se listan: ya vienen
+# comprimidas y volver a comprimirlas solo gasta CPU.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE application/xml image/svg+xml
+</IfModule>
+
+# Las credenciales nunca se sirven, pase lo que pase con el resto.
+<FilesMatch "^\.env">
+  Require all denied
+</FilesMatch>

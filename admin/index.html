@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Panel — Tic's Solutions</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0D0F12">
+<link rel="icon" href="/assets/logo-tics.png" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/admin/css/admin.css?v=2026-09-08">
+</head>
+<body>
+
+<!-- Se pinta entero desde JS. Mientras tanto, una barra de carga para que la
+     pantalla no quede en blanco sin explicación. -->
+<div id="app">
+  <div class="cargando"></div>
+</div>
+
+<noscript>
+  <div style="padding:32px;font-family:sans-serif">
+    <h1>Necesitás JavaScript</h1>
+    <p>El panel de administración no funciona sin JavaScript activado.</p>
+  </div>
+</noscript>
+
+<!-- El ?v= es para que el navegador no siga usando una copia vieja del panel
+     después de una actualización. Hay que subirlo cada vez que cambia algún
+     archivo de /admin/js: sin eso, un arreglo se sube pero quien administra
+     sigue viendo el código anterior hasta vaciar la caché a mano. -->
+<script src="/js/config.js?v=2026-09-08"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="/admin/js/supabase.js?v=2026-09-08"></script>
+<script src="/admin/js/auth.js?v=2026-09-08"></script>
+<script src="/admin/js/ui.js?v=2026-09-08"></script>
+<script src="/admin/js/app.js?v=2026-09-08"></script>
+
+<!-- El orden de estos módulos define el orden del menú lateral. -->
+<script src="/admin/js/modules/crud.js?v=2026-09-08"></script>
+<script src="/admin/js/modules/resumen.js?v=2026-09-08"></script>
+<script src="/admin/js/modules/consultas.js?v=2026-09-08"></script>
+<script src="/admin/js/modules/contenido.js?v=2026-09-08"></script>
+<script src="/admin/js/modules/marcas.js?v=2026-09-08"></script>
+<script src="/admin/js/modules/multimedia.js?v=2026-09-08"></script>
+<script src="/admin/js/modules/ajustes.js?v=2026-09-08"></script>
+
+<script>
+  App.iniciar().catch(function (e) {
+    var app = document.getElementById("app");
+    app.innerHTML =
+      '<div style="padding:40px;max-width:54ch;margin:8vh auto;font-family:Nunito,sans-serif">' +
+      '<h1 style="font-size:21px;margin:0 0 8px">No se pudo abrir el panel</h1>' +
+      '<p style="color:#6B6C6C;margin:0 0 18px"></p>' +
+      '<a href="/admin/login" style="color:#E71917;font-weight:700">Volver al ingreso</a></div>';
+    // El mensaje se asigna como texto, nunca como HTML.
+    app.querySelector("p").textContent = (e && e.message) || String(e);
+    console.error("[panel] arranque", e);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+# El panel de administración no se indexa nunca.
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow"
+  Header set X-Frame-Options "DENY"
+
+  # El .htaccess de la raíz cachea el JS una semana, que está bien para la
+  # vidriera pero no para el panel: un arreglo se sube y quien administra
+  # sigue viendo el código viejo. Acá se pisa esa regla. "no-cache" no es
+  # "no guardar": el navegador guarda igual pero pregunta antes de usarlo.
+  <FilesMatch "\.(js|css|html)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>

@@ -15,179 +15,295 @@ set search_path = ticspy, public;
 
 -- ---------------------------------------------------------------- media
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/aplitop-banner.jpg', './assets/aplitop-banner.jpg', 'aplitop-banner.jpg', 'image/jpeg', 24895)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/aplitop-banner.jpg', '/assets/aplitop-banner.jpg', 'aplitop-banner.jpg', 'image/jpeg', 24895)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/aplitop-campo.jpg', './assets/aplitop-campo.jpg', 'aplitop-campo.jpg', 'image/jpeg', 104622)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/aplitop-campo.jpg', '/assets/aplitop-campo.jpg', 'aplitop-campo.jpg', 'image/jpeg', 104622)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/aplitop-terreno.jpg', './assets/aplitop-terreno.jpg', 'aplitop-terreno.jpg', 'image/jpeg', 183453)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/aplitop-terreno.jpg', '/assets/aplitop-terreno.jpg', 'aplitop-terreno.jpg', 'image/jpeg', 183453)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/cadprofi/automatizacion.mp4', './assets/cadprofi/automatizacion.mp4', 'automatizacion.mp4', 'video/mp4', 264874)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/cadprofi/automatizacion.mp4', '/assets/cadprofi/automatizacion.mp4', 'automatizacion.mp4', 'video/mp4', 264874)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/cadprofi/baja-tension.mp4', './assets/cadprofi/baja-tension.mp4', 'baja-tension.mp4', 'video/mp4', 296359)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/cadprofi/baja-tension.mp4', '/assets/cadprofi/baja-tension.mp4', 'baja-tension.mp4', 'video/mp4', 296359)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/cadprofi/bandejas.mp4', './assets/cadprofi/bandejas.mp4', 'bandejas.mp4', 'video/mp4', 267342)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/cadprofi/bandejas.mp4', '/assets/cadprofi/bandejas.mp4', 'bandejas.mp4', 'video/mp4', 267342)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/cadprofi/cadprofi-2026.webp', './assets/cadprofi/cadprofi-2026.webp', 'cadprofi-2026.webp', 'image/webp', 620594)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/cadprofi/cadprofi-2026.webp', '/assets/cadprofi/cadprofi-2026.webp', 'cadprofi-2026.webp', 'image/webp', 620594)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/cadprofi/energia.mp4', './assets/cadprofi/energia.mp4', 'energia.mp4', 'video/mp4', 683821)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/cadprofi/energia.mp4', '/assets/cadprofi/energia.mp4', 'energia.mp4', 'video/mp4', 683821)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/cadprofi/iluminacion.mp4', './assets/cadprofi/iluminacion.mp4', 'iluminacion.mp4', 'video/mp4', 341168)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/cadprofi/iluminacion.mp4', '/assets/cadprofi/iluminacion.mp4', 'iluminacion.mp4', 'video/mp4', 341168)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/cadprofi/mapas.mp4', './assets/cadprofi/mapas.mp4', 'mapas.mp4', 'video/mp4', 536035)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/cadprofi/mapas.mp4', '/assets/cadprofi/mapas.mp4', 'mapas.mp4', 'video/mp4', 536035)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/cadprofi/pararrayos.mp4', './assets/cadprofi/pararrayos.mp4', 'pararrayos.mp4', 'video/mp4', 232178)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/cadprofi/pararrayos.mp4', '/assets/cadprofi/pararrayos.mp4', 'pararrayos.mp4', 'video/mp4', 232178)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/foto-ciberseguridad.jpg', './assets/foto-ciberseguridad.jpg', 'foto-ciberseguridad.jpg', 'image/jpeg', 307575)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/foto-ciberseguridad.jpg', '/assets/foto-ciberseguridad.jpg', 'foto-ciberseguridad.jpg', 'image/jpeg', 307575)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/foto-identidad-digital.jpg', './assets/foto-identidad-digital.jpg', 'foto-identidad-digital.jpg', 'image/jpeg', 325922)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/foto-identidad-digital.jpg', '/assets/foto-identidad-digital.jpg', 'foto-identidad-digital.jpg', 'image/jpeg', 325922)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/logo-tics-blanco.png', './assets/logo-tics-blanco.png', 'logo-tics-blanco.png', 'image/png', 80285)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/logo-tics-blanco.png', '/assets/logo-tics-blanco.png', 'logo-tics-blanco.png', 'image/png', 80285)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/logo-tics-oscuro.png', './assets/logo-tics-oscuro.png', 'logo-tics-oscuro.png', 'image/png', 58918)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/logo-tics-oscuro.png', '/assets/logo-tics-oscuro.png', 'logo-tics-oscuro.png', 'image/png', 58918)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/logo-tics.png', './assets/logo-tics.png', 'logo-tics.png', 'image/png', 94771)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/logo-tics.png', '/assets/logo-tics.png', 'logo-tics.png', 'image/png', 94771)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/marcas/apc.png', './assets/marcas/apc.png', 'apc.png', 'image/png', 13202)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/marcas/apc.png', '/assets/marcas/apc.png', 'apc.png', 'image/png', 13202)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/marcas/aplitop.png', './assets/marcas/aplitop.png', 'aplitop.png', 'image/png', 13586)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/marcas/aplitop.png', '/assets/marcas/aplitop.png', 'aplitop.png', 'image/png', 13586)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/marcas/arcserve/backup.png', './assets/marcas/arcserve/backup.png', 'backup.png', 'image/png', 6695)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/marcas/arcserve/backup.png', '/assets/marcas/arcserve/backup.png', 'backup.png', 'image/png', 6695)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/marcas/arcserve/cloud-cyber-resilient-storage.png', './assets/marcas/arcserve/cloud-cyber-resilient-storage.png', 'cloud-cyber-resilient-storage.png', 'image/png', 5073)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/marcas/arcserve/cloud-cyber-resilient-storage.png', '/assets/marcas/arcserve/cloud-cyber-resilient-storage.png', 'cloud-cyber-resilient-storage.png', 'image/png', 5073)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/marcas/arcserve/cloud-direct.png', './assets/marcas/arcserve/cloud-direct.png', 'cloud-direct.png', 'image/png', 6810)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/marcas/arcserve/cloud-direct.png', '/assets/marcas/arcserve/cloud-direct.png', 'cloud-direct.png', 'image/png', 6810)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/marcas/arcserve/cloud-hybrid.png', './assets/marcas/arcserve/cloud-hybrid.png', 'cloud-hybrid.png', 'image/png', 8068)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/marcas/arcserve/cloud-hybrid.png', '/assets/marcas/arcserve/cloud-hybrid.png', 'cloud-hybrid.png', 'image/png', 8068)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/marcas/arcserve/cloud-storage.png', './assets/marcas/arcserve/cloud-storage.png', 'cloud-storage.png', 'image/png', 4869)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/marcas/arcserve/cloud-storage.png', '/assets/marcas/arcserve/cloud-storage.png', 'cloud-storage.png', 'image/png', 4869)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/marcas/arcserve/cyber-resilient-storage.png', './assets/marcas/arcserve/cyber-resilient-storage.png', 'cyber-resilient-storage.png', 'image/png', 4284)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/marcas/arcserve/cyber-resilient-storage.png', '/assets/marcas/arcserve/cyber-resilient-storage.png', 'cyber-resilient-storage.png', 'image/png', 4284)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/marcas/arcserve/rha.png', './assets/marcas/arcserve/rha.png', 'rha.png', 'image/png', 5620)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/marcas/arcserve/rha.png', '/assets/marcas/arcserve/rha.png', 'rha.png', 'image/png', 5620)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/marcas/arcserve/saas-backup.png', './assets/marcas/arcserve/saas-backup.png', 'saas-backup.png', 'image/png', 8411)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/marcas/arcserve/saas-backup.png', '/assets/marcas/arcserve/saas-backup.png', 'saas-backup.png', 'image/png', 8411)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/marcas/arcserve/udp.png', './assets/marcas/arcserve/udp.png', 'udp.png', 'image/png', 5027)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/marcas/arcserve/udp.png', '/assets/marcas/arcserve/udp.png', 'udp.png', 'image/png', 5027)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/marcas/arcserve.png', './assets/marcas/arcserve.png', 'arcserve.png', 'image/png', 11837)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/marcas/arcserve.png', '/assets/marcas/arcserve.png', 'arcserve.png', 'image/png', 11837)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/marcas/cadprofi.png', './assets/marcas/cadprofi.png', 'cadprofi.png', 'image/png', 24846)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/marcas/cadprofi.png', '/assets/marcas/cadprofi.png', 'cadprofi.png', 'image/png', 24846)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/marcas/dahua.png', './assets/marcas/dahua.png', 'dahua.png', 'image/png', 17570)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/marcas/dahua.png', '/assets/marcas/dahua.png', 'dahua.png', 'image/png', 17570)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/marcas/dell.png', './assets/marcas/dell.png', 'dell.png', 'image/png', 17860)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/marcas/dell.png', '/assets/marcas/dell.png', 'dell.png', 'image/png', 17860)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/marcas/hpe.png', './assets/marcas/hpe.png', 'hpe.png', 'image/png', 11195)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/marcas/hpe.png', '/assets/marcas/hpe.png', 'hpe.png', 'image/png', 11195)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/marcas/kaspersky.png', './assets/marcas/kaspersky.png', 'kaspersky.png', 'image/png', 39777)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/marcas/kaspersky.png', '/assets/marcas/kaspersky.png', 'kaspersky.png', 'image/png', 39777)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/marcas/sonicwall.png', './assets/marcas/sonicwall.png', 'sonicwall.png', 'image/png', 11042)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/marcas/sonicwall.png', '/assets/marcas/sonicwall.png', 'sonicwall.png', 'image/png', 11042)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/marcas/zwcad.png', './assets/marcas/zwcad.png', 'zwcad.png', 'image/png', 48064)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/marcas/zwcad.png', '/assets/marcas/zwcad.png', 'zwcad.png', 'image/png', 48064)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zw3d/capacidades.jpg', './assets/zw3d/capacidades.jpg', 'capacidades.jpg', 'image/jpeg', 144504)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zw3d/capacidades.jpg', '/assets/zw3d/capacidades.jpg', 'capacidades.jpg', 'image/jpeg', 144504)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zw3d/esp-chapa.jpg', './assets/zw3d/esp-chapa.jpg', 'esp-chapa.jpg', 'image/jpeg', 25206)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zw3d/esp-chapa.jpg', '/assets/zw3d/esp-chapa.jpg', 'esp-chapa.jpg', 'image/jpeg', 25206)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zw3d/esp-estructuras.jpg', './assets/zw3d/esp-estructuras.jpg', 'esp-estructuras.jpg', 'image/jpeg', 30265)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zw3d/esp-estructuras.jpg', '/assets/zw3d/esp-estructuras.jpg', 'esp-estructuras.jpg', 'image/jpeg', 30265)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zw3d/esp-renderizado.jpg', './assets/zw3d/esp-renderizado.jpg', 'esp-renderizado.jpg', 'image/jpeg', 23061)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zw3d/esp-renderizado.jpg', '/assets/zw3d/esp-renderizado.jpg', 'esp-renderizado.jpg', 'image/jpeg', 23061)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zw3d/esp-tuberias.jpg', './assets/zw3d/esp-tuberias.jpg', 'esp-tuberias.jpg', 'image/jpeg', 59566)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zw3d/esp-tuberias.jpg', '/assets/zw3d/esp-tuberias.jpg', 'esp-tuberias.jpg', 'image/jpeg', 59566)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zw3d/formatos.jpg', './assets/zw3d/formatos.jpg', 'formatos.jpg', 'image/jpeg', 110514)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zw3d/formatos.jpg', '/assets/zw3d/formatos.jpg', 'formatos.jpg', 'image/jpeg', 110514)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zwcad/agregar-seleccion.jpg', './assets/zwcad/agregar-seleccion.jpg', 'agregar-seleccion.jpg', 'image/jpeg', 46222)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zwcad/agregar-seleccion.jpg', '/assets/zwcad/agregar-seleccion.jpg', 'agregar-seleccion.jpg', 'image/jpeg', 46222)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zwcad/busqueda-similar.jpg', './assets/zwcad/busqueda-similar.jpg', 'busqueda-similar.jpg', 'image/jpeg', 50303)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zwcad/busqueda-similar.jpg', '/assets/zwcad/busqueda-similar.jpg', 'busqueda-similar.jpg', 'image/jpeg', 50303)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zwcad/caja-herramientas.jpg', './assets/zwcad/caja-herramientas.jpg', 'caja-herramientas.jpg', 'image/jpeg', 32475)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zwcad/caja-herramientas.jpg', '/assets/zwcad/caja-herramientas.jpg', 'caja-herramientas.jpg', 'image/jpeg', 32475)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zwcad/comparacion-2d.gif', './assets/zwcad/comparacion-2d.gif', 'comparacion-2d.gif', 'image/gif', 525809)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zwcad/comparacion-2d.gif', '/assets/zwcad/comparacion-2d.gif', 'comparacion-2d.gif', 'image/gif', 525809)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zwcad/comparacion-3d.mp4', './assets/zwcad/comparacion-3d.mp4', 'comparacion-3d.mp4', 'video/mp4', 11407349)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zwcad/comparacion-3d.mp4', '/assets/zwcad/comparacion-3d.mp4', 'comparacion-3d.mp4', 'video/mp4', 11407349)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zwcad/cota-inteligente.jpg', './assets/zwcad/cota-inteligente.jpg', 'cota-inteligente.jpg', 'image/jpeg', 30265)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zwcad/cota-inteligente.jpg', '/assets/zwcad/cota-inteligente.jpg', 'cota-inteligente.jpg', 'image/jpeg', 30265)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zwcad/escritorio-3d.jpg', './assets/zwcad/escritorio-3d.jpg', 'escritorio-3d.jpg', 'image/jpeg', 96947)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zwcad/escritorio-3d.jpg', '/assets/zwcad/escritorio-3d.jpg', 'escritorio-3d.jpg', 'image/jpeg', 96947)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zwcad/extraccion-datos.jpg', './assets/zwcad/extraccion-datos.jpg', 'extraccion-datos.jpg', 'image/jpeg', 51622)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zwcad/extraccion-datos.jpg', '/assets/zwcad/extraccion-datos.jpg', 'extraccion-datos.jpg', 'image/jpeg', 51622)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zwcad/ifc.jpg', './assets/zwcad/ifc.jpg', 'ifc.jpg', 'image/jpeg', 46199)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zwcad/ifc.jpg', '/assets/zwcad/ifc.jpg', 'ifc.jpg', 'image/jpeg', 46199)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zwcad/importar-rvt.jpg', './assets/zwcad/importar-rvt.jpg', 'importar-rvt.jpg', 'image/jpeg', 31166)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zwcad/importar-rvt.jpg', '/assets/zwcad/importar-rvt.jpg', 'importar-rvt.jpg', 'image/jpeg', 31166)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zwcad/parametrico.jpg', './assets/zwcad/parametrico.jpg', 'parametrico.jpg', 'image/jpeg', 37998)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zwcad/parametrico.jpg', '/assets/zwcad/parametrico.jpg', 'parametrico.jpg', 'image/jpeg', 37998)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zwcad/pinzamientos.jpg', './assets/zwcad/pinzamientos.jpg', 'pinzamientos.jpg', 'image/jpeg', 30201)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zwcad/pinzamientos.jpg', '/assets/zwcad/pinzamientos.jpg', 'pinzamientos.jpg', 'image/jpeg', 30201)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zwcad/smart-match.jpg', './assets/zwcad/smart-match.jpg', 'smart-match.jpg', 'image/jpeg', 70666)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zwcad/smart-match.jpg', '/assets/zwcad/smart-match.jpg', 'smart-match.jpg', 'image/jpeg', 70666)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zwcad/smart-plot.jpg', './assets/zwcad/smart-plot.jpg', 'smart-plot.jpg', 'image/jpeg', 28744)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zwcad/smart-plot.jpg', '/assets/zwcad/smart-plot.jpg', 'smart-plot.jpg', 'image/jpeg', 28744)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zwcad/vista-seccion.jpg', './assets/zwcad/vista-seccion.jpg', 'vista-seccion.jpg', 'image/jpeg', 31728)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zwcad/vista-seccion.jpg', '/assets/zwcad/vista-seccion.jpg', 'vista-seccion.jpg', 'image/jpeg', 31728)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zwcad-2026.jpg', './assets/zwcad-2026.jpg', 'zwcad-2026.jpg', 'image/jpeg', 177328)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zwcad-2026.jpg', '/assets/zwcad-2026.jpg', 'zwcad-2026.jpg', 'image/jpeg', 177328)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)
-VALUES ('local', 'assets/zwcad-modelo.jpg', './assets/zwcad-modelo.jpg', 'zwcad-modelo.jpg', 'image/jpeg', 208891)
-ON CONFLICT DO NOTHING;
+VALUES ('local', 'assets/zwcad-modelo.jpg', '/assets/zwcad-modelo.jpg', 'zwcad-modelo.jpg', 'image/jpeg', 208891)
+ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,
+  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,
+  size_bytes = EXCLUDED.size_bytes;
 
 -- -------------------------------------------------------------- paginas
 INSERT INTO ticspy.pages (slug, route, name, nav_label, status, show_in_nav, sort_order)
@@ -271,6 +387,24 @@ VALUES ((SELECT id FROM ticspy.solution_units WHERE slug = 'ciberseguridad'),
 ON CONFLICT (slug) DO UPDATE SET name = EXCLUDED.name, headline = EXCLUDED.headline,
   headline_highlight = EXCLUDED.headline_highlight, intro = EXCLUDED.intro;
 
+-- ------------------------------------------------------------- servicios
+INSERT INTO ticspy.services (slug, title, short_description, status, sort_order)
+VALUES ('licenciamiento-de-software-cad', 'Licenciamiento de software CAD', 'Somos reseller autorizado de ZWCAD, Aplitop, CADprofi y ZW3D. Te ayudamos a elegir la edición que corresponde según cómo trabaja tu equipo, con licencia perpetua en lugar de suscripción.', 'published', 1)
+ON CONFLICT (slug) DO UPDATE SET title = EXCLUDED.title,
+  short_description = EXCLUDED.short_description, sort_order = EXCLUDED.sort_order;
+INSERT INTO ticspy.services (slug, title, short_description, status, sort_order)
+VALUES ('implementacion-y-capacitacion', 'Implementación y capacitación', 'Instalamos, migramos tus plantillas y personalizaciones, y capacitamos al equipo. El soporte lo damos acá, no por correo a otro país.', 'published', 2)
+ON CONFLICT (slug) DO UPDATE SET title = EXCLUDED.title,
+  short_description = EXCLUDED.short_description, sort_order = EXCLUDED.sort_order;
+INSERT INTO ticspy.services (slug, title, short_description, status, sort_order)
+VALUES ('proteccion-de-datos', 'Protección de datos', 'Blindamos tu información más valiosa con soluciones de respaldo y recuperación de vanguardia, para que tus datos estén siempre seguros y accesibles.', 'published', 3)
+ON CONFLICT (slug) DO UPDATE SET title = EXCLUDED.title,
+  short_description = EXCLUDED.short_description, sort_order = EXCLUDED.sort_order;
+INSERT INTO ticspy.services (slug, title, short_description, status, sort_order)
+VALUES ('monitoreo-y-gestion-de-riesgos', 'Monitoreo y gestión de riesgos', 'Vigilamos constantemente tu infraestructura para identificar y neutralizar posibles amenazas antes de que afecten tus operaciones.', 'published', 4)
+ON CONFLICT (slug) DO UPDATE SET title = EXCLUDED.title,
+  short_description = EXCLUDED.short_description, sort_order = EXCLUDED.sort_order;
+
 -- ------------------------------------------------------ marcas y partners
 INSERT INTO ticspy.brands (brand_type, name, slug, media_id, route, display_height, status, sort_order)
 VALUES ('partner', 'ZWCAD', 'partner-zwcad', (SELECT id FROM ticspy.media_assets WHERE path = 'assets/marcas/zwcad.png'), '/zwcad', '34px', 'published', 1)
@@ -317,99 +451,145 @@ ON CONFLICT (slug) DO UPDATE SET name = EXCLUDED.name, media_id = EXCLUDED.media
 INSERT INTO ticspy.solution_features (solution_id, group_key, feature_key, label, title, description, media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'zwcad'), 'novedades', 'importar-rvt', 'Nuevo', 'Importación de RVT', 'Importá archivos RVT de las versiones 2015 a 2025: conserva parte de las propiedades del modelo y lo gestionás desde el administrador de capas.',
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/zwcad/importar-rvt.jpg'), 'published', 1)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, group_key, feature_key) DO UPDATE SET
+  label = EXCLUDED.label, title = EXCLUDED.title, description = EXCLUDED.description,
+  bullets = EXCLUDED.bullets, media_id = EXCLUDED.media_id, sort_order = EXCLUDED.sort_order;
 INSERT INTO ticspy.solution_features (solution_id, group_key, feature_key, label, title, description, media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'zwcad'), 'novedades', 'vista-seccion', 'Nuevo', 'Vista de sección', 'Explorá modelos 3D seccionándolos por caja o por plano, para ver lo que queda adentro.',
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/zwcad/vista-seccion.jpg'), 'published', 2)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, group_key, feature_key) DO UPDATE SET
+  label = EXCLUDED.label, title = EXCLUDED.title, description = EXCLUDED.description,
+  bullets = EXCLUDED.bullets, media_id = EXCLUDED.media_id, sort_order = EXCLUDED.sort_order;
 INSERT INTO ticspy.solution_features (solution_id, group_key, feature_key, label, title, description, media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'zwcad'), 'novedades', 'extraccion-datos', 'Nuevo', 'Extracción de datos', 'Extracción por lotes desde varios archivos a la vez, con más objetos y propiedades disponibles y plantillas que se reutilizan.',
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/zwcad/extraccion-datos.jpg'), 'published', 3)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, group_key, feature_key) DO UPDATE SET
+  label = EXCLUDED.label, title = EXCLUDED.title, description = EXCLUDED.description,
+  bullets = EXCLUDED.bullets, media_id = EXCLUDED.media_id, sort_order = EXCLUDED.sort_order;
 INSERT INTO ticspy.solution_features (solution_id, group_key, feature_key, label, title, description, media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'zwcad'), 'novedades', 'ifc', 'Nuevo', 'Importar, editar y exportar IFC', 'Filtrá componentes al importar y exportá atributos propios, con recuperación del árbol de estructura y vinculación de referencias para trabajar con otras disciplinas sobre el mismo modelo.',
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/zwcad/ifc.jpg'), 'published', 4)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, group_key, feature_key) DO UPDATE SET
+  label = EXCLUDED.label, title = EXCLUDED.title, description = EXCLUDED.description,
+  bullets = EXCLUDED.bullets, media_id = EXCLUDED.media_id, sort_order = EXCLUDED.sort_order;
 INSERT INTO ticspy.solution_features (solution_id, group_key, feature_key, label, title, description, media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'zwcad'), 'novedades', 'parametrico', 'Nuevo', 'Diseño paramétrico', 'Añadí restricciones geométricas y dimensionales a las entidades para ajustar rápidamente tamaño y forma, facilitando los cambios y la reutilización de dibujos.',
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/zwcad/parametrico.jpg'), 'published', 5)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, group_key, feature_key) DO UPDATE SET
+  label = EXCLUDED.label, title = EXCLUDED.title, description = EXCLUDED.description,
+  bullets = EXCLUDED.bullets, media_id = EXCLUDED.media_id, sort_order = EXCLUDED.sort_order;
 INSERT INTO ticspy.solution_features (solution_id, group_key, feature_key, label, title, description, media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'zwcad'), 'novedades', 'caja-herramientas', 'Nuevo', 'Caja de herramientas ZWCAD', 'Accedé a herramientas de capas, cotas y selección en un único panel, con diseños personalizables.',
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/zwcad/caja-herramientas.jpg'), 'published', 6)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, group_key, feature_key) DO UPDATE SET
+  label = EXCLUDED.label, title = EXCLUDED.title, description = EXCLUDED.description,
+  bullets = EXCLUDED.bullets, media_id = EXCLUDED.media_id, sort_order = EXCLUDED.sort_order;
 INSERT INTO ticspy.solution_features (solution_id, group_key, feature_key, label, title, description, media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'zwcad'), 'novedades', 'smart-match', 'Nuevo', 'Smart Match', 'Identificá automáticamente formas idénticas y editalas por lotes para mejorar la eficiencia.',
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/zwcad/smart-match.jpg'), 'published', 7)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, group_key, feature_key) DO UPDATE SET
+  label = EXCLUDED.label, title = EXCLUDED.title, description = EXCLUDED.description,
+  bullets = EXCLUDED.bullets, media_id = EXCLUDED.media_id, sort_order = EXCLUDED.sort_order;
 INSERT INTO ticspy.solution_features (solution_id, group_key, feature_key, label, title, description, media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'zwcad'), 'novedades', 'cota-inteligente', 'Nuevo', 'Cota inteligente', 'Reconoce automáticamente los tipos de objeto y genera las cotas correspondientes, evitando cambiar de comando a cada paso.',
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/zwcad/cota-inteligente.jpg'), 'published', 8)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, group_key, feature_key) DO UPDATE SET
+  label = EXCLUDED.label, title = EXCLUDED.title, description = EXCLUDED.description,
+  bullets = EXCLUDED.bullets, media_id = EXCLUDED.media_id, sort_order = EXCLUDED.sort_order;
 INSERT INTO ticspy.solution_features (solution_id, group_key, feature_key, label, title, description, media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'zwcad'), 'novedades', 'pinzamientos', 'Nuevo', 'Menú de pinzamientos de cota', 'Hacé clic en los pinzamientos para editar rápidamente cotas y textos por separado desde el menú.',
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/zwcad/pinzamientos.jpg'), 'published', 9)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, group_key, feature_key) DO UPDATE SET
+  label = EXCLUDED.label, title = EXCLUDED.title, description = EXCLUDED.description,
+  bullets = EXCLUDED.bullets, media_id = EXCLUDED.media_id, sort_order = EXCLUDED.sort_order;
 INSERT INTO ticspy.solution_features (solution_id, group_key, feature_key, label, title, description, media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'zwcad'), 'novedades', 'agregar-seleccion', 'Nuevo', 'Agregar selección', 'Creá objetos con los mismos atributos básicos que los existentes para evitar tareas repetitivas.',
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/zwcad/agregar-seleccion.jpg'), 'published', 10)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, group_key, feature_key) DO UPDATE SET
+  label = EXCLUDED.label, title = EXCLUDED.title, description = EXCLUDED.description,
+  bullets = EXCLUDED.bullets, media_id = EXCLUDED.media_id, sort_order = EXCLUDED.sort_order;
 INSERT INTO ticspy.solution_features (solution_id, group_key, feature_key, label, title, description, media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'zwcad'), 'novedades', 'busqueda-similar', 'Mejorado', 'Búsqueda similar', 'Reutilizá bloques históricos encontrando los similares, y ahorrá tiempo en cada dibujo.',
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/zwcad/busqueda-similar.jpg'), 'published', 11)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, group_key, feature_key) DO UPDATE SET
+  label = EXCLUDED.label, title = EXCLUDED.title, description = EXCLUDED.description,
+  bullets = EXCLUDED.bullets, media_id = EXCLUDED.media_id, sort_order = EXCLUDED.sort_order;
 INSERT INTO ticspy.solution_features (solution_id, group_key, feature_key, label, title, description, media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'zwcad'), 'novedades', 'smart-plot', 'Mejorado', 'Smart Plot', 'Interfaz optimizada y mayor eficiencia en el ploteo.',
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/zwcad/smart-plot.jpg'), 'published', 12)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, group_key, feature_key) DO UPDATE SET
+  label = EXCLUDED.label, title = EXCLUDED.title, description = EXCLUDED.description,
+  bullets = EXCLUDED.bullets, media_id = EXCLUDED.media_id, sort_order = EXCLUDED.sort_order;
 
 -- ------------------------------ caracteristicas: diseno especializado ZW3D
 INSERT INTO ticspy.solution_features (solution_id, group_key, feature_key, title, bullets, media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'zw3d'), 'especializado', 'chapa', 'Diseño de chapa metálica', '["Herramientas profesionales para un diseño rápido de chapa metálica.","Soporta dobleces complejos y desplegado preciso, incorporando propiedades del material y tolerancias de doblado."]'::jsonb,
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/zw3d/esp-chapa.jpg'), 'published', 1)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, group_key, feature_key) DO UPDATE SET
+  label = EXCLUDED.label, title = EXCLUDED.title, description = EXCLUDED.description,
+  bullets = EXCLUDED.bullets, media_id = EXCLUDED.media_id, sort_order = EXCLUDED.sort_order;
 INSERT INTO ticspy.solution_features (solution_id, group_key, feature_key, title, bullets, media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'zw3d'), 'especializado', 'estructuras', 'Diseño de estructuras de acero', '["Acelera el proceso de modelado de estructuras de acero.","Soporta perfiles estándar y personalizados, soluciones de uniones en esquinas y elementos estructurales."]'::jsonb,
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/zw3d/esp-estructuras.jpg'), 'published', 2)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, group_key, feature_key) DO UPDATE SET
+  label = EXCLUDED.label, title = EXCLUDED.title, description = EXCLUDED.description,
+  bullets = EXCLUDED.bullets, media_id = EXCLUDED.media_id, sort_order = EXCLUDED.sort_order;
 INSERT INTO ticspy.solution_features (solution_id, group_key, feature_key, title, bullets, media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'zw3d'), 'especializado', 'tuberias', 'Diseño de tuberías', '["Simplifica el modelado de tuberías y la generación de dibujos.","Enrutamiento flexible, biblioteca de piezas estándar y colocación automática de bridas, empaques y uniones. Dibujos 2D con un solo clic."]'::jsonb,
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/zw3d/esp-tuberias.jpg'), 'published', 3)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, group_key, feature_key) DO UPDATE SET
+  label = EXCLUDED.label, title = EXCLUDED.title, description = EXCLUDED.description,
+  bullets = EXCLUDED.bullets, media_id = EXCLUDED.media_id, sort_order = EXCLUDED.sort_order;
 INSERT INTO ticspy.solution_features (solution_id, group_key, feature_key, title, bullets, media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'zw3d'), 'especializado', 'renderizado', 'Renderizado', '["Creá renderizados 3D fotorrealistas para comunicación visual.","Configuración mínima, con iluminación interactiva e iluminación global para mejorar el impacto visual."]'::jsonb,
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/zw3d/esp-renderizado.jpg'), 'published', 4)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, group_key, feature_key) DO UPDATE SET
+  label = EXCLUDED.label, title = EXCLUDED.title, description = EXCLUDED.description,
+  bullets = EXCLUDED.bullets, media_id = EXCLUDED.media_id, sort_order = EXCLUDED.sort_order;
 
 -- ------------------------------------------------ demos: CADprofi electrico
 INSERT INTO ticspy.solution_demos (solution_id, slug, title, description, video_media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'cadprofi'), 'energia', 'Instalaciones de energía eléctrica', 'El creador de esquemas arma el proyecto rápido: elegís productos en lugar de dibujar a mano, con plantillas listas de líneas, circuitos, cuadros eléctricos y arrancadores de motor.',
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/cadprofi/energia.mp4'), 'published', 1)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, slug) DO UPDATE SET
+  title = EXCLUDED.title, description = EXCLUDED.description,
+  video_media_id = EXCLUDED.video_media_id, sort_order = EXCLUDED.sort_order;
 INSERT INTO ticspy.solution_demos (solution_id, slug, title, description, video_media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'cadprofi'), 'baja-tension', 'Sistemas de extra baja tensión', 'Objetos listos para armarios IT y multimedia, y paneles de alarma contra incendios, para edificios residenciales, públicos e industriales.',
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/cadprofi/baja-tension.mp4'), 'published', 2)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, slug) DO UPDATE SET
+  title = EXCLUDED.title, description = EXCLUDED.description,
+  video_media_id = EXCLUDED.video_media_id, sort_order = EXCLUDED.sort_order;
 INSERT INTO ticspy.solution_demos (solution_id, slug, title, description, video_media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'cadprofi'), 'iluminacion', 'Equipos de instalación e iluminación', 'Numera los circuitos, les asigna los objetos y arma los cuadros y listas que reflejan esas conexiones. Exporta los locales a DIALux para el cálculo de iluminación.',
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/cadprofi/iluminacion.mp4'), 'published', 3)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, slug) DO UPDATE SET
+  title = EXCLUDED.title, description = EXCLUDED.description,
+  video_media_id = EXCLUDED.video_media_id, sort_order = EXCLUDED.sort_order;
 INSERT INTO ticspy.solution_demos (solution_id, slug, title, description, video_media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'cadprofi'), 'bandejas', 'Bandejas de cables y barras colectoras', 'Traza recorridos de bandejas y conductos de protección, con inserción automática de codos según los parámetros elegidos, y los elementos de sistemas de barras colectoras.',
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/cadprofi/bandejas.mp4'), 'published', 4)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, slug) DO UPDATE SET
+  title = EXCLUDED.title, description = EXCLUDED.description,
+  video_media_id = EXCLUDED.video_media_id, sort_order = EXCLUDED.sort_order;
 INSERT INTO ticspy.solution_demos (solution_id, slug, title, description, video_media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'cadprofi'), 'automatizacion', 'Automatización industrial y medición', 'Símbolos multivariantes para sistemas de control y medición: puntos de medición, sensores, transductores y controladores.',
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/cadprofi/automatizacion.mp4'), 'published', 5)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, slug) DO UPDATE SET
+  title = EXCLUDED.title, description = EXCLUDED.description,
+  video_media_id = EXCLUDED.video_media_id, sort_order = EXCLUDED.sort_order;
 INSERT INTO ticspy.solution_demos (solution_id, slug, title, description, video_media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'cadprofi'), 'mapas', 'Mapas, líneas y pilares', 'Biblioteca de símbolos, objetos y marcas para los planos de redes de transmisión y de telecomunicaciones.',
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/cadprofi/mapas.mp4'), 'published', 6)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, slug) DO UPDATE SET
+  title = EXCLUDED.title, description = EXCLUDED.description,
+  video_media_id = EXCLUDED.video_media_id, sort_order = EXCLUDED.sort_order;
 INSERT INTO ticspy.solution_demos (solution_id, slug, title, description, video_media_id, status, sort_order)
 VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'cadprofi'), 'pararrayos', 'Protección contra rayos', 'Todo lo necesario para el sistema completo: mástiles, varillas, conductores, conectores, envolventes, electrodos de puesta a tierra y accesorios.',
         (SELECT id FROM ticspy.media_assets WHERE path = 'assets/cadprofi/pararrayos.mp4'), 'published', 7)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (solution_id, slug) DO UPDATE SET
+  title = EXCLUDED.title, description = EXCLUDED.description,
+  video_media_id = EXCLUDED.video_media_id, sort_order = EXCLUDED.sort_order;
 
 -- -------------------------------------------------------- configuracion
 INSERT INTO ticspy.site_settings (singleton, company_name, tagline, years_experience,

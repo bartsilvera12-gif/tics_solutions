@@ -125,7 +125,12 @@ for my $a (@assets) {
   my ($nombre) = $a->{rel} =~ m{([^/]+)$};
   push @SQL, sprintf(
     "INSERT INTO ticspy.media_assets (storage_provider, path, public_url, original_name, mime_type, size_bytes)\n" .
-    "VALUES ('local', %s, %s, %s, %s, %d)\nON CONFLICT DO NOTHING;\n",
+    # Con el indice unico de la migracion 008. Sin nombrar la columna, la
+    # clausula no tiene con que comparar y cada corrida duplicaba las 58 filas.
+    "VALUES ('local', %s, %s, %s, %s, %d)\n" .
+    "ON CONFLICT (path) DO UPDATE SET public_url = EXCLUDED.public_url,\n" .
+    "  original_name = EXCLUDED.original_name, mime_type = EXCLUDED.mime_type,\n" .
+    "  size_bytes = EXCLUDED.size_bytes;\n",
     sql("assets/" . $a->{rel}), sql($url), sql($nombre), sql($m), $a->{size});
 }
 
@@ -209,6 +214,34 @@ for my $s (@sol) {
 }
 push @SQL, "\n";
 
+# ------------------------------------------------------------ 3b. servicios
+# No estaban en ningun array: viven escritos en el marcado de la seccion
+# Servicios, como titulo y parrafo. Se extraen de ahi.
+
+push @SQL, "-- ------------------------------------------------------------- servicios\n";
+my ($bloqueServicios) = $html =~ /data-screen-label="Servicios"(.*?)<\/sc-if>/s;
+my $ns = 0;
+if ($bloqueServicios) {
+  while ($bloqueServicios =~ /<h3[^>]*>(.*?)<\/h3>\s*<p[^>]*>(.*?)<\/p>/gs) {
+    my ($t, $d) = (limpiar($1), limpiar($2));
+    $t =~ s/<[^>]*>//g;
+    $d =~ s/<[^>]*>//g;
+    next unless length $t;
+    $ns++;
+    my $slug = lc $t;
+    $slug =~ s/[áàä]/a/g; $slug =~ s/[éèë]/e/g; $slug =~ s/[íìï]/i/g;
+    $slug =~ s/[óòö]/o/g; $slug =~ s/[úùü]/u/g; $slug =~ s/ñ/n/g;
+    $slug =~ s/[^a-z0-9]+/-/g; $slug =~ s/^-|-$//g;
+    push @SQL, sprintf(
+      "INSERT INTO ticspy.services (slug, title, short_description, status, sort_order)\n" .
+      "VALUES (%s, %s, %s, 'published', %d)\n" .
+      "ON CONFLICT (slug) DO UPDATE SET title = EXCLUDED.title,\n" .
+      "  short_description = EXCLUDED.short_description, sort_order = EXCLUDED.sort_order;\n",
+      sql($slug), sql($t), sql($d), $ns);
+  }
+}
+push @SQL, "\n";
+
 # --------------------------------------------------------------- 4. marcas
 push @SQL, "-- ------------------------------------------------------ marcas y partners\n";
 for my $par (['partners','partner'], ['marcas','brand']) {
@@ -247,7 +280,12 @@ for my $o (objetos(bloque('novedades'))) {
     "INSERT INTO ticspy.solution_features (solution_id, group_key, feature_key, label, title, description, media_id, status, sort_order)\n" .
     "VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'zwcad'), 'novedades', %s, %s, %s, %s,\n" .
     "        (SELECT id FROM ticspy.media_assets WHERE path = %s), 'published', %d)\n" .
-    "ON CONFLICT DO NOTHING;\n",
+    "ON CONFLICT (solution_id, group_key, feature_key) DO UPDATE SET
+" .
+    "  label = EXCLUDED.label, title = EXCLUDED.title, description = EXCLUDED.description,
+" .
+    "  bullets = EXCLUDED.bullets, media_id = EXCLUDED.media_id, sort_order = EXCLUDED.sort_order;
+",
     sql($c{img}), sql($c{etiqueta}), sql($c{n}), sql($c{txt}),
     sql("assets/zwcad/" . ($c{img} // '') . ".jpg"), $i);
 }
@@ -271,7 +309,12 @@ for my $o (objetos(bloque('zw3dEspecializado'))) {
     "INSERT INTO ticspy.solution_features (solution_id, group_key, feature_key, title, bullets, media_id, status, sort_order)\n" .
     "VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'zw3d'), 'especializado', %s, %s, %s::jsonb,\n" .
     "        (SELECT id FROM ticspy.media_assets WHERE path = %s), 'published', %d)\n" .
-    "ON CONFLICT DO NOTHING;\n",
+    "ON CONFLICT (solution_id, group_key, feature_key) DO UPDATE SET
+" .
+    "  label = EXCLUDED.label, title = EXCLUDED.title, description = EXCLUDED.description,
+" .
+    "  bullets = EXCLUDED.bullets, media_id = EXCLUDED.media_id, sort_order = EXCLUDED.sort_order;
+",
     sql($c{img}), sql($c{n}), sql($json),
     sql("assets/zw3d/esp-" . ($c{img} // '') . ".jpg"), $i);
 }
@@ -288,7 +331,12 @@ for my $o (objetos(bloque('demosElectrico'))) {
     "INSERT INTO ticspy.solution_demos (solution_id, slug, title, description, video_media_id, status, sort_order)\n" .
     "VALUES ((SELECT id FROM ticspy.solutions WHERE slug = 'cadprofi'), %s, %s, %s,\n" .
     "        (SELECT id FROM ticspy.media_assets WHERE path = %s), 'published', %d)\n" .
-    "ON CONFLICT DO NOTHING;\n",
+    "ON CONFLICT (solution_id, slug) DO UPDATE SET
+" .
+    "  title = EXCLUDED.title, description = EXCLUDED.description,
+" .
+    "  video_media_id = EXCLUDED.video_media_id, sort_order = EXCLUDED.sort_order;
+",
     sql($c{v}), sql($c{n}), sql($c{txt}),
     sql("assets/cadprofi/" . ($c{v} // '') . ".mp4"), $i);
 }

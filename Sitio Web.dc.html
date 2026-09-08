@@ -119,7 +119,7 @@
 
   /* ---------- cintas de partners y marcas ----------
      Estáticas: una sola fila mientras haya ancho. Cada celda se dimensiona por
-     su contenido (flex-basis auto), así "HP" no ocupa lo mismo que un nombre
+     su contenido (flex-basis auto), así un nombre corto no ocupa lo mismo que uno
      largo y cada texto entra en un renglón. Solo envuelve si no hay espacio. */
   .om-strip { display: flex; flex-wrap: wrap; width: 100%; }
   .om-strip > * + * { border-left: 1px solid rgba(29,30,30,.07); }
@@ -2561,7 +2561,7 @@ class Component extends DCLogic {
     ];
     const marcas = [
       { n: 'Dell Technologies',         logo: 'dell.png',      w: 694, h: 89,  alto: '26px' },
-      { n: 'HP',                        logo: 'hp.png',        w: 205, h: 205, alto: '52px' },
+      { n: 'Hewlett Packard Enterprise', logo: 'hpe.png',       w: 330, h: 138, alto: '46px' },
       { n: 'Dahua Technology',          logo: 'dahua.png',     w: 401, h: 120, alto: '40px' },
       { n: 'APC by Schneider Electric', logo: 'apc.png',       w: 364, h: 176, alto: '48px' },
       { n: 'SonicWall',                 logo: 'sonicwall.png', w: 394, h: 67,  alto: '28px' }

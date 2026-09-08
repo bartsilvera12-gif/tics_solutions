@@ -1800,7 +1800,7 @@ class Component extends DCLogic {
 
     Promise.all([
       pedir('brands?select=name,route,display_height,brand_type,media_assets!brands_media_id_fkey(public_url)&status=eq.published&order=sort_order'),
-      pedir('solution_features?select=label,title,description,group_key,media_assets!solution_features_media_id_fkey(public_url),solutions!inner(slug)&status=eq.published&order=sort_order'),
+      pedir('solution_features?select=label,title,description,group_key,bullets,media_assets!solution_features_media_id_fkey(public_url),solutions!inner(slug)&status=eq.published&order=sort_order'),
       pedir('solution_demos?select=slug,title,description,media_assets!solution_demos_video_media_id_fkey(public_url),solutions!inner(slug)&status=eq.published&order=sort_order')
     ]).then(([marcasDb, featuresDb, demosDb]) => {
       clearTimeout(reloj);
@@ -1824,12 +1824,22 @@ class Component extends DCLogic {
         novedades: deSolucion('zwcad', 'novedades'),
         demosElectrico: noVacio((demosDb || [])
           .filter((d) => d.solutions && d.solutions.slug === 'cadprofi')
-          .map((d) => ({ v: d.slug, n: d.title, txt: d.description || '', video: logo(d) })))
+          .map((d) => ({ v: d.slug, n: d.title, txt: d.description || '', video: logo(d) }))),
+
+        // Los módulos de ZW3D tienen otra forma: en vez de un texto llevan
+        // viñetas, que en la base viajan como arreglo JSON. Una fila sin
+        // viñetas no se muestra: la tarjeta quedaría con el título solo.
+        zw3dEspecializado: noVacio((featuresDb || [])
+          .filter((f) => f.solutions && f.solutions.slug === 'zw3d' &&
+                         f.group_key === 'especializado' &&
+                         Array.isArray(f.bullets) && f.bullets.length)
+          .map((f) => ({ n: f.title, img: logo(f), puntos: f.bullets })))
       };
 
       // Si no vino nada útil, no se toca el estado: repintar con vacío sería
       // peor que dejar lo que ya se está viendo.
-      if (!cms.partners && !cms.marcas && !cms.novedades && !cms.demosElectrico) return;
+      if (!cms.partners && !cms.marcas && !cms.novedades &&
+          !cms.demosElectrico && !cms.zw3dEspecializado) return;
       this.setState({ cms: cms });
     }).catch(() => { clearTimeout(reloj); });
   }
@@ -2765,7 +2775,7 @@ class Component extends DCLogic {
       marcas: (s.cms && s.cms.marcas) || marcas,
       novedades: (s.cms && s.cms.novedades) || novedades,
       demosElectrico: (s.cms && s.cms.demosElectrico) || demosElectrico,
-      zw3dEspecializado: zw3dEspecializado
+      zw3dEspecializado: (s.cms && s.cms.zw3dEspecializado) || zw3dEspecializado
     };
   }
 }

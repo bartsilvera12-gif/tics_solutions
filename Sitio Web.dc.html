@@ -669,11 +669,11 @@
     <div style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; display: block;">
       <div class="om-hero-txt">
         <h1 style="font-size: clamp(28px, 5.6vw, 76px); line-height: 1.05; font-weight: 400; letter-spacing: -0.02em; text-wrap: pretty; margin-bottom: 30px; color: #FFFFFF;">
-          <span style="display: block;">Impulsamos tu diseño.</span>
-          <span style="display: block; color: #E71917;">Protegemos tu operación.</span>
+          <span style="display: block;">{{ t.hero.antes }}</span>
+          <span style="display: block; color: #E71917;">{{ t.hero.resalte }}</span>{{ t.hero.despues }}
         </h1>
 
-        <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.75; font-weight: 500; color: #EDEEEF; max-width: 540px;">Software CAD para arquitectura, topografía, ingeniería y diseño de maquinarias, con licenciamiento, implementación y soporte local. Y la ciberseguridad para que nada de eso se detenga.</p>
+        <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.75; font-weight: 500; color: #EDEEEF; max-width: 540px;">{{ t.hero.entrada }}</p>
 
       </div>
 
@@ -698,7 +698,12 @@
         <div data-reveal="">
           <!-- TrueFocus (React Bits) -->
           <div data-truefocus="" style="position: relative; display: flex; flex-wrap: wrap; gap: .3em; font-size: clamp(26px, 4.4vw, 62px); font-weight: 400; line-height: 1.08; letter-spacing: -0.015em; margin-bottom: 34px;">
-            <span class="om-tf-word">¿QUIÉNES</span><span class="om-tf-word" style="color: #E71917;">SOMOS?</span>
+            <!-- El marco animado salta de una palabra a la otra midiendo cada
+                 .om-tf-word. Por eso el titular se parte en dos cajas y no en
+                 una sola: si fuera una, el marco encerraria la frase entera.
+                 Lo que sobre despues del resalte queda como texto suelto, sin
+                 animar, en vez de aparecer en un cuadro vacio. -->
+            <span class="om-tf-word">{{ t.nosotros.antes }}</span><span class="om-tf-word" style="color: #E71917;">{{ t.nosotros.resalte }}</span>{{ t.nosotros.despues }}
             <div class="om-tf-frame">
               <span class="om-tf-corner" style="top: -6px; left: -6px; border-right: none; border-bottom: none;"></span>
               <span class="om-tf-corner" style="top: -6px; right: -6px; border-left: none; border-bottom: none;"></span>
@@ -706,7 +711,7 @@
               <span class="om-tf-corner" style="bottom: -6px; right: -6px; border-left: none; border-top: none;"></span>
             </div>
           </div>
-          <p style="font-size: clamp(16px, 1.2vw, 19px); line-height: 1.85; font-weight: 500; color: #3B3C3C; max-width: 560px;">Somos una empresa con 6 años de experiencia. Representamos en Paraguay el software CAD con el que trabajan los estudios de arquitectura, las constructoras y las empresas de topografía e ingeniería: lo licenciamos, lo implementamos y damos soporte acá. Y cuidamos que esa operación no se detenga, con respaldo y ciberseguridad.</p>
+          <p style="font-size: clamp(16px, 1.2vw, 19px); line-height: 1.85; font-weight: 500; color: #3B3C3C; max-width: 560px;">{{ t.nosotros.entrada }}</p>
           <div style="margin-top: 46px; height: 2px; width: 120px; background: #E71917; box-shadow: 0 0 18px rgba(231,25,23,.7);"></div>
         </div>
       </div>
@@ -2602,6 +2607,12 @@ class Component extends DCLogic {
 
     // Igual que TEXTOS_MARCA, para las secciones que no son de marca.
     const TEXTOS_SECCION = {
+      hero:            { titular: 'Impulsamos tu diseño. Protegemos tu operación.',
+                         resalte: 'Protegemos tu operación.',
+                         entrada: 'Software CAD para arquitectura, topografía, ingeniería y diseño de maquinarias, con licenciamiento, implementación y soporte local. Y la ciberseguridad para que nada de eso se detenga.' },
+      nosotros:        { titular: '¿QUIÉNES SOMOS?',
+                         resalte: 'SOMOS?',
+                         entrada: 'Somos una empresa con 6 años de experiencia. Representamos en Paraguay el software CAD con el que trabajan los estudios de arquitectura, las constructoras y las empresas de topografía e ingeniería: lo licenciamos, lo implementamos y damos soporte acá. Y cuidamos que esa operación no se detenga, con respaldo y ciberseguridad.' },
       servicios:       { titular: 'NUESTROS SERVICIOS',
                          resalte: 'SERVICIOS',
                          entrada: 'Te ofrecemos un servicio completo y profesional. Nuestro equipo técnico cuenta con la experiencia y conocimientos necesarios que garantizan la correcta implementación de las soluciones y un acompañamiento constante en cada etapa.' },

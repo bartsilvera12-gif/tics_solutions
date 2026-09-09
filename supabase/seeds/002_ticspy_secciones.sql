@@ -26,7 +26,21 @@ ON CONFLICT (page_id, section_key) DO UPDATE SET
   sort_order = EXCLUDED.sort_order;
 
 INSERT INTO ticspy.page_sections (page_id, section_key, section_type, title, highlight_text, body, is_visible, sort_order)
+SELECT id, 'hero', 'hero', 'Impulsamos tu diseño. Protegemos tu operación.', 'Protegemos tu operación.', 'Software CAD para arquitectura, topografía, ingeniería y diseño de maquinarias, con licenciamiento, implementación y soporte local. Y la ciberseguridad para que nada de eso se detenga.', true, 1 FROM ticspy.pages WHERE slug = 'inicio'
+ON CONFLICT (page_id, section_key) DO UPDATE SET
+  title = EXCLUDED.title, highlight_text = EXCLUDED.highlight_text,
+  body = EXCLUDED.body, section_type = EXCLUDED.section_type,
+  sort_order = EXCLUDED.sort_order;
+
+INSERT INTO ticspy.page_sections (page_id, section_key, section_type, title, highlight_text, body, is_visible, sort_order)
 SELECT id, 'beneficios', 'benefits', 'Herramientas que tu equipo usa todos los días', 'usa todos los días', NULL, true, 2 FROM ticspy.pages WHERE slug = 'inicio'
+ON CONFLICT (page_id, section_key) DO UPDATE SET
+  title = EXCLUDED.title, highlight_text = EXCLUDED.highlight_text,
+  body = EXCLUDED.body, section_type = EXCLUDED.section_type,
+  sort_order = EXCLUDED.sort_order;
+
+INSERT INTO ticspy.page_sections (page_id, section_key, section_type, title, highlight_text, body, is_visible, sort_order)
+SELECT id, 'nosotros', 'text', '¿QUIÉNES SOMOS?', 'SOMOS?', 'Somos una empresa con 6 años de experiencia. Representamos en Paraguay el software CAD con el que trabajan los estudios de arquitectura, las constructoras y las empresas de topografía e ingeniería: lo licenciamos, lo implementamos y damos soporte acá. Y cuidamos que esa operación no se detenga, con respaldo y ciberseguridad.', true, 1 FROM ticspy.pages WHERE slug = 'nosotros'
 ON CONFLICT (page_id, section_key) DO UPDATE SET
   title = EXCLUDED.title, highlight_text = EXCLUDED.highlight_text,
   body = EXCLUDED.body, section_type = EXCLUDED.section_type,

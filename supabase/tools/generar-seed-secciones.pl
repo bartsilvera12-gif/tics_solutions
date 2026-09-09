@@ -21,6 +21,8 @@ my ($tabla) = $html =~ /const TEXTOS_SECCION = \{(.*?)\n    \};/s
 
 # clave => [pagina, tipo, orden]
 my %destino = (
+  hero           => ['inicio',         'hero',     1],
+  nosotros       => ['nosotros',       'text',     1],
   servicios      => ['servicios',      'text',     1],
   beneficios     => ['inicio',         'benefits', 2],
   partnersHome   => ['partners',       'partners', 1],

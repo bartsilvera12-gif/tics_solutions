@@ -15,7 +15,7 @@
   App.modulo({
     id: "paginas",
     titulo: "Páginas",
-    sub: "Las 14 rutas del sitio, su nombre y su SEO",
+    sub: "Lo que se ve en la pestaña del navegador y en Google",
     grupo: "Contenido",
     icono: "▤",
     render: function (nodo) {
@@ -32,24 +32,27 @@
                 el("div.celda-principal", { texto: f.name }),
                 el("div.celda-secundaria", { texto: f.route })
               ]); } },
-          { titulo: "En el menú", celda: function (f) {
-              return f.show_in_nav ? (f.nav_label || "Sí") : "—"; } },
-          { titulo: "Título SEO", celda: function (f) {
+          { titulo: "Título de la pestaña", celda: function (f) {
               return f.seo_title || el("span", { texto: "sin definir",
                 estilo: "color:var(--gris-claro)" }); } },
+          { titulo: "Descripción", celda: function (f) {
+              return f.seo_description
+                ? el("span", { texto: "cargada" })
+                : el("span", { texto: "usa la general", estilo: "color:var(--gris-claro)" }); } },
           { titulo: "Estado", celda: function (f) { return UI.insignia(f.status); } }
         ],
+        // Faltan a propósito los campos del menú y el orden. El menú del
+        // sitio está escrito en la página y no sale de acá, así que cambiarlos
+        // no movía nada y solo hacía creer que sí.
         campos: [
-          { nombre: "name",     etiqueta: "Nombre",   requerido: true },
-          { nombre: "nav_label", etiqueta: "Texto en el menú" },
+          { nombre: "name",     etiqueta: "Nombre",   requerido: true,
+            ayuda: "Solo para encontrarla en esta lista." },
           { nombre: "route",    etiqueta: "Ruta", ayuda: "No cambiarla: rompería enlaces ya compartidos." },
-          { nombre: "seo_title", etiqueta: "Título SEO", ancho: "total",
-            ayuda: "Lo que se ve en la pestaña del navegador y en Google." },
-          { nombre: "seo_description", etiqueta: "Descripción SEO", tipo: "textarea", ancho: "total",
-            ayuda: "Hasta unos 160 caracteres." },
-          { nombre: "show_in_nav", etiqueta: "Mostrar en el menú", tipo: "interruptor" },
-          { nombre: "status",   etiqueta: "Estado", tipo: "select", opciones: ESTADOS },
-          { nombre: "sort_order", etiqueta: "Orden", tipo: "number" }
+          { nombre: "seo_title", etiqueta: "Título de la pestaña", ancho: "total",
+            ayuda: "Lo que se lee en la pestaña del navegador y como titular en Google." },
+          { nombre: "seo_description", etiqueta: "Descripción", tipo: "textarea", ancho: "total",
+            ayuda: "El párrafo que Google muestra debajo del título. Hasta unos 160 caracteres. Vacío usa la descripción general del sitio." },
+          { nombre: "status",   etiqueta: "Estado", tipo: "select", opciones: ESTADOS }
         ]
       }).render(nodo);
     }
@@ -190,6 +193,7 @@
         is_visible: !!guardar.is_visible
       }).eq("id", sec.id);
       if (r.error) throw r.error;
+      await Auth.anotar("update", "page_sections", sec.id, { seccion: sec.section_key });
       UI.ok("Texto actualizado.");
       App.ir();
     } catch (e) { UI.error(Auth.mensajeDeError(e)); }
@@ -385,6 +389,7 @@
     try {
       var r = await sb.from("solutions").update(datos).eq("id", sol.id);
       if (r.error) throw r.error;
+      await Auth.anotar("update", "solutions", sol.id, { nombre: sol.name });
       UI.ok("Solución actualizada.");
       App.ir();
     } catch (e) { UI.error(Auth.mensajeDeError(e)); }

@@ -232,6 +232,7 @@
         try {
           var r = await sb.from("contact_submissions").update(datos).eq("id", c.id);
           if (r.error) throw r.error;
+          await Auth.anotar("update", "contact_submissions", c.id, { estado: datos.status });
           UI.ok("Consulta actualizada.");
         } catch (e) { UI.error(Auth.mensajeDeError(e)); }
         App.ir();

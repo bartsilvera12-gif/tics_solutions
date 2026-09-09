@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tic's Solutions | Software CAD y Ciberseguridad en Paraguay</title>
+<meta name="description" content="Reseller autorizado de ZWCAD, Aplitop, CADprofi y ZW3D WuKong 2027 en Paraguay: software CAD para arquitectura, topografía, ingeniería y diseño de maquinarias, con soporte local. También respaldo y ciberseguridad." />
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Tic's Solutions | Software CAD y Ciberseguridad en Paraguay</title>
-<meta name="description" content="Reseller autorizado de ZWCAD, Aplitop, CADprofi y ZW3D WuKong 2027 en Paraguay: software CAD para arquitectura, topografía, ingeniería y diseño de maquinarias, con soporte local. También respaldo y ciberseguridad." />
 <meta name="theme-color" content="#FFFFFF" />
 <!-- El isotipo de la marca, recortado del logo: entero no se leeria en la
      pestaña, que muestra 16 px de alto. -->
@@ -500,7 +500,7 @@
   </sc-if>
 
   <!-- WhatsApp flotante -->
-  <a href="https://wa.me/595981171372" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp" class="om-wa" style="position: fixed; right: clamp(16px, 2.5vw, 28px); bottom: clamp(16px, 2.5vw, 28px); z-index: 96; width: clamp(52px, 12vw, 60px); height: clamp(52px, 12vw, 60px); border-radius: 999px; background: #E71917; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 28px -8px rgba(231,25,23,.6); transition: background .3s ease, transform .3s ease, box-shadow .3s ease;" style-hover="background: #1D1E1E; transform: translateY(-3px); box-shadow: 0 16px 34px -10px rgba(29,30,30,.55);">
+  <a href="{{ emp.wa }}" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp" class="om-wa" style="position: fixed; right: clamp(16px, 2.5vw, 28px); bottom: clamp(16px, 2.5vw, 28px); z-index: 96; width: clamp(52px, 12vw, 60px); height: clamp(52px, 12vw, 60px); border-radius: 999px; background: #E71917; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 28px -8px rgba(231,25,23,.6); transition: background .3s ease, transform .3s ease, box-shadow .3s ease;" style-hover="background: #1D1E1E; transform: translateY(-3px); box-shadow: 0 16px 34px -10px rgba(29,30,30,.55);">
     <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true" style="width: 55%; height: 55%; display: block; position: relative; z-index: 1;">
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413" />
     </svg>
@@ -515,7 +515,7 @@
           <span style="width: 15px; height: 1.5px; background: #E71917; display: block;"></span>
         </button>
         <a href="#/" style="display: flex; align-items: center; flex: 0 0 auto;">
-          <img src="./assets/logo-tics.png" alt="Tic's Solutions — Tecnología a tu alcance" style="height: clamp(32px, 4.2vw, 44px); width: auto; display: block;" />
+          <img src="./assets/logo-tics.png" alt="{{ emp.empresa }} — Tecnología a tu alcance" style="height: clamp(32px, 4.2vw, 44px); width: auto; display: block;" />
         </a>
       </div>
       <div style="display: flex; align-items: center; gap: clamp(16px, 2.2vw, 30px);">
@@ -584,7 +584,7 @@
       <div style="background: #FFFFFF; border-right: 1px solid rgba(29,30,30,.1); padding: clamp(22px, 3vw, 38px) clamp(22px, 3vw, 44px) clamp(26px, 3vw, 38px); display: flex; flex-direction: column; gap: clamp(24px, 3vw, 38px); overflow-y: auto;">
 
         <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 18px;">
-          <img src="./assets/logo-tics.png" alt="Tic's Solutions" style="height: clamp(34px, 4vw, 44px); width: auto; display: block;" />
+          <img src="./assets/logo-tics.png" alt="{{ emp.empresa }}" style="height: clamp(34px, 4vw, 44px); width: auto; display: block;" />
           <button onClick="{{ closeMenu }}" aria-label="Cerrar menú" style="width: 40px; height: 40px; flex: 0 0 auto; display: flex; align-items: center; justify-content: center; background: none; border: 1px solid rgba(29,30,30,.14); border-radius: 999px; cursor: pointer; color: #1D1E1E; font-size: 19px; line-height: 1; transition: border-color .25s ease, color .25s ease;" style-hover="border-color: #E71917; color: #E71917;">&times;</button>
         </div>
 
@@ -614,11 +614,11 @@
         <div style="display: flex; flex-direction: column; gap: clamp(20px, 2.4vw, 30px); margin-top: auto;">
           <div>
             <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">[ Contacto ]</p>
-            <p style="font-size: 15px; color: #2E2F2F; margin-bottom: 7px;">Arturo Osorio</p>
-            <p style="font-size: 13px; color: #4F5050; margin-bottom: 9px;">Director Ejecutivo &middot; Asunción, Paraguay</p>
-            <a href="tel:+595981171372" style="display: block; font-size: 14px; color: #414242; margin-bottom: 5px; transition: color .25s ease;" style-hover="color: #E71917;">Tel &middot; (+595) 981 171 372</a>
-            <a href="mailto:arturo.osorio@tics-py.com" style="display: block; font-size: 14px; color: #414242; margin-bottom: 5px; transition: color .25s ease;" style-hover="color: #E71917;">Correo &middot; arturo.osorio@tics-py.com</a>
-            <a href="https://wa.me/595981171372" target="_blank" rel="noopener" style="display: block; font-size: 14px; color: #414242; transition: color .25s ease;" style-hover="color: #E71917;">WhatsApp &middot; Escribinos ahora</a>
+            <p style="font-size: 15px; color: #2E2F2F; margin-bottom: 7px;">{{ emp.contacto }}</p>
+            <p style="font-size: 13px; color: #4F5050; margin-bottom: 9px;">Director Ejecutivo &middot; {{ emp.lugar }}</p>
+            <a href="{{ emp.tel }}" style="display: block; font-size: 14px; color: #414242; margin-bottom: 5px; transition: color .25s ease;" style-hover="color: #E71917;">Tel &middot; {{ emp.telTexto }}</a>
+            <a href="{{ emp.mailto }}" style="display: block; font-size: 14px; color: #414242; margin-bottom: 5px; transition: color .25s ease;" style-hover="color: #E71917;">Correo &middot; {{ emp.correo }}</a>
+            <a href="{{ emp.wa }}" target="_blank" rel="noopener" style="display: block; font-size: 14px; color: #414242; transition: color .25s ease;" style-hover="color: #E71917;">WhatsApp &middot; Escribinos ahora</a>
           </div>
           <div>
             <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #BC1310; margin-bottom: 12px;">[ Servicios ]</p>
@@ -626,7 +626,7 @@
             <a href="#/servicios" onClick="{{ closeMenu }}" style="display: block; font-size: 14px; color: #414242; transition: color .25s ease;" style-hover="color: #E71917;">Implementación y soporte</a>
             <a href="#/ciberseguridad" onClick="{{ closeMenu }}" style="display: block; font-size: 14px; color: #414242; margin-top: 5px; transition: color .25s ease;" style-hover="color: #E71917;">Respaldo y ciberseguridad</a>
           </div>
-          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .12em; color: #4F5050;">&copy; 2026 Tic's Solutions</p>
+          <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .12em; color: #4F5050;">&copy; 2026 {{ emp.empresa }}</p>
         </div>
       </div>
 
@@ -728,35 +728,21 @@
         <h2 data-reveal="" style="font-size: clamp(26px, 5vw, 70px); font-weight: 400; line-height: 1.05; letter-spacing: -0.02em;">{{ t.servicios.antes }}<br /><span class="om-glitch" data-text="{{ t.servicios.resalte }}" style="color: #E71917;">{{ t.servicios.resalte }}</span>{{ t.servicios.despues }}</h2>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 22px; max-width: 560px; padding-top: 10px;">
           <p style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.85; font-weight: 500; color: #3B3C3C;">{{ t.servicios.entrada }}</p>
-          <p style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.85; font-weight: 500; color: #1D1E1E;">En Tic's Solutions acompañamos todo el recorrido: elegir la licencia que corresponde, ponerla a andar y sostener la operación.</p>
+          <p style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.85; font-weight: 500; color: #1D1E1E;">En {{ emp.empresa }} acompañamos todo el recorrido: elegir la licencia que corresponde, ponerla a andar y sostener la operación.</p>
         </div>
       </div>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); gap: clamp(28px, 4vw, 56px); align-items: stretch;">
         <div style="display: flex; flex-direction: column; gap: clamp(20px, 2.4vw, 28px);">
           <!-- SpotlightCard (React Bits) -->
+          <sc-for list="{{ servicios }}" as="sv" hint-placeholder-count="4">
           <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(29,30,30,.1); background: #FAFBFC; padding: clamp(28px, 3vw, 40px);" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-3px);">
             <div style="position: relative; z-index: 1;">
-              <h3 style="font-size: clamp(19px, 2.1vw, 30px); font-weight: 600; margin-bottom: 14px;">Licenciamiento de software CAD</h3>
-              <p style="font-size: 16px; line-height: 1.8; font-weight: 500; color: #414242; max-width: 520px;">Somos reseller autorizado de ZWCAD, Aplitop, CADprofi y ZW3D. Te ayudamos a elegir la edición que corresponde según cómo trabaja tu equipo, con licencia perpetua en lugar de suscripción.</p>
-            </div>
-          <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(29,30,30,.1); background: #FAFBFC; padding: clamp(28px, 3vw, 40px);" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-3px);">
-            <div style="position: relative; z-index: 1;">
-              <h3 style="font-size: clamp(19px, 2.1vw, 30px); font-weight: 600; margin-bottom: 14px;">Implementación y capacitación</h3>
-              <p style="font-size: 16px; line-height: 1.8; font-weight: 500; color: #414242; max-width: 520px;">Instalamos, migramos tus plantillas y personalizaciones, y capacitamos al equipo. El soporte lo damos acá, no por correo a otro país.</p>
-            </div>
-          <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(29,30,30,.1); background: #FAFBFC; padding: clamp(28px, 3vw, 40px);" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-3px);">
-            <div style="position: relative; z-index: 1;">
-              <h3 style="font-size: clamp(19px, 2.1vw, 30px); font-weight: 600; margin-bottom: 14px;">Protección de datos</h3>
-              <p style="font-size: 16px; line-height: 1.8; font-weight: 500; color: #414242; max-width: 520px;">Blindamos tu información más valiosa con soluciones de respaldo y recuperación de vanguardia, para que tus datos estén siempre seguros y accesibles.</p>
+              <h3 style="font-size: clamp(19px, 2.1vw, 30px); font-weight: 600; margin-bottom: 14px;">{{ sv.n }}</h3>
+              <p style="font-size: 16px; line-height: 1.8; font-weight: 500; color: #414242; max-width: 520px;">{{ sv.txt }}</p>
             </div>
           </div>
-          <div data-reveal="" data-spotlight="" class="om-spot" style="border: 1px solid rgba(29,30,30,.1); background: #FAFBFC; padding: clamp(28px, 3vw, 40px);" style-hover="border-color: rgba(231,25,23,.55); transform: translateY(-3px);">
-            <div style="position: relative; z-index: 1;">
-              <h3 style="font-size: clamp(19px, 2.1vw, 30px); font-weight: 600; margin-bottom: 14px;">Monitoreo y gestión de riesgos</h3>
-              <p style="font-size: 16px; line-height: 1.8; font-weight: 500; color: #414242; max-width: 520px;">Vigilamos constantemente tu infraestructura para identificar y neutralizar posibles amenazas antes de que afecten tus operaciones.</p>
-            </div>
-          </div>
+          </sc-for>
         </div>
       </div>
     </div>
@@ -919,15 +905,15 @@
 
           <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 36px;">
             <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #4F5050;">Contacto comercial</p>
-            <p style="font-size: 26px; font-weight: 500; margin-top: 12px;">Arturo Osorio</p>
-            <p style="font-size: 15px; font-weight: 500; color: #414242; margin-top: 4px;">Director Ejecutivo</p>
-            <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .12em; color: #4F5050; margin-top: 10px;">Asunción, Paraguay</p>
+            <p style="font-size: 26px; font-weight: 500; margin-top: 12px;">{{ emp.contacto }}</p>
+            <p style="font-size: 15px; font-weight: 500; color: #414242; margin-top: 4px;">{{ emp.cargo }}</p>
+            <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .12em; color: #4F5050; margin-top: 10px;">{{ emp.lugar }}</p>
           </div>
 
           <div style="display: flex; flex-direction: column; gap: 12px; max-width: 440px;">
-            <a href="tel:+595981171372" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 58px; padding: 0 22px; border: 1px solid rgba(29,30,30,.12); background: #FAFBFC; color: #1D1E1E; font-family: 'JetBrains Mono', monospace; font-size: 14px; transition: border-color .3s ease, color .3s ease, background .3s ease;" style-hover="border-color: #E71917; color: #E71917; background: #FEF1F1;"><span>(+595) 981 171 372</span><span style="font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: #4F5050;">Llamar</span></a>
-            <a href="mailto:arturo.osorio@tics-py.com" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 58px; padding: 0 22px; border: 1px solid rgba(29,30,30,.12); background: #FAFBFC; color: #1D1E1E; font-family: 'JetBrains Mono', monospace; font-size: 13px; transition: border-color .3s ease, color .3s ease, background .3s ease;" style-hover="border-color: #E71917; color: #E71917; background: #FEF1F1;"><span>arturo.osorio@tics-py.com</span><span style="font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: #4F5050;">Correo</span></a>
-            <a href="https://wa.me/595981171372" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 58px; padding: 0 22px; background: #E71917; border: 1px solid #E71917; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 13px; transition: background .3s ease, color .3s ease;" style-hover="background: transparent; color: #E71917;"><span>Escribinos por WhatsApp</span><span style="font-size: 10px; letter-spacing: .18em; text-transform: uppercase; opacity: .75;">Chat</span></a>
+            <a href="{{ emp.tel }}" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 58px; padding: 0 22px; border: 1px solid rgba(29,30,30,.12); background: #FAFBFC; color: #1D1E1E; font-family: 'JetBrains Mono', monospace; font-size: 14px; transition: border-color .3s ease, color .3s ease, background .3s ease;" style-hover="border-color: #E71917; color: #E71917; background: #FEF1F1;"><span>{{ emp.telTexto }}</span><span style="font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: #4F5050;">Llamar</span></a>
+            <a href="{{ emp.mailto }}" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 58px; padding: 0 22px; border: 1px solid rgba(29,30,30,.12); background: #FAFBFC; color: #1D1E1E; font-family: 'JetBrains Mono', monospace; font-size: 13px; transition: border-color .3s ease, color .3s ease, background .3s ease;" style-hover="border-color: #E71917; color: #E71917; background: #FEF1F1;"><span>{{ emp.correo }}</span><span style="font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: #4F5050;">Correo</span></a>
+            <a href="{{ emp.wa }}" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 58px; padding: 0 22px; background: #E71917; border: 1px solid #E71917; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 13px; transition: background .3s ease, color .3s ease;" style-hover="background: transparent; color: #E71917;"><span>Escribinos por WhatsApp</span><span style="font-size: 10px; letter-spacing: .18em; text-transform: uppercase; opacity: .75;">Chat</span></a>
           </div>
         </div>
 
@@ -938,7 +924,7 @@
               <span style="width: 9px; height: 9px; border-radius: 999px; background: #E71917;"></span>
               <span style="width: 9px; height: 9px; border-radius: 999px; background: rgba(29,30,30,.22);"></span>
               <span style="width: 9px; height: 9px; border-radius: 999px; background: rgba(29,30,30,.22);"></span>
-              <span style="margin-left: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .14em; color: #4F5050;">arturo.osorio@tics-py.com</span>
+              <span style="margin-left: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .14em; color: #4F5050;">{{ emp.correo }}</span>
             </div>
             <div style="padding: clamp(26px, 3vw, 38px);">
               <sc-if value="{{ enviado }}" hint-placeholder-val="{{ false }}">
@@ -1114,7 +1100,7 @@
         <a href="#/contacto" class="om-star" style="color: #fff; height: 54px; padding: 0 32px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Solicitar la prueba</a>
       </div>
 
-      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 500; color: #4F5050;">ZWCAD es un producto de ZWSOFT. Tic&rsquo;s Solutions es su partner en Paraguay; las marcas y nombres citados pertenecen a sus respectivos titulares.</p>
+      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 500; color: #4F5050;">ZWCAD es un producto de ZWSOFT. {{ emp.empresa }} es su partner en Paraguay; las marcas y nombres citados pertenecen a sus respectivos titulares.</p>
     </div>
   </section>
   </sc-if>
@@ -1204,7 +1190,7 @@
         <a href="#/contacto" class="om-star" style="color: #fff; height: 54px; padding: 0 32px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Hablemos</a>
       </div>
 
-      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 500; color: #4F5050;">Arcserve y Kaspersky son marcas de sus respectivos titulares. Tic&rsquo;s Solutions las comercializa e implementa en Paraguay.</p>
+      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 500; color: #4F5050;">Arcserve y Kaspersky son marcas de sus respectivos titulares. {{ emp.empresa }} las comercializa e implementa en Paraguay.</p>
     </div>
   </section>
   </sc-if>
@@ -1294,7 +1280,7 @@
         <a href="#/contacto" class="om-star" style="color: #fff; height: 54px; padding: 0 32px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Pedir asesoramiento</a>
       </div>
 
-      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 500; color: #4F5050;">tcpMDT es un producto de Aplitop S.L. (Málaga, España). Tic&rsquo;s Solutions lo comercializa e implementa en Paraguay; las marcas y nombres citados pertenecen a sus respectivos titulares.</p>
+      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 500; color: #4F5050;">tcpMDT es un producto de Aplitop S.L. (Málaga, España). {{ emp.empresa }} lo comercializa e implementa en Paraguay; las marcas y nombres citados pertenecen a sus respectivos titulares.</p>
     </div>
   </section>
   </sc-if>
@@ -1381,7 +1367,7 @@
         <a href="#/contacto" class="om-star" style="color: #fff; height: 54px; padding: 0 32px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Consultar</a>
       </div>
 
-      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 500; color: #4F5050;">CADprofi es un producto de CADprofi Sp. z o.o. Tic&rsquo;s Solutions lo comercializa e implementa en Paraguay; las marcas y nombres citados pertenecen a sus respectivos titulares.</p>
+      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 500; color: #4F5050;">CADprofi es un producto de CADprofi Sp. z o.o. {{ emp.empresa }} lo comercializa e implementa en Paraguay; las marcas y nombres citados pertenecen a sus respectivos titulares.</p>
     </div>
   </section>
   </sc-if>
@@ -1483,7 +1469,7 @@
         <a href="#/contacto" class="om-star" style="color: #fff; height: 54px; padding: 0 32px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; transition: color .3s ease;" style-hover="color: #E71917;">Consultar</a>
       </div>
 
-      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 500; color: #4F5050;">Arcserve es una marca de Arcserve LLC. Tic&rsquo;s Solutions la comercializa e implementa en Paraguay; las marcas y nombres citados pertenecen a sus respectivos titulares.</p>
+      <p data-reveal="" style="margin-top: clamp(30px, 4vw, 44px); font-size: 12px; line-height: 1.7; font-weight: 500; color: #4F5050;">Arcserve es una marca de Arcserve LLC. {{ emp.empresa }} la comercializa e implementa en Paraguay; las marcas y nombres citados pertenecen a sus respectivos titulares.</p>
     </div>
   </section>
   </sc-if>
@@ -1649,14 +1635,14 @@
 
         <div>
           <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 500; color: #1D1E1E; margin-bottom: 12px;">1. Quién es responsable de tus datos</h2>
-          <p>Tic's Solutions, empresa de soluciones tecnológicas y ciberseguridad con domicilio en Asunción, Paraguay, es responsable del tratamiento de los datos personales que recibimos a través de este sitio.</p>
-          <p style="margin-top: 12px;">Para cualquier consulta sobre esta política podés escribir a <a href="mailto:arturo.osorio@tics-py.com" style="color: #BC1310;">arturo.osorio@tics-py.com</a> o llamar al <a href="tel:+595981171372" style="color: #BC1310;">(+595) 981 171 372</a>.</p>
+          <p>{{ emp.empresa }}, empresa de soluciones tecnológicas y ciberseguridad con domicilio en {{ emp.lugar }}, es responsable del tratamiento de los datos personales que recibimos a través de este sitio.</p>
+          <p style="margin-top: 12px;">Para cualquier consulta sobre esta política podés escribir a <a href="{{ emp.mailto }}" style="color: #BC1310;">{{ emp.correo }}</a> o llamar al <a href="{{ emp.tel }}" style="color: #BC1310;">{{ emp.telTexto }}</a>.</p>
         </div>
 
         <div>
           <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 500; color: #1D1E1E; margin-bottom: 12px;">2. Qué datos recogemos</h2>
           <p>Solamente los que nos entregás de forma voluntaria. En el formulario de contacto te pedimos nombre, empresa, correo electrónico, teléfono y el mensaje que quieras enviarnos. De esos campos, son obligatorios el nombre, el correo y el mensaje.</p>
-          <p style="margin-top: 12px;">Lo que escribas en ese formulario se nos reenvía por correo a arturo.osorio@tics-py.com. No queda guardado en este sitio: llega a nuestra casilla y ahí lo tratamos.</p>
+          <p style="margin-top: 12px;">Lo que escribas en ese formulario se nos reenvía por correo a {{ emp.correo }}. No queda guardado en este sitio: llega a nuestra casilla y ahí lo tratamos.</p>
           <p style="margin-top: 12px;">Si preferís escribirnos por correo, teléfono o WhatsApp, los datos que tratamos son los que aparezcan en esa comunicación.</p>
           <p style="margin-top: 12px;">No pedimos ni almacenamos datos sensibles, ni información financiera, ni documentos de identidad a través de este sitio.</p>
         </div>
@@ -1677,7 +1663,7 @@
           <ul style="margin-top: 14px; padding-left: 20px; display: flex; flex-direction: column; gap: 10px;">
             <li><strong style="font-weight: 500; color: #1D1E1E;">Vercel</strong> aloja el sitio y registra datos técnicos de conexión, como la dirección IP, en sus registros de servidor.</li>
             <li><strong style="font-weight: 500; color: #1D1E1E;">Google Fonts</strong> provee las tipografías. Tu navegador las solicita a servidores de Google, que reciben tu dirección IP al hacerlo.</li>
-            <li><strong style="font-weight: 500; color: #1D1E1E;">Google Workspace</strong> es el servicio de correo de Tic&rsquo;s Solutions, y por ahí pasa lo que envíes desde el formulario para llegar a nuestra casilla.</li>
+            <li><strong style="font-weight: 500; color: #1D1E1E;">Google Workspace</strong> es el servicio de correo de {{ emp.empresa }}, y por ahí pasa lo que envíes desde el formulario para llegar a nuestra casilla.</li>
             <li><strong style="font-weight: 500; color: #1D1E1E;">WhatsApp</strong> interviene únicamente si elegís usar ese enlace para escribirnos, y en ese caso aplica la política de privacidad de esa plataforma.</li>
           </ul>
         </div>
@@ -1695,7 +1681,7 @@
         <div>
           <h2 style="font-size: clamp(19px, 2vw, 24px); font-weight: 500; color: #1D1E1E; margin-bottom: 12px;">8. Tus derechos</h2>
           <p>Podés pedirnos en cualquier momento acceder a los datos que tengamos sobre vos, corregirlos si están equivocados, actualizarlos o solicitar que los eliminemos. También podés retirar tu consentimiento.</p>
-          <p style="margin-top: 12px;">Para ejercer cualquiera de estos derechos escribinos a <a href="mailto:arturo.osorio@tics-py.com" style="color: #BC1310;">arturo.osorio@tics-py.com</a>. Respondemos a la brevedad.</p>
+          <p style="margin-top: 12px;">Para ejercer cualquiera de estos derechos escribinos a <a href="{{ emp.mailto }}" style="color: #BC1310;">{{ emp.correo }}</a>. Respondemos a la brevedad.</p>
         </div>
 
         <div>
@@ -1710,7 +1696,7 @@
 
         <div style="border-top: 1px solid rgba(29,30,30,.12); padding-top: clamp(24px, 3vw, 34px);">
           <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4F5050; margin-bottom: 12px;">Contacto</p>
-          <p>Tic's Solutions &middot; Arturo Osorio, Director Ejecutivo<br />Asunción, Paraguay<br /><a href="tel:+595981171372" style="color: #BC1310;">(+595) 981 171 372</a> &middot; <a href="mailto:arturo.osorio@tics-py.com" style="color: #BC1310;">arturo.osorio@tics-py.com</a></p>
+          <p>{{ emp.empresa }} &middot; Arturo Osorio, Director Ejecutivo<br />{{ emp.lugar }}<br /><a href="{{ emp.tel }}" style="color: #BC1310;">{{ emp.telTexto }}</a> &middot; <a href="{{ emp.mailto }}" style="color: #BC1310;">{{ emp.correo }}</a></p>
         </div>
       </div>
     </div>
@@ -1720,8 +1706,8 @@
     <canvas id="fx-pie" data-fx="sinapsis" data-color="150,156,164" data-zona="0" data-densidad="34000" data-fuerza="0.5" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
     <div style="position: relative; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: clamp(28px, 4vw, 56px); padding-bottom: clamp(28px, 3.4vw, 42px);">
       <div>
-        <img src="./assets/logo-tics-oscuro.png" alt="Tic's Solutions" style="height: 52px; width: auto; display: block;" />
-        <p class="om-shiny" style="margin-top: 22px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;">Tecnología a tu alcance</p>
+        <img src="./assets/logo-tics-oscuro.png" alt="{{ emp.empresa }}" style="height: 52px; width: auto; display: block;" />
+        <p class="om-shiny" style="margin-top: 22px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;">{{ emp.lema }}</p>
       </div>
       <div style="display: flex; flex-direction: column; gap: 9px;">
         <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #FF6B62; margin-bottom: 8px;">Navegación</p>
@@ -1734,11 +1720,11 @@
       </div>
       <div style="display: flex; flex-direction: column; gap: 9px;">
         <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #FF6B62; margin-bottom: 8px;">Contacto</p>
-        <p style="color: #F5F6F7; font-size: 15px; font-weight: 500;">Arturo Osorio</p>
-        <p style="color: #D6D8DA; font-size: 13px;">Director Ejecutivo</p>
-        <a href="tel:+595981171372" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">(+595) 981 171 372</a>
-        <a href="mailto:arturo.osorio@tics-py.com" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">arturo.osorio@tics-py.com</a>
-        <a href="https://wa.me/595981171372" target="_blank" rel="noopener" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">WhatsApp</a>
+        <p style="color: #F5F6F7; font-size: 15px; font-weight: 500;">{{ emp.contacto }}</p>
+        <p style="color: #D6D8DA; font-size: 13px;">{{ emp.cargo }}</p>
+        <a href="{{ emp.tel }}" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">{{ emp.telTexto }}</a>
+        <a href="{{ emp.mailto }}" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">{{ emp.correo }}</a>
+        <a href="{{ emp.wa }}" target="_blank" rel="noopener" style="color: #F5F6F7; font-size: 15px; font-weight: 500; transition: color .3s ease;" style-hover="color: #E71917;">WhatsApp</a>
       </div>
     </div>
     <sc-if value="{{ circuitos }}" hint-placeholder-val="{{ true }}">
@@ -1754,7 +1740,7 @@
       </svg>
     </sc-if>
     <div style="border-top: 1px solid rgba(255,255,255,.1); padding: 16px 0 clamp(24px, 3vw, 30px); text-align: center;">
-      <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .06em; color: #D2D4D6;">Desarrollado por <a href="https://neura.com.py" target="_blank" rel="noopener" class="om-enlace-tactil" style="color: #E7E8EA; letter-spacing: .12em; transition: color .3s ease;" style-hover="color: #E71917;">NEURA</a></p>
+      <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: .06em; color: #D2D4D6;">Desarrollado por <a href="{{ emp.hechoPorUrl }}" target="_blank" rel="noopener" class="om-enlace-tactil" style="color: #E7E8EA; letter-spacing: .12em; transition: color .3s ease;" style-hover="color: #E71917;">{{ emp.hechoPor }}</a></p>
     </div>
   </footer>
 </div>
@@ -1779,6 +1765,15 @@ const DESTINO_CONSULTAS = {
   url: (window.TICS_CONFIG && window.TICS_CONFIG.API_CONTACT) || '/api/contact',
   correo: 'arturo.osorio@tics-py.com',
   numero: '595981171372'          // respaldo que se ofrece si el envío falla
+};
+
+// Lo que decía la pestaña antes de que el título saliera de la base. Es el
+// piso: se usa para el inicio y para cualquier ruta a la que no le hayan
+// cargado uno propio. Va acá afuera porque lo lee ponerSeo(), que corre
+// mucho antes de que se arme la vista.
+const SEO_GENERAL = {
+  titulo: 'Tic\'s Solutions | Software CAD y Ciberseguridad en Paraguay',
+  descripcion: 'Reseller autorizado de ZWCAD, Aplitop, CADprofi y ZW3D WuKong 2027 en Paraguay: software CAD para arquitectura, topografía, ingeniería y diseño de maquinarias, con soporte local. También respaldo y ciberseguridad.'
 };
 
 class Component extends DCLogic {
@@ -1821,8 +1816,12 @@ class Component extends DCLogic {
       pedir('solution_demos?select=slug,title,description,media_assets!solution_demos_video_media_id_fkey(public_url),solutions!inner(slug)&status=eq.published&order=sort_order'),
       pedir('solutions?select=slug,headline,headline_highlight,intro&status=eq.published'),
       pedir('page_sections?select=section_key,title,highlight_text,body&is_visible=eq.true'),
-      pedir('news_items?select=title,label,summary,published_at,link_url,link_label,secondary_link_url,secondary_link_label&status=eq.published&order=published_at.desc')
-    ]).then(([marcasDb, featuresDb, demosDb, solucionesDb, seccionesDb, publicacionesDb]) => {
+      pedir('news_items?select=title,label,summary,published_at,link_url,link_label,secondary_link_url,secondary_link_label&status=eq.published&order=published_at.desc'),
+      pedir('services?select=title,description,short_description&status=eq.published&order=sort_order'),
+      pedir('site_settings?select=*&limit=1'),
+      pedir('pages?select=route,seo_title,seo_description&status=eq.published')
+    ]).then(([marcasDb, featuresDb, demosDb, solucionesDb, seccionesDb, publicacionesDb,
+              serviciosDb, ajustesDb, paginasDb]) => {
       clearTimeout(reloj);
       this._pidiendoCms = false;
       if (this._muerto) return;
@@ -1879,14 +1878,30 @@ class Component extends DCLogic {
             textoEnlace: p.link_label || 'Ver la publicación',
             enlace2: p.secondary_link_url || '',
             textoEnlace2: p.secondary_link_label || ''
-          })))
+          }))),
+
+        // Las tarjetas de /servicios.
+        servicios: noVacio((serviciosDb || [])
+          .filter((x) => x.title)
+          .map((x) => ({ n: x.title, txt: x.description || x.short_description || '' }))),
+
+        // Datos de la empresa: teléfono, correo, años. Vienen en una sola
+        // fila, y solo sirven si trae algo: media fila pisaría el pie con
+        // huecos.
+        ajustes: (ajustesDb && ajustesDb.length) ? ajustesDb[0] : null,
+
+        // Título y descripción para buscadores, por ruta.
+        paginas: (paginasDb && paginasDb.length)
+          ? paginasDb.reduce((acc, x) => { acc[x.route] = x; return acc; }, {})
+          : null
       };
 
       // Si no vino nada útil, no se toca el estado: repintar con vacío sería
       // peor que dejar lo que ya se está viendo.
       if (!cms.partners && !cms.marcas && !cms.novedades &&
           !cms.demosElectrico && !cms.zw3dEspecializado && !cms.soluciones &&
-          !cms.secciones && !cms.publicaciones) return;
+          !cms.secciones && !cms.publicaciones && !cms.servicios &&
+          !cms.ajustes && !cms.paginas) return;
 
       // Con el refresco automático esto se vuelve a pedir cada tanto. Si
       // volvió lo mismo, no se repinta: un setState de más reinicia las
@@ -1895,7 +1910,33 @@ class Component extends DCLogic {
       if (sello === this._selloCms) return;
       this._selloCms = sello;
       this.setState({ cms: cms });
+      this.ponerSeo(cms);
     }).catch(() => { clearTimeout(reloj); this._pidiendoCms = false; });
+  }
+
+  // ---------- título y descripción de la página ----------
+  // Se escriben desde acá y no en el marcado: el bloque <helmet> se copia tal
+  // cual al encabezado, sin pasar por las llaves, así que ahí un binding se
+  // vería literal en la pestaña del navegador.
+  //
+  // Lo que queda escrito en el archivo es el título general. Sirve de piso: es
+  // lo que ve quien llega antes de que responda la base, y lo que lee un
+  // buscador que no ejecuta JavaScript.
+  // Los dos argumentos son opcionales y existen porque setState no se aplica
+  // en el acto: quien acaba de pedir un cambio ya tiene el valor nuevo en la
+  // mano, y leerlo del estado devolvería el anterior.
+  ponerSeo(cms, ruta) {
+    const c = cms || this.state.cms;
+    const r = ruta || this.state.ruta;
+    const paginas = (c && c.paginas) || null;
+    const p = paginas && paginas[r];
+
+    const titulo = (p && p.seo_title) || SEO_GENERAL.titulo;
+    if (document.title !== titulo) document.title = titulo;
+
+    const desc = (p && p.seo_description) || SEO_GENERAL.descripcion;
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta && meta.getAttribute('content') !== desc) meta.setAttribute('content', desc);
   }
 
   // ---------- refresco sin recargar ----------
@@ -1985,12 +2026,15 @@ class Component extends DCLogic {
     // chicas y el sitio entero cabe en ellas.
     this.cargarCms();
     this.vigilarCms();
+    this.ponerSeo(null, Component.leerRuta());
 
     // ---- enrutador ----
     this.setState({ ruta: Component.leerRuta() });
     this._onHash = () => {
       document.body.style.overflow = '';
       this.setState({ ruta: Component.leerRuta(), menuOpen: false });
+
+      this.ponerSeo(null, Component.leerRuta());
       window.scrollTo(0, 0);
     };
     window.addEventListener('hashchange', this._onHash);
@@ -2725,6 +2769,18 @@ class Component extends DCLogic {
         enlace2: '#/zwcad', textoEnlace2: 'Conocer ZWCAD' },
     ];
 
+    // Las tarjetas de /servicios. Respaldo, igual que el resto.
+    const servicios = [
+      { n: 'Licenciamiento de software CAD',
+        txt: 'Somos reseller autorizado de ZWCAD, Aplitop, CADprofi y ZW3D. Te ayudamos a elegir la edición que corresponde según cómo trabaja tu equipo, con licencia perpetua en lugar de suscripción.' },
+      { n: 'Implementación y capacitación',
+        txt: 'Instalamos, migramos tus plantillas y personalizaciones, y capacitamos al equipo. El soporte lo damos acá, no por correo a otro país.' },
+      { n: 'Protección de datos',
+        txt: 'Blindamos tu información más valiosa con soluciones de respaldo y recuperación de vanguardia, para que tus datos estén siempre seguros y accesibles.' },
+      { n: 'Monitoreo y gestión de riesgos',
+        txt: 'Vigilamos constantemente tu infraestructura para identificar y neutralizar posibles amenazas antes de que afecten tus operaciones.' },
+    ];
+
     const partners = [
       // Primero las de CAD, que es hacia donde apunta el sitio, y después
       // las de ciberseguridad. Mismo orden que el desplegable de Soluciones.
@@ -2996,6 +3052,35 @@ class Component extends DCLogic {
         }
         return Object.assign({}, p, { fechaLarga: larga });
       }),
+
+      servicios: (s.cms && s.cms.servicios) || servicios,
+
+      // Los datos de la empresa, que en el marcado aparecen repetidos en el
+      // botón flotante, el menú, la sección de contacto, la política de
+      // privacidad y el pie. Se arman una sola vez acá.
+      emp: (() => {
+        const a = (s.cms && s.cms.ajustes) || {};
+        const correo = a.contact_email || 'arturo.osorio@tics-py.com';
+        const wa = String(a.whatsapp_number || '595981171372').replace(/[^0-9]/g, '');
+        // Si no cargaron el número en formato internacional, se arma con el
+        // de WhatsApp, que ya viene con el código de país y sin signos.
+        const e164 = a.contact_phone_e164 || ('+' + wa);
+        return {
+          correo: correo,
+          mailto: 'mailto:' + correo,
+          wa: 'https://wa.me/' + wa,
+          tel: 'tel:' + e164,
+          telTexto: a.contact_phone_display || '(+595) 981 171 372',
+          contacto: a.contact_name || 'Arturo Osorio',
+          cargo: a.contact_role || 'Director Ejecutivo',
+          lema: a.tagline || 'Tecnología a tu alcance',
+          lugar: a.location || 'Asunción, Paraguay',
+          hechoPor: a.developed_by_label || 'NEURA',
+          hechoPorUrl: a.developed_by_url || 'https://neura.com.py',
+          empresa: a.company_name || 'Tic\'s Solutions'
+        };
+      })(),
+
 
       partners: (s.cms && s.cms.partners) || partners,
       marcas: (s.cms && s.cms.marcas) || marcas,

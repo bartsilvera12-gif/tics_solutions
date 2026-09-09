@@ -28,10 +28,15 @@
       }
 
       var grupos = [
+        // Faltan a propósito dos que estaban antes. "Años de experiencia" no
+        // se usa: ese número vive dentro de la frase de Nosotros y se edita
+        // en Textos de las páginas, donde se lo ve en contexto. Y el texto
+        // libre del pie no existe en el sitio, así que era una caja que no
+        // aparecía en ningún lado.
         ["Empresa", [
-          { nombre: "company_name", etiqueta: "Nombre" },
-          { nombre: "tagline", etiqueta: "Eslogan" },
-          { nombre: "years_experience", etiqueta: "Años de experiencia", tipo: "number" },
+          { nombre: "company_name", etiqueta: "Nombre",
+            ayuda: "Aparece en la política de privacidad y en el pie." },
+          { nombre: "tagline", etiqueta: "Eslogan", ayuda: "Va bajo el logo del pie." },
           { nombre: "location", etiqueta: "Ubicación" }
         ]],
         ["Contacto", [
@@ -46,7 +51,6 @@
             ayuda: "Solo números, sin el signo más." }
         ]],
         ["Pie de página", [
-          { nombre: "footer_text", etiqueta: "Texto del pie", ancho: "total" },
           { nombre: "developed_by_label", etiqueta: "Desarrollado por" },
           { nombre: "developed_by_url", etiqueta: "Enlace" }
         ]]
@@ -90,6 +94,7 @@
                 r = await sb.from("site_settings").insert(datos);
               }
               if (r.error) throw r.error;
+              await Auth.anotar("update", "site_settings", cfg.id || null, datos);
               UI.ok("Configuración guardada.");
             } catch (e) { UI.error(Auth.mensajeDeError(e)); }
           }
@@ -189,6 +194,7 @@
         try {
           var r = await sb.from("admin_users").update(datos).eq("user_id", f.user_id);
           if (r.error) throw r.error;
+          await Auth.anotar("update", "admin_users", fila.user_id, { rol: datos.role, activo: datos.is_active });
           UI.ok("Administrador actualizado.");
           App.ir();
         } catch (e) { UI.error(Auth.mensajeDeError(e)); }
@@ -214,6 +220,35 @@
   });
 
   /* ======================================================== actividad === */
+  // El registro guarda nombres técnicos, que son los correctos para buscar
+  // pero no para leer. Acá se traducen a lo que la persona ve en el menú.
+  var ACCIONES = {
+    create: "Creó", update: "Editó", delete: "Eliminó",
+    publish: "Publicó", unpublish: "Ocultó",
+    login: "Entró", logout: "Salió", upload: "Subió un archivo"
+  };
+
+  var DONDE = {
+    pages: "Páginas", page_sections: "Textos de las páginas",
+    services: "Servicios", solutions: "Soluciones",
+    solution_features: "Fichas de soluciones", solution_demos: "Videos de soluciones",
+    brands: "Partners y marcas", news_items: "Novedades",
+    contact_submissions: "Consultas", site_settings: "Configuración",
+    admin_users: "Administradores", media_assets: "Multimedia",
+    navigation_items: "Navegación"
+  };
+
+  // Del detalle guardado se muestra lo que sirve para reconocer la fila, no
+  // el JSON entero: quien lee quiere saber qué tocó, no cómo se guarda.
+  function detalle(d) {
+    if (!d || typeof d !== "object") return "";
+    var v = d.title || d.name || d.nombre || d.seccion || d.company_name;
+    if (v) return String(v);
+    if (d.estado) return "estado: " + d.estado;
+    if (d.status) return "estado: " + d.status;
+    return "";
+  }
+
   App.modulo({
     id: "actividad",
     titulo: "Actividad",
@@ -223,12 +258,19 @@
     soloSuper: true,
 
     async render(nodo) {
-      var filas;
+      var filas, quienes = {};
       try {
         var r = await sb.from("audit_logs").select("*")
           .order("created_at", { ascending: false }).limit(200);
         if (r.error) throw r.error;
         filas = r.data;
+
+        // Los nombres se traen aparte y no con un join: son cuatro o cinco
+        // filas y así el registro no depende de que la relación exista.
+        var q = await sb.from("admin_users").select("user_id, full_name");
+        if (!q.error) {
+          (q.data || []).forEach(function (a) { quienes[a.user_id] = a.full_name; });
+        }
       } catch (e) {
         UI.vaciar(nodo);
         if (!App.franjaSiFalta(nodo, e)) {
@@ -251,11 +293,14 @@
         UI.tabla([
           { titulo: "Cuándo", ancho: "160px",
             celda: function (f) { return UI.fechaHora(f.created_at); } },
-          { titulo: "Acción", celda: function (f) { return f.action; } },
+          { titulo: "Quién", celda: function (f) {
+              return quienes[f.admin_user_id] ||
+                el("span", { texto: "—", estilo: "color:var(--gris-claro)" }); } },
+          { titulo: "Qué hizo", celda: function (f) { return ACCIONES[f.action] || f.action; } },
           { titulo: "Dónde", celda: function (f) {
               return el("div", {}, [
-                el("div.celda-principal", { texto: f.entity_table || "—" }),
-                el("div.celda-secundaria", { texto: f.entity_id || "" })
+                el("div.celda-principal", { texto: DONDE[f.entity_table] || f.entity_table || "—" }),
+                el("div.celda-secundaria", { texto: detalle(f.new_data) })
               ]); } }
         ], filas)
       ]));

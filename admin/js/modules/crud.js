@@ -97,6 +97,7 @@
           r = await sb.from(spec.tabla).update(valor).eq("id", fila.id);
         }
         if (r.error) throw r.error;
+        await Auth.anotar(esNuevo ? "create" : "update", spec.tabla, esNuevo ? null : fila.id, valor);
         UI.ok(esNuevo ? spec.titulo + " " + CREADO + "." : "Cambios guardados.");
         App.ir();
       } catch (e) {
@@ -116,6 +117,7 @@
       try {
         var r = await sb.from(spec.tabla).delete().eq("id", fila.id);
         if (r.error) throw r.error;
+        await Auth.anotar("delete", spec.tabla, fila.id, { nombre: nombre });
         UI.ok("Eliminado.");
         App.ir();
       } catch (e) {
@@ -129,6 +131,7 @@
       try {
         var r = await sb.from(spec.tabla).update({ status: nuevo }).eq("id", fila.id);
         if (r.error) throw r.error;
+        await Auth.anotar(nuevo === "published" ? "publish" : "unpublish", spec.tabla, fila.id, { status: nuevo });
         UI.ok(nuevo === "published" ? "Publicado." : "Oculto.");
         App.ir();
       } catch (e) { UI.error(Auth.mensajeDeError(e)); }

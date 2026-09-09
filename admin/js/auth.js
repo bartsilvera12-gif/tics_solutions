@@ -29,6 +29,30 @@
   var Auth = {
     perfil: null,
 
+    // Deja constancia de un cambio en el registro de actividad.
+    //
+    // Nunca tira: si el registro falla, el cambio ya se hizo y avisar de eso
+    // solo confundiría. Queda en la consola para poder revisarlo.
+    //
+    // El id de quien firma sale de la sesión y no de quien llama: la base
+    // ademas exige que coincida, asi que no se puede firmar por otro.
+    async anotar(accion, tabla, id, datos) {
+      try {
+        if (!this.perfil) return;
+        await sb.from("audit_logs").insert({
+          admin_user_id: this.perfil.user_id,
+          action: accion,
+          entity_table: tabla || null,
+          entity_id: id ? String(id) : null,
+          // Solo lo que se escribió, no la fila entera: alcanza para saber
+          // qué se tocó y evita guardar copias de todo el contenido.
+          new_data: datos || null
+        });
+      } catch (e) {
+        console.warn("No se pudo registrar la actividad:", e && e.message);
+      }
+    },
+
     // Devuelve el perfil de administrador si la sesión es válida, o null.
     // Si hay sesión pero no es administrador, la cierra: dejarla abierta
     // solo confunde a quien vuelve a intentar.

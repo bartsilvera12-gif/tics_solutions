@@ -2752,7 +2752,10 @@ class Component extends DCLogic {
         fetch(DESTINO_CONSULTAS.url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(Object.assign({ website: val('website') }, datos))
+          // La ruta sirve para saber desde qué página escribieron: no es lo
+          // mismo una consulta desde /contacto que desde la página de ZWCAD.
+          body: JSON.stringify(Object.assign(
+            { website: val('website'), ruta: Component.leerRuta() }, datos))
         })
           .then((r) => r.json().catch(() => ({})).then((j) => ({ ok: r.ok, j })))
           .then(({ ok, j }) => {

@@ -10,11 +10,86 @@
 //   SMTP_USER       arturo.osorio@tics-py.com
 //   SMTP_PASSWORD   contraseña de aplicación de Google (no la del correo)
 //   CONTACT_EMAIL   arturo.osorio@tics-py.com
+//
+// Y para que la consulta quede registrada en el panel:
+//   SUPABASE_URL                https://api.neura.com.py
+//   SUPABASE_SERVICE_ROLE_KEY   solo acá, nunca en el navegador
+//
+// La escritura va con la service_role desde el servidor y no con la anon key
+// desde el sitio: así la tabla de consultas no queda abierta a que cualquiera
+// le inserte filas desde afuera.
 
 const nodemailer = require('nodemailer');
 
 const LIMITES = { nombre: 100, empresa: 150, correo: 200, telefono: 50, mensaje: 5000 };
 const CORREO_VALIDO = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const SCHEMA = 'ticspy';
+
+// ---------------------------------------------------------------------------
+// Registro de la consulta
+// ---------------------------------------------------------------------------
+// Ninguna de estas dos funciones tira: si la base no responde, la consulta
+// tiene que salir igual por correo. Perder un pedido de presupuesto porque se
+// cayó Postgres sería el peor resultado posible.
+
+async function guardarConsulta(datos, ruta) {
+  const { SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY } = process.env;
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) return null;
+
+  try {
+    const r = await fetch(SUPABASE_URL + '/rest/v1/contact_submissions', {
+      method: 'POST',
+      headers: {
+        apikey: SUPABASE_SERVICE_ROLE_KEY,
+        Authorization: 'Bearer ' + SUPABASE_SERVICE_ROLE_KEY,
+        'Content-Type': 'application/json',
+        'Content-Profile': SCHEMA,
+        Prefer: 'return=representation'
+      },
+      body: JSON.stringify({
+        name: datos.nombre,
+        company: datos.empresa || null,
+        email: datos.correo,
+        phone: datos.telefono || null,
+        message: datos.mensaje,
+        source_route: ruta || null,
+        status: 'new'
+      })
+    });
+
+    if (!r.ok) {
+      console.error('No se pudo guardar la consulta:', r.status, await r.text());
+      return null;
+    }
+    const filas = await r.json();
+    return filas && filas[0] ? filas[0].id : null;
+  } catch (error) {
+    console.error('No se pudo guardar la consulta:', error && error.message);
+    return null;
+  }
+}
+
+async function marcarConsulta(id, campos) {
+  const { SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY } = process.env;
+  if (!id || !SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) return;
+
+  try {
+    await fetch(SUPABASE_URL + '/rest/v1/contact_submissions?id=eq.' + encodeURIComponent(id), {
+      method: 'PATCH',
+      headers: {
+        apikey: SUPABASE_SERVICE_ROLE_KEY,
+        Authorization: 'Bearer ' + SUPABASE_SERVICE_ROLE_KEY,
+        'Content-Type': 'application/json',
+        'Content-Profile': SCHEMA,
+        Prefer: 'return=minimal'
+      },
+      body: JSON.stringify(campos)
+    });
+  } catch (error) {
+    console.error('No se pudo actualizar la consulta:', error && error.message);
+  }
+}
 
 function escaparHtml(v) {
   return String(v)
@@ -71,10 +146,20 @@ module.exports = async (req, res) => {
     }
   }
 
+  // Se registra ANTES de mandar el correo. Si el envío falla, la consulta ya
+  // quedó guardada y se ve en el panel; al revés se perdería.
+  const idConsulta = await guardarConsulta(datos, texto(cuerpo.ruta) || null);
+
   const { SMTP_USER, SMTP_PASSWORD, CONTACT_EMAIL } = process.env;
   if (!SMTP_USER || !SMTP_PASSWORD || !CONTACT_EMAIL) {
     // Al servidor le sirve el detalle; al navegador, no.
     console.error('Faltan variables SMTP en el entorno del proyecto.');
+    // Si alcanzó a guardarse, la consulta no se perdió: queda en el panel con
+    // el correo marcado como no enviado, y a quien escribió no se le miente
+    // diciendo que hubo un problema cuando su mensaje sí llegó.
+    if (idConsulta) {
+      return res.status(200).json({ success: true, message: 'Consulta enviada correctamente.' });
+    }
     return res.status(500).json({ error: 'El servicio de correo no está configurado.' });
   }
 
@@ -134,6 +219,7 @@ module.exports = async (req, res) => {
       text: plano,
       html: html
     });
+    await marcarConsulta(idConsulta, { email_sent: true });
   } catch (error) {
     // Detalle para los registros de Vercel: el código y la respuesta del
     // servidor son lo único que distingue una clave rechazada de una cuenta
@@ -144,6 +230,13 @@ module.exports = async (req, res) => {
       response: error && error.response,
       responseCode: error && error.responseCode
     });
+    // Con la consulta guardada, el mensaje no se perdió: aparece en el panel
+    // con el correo en "no enviado", que es la señal para revisar el SMTP.
+    // Mandar a quien escribió a reintentar por WhatsApp cuando su mensaje ya
+    // llegó solo genera un duplicado.
+    if (idConsulta) {
+      return res.status(200).json({ success: true, message: 'Consulta enviada correctamente.' });
+    }
     return res.status(500).json({
       error: 'No pudimos enviar tu consulta en este momento. Intentá nuevamente.'
     });
@@ -171,6 +264,7 @@ module.exports = async (req, res) => {
           '</p>' +
         '</div>'
     });
+    await marcarConsulta(idConsulta, { auto_reply_sent: true });
   } catch (error) {
     console.error('La consulta llegó, pero falló el acuse al visitante:', error);
   }

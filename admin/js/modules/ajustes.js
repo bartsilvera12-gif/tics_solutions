@@ -106,7 +106,15 @@
   });
 
   /* =================================================== administradores == */
-  App.modulo({
+  // Queda escrita pero SIN registrar, como el resto de las que se ocultaron.
+  //
+  // Las cuentas no se creaban acá de todos modos: eso se hace en Supabase,
+  // que es quien guarda la contraseña. Esta pantalla servía para cambiarle el
+  // rol a alguien o quitarle el acceso, y eso también se puede hacer desde
+  // ahí mientras no esté colgada.
+  //
+  // Para volver a colgarla, pasarle este objeto a App.modulo.
+  var MODULO_ADMINISTRADORES = {
     id: "administradores",
     titulo: "Administradores",
     sub: "Quién puede entrar al panel",
@@ -217,9 +225,13 @@
         } catch (e) { UI.error(Auth.mensajeDeError(e)); }
       }
     }
-  });
+  };
+  void MODULO_ADMINISTRADORES;
 
   /* ======================================================== actividad === */
+  // También sin registrar. El registro se sigue escribiendo en la base con
+  // cada cambio del panel: lo único que se saca es la pantalla que lo lee,
+  // así que la historia no se pierde mientras esté oculta.
   // El registro guarda nombres técnicos, que son los correctos para buscar
   // pero no para leer. Acá se traducen a lo que la persona ve en el menú.
   var ACCIONES = {
@@ -249,7 +261,7 @@
     return "";
   }
 
-  App.modulo({
+  var MODULO_ACTIVIDAD = {
     id: "actividad",
     titulo: "Actividad",
     sub: "Qué se cambió y quién lo cambió",
@@ -305,5 +317,6 @@
         ], filas)
       ]));
     }
-  });
+  };
+  void MODULO_ACTIVIDAD;
 })();

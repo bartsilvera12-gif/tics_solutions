@@ -22,6 +22,7 @@
       return Crud({
         tabla: "pages",
         titulo: "página",
+        femenino: true,
         plural: "páginas",
         sinCrear: true,
         sinBorrar: true,

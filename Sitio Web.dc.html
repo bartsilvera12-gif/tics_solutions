@@ -1604,28 +1604,26 @@
 
       <div data-reveal="" style="display: flex; flex-direction: column; gap: clamp(26px, 3vw, 38px);">
 
+        <sc-for list="{{ publicaciones }}" as="pub" hint-placeholder-count="2">
         <article style="border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(26px, 3vw, 38px);">
           <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 16px;">
-            <time datetime="2026-05-25" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4F5050;">25 de mayo de 2026</time>
-            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; border: 1px solid rgba(231,25,23,.35); padding: 4px 10px;">Evento</span>
+            <time datetime="{{ pub.fecha }}" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4F5050;">{{ pub.fechaLarga }}</time>
+            <sc-if value="{{ pub.etiqueta }}" hint-placeholder-val="{{ true }}">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; border: 1px solid rgba(231,25,23,.35); padding: 4px 10px;">{{ pub.etiqueta }}</span>
+            </sc-if>
           </div>
-          <h2 style="font-size: clamp(21px, 2.4vw, 30px); font-weight: 500; line-height: 1.25; margin-bottom: 14px;">Estuvimos en Constructecnia 2026</h2>
-          <p style="font-size: 16px; line-height: 1.8; font-weight: 500; color: #3B3C3C; margin-bottom: 20px;">Una semana intensa de visitas a clientes del sector público y privado, y participación en la feria. Compartimos las novedades de ZWCAD junto al equipo de ZWSOFT que vino desde México y al director de ZWCAD para Argentina, Paraguay y Uruguay, y conversamos con profesionales del rubro sobre lo que necesita el mercado local.</p>
-          <a href="https://www.linkedin.com/posts/arturo-miguel-osorio-c%C3%A9spedes-62717a36_luego-de-una-semana-intensa-y-muy-fruct%C3%ADfera-ugcPost-7464764864838914048-l-wA" target="_blank" rel="noopener" class="om-enlace-tactil" style="display: inline-flex; align-items: center; gap: 9px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #BC1310; transition: color .3s ease;" style-hover="color: #1D1E1E;">Ver la publicación en LinkedIn<span aria-hidden="true">&nearr;</span></a>
-        </article>
-
-        <article style="border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(26px, 3vw, 38px);">
-          <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 16px;">
-            <time datetime="2026-04-15" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4F5050;">15 de abril de 2026</time>
-            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #BC1310; border: 1px solid rgba(231,25,23,.35); padding: 4px 10px;">Alianza</span>
-          </div>
-          <h2 style="font-size: clamp(21px, 2.4vw, 30px); font-weight: 500; line-height: 1.25; margin-bottom: 14px;">Somos reseller autorizado de ZWCAD en Paraguay</h2>
-          <p style="font-size: 16px; line-height: 1.8; font-weight: 500; color: #3B3C3C; margin-bottom: 20px;">Arranca una nueva etapa de ZWCAD en el país, de la mano de Tic&rsquo;s Solutions. Es una herramienta ágil y potente, que no consume muchos recursos, y con licenciamiento perpetuo: se paga una vez y se sigue trabajando sin estar pendiente de que venza una suscripción.</p>
+          <h2 style="font-size: clamp(21px, 2.4vw, 30px); font-weight: 500; line-height: 1.25; margin-bottom: 14px;">{{ pub.n }}</h2>
+          <p style="font-size: 16px; line-height: 1.8; font-weight: 500; color: #3B3C3C; margin-bottom: 20px;">{{ pub.txt }}</p>
           <div style="display: flex; align-items: center; gap: 22px; flex-wrap: wrap;">
-            <a href="https://www.linkedin.com/posts/arturo-miguel-osorio-c%C3%A9spedes-62717a36_muchas-gracias-por-la-bienvenida-don-alfredo-activity-7450252190016892930-prbj" target="_blank" rel="noopener" class="om-enlace-tactil" style="display: inline-flex; align-items: center; gap: 9px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #BC1310; transition: color .3s ease;" style-hover="color: #1D1E1E;">Ver la publicación en LinkedIn<span aria-hidden="true">&nearr;</span></a>
-            <a href="#/zwcad" class="om-enlace-tactil" style="display: inline-flex; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #1D1E1E; transition: color .3s ease;" style-hover="color: #E71917;">Conocer ZWCAD &rarr;</a>
+            <sc-if value="{{ pub.enlace }}" hint-placeholder-val="{{ true }}">
+            <a href="{{ pub.enlace }}" target="_blank" rel="noopener" class="om-enlace-tactil" style="display: inline-flex; align-items: center; gap: 9px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #BC1310; transition: color .3s ease;" style-hover="color: #1D1E1E;">{{ pub.textoEnlace }}<span aria-hidden="true">&nearr;</span></a>
+            </sc-if>
+            <sc-if value="{{ pub.enlace2 }}" hint-placeholder-val="{{ true }}">
+            <a href="{{ pub.enlace2 }}" class="om-enlace-tactil" style="display: inline-flex; align-items: center; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #1D1E1E; transition: color .3s ease;" style-hover="color: #E71917;">{{ pub.textoEnlace2 }}<span aria-hidden="true">&rarr;</span></a>
+            </sc-if>
           </div>
         </article>
+        </sc-for>
 
       </div>
 
@@ -1819,8 +1817,9 @@ class Component extends DCLogic {
       pedir('solution_features?select=label,title,description,group_key,bullets,media_assets!solution_features_media_id_fkey(public_url),solutions!inner(slug)&status=eq.published&order=sort_order'),
       pedir('solution_demos?select=slug,title,description,media_assets!solution_demos_video_media_id_fkey(public_url),solutions!inner(slug)&status=eq.published&order=sort_order'),
       pedir('solutions?select=slug,headline,headline_highlight,intro&status=eq.published'),
-      pedir('page_sections?select=section_key,title,highlight_text,body&is_visible=eq.true')
-    ]).then(([marcasDb, featuresDb, demosDb, solucionesDb, seccionesDb]) => {
+      pedir('page_sections?select=section_key,title,highlight_text,body&is_visible=eq.true'),
+      pedir('news_items?select=title,label,summary,published_at,link_url,link_label,secondary_link_url,secondary_link_label&status=eq.published&order=published_at.desc')
+    ]).then(([marcasDb, featuresDb, demosDb, solucionesDb, seccionesDb, publicacionesDb]) => {
       clearTimeout(reloj);
       this._pidiendoCms = false;
       if (this._muerto) return;
@@ -1862,13 +1861,29 @@ class Component extends DCLogic {
         // Titular y entrada del resto de las secciones, por clave.
         secciones: (seccionesDb && seccionesDb.length)
           ? seccionesDb.reduce((acc, x) => { acc[x.section_key] = x; return acc; }, {})
-          : null
+          : null,
+
+        // Las publicaciones de /novedades. Una sin fecha no se muestra: la
+        // tarjeta lleva la fecha arriba de todo y quedaría con un hueco.
+        publicaciones: noVacio((publicacionesDb || [])
+          .filter((p) => p.published_at)
+          .map((p) => ({
+            fecha: String(p.published_at).slice(0, 10),
+            etiqueta: p.label || '',
+            n: p.title,
+            txt: p.summary || '',
+            enlace: p.link_url || '',
+            textoEnlace: p.link_label || 'Ver la publicación',
+            enlace2: p.secondary_link_url || '',
+            textoEnlace2: p.secondary_link_label || ''
+          })))
       };
 
       // Si no vino nada útil, no se toca el estado: repintar con vacío sería
       // peor que dejar lo que ya se está viendo.
       if (!cms.partners && !cms.marcas && !cms.novedades &&
-          !cms.demosElectrico && !cms.zw3dEspecializado && !cms.soluciones && !cms.secciones) return;
+          !cms.demosElectrico && !cms.zw3dEspecializado && !cms.soluciones &&
+          !cms.secciones && !cms.publicaciones) return;
 
       // Con el refresco automático esto se vuelve a pedir cada tanto. Si
       // volvió lo mismo, no se repinta: un setState de más reinicia las
@@ -2690,6 +2705,23 @@ class Component extends DCLogic {
                          entrada: 'Trabajamos sobre dos frentes que se complementan: evitar que la amenaza entre, y poder volver a trabajar rápido si algo pasa igual. Licenciamos, implementamos y acompañamos localmente las dos partes.' },
     };
 
+    // Las publicaciones de /novedades. Igual que el resto: esto es el
+    // respaldo, y si la base responde se muestra lo que haya ahi.
+    const publicaciones = [
+      { fecha: '2026-05-25', etiqueta: 'Evento',
+        n: 'Estuvimos en Constructecnia 2026',
+        txt: 'Una semana intensa de visitas a clientes del sector público y privado, y participación en la feria. Compartimos las novedades de ZWCAD junto al equipo de ZWSOFT que vino desde México y al director de ZWCAD para Argentina, Paraguay y Uruguay, y conversamos con profesionales del rubro sobre lo que necesita el mercado local.',
+        enlace: 'https://www.linkedin.com/posts/arturo-miguel-osorio-c%C3%A9spedes-62717a36_luego-de-una-semana-intensa-y-muy-fruct%C3%ADfera-ugcPost-7464764864838914048-l-wA',
+        textoEnlace: 'Ver la publicación en LinkedIn',
+        enlace2: '', textoEnlace2: '' },
+      { fecha: '2026-04-15', etiqueta: 'Alianza',
+        n: 'Somos reseller autorizado de ZWCAD en Paraguay',
+        txt: 'Arranca una nueva etapa de ZWCAD en el país, de la mano de Tic’s Solutions. Es una herramienta ágil y potente, que no consume muchos recursos, y con licenciamiento perpetuo: se paga una vez y se sigue trabajando sin estar pendiente de que venza una suscripción.',
+        enlace: 'https://www.linkedin.com/posts/arturo-miguel-osorio-c%C3%A9spedes-62717a36_muchas-gracias-por-la-bienvenida-don-alfredo-activity-7450252190016892930-prbj',
+        textoEnlace: 'Ver la publicación en LinkedIn',
+        enlace2: '#/zwcad', textoEnlace2: 'Conocer ZWCAD' },
+    ];
+
     const partners = [
       // Primero las de CAD, que es hacia donde apunta el sitio, y después
       // las de ciberseguridad. Mismo orden que el desplegable de Soluciones.
@@ -2945,6 +2977,22 @@ class Component extends DCLogic {
         Object.keys(TEXTOS_SECCION).forEach((k) => { out[k] = armarSeccion(k); });
         return out;
       })(),
+
+      // La fecha se arma acá y no en la base: en la base viaja como fecha, y
+      // el texto largo depende del idioma. Se parte la cadena en vez de dejar
+      // que Date la interprete, porque '2026-05-25' se lee como medianoche en
+      // UTC y en Paraguay eso cae el día anterior.
+      publicaciones: ((s.cms && s.cms.publicaciones) || publicaciones).map((p) => {
+        const t = String(p.fecha || '').split('-');
+        let larga = '';
+        if (t.length === 3) {
+          const d = new Date(Number(t[0]), Number(t[1]) - 1, Number(t[2]));
+          try {
+            larga = d.toLocaleDateString('es', { day: 'numeric', month: 'long', year: 'numeric' });
+          } catch (err) { larga = p.fecha; }
+        }
+        return Object.assign({}, p, { fechaLarga: larga });
+      }),
 
       partners: (s.cms && s.cms.partners) || partners,
       marcas: (s.cms && s.cms.marcas) || marcas,

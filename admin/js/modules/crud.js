@@ -18,19 +18,29 @@
      *   tabla      nombre en ticspy
      *   titulo     singular, para los diálogos
      *   orden      columna de ordenamiento por defecto
+     *   descendente true para ordenar de mayor a menor (listas por fecha)
      *   columnas   [{titulo, celda(fila), clase, ancho}]
      *   campos     [{nombre, etiqueta, tipo, ...}] para el formulario
      *   alGuardar  (datos, fila) -> datos   opcional, para ajustar antes de escribir
      *   filtro     (fila, texto) -> bool    opcional, para el buscador
      *   sinCrear   true si la tabla no admite altas nuevas
+     *   femenino   true si el nombre singular lleva "nueva" y "creada"
      */
     var estado = { filas: [], base: [], busqueda: "" };
 
     function orden() { return spec.orden || "sort_order"; }
 
+    // "Nuevo novedad" se lee mal. Cada pantalla dice de qué género es su
+    // nombre singular y los botones y avisos se arman con eso.
+    var NUEVO  = spec.femenino ? "Nueva" : "Nuevo";
+    var CREADO = spec.femenino ? "creada" : "creado";
+
     async function traer() {
       var q = sb.from(spec.tabla).select("*");
-      var r = await q.order(orden(), { ascending: true });
+      // Casi todas las pantallas ordenan de menor a mayor, que es lo que se
+      // espera de un sort_order. Las que ordenan por fecha quieren lo
+      // contrario: lo más nuevo va arriba.
+      var r = await q.order(orden(), { ascending: !spec.descendente });
       if (r.error) throw r.error;
       return r.data || [];
     }
@@ -41,7 +51,7 @@
       var cuerpo = UI.formulario(spec.campos, fila || spec.porDefecto || {});
 
       var valor = await UI.modal({
-        titulo: (esNuevo ? "Nuevo" : "Editar") + " " + spec.titulo,
+        titulo: (esNuevo ? NUEVO : "Editar") + " " + spec.titulo,
         ancho: spec.campos.length > 6,
         cuerpo: cuerpo,
         botones: [
@@ -87,7 +97,7 @@
           r = await sb.from(spec.tabla).update(valor).eq("id", fila.id);
         }
         if (r.error) throw r.error;
-        UI.ok(esNuevo ? spec.titulo + " creado." : "Cambios guardados.");
+        UI.ok(esNuevo ? spec.titulo + " " + CREADO + "." : "Cambios guardados.");
         App.ir();
       } catch (e) {
         UI.error(Auth.mensajeDeError(e));
@@ -279,7 +289,7 @@
 
         if (!spec.sinCrear) {
           App.accion(el("button.btn.btn-primario", {
-            type: "button", texto: "+ Nuevo " + spec.titulo,
+            type: "button", texto: "+ " + NUEVO + " " + spec.titulo,
             onclick: function () { abrirFicha(null); }
           }));
         }

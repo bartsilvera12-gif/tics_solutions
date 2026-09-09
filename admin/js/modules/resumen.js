@@ -31,7 +31,7 @@
           soluciones: await contar("solutions",  function (q) { return q.eq("status", "published"); }),
           textos:     await contar("page_sections", function (q) { return q.eq("is_visible", true); }),
           consultas:  await contar("contact_submissions", function (q) { return q.eq("status", "new"); }),
-          multimedia: await contar("media_assets"),
+          novedades:  await contar("news_items", function (q) { return q.eq("status", "published"); }),
           marcas:     await contar("brands",     function (q) { return q.eq("status", "published"); })
         };
       } catch (e) {
@@ -51,7 +51,7 @@
         ["Textos",     m.textos,     "secciones del sitio", "#/textos"],
         ["Consultas",  m.consultas,  "sin leer",         "#/consultas"],
         ["Marcas",     m.marcas,     "en las cintas",    "#/marcas"],
-        ["Multimedia", m.multimedia, "archivos",         "#/multimedia"]
+        ["Novedades",  m.novedades,  "publicadas",       "#/novedades"]
       ];
 
       var rejilla = el("div.metricas");

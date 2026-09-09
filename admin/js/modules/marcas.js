@@ -66,6 +66,7 @@
         Crud({
           tabla: "brands",
           titulo: tipo === "partner" ? "partner" : "marca",
+          femenino: tipo !== "partner",
           plural: tipo === "partner" ? "partners" : "marcas",
           filtroFijo: function (f) { return f.brand_type === tipo; },
           columnas: [
@@ -105,16 +106,10 @@
   });
 
   /* ======================================================== novedades === */
-  // Queda escrita pero SIN registrar, a propósito.
-  //
-  // Esta pantalla escribe en news_items, y el sitio todavía no lee esa tabla:
-  // las dos novedades que se ven en /novedades están escritas en el archivo
-  // del sitio. Cargar una acá no cambiaría nada en la web y solo haría creer
-  // que sí, que es peor que no tener la pantalla.
-  //
-  // Cuando /novedades se conecte con la base, alcanza con pasarle este objeto
-  // a App.modulo y vuelve a aparecer en el menú tal como estaba.
-  var MODULO_NOVEDADES = {
+  // Lo que se carga acá sale en /novedades, en orden de fecha, de la más
+  // nueva a la más vieja. Una novedad sin fecha no aparece: la tarjeta la
+  // muestra arriba de todo y quedaría con un hueco.
+  App.modulo({
     id: "novedades",
     titulo: "Novedades",
     sub: "Publicaciones y anuncios del sitio",
@@ -124,8 +119,14 @@
       return Crud({
         tabla: "news_items",
         titulo: "novedad",
+        femenino: true,
         plural: "novedades",
-        orden: "sort_order",
+        // El sitio las muestra por fecha, de la más nueva a la más vieja. La
+        // lista de acá sigue el mismo orden y no lleva flechas para moverlas:
+        // reordenar a mano no cambiaría nada en la web.
+        orden: "published_at",
+        descendente: true,
+        sinOrden: true,
         columnas: [
           { titulo: "Novedad", celda: function (f) {
               return el("div", {}, [
@@ -134,35 +135,42 @@
               ]); } },
           { titulo: "Etiqueta", celda: function (f) {
               return f.label ? el("span.insignia.insignia-nuevo", { texto: f.label }) : "—"; } },
-          { titulo: "Fecha", celda: function (f) { return UI.fecha(f.published_at); } },
+          { titulo: "Fecha", celda: function (f) {
+              return f.published_at ? UI.fecha(f.published_at)
+                : el("span", { texto: "sin fecha", estilo: "color:var(--rojo)" }); } },
           { titulo: "Estado", celda: function (f) { return UI.insignia(f.status); } }
         ],
         campos: [
           { nombre: "title", etiqueta: "Título", requerido: true, ancho: "total" },
-          { nombre: "slug", etiqueta: "Slug" },
-          { nombre: "label", etiqueta: "Etiqueta", marcador: "Nuevo",
-            ayuda: "Las que ya usa el sitio son «Nuevo» y «Mejorado»." },
-          { nombre: "summary", etiqueta: "Resumen", tipo: "textarea", ancho: "total" },
-          { nombre: "body", etiqueta: "Contenido", tipo: "textarea", filas: 7, ancho: "total" },
-          { nombre: "published_at", etiqueta: "Fecha de publicación", tipo: "date" },
+          { nombre: "label", etiqueta: "Etiqueta", marcador: "Evento",
+            ayuda: "El recuadro chico en rojo. Las que ya usa el sitio son «Evento» y «Alianza»." },
+          { nombre: "published_at", etiqueta: "Fecha", tipo: "date", requerido: true,
+            ayuda: "Ordena la lista del sitio. Sin fecha, la novedad no se muestra." },
+          { nombre: "summary", etiqueta: "Resumen", tipo: "textarea", ancho: "total",
+            ayuda: "El párrafo que se lee en la tarjeta." },
+          { nombre: "link_url", etiqueta: "Enlace", ancho: "total",
+            marcador: "https://www.linkedin.com/posts/...",
+            ayuda: "Normalmente la publicación en LinkedIn. Se abre en otra pestaña." },
+          { nombre: "link_label", etiqueta: "Texto del enlace", marcador: "Ver la publicación en LinkedIn" },
+          { nombre: "secondary_link_url", etiqueta: "Segundo enlace", marcador: "#/zwcad",
+            ayuda: "Para mandar a una página del propio sitio." },
+          { nombre: "secondary_link_label", etiqueta: "Texto del segundo enlace", marcador: "Conocer ZWCAD" },
           { nombre: "status", etiqueta: "Estado", tipo: "select", opciones: [
               { valor: "published", texto: "Publicada" },
               { valor: "draft",     texto: "Borrador" },
               { valor: "archived",  texto: "Archivada" }
-            ] },
-          { nombre: "sort_order", etiqueta: "Orden", tipo: "number" }
+            ] }
         ],
         porDefecto: { status: "draft" },
-        alGuardar: function (datos) {
-          if (!datos.slug) datos.slug = UI.slug(datos.title);
-          // Publicar sin fecha deja la novedad sin ordenar por tiempo.
-          if (datos.status === "published" && !datos.published_at) {
-            datos.published_at = new Date().toISOString();
-          }
+        alGuardar: function (datos, fila) {
+          // El slug no se muestra en ningún lado: no hay una página por
+          // novedad. Pero la columna es obligatoria y única, así que se arma
+          // sola al crear y no se vuelve a tocar: si se regenerara en cada
+          // edición, cambiar un título podría chocar con el slug de otra.
+          if (!fila) datos.slug = UI.slug(datos.title);
           return datos;
         }
       }).render(nodo);
     }
-  };
-  void MODULO_NOVEDADES;
+  });
 })();

@@ -43,7 +43,13 @@
     return lugares;
   }
 
-  App.modulo({
+  // Queda escrita pero SIN registrar, igual que Novedades antes de
+  // conectarse. Es la biblioteca de archivos: sirve para mirar y limpiar, no
+  // para armar una página, y el sitio sigue leyendo media_assets como
+  // siempre. Ocultarla no toca ninguna imagen.
+  //
+  // Para volver a colgarla, pasarle este objeto a App.modulo.
+  var MODULO_MULTIMEDIA = {
     id: "multimedia",
     titulo: "Multimedia",
     sub: "Imágenes y videos del sitio",
@@ -249,5 +255,6 @@
         });
       }
     }
-  });
+  };
+  void MODULO_MULTIMEDIA;
 })();

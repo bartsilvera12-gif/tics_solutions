@@ -10,9 +10,14 @@
   ];
 
   /* ========================================================== páginas === */
-  // Las rutas no se crean ni se borran desde el panel: cada una tiene su
-  // sección en el sitio. Cambiar una URL rompería enlaces ya compartidos.
-  App.modulo({
+  // Queda escrita pero SIN registrar, igual que Multimedia.
+  //
+  // Es la pantalla del título de pestaña y la descripción para Google. Sigue
+  // funcionando: los títulos que ya están cargados se ven en el sitio, uno
+  // por ruta. Lo que se saca es la posibilidad de cambiarlos desde el panel.
+  //
+  // Para volver a colgarla, pasarle este objeto a App.modulo.
+  var MODULO_PAGINAS = {
     id: "paginas",
     titulo: "Páginas",
     sub: "Lo que se ve en la pestaña del navegador y en Google",
@@ -56,7 +61,8 @@
         ]
       }).render(nodo);
     }
-  });
+  };
+  void MODULO_PAGINAS;
 
   /* =================================================== textos por página === */
   // El titular y la entrada de cada sección del sitio. Se agrupan por página

@@ -38,7 +38,14 @@
     { valor: "spam",     texto: "Spam" }
   ];
 
-  App.modulo({
+  // Queda escrita pero SIN registrar, como el resto de las que se ocultaron.
+  //
+  // Las consultas se siguen guardando y se siguen mandando por correo a la
+  // casilla de la empresa: eso lo hace la función del formulario, que no pasa
+  // por acá. Lo que se saca es la pantalla que las lista.
+  //
+  // Para volver a colgarla, pasarle este objeto a App.modulo.
+  var MODULO_CONSULTAS = {
     id: "consultas",
     titulo: "Consultas",
     sub: "Lo que llega por el formulario del sitio",
@@ -238,5 +245,6 @@
         App.ir();
       }
     }
-  });
+  };
+  void MODULO_CONSULTAS;
 })();

@@ -30,7 +30,6 @@
           servicios:  await contar("services",   function (q) { return q.eq("status", "published"); }),
           soluciones: await contar("solutions",  function (q) { return q.eq("status", "published"); }),
           textos:     await contar("page_sections", function (q) { return q.eq("is_visible", true); }),
-          consultas:  await contar("contact_submissions", function (q) { return q.eq("status", "new"); }),
           novedades:  await contar("news_items", function (q) { return q.eq("status", "published"); }),
           marcas:     await contar("brands",     function (q) { return q.eq("status", "published"); })
         };
@@ -43,13 +42,10 @@
       }
 
       UI.vaciar(nodo);
-      App.contador("consultas", m.consultas);
-
       var tarjetas = [
         ["Servicios",  m.servicios,  "publicados",       "#/servicios"],
         ["Soluciones", m.soluciones, "activas",          "#/soluciones"],
         ["Textos",     m.textos,     "secciones del sitio", "#/textos"],
-        ["Consultas",  m.consultas,  "sin leer",         "#/consultas"],
         ["Marcas",     m.marcas,     "en las cintas",    "#/marcas"],
         ["Novedades",  m.novedades,  "publicadas",       "#/novedades"]
       ];
@@ -64,41 +60,12 @@
       });
       nodo.appendChild(rejilla);
 
-      // --- dos columnas: últimas consultas y últimos cambios ---
+      // Las últimas consultas ya no se listan acá: la pantalla que las
+      // mostraba está oculta y no tiene sentido dejar un resumen de algo a lo
+      // que no se puede entrar. Siguen llegando por correo.
       var columnas = el("div", {
         estilo: "display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px"
       });
-
-      // Últimas consultas
-      var cajaConsultas = el("div.tarjeta", {}, [
-        el("div.tarjeta-titulo", {}, [el("h2", { texto: "Últimas consultas" })])
-      ]);
-      try {
-        var c = await sb.from("contact_submissions")
-          .select("id,name,email,message,status,created_at")
-          .order("created_at", { ascending: false }).limit(5);
-        if (c.error) throw c.error;
-
-        if (!c.data.length) {
-          cajaConsultas.appendChild(UI.vacio("Sin consultas todavía",
-            "Cuando alguien complete el formulario del sitio, va a aparecer acá."));
-        } else {
-          cajaConsultas.appendChild(UI.tabla([
-            { titulo: "Quién", celda: function (f) {
-                return el("div", {}, [
-                  el("div.celda-principal", { texto: f.name }),
-                  el("div.celda-secundaria", { texto: f.email })
-                ]); } },
-            { titulo: "Estado", celda: function (f) { return UI.insignia(f.status); } },
-            { titulo: "Fecha", celda: function (f) { return UI.fecha(f.created_at); } }
-          ], c.data));
-        }
-      } catch (e) {
-        cajaConsultas.appendChild(el("div", { estilo: "padding:18px" }, [
-          el("div.aviso.aviso-error", { texto: Auth.mensajeDeError(e) })
-        ]));
-      }
-      columnas.appendChild(cajaConsultas);
 
       // Últimos cambios (auditoría)
       var cajaCambios = el("div.tarjeta", {}, [
@@ -117,8 +84,8 @@
           cajaCambios.appendChild(UI.tabla([
             { titulo: "Acción", celda: function (f) {
                 return el("div", {}, [
-                  el("div.celda-principal", { texto: f.action }),
-                  el("div.celda-secundaria", { texto: f.entity_table || "" })
+                  el("div.celda-principal", { texto: UI.ACCIONES[f.action] || f.action }),
+                  el("div.celda-secundaria", { texto: UI.DONDE[f.entity_table] || f.entity_table || "" })
                 ]); } },
             { titulo: "Cuándo", celda: function (f) { return UI.fechaHora(f.created_at); } }
           ], a.data));

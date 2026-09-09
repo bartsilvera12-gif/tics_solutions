@@ -234,21 +234,8 @@
   // así que la historia no se pierde mientras esté oculta.
   // El registro guarda nombres técnicos, que son los correctos para buscar
   // pero no para leer. Acá se traducen a lo que la persona ve en el menú.
-  var ACCIONES = {
-    create: "Creó", update: "Editó", delete: "Eliminó",
-    publish: "Publicó", unpublish: "Ocultó",
-    login: "Entró", logout: "Salió", upload: "Subió un archivo"
-  };
-
-  var DONDE = {
-    pages: "Páginas", page_sections: "Textos de las páginas",
-    services: "Servicios", solutions: "Soluciones",
-    solution_features: "Fichas de soluciones", solution_demos: "Videos de soluciones",
-    brands: "Partners y marcas", news_items: "Novedades",
-    contact_submissions: "Consultas", site_settings: "Configuración",
-    admin_users: "Administradores", media_assets: "Multimedia",
-    navigation_items: "Navegación"
-  };
+  var ACCIONES = UI.ACCIONES;
+  var DONDE = UI.DONDE;
 
   // Del detalle guardado se muestra lo que sirve para reconocer la fila, no
   // el JSON entero: quien lee quiere saber qué tocó, no cómo se guarda.

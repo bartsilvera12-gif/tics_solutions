@@ -144,6 +144,26 @@
     },
 
     /* -------------------------------------------------------- insignia -- */
+    /* ------------------------------------------------------ etiquetas -- */
+    // El registro de actividad guarda nombres técnicos, que son los correctos
+    // para buscar pero no para leer. Viven acá y no en una pantalla porque
+    // los usa más de una.
+    ACCIONES: {
+      create: "Creó", update: "Editó", delete: "Eliminó",
+      publish: "Publicó", unpublish: "Ocultó",
+      login: "Entró", logout: "Salió", upload: "Subió un archivo"
+    },
+
+    DONDE: {
+      pages: "Páginas", page_sections: "Textos de las páginas",
+      services: "Servicios", solutions: "Soluciones",
+      solution_features: "Fichas de soluciones", solution_demos: "Videos de soluciones",
+      brands: "Partners y marcas", news_items: "Novedades",
+      contact_submissions: "Consultas", site_settings: "Configuración",
+      admin_users: "Administradores", media_assets: "Multimedia",
+      navigation_items: "Navegación"
+    },
+
     insignia: function (estado) {
       var mapa = {
         published: ["publicado", "Publicado"],

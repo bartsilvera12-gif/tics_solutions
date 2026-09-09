@@ -1792,6 +1792,12 @@ class Component extends DCLogic {
     const cfg = window.TICS_CONFIG;
     if (!cfg || !cfg.SUPABASE_URL || !cfg.SUPABASE_ANON_KEY) return;
 
+    // Un pedido por vez. Con el refresco automático esto se llama seguido, y
+    // dos tandas en el aire al mismo tiempo pueden llegar desordenadas y
+    // dejar puesto el contenido más viejo.
+    if (this._pidiendoCms) return;
+    this._pidiendoCms = true;
+
     const cab = {
       apikey: cfg.SUPABASE_ANON_KEY,
       'Accept-Profile': cfg.SCHEMA || 'ticspy'
@@ -1816,6 +1822,7 @@ class Component extends DCLogic {
       pedir('page_sections?select=section_key,title,highlight_text,body&is_visible=eq.true')
     ]).then(([marcasDb, featuresDb, demosDb, solucionesDb, seccionesDb]) => {
       clearTimeout(reloj);
+      this._pidiendoCms = false;
       if (this._muerto) return;
 
       const logo = (f) => (f.media_assets && f.media_assets.public_url) || null;
@@ -1862,8 +1869,51 @@ class Component extends DCLogic {
       // peor que dejar lo que ya se está viendo.
       if (!cms.partners && !cms.marcas && !cms.novedades &&
           !cms.demosElectrico && !cms.zw3dEspecializado && !cms.soluciones && !cms.secciones) return;
+
+      // Con el refresco automático esto se vuelve a pedir cada tanto. Si
+      // volvió lo mismo, no se repinta: un setState de más reinicia las
+      // animaciones de los titulares y se vería un parpadeo sin motivo.
+      const sello = JSON.stringify(cms);
+      if (sello === this._selloCms) return;
+      this._selloCms = sello;
       this.setState({ cms: cms });
-    }).catch(() => { clearTimeout(reloj); });
+    }).catch(() => { clearTimeout(reloj); this._pidiendoCms = false; });
+  }
+
+  // ---------- refresco sin recargar ----------
+  // Quien administra edita en el panel y se pasa a la pestaña del sitio: al
+  // volver a mirarla se pide el contenido de nuevo y el cambio ya está, sin
+  // tocar F5. Para una pantalla que quedó abierta, se repite cada minuto.
+  //
+  // No hay websocket a propósito: habilitarlo habría que hacerlo en la
+  // instancia de base compartida, que es de todos los proyectos. Esto se
+  // resuelve entero del lado del sitio y no toca nada de allá.
+  vigilarCms() {
+    if (!window.TICS_CONFIG) return;
+
+    const MINIMO = 8000;              // no más de un pedido cada 8 segundos
+    let ultimo = Date.now();
+
+    const refrescar = () => {
+      // Una pestaña que nadie está mirando no necesita contenido fresco.
+      if (document.visibilityState === 'hidden') return;
+      const ahora = Date.now();
+      if (ahora - ultimo < MINIMO) return;
+      ultimo = ahora;
+      this.cargarCms();
+    };
+
+    const alVolver = () => { if (document.visibilityState === 'visible') refrescar(); };
+
+    document.addEventListener('visibilitychange', alVolver);
+    window.addEventListener('focus', refrescar);
+    const reloj = setInterval(refrescar, 60000);
+
+    this._cleanups.push(() => {
+      document.removeEventListener('visibilitychange', alVolver);
+      window.removeEventListener('focus', refrescar);
+      clearInterval(reloj);
+    });
   }
 
   // Enrutado por hash: una sola página que intercambia vistas. Evita
@@ -1916,6 +1966,7 @@ class Component extends DCLogic {
     // Se pide una sola vez, no en cada cambio de ruta: son tres consultas
     // chicas y el sitio entero cabe en ellas.
     this.cargarCms();
+    this.vigilarCms();
 
     // ---- enrutador ----
     this.setState({ ruta: Component.leerRuta() });

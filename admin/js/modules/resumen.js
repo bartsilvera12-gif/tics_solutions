@@ -29,7 +29,7 @@
         m = {
           servicios:  await contar("services",   function (q) { return q.eq("status", "published"); }),
           soluciones: await contar("solutions",  function (q) { return q.eq("status", "published"); }),
-          novedades:  await contar("news_items", function (q) { return q.eq("status", "published"); }),
+          textos:     await contar("page_sections", function (q) { return q.eq("is_visible", true); }),
           consultas:  await contar("contact_submissions", function (q) { return q.eq("status", "new"); }),
           multimedia: await contar("media_assets"),
           marcas:     await contar("brands",     function (q) { return q.eq("status", "published"); })
@@ -48,7 +48,7 @@
       var tarjetas = [
         ["Servicios",  m.servicios,  "publicados",       "#/servicios"],
         ["Soluciones", m.soluciones, "activas",          "#/soluciones"],
-        ["Novedades",  m.novedades,  "publicadas",       "#/novedades"],
+        ["Textos",     m.textos,     "secciones del sitio", "#/textos"],
         ["Consultas",  m.consultas,  "sin leer",         "#/consultas"],
         ["Marcas",     m.marcas,     "en las cintas",    "#/marcas"],
         ["Multimedia", m.multimedia, "archivos",         "#/multimedia"]

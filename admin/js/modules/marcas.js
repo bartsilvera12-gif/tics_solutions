@@ -105,7 +105,16 @@
   });
 
   /* ======================================================== novedades === */
-  App.modulo({
+  // Queda escrita pero SIN registrar, a propósito.
+  //
+  // Esta pantalla escribe en news_items, y el sitio todavía no lee esa tabla:
+  // las dos novedades que se ven en /novedades están escritas en el archivo
+  // del sitio. Cargar una acá no cambiaría nada en la web y solo haría creer
+  // que sí, que es peor que no tener la pantalla.
+  //
+  // Cuando /novedades se conecte con la base, alcanza con pasarle este objeto
+  // a App.modulo y vuelve a aparecer en el menú tal como estaba.
+  var MODULO_NOVEDADES = {
     id: "novedades",
     titulo: "Novedades",
     sub: "Publicaciones y anuncios del sitio",
@@ -154,5 +163,6 @@
         }
       }).render(nodo);
     }
-  });
+  };
+  void MODULO_NOVEDADES;
 })();

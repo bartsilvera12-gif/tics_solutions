@@ -13,6 +13,23 @@
   // repite acá porque una fila vieja puede traer cualquier cosa en el campo.
   var CORREO_VALIDO = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+  // La casilla de la empresa, la misma desde la que sale el correo del
+  // formulario. Se lee de Ajustes para no tenerla escrita en dos lugares, y
+  // se recuerda para no volver a pedirla cada vez que se abre una ficha.
+  var CASILLA_POR_DEFECTO = "arturo.osorio@tics-py.com";
+  var casillaEmpresa = null;
+
+  async function traerCasilla() {
+    if (casillaEmpresa) return casillaEmpresa;
+    var v = "";
+    try {
+      var r = await sb.from("site_settings").select("contact_email").limit(1).maybeSingle();
+      v = r.data ? String(r.data.contact_email || "").trim() : "";
+    } catch (e) { /* si no se puede leer, queda la de siempre */ }
+    casillaEmpresa = CORREO_VALIDO.test(v) ? v : CASILLA_POR_DEFECTO;
+    return casillaEmpresa;
+  }
+
   var ESTADOS = [
     { valor: "new",      texto: "Nueva" },
     { valor: "read",     texto: "Leída" },
@@ -99,6 +116,8 @@
 
       /* -------------------------------------------------------- ficha -- */
       async function abrir(c) {
+        var casilla = await traerCasilla();
+
         // Abrirla ya cuenta como leerla.
         if (c.status === "new") {
           try {
@@ -162,7 +181,14 @@
                 var saludo = "Hola " + c.name + ",\n\n" +
                              "Gracias por comunicarte con TIC'S Solutions.\n\n";
 
-                var url = "https://mail.google.com/mail/?view=cm&fs=1" +
+                // El tramo /u/<casilla>/ le dice a Gmail desde qué cuenta
+                // redactar. Sin eso escribe desde la sesión que haya abierta
+                // en el navegador, que puede ser la cuenta personal de quien
+                // administra: la respuesta le llegaría al cliente firmada por
+                // un correo que no es el de la empresa. La casilla ya pasó por
+                // CORREO_VALIDO, así que no puede traer una barra ni un signo
+                // de pregunta que rompa la dirección.
+                var url = "https://mail.google.com/mail/u/" + casilla + "/?view=cm&fs=1" +
                   "&to=" + encodeURIComponent(correo) +
                   "&su=" + encodeURIComponent(asunto) +
                   "&body=" + encodeURIComponent(saludo);

@@ -72,7 +72,12 @@
   // No se crean ni se borran: cada fila corresponde a una sección que ya
   // existe en el sitio. Una fila de más no aparecería en ningún lado, y una
   // de menos deja al sitio mostrando su texto de fábrica.
-  App.modulo({
+  // Sin registrar, como el resto de las que se ocultaron. Los textos que ya
+  // están cargados se siguen mostrando en el sitio: lo que se saca es la
+  // pantalla para cambiarlos.
+  //
+  // Para volver a colgarla, pasarle este objeto a App.modulo.
+  var MODULO_TEXTOS = {
     id: "textos",
     titulo: "Textos de las páginas",
     sub: "Titulares y entradas de cada sección",
@@ -144,7 +149,8 @@
         nodo.appendChild(tarjeta);
       });
     }
-  });
+  };
+  void MODULO_TEXTOS;
 
   function recortar(t, n) {
     if (!t) return "";

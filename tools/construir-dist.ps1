@@ -15,6 +15,14 @@
 #   2. El .htaccess se copia ajustando ese nombre, para que las dos versiones
 #      no se separen con el tiempo: se edita el del repositorio y listo.
 
+param(
+  # A donde manda el formulario de contacto el sitio ya subido a Hostinger.
+  # Es la funcion que corre en Vercel: Hostinger sirve archivos y no ejecuta
+  # nada. Si alguna vez cambia el dominio de Vercel, se cambia aca y hay que
+  # agregarlo tambien a la lista ORIGENES de api/contact.js.
+  [string]$Api = "https://tics-solutions.vercel.app/api/contact"
+)
+
 $ErrorActionPreference = "Stop"
 
 $RAIZ = Split-Path -Parent $PSScriptRoot
@@ -66,6 +74,19 @@ $ht = $ht.Replace('DirectoryIndex "Sitio Web.dc.html"', 'DirectoryIndex index.ht
 $ht = $ht.Replace('/Sitio%20Web.dc.html', '/index.html')
 [System.IO.File]::WriteAllText((Join-Path $DIST ".htaccess"), $ht, (New-Object System.Text.UTF8Encoding($false)))
 
+# ---------- el formulario, apuntado a la funcion de Vercel ----------
+$rutaCfg = Join-Path $DIST "js/config.js"
+if (Test-Path -LiteralPath $rutaCfg) {
+  $cfg = Get-Content -LiteralPath $rutaCfg -Raw -Encoding UTF8
+  $nuevo = $cfg -replace 'API_CONTACT:\s*""', ('API_CONTACT: "' + $Api + '"')
+  if ($nuevo -eq $cfg) {
+    Write-Output "  AVISO: no encontre API_CONTACT en js/config.js; el formulario va a fallar."
+  } else {
+    [System.IO.File]::WriteAllText($rutaCfg, $nuevo, (New-Object System.Text.UTF8Encoding($false)))
+    Write-Output ("  formulario -> " + $Api)
+  }
+}
+
 # ---------- limpieza ----------
 # Si alguna de las carpetas copiadas trae un script o un .md, sale de dist.
 $borrados = 0
@@ -93,13 +114,11 @@ if ($fugas.Count -gt 0) {
   Write-Output "Sin supabase/, api/, uploads/ ni credenciales."
 }
 
-# El formulario de contacto necesita un servidor que ejecute algo, y Hostinger
-# sirve estos archivos tal cual. Se avisa siempre, para que no se descubra
-# cuando alguien no pueda escribir.
-$sitio = Get-Content -LiteralPath (Join-Path $DIST "index.html") -Raw -Encoding UTF8
-if ($sitio -match "url:\s*'/api/contact'") {
-  Write-Output ""
-  Write-Output "OJO: el formulario apunta a /api/contact, que en Hostinger no existe."
-  Write-Output "     Esa ruta la resuelve la funcion de Vercel. Hay que apuntarla a la"
-  Write-Output "     URL completa de Vercel (y habilitar CORS ahi) o dejar el sitio en Vercel."
+# El formulario tiene que quedar apuntando afuera: si quedo relativo, en
+# Hostinger no existe esa ruta y nadie puede escribir.
+$cfgFinal = Get-Content -LiteralPath (Join-Path $DIST "js/config.js") -Raw -Encoding UTF8
+if ($cfgFinal -match 'API_CONTACT:\s*"https?://') {
+  Write-Output "Formulario apuntando a la funcion de Vercel."
+} else {
+  Write-Output "AVISO: el formulario quedo sin direccion completa y no va a funcionar en Hostinger."
 }

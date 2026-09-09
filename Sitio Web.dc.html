@@ -1773,7 +1773,10 @@
 // ============================================================
 const DESTINO_CONSULTAS = {
   tipo: 'correo',
-  url: '/api/contact',
+  // En Vercel esta ruta la resuelve una función del propio servidor. En un
+  // hosting que solo sirve archivos hay que mandarla a la dirección completa
+  // de esa función, y eso llega por configuración.
+  url: (window.TICS_CONFIG && window.TICS_CONFIG.API_CONTACT) || '/api/contact',
   correo: 'arturo.osorio@tics-py.com',
   numero: '595981171372'          // respaldo que se ofrece si el envío falla
 };

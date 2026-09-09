@@ -27,6 +27,34 @@ const CORREO_VALIDO = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SCHEMA = 'ticspy';
 
 // ---------------------------------------------------------------------------
+// Desde dónde se acepta el formulario
+// ---------------------------------------------------------------------------
+// Cuando el sitio vive en Vercel, la página y esta función comparten dominio y
+// el navegador no pregunta nada. Servido desde Hostinger son dominios
+// distintos, y entonces el navegador exige que la función diga explícitamente
+// que acepta pedidos de ese origen.
+//
+// Es una lista y no un asterisco a propósito: con asterisco, cualquier página
+// de internet podría usar este formulario para mandar correos desde la casilla
+// de la empresa.
+const ORIGENES = [
+  'https://tics-py.com',
+  'https://www.tics-py.com',
+  'https://tics-solutions.vercel.app'
+];
+
+function permitirOrigen(req, res) {
+  const origen = req.headers.origin;
+  if (!origen) return;                       // mismo dominio: no hace falta
+  if (ORIGENES.indexOf(origen) < 0) return;  // desconocido: sin permiso
+  res.setHeader('Access-Control-Allow-Origin', origen);
+  res.setHeader('Vary', 'Origin');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Max-Age', '86400');
+}
+
+// ---------------------------------------------------------------------------
 // Registro de la consulta
 // ---------------------------------------------------------------------------
 // Ninguna de estas dos funciones tira: si la base no responde, la consulta
@@ -109,8 +137,17 @@ function texto(v) {
 }
 
 module.exports = async (req, res) => {
+  permitirOrigen(req, res);
+
+  // El navegador pregunta antes de mandar el formulario desde otro dominio.
+  // Si no se le contesta acá, el envío ni siquiera se intenta.
+  if (req.method === 'OPTIONS') {
+    res.setHeader('Allow', 'POST, OPTIONS');
+    return res.status(204).end();
+  }
+
   if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST');
+    res.setHeader('Allow', 'POST, OPTIONS');
     return res.status(405).json({ error: 'Método no permitido.' });
   }
 

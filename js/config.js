@@ -26,5 +26,14 @@ window.TICS_CONFIG = {
   // Los 58 archivos que ya están en el repositorio se siguen sirviendo desde
   // el sitio con rutas relativas. Lo que se suba desde el panel queda como
   // URL absoluta de Storage y no pasa por acá.
-  IMAGE_BASE: "/"
+  IMAGE_BASE: "/",
+
+  // A dónde manda el formulario de contacto.
+  //
+  // Vacío significa "el mismo servidor que sirve la página", que es lo que
+  // corresponde en Vercel: ahí /api/contact es una función que corre del lado
+  // del servidor. Hostinger solo sirve archivos y no ejecuta nada, así que
+  // para ese despliegue hay que poner la dirección completa de la función.
+  // Eso lo hace solo tools/construir-dist.ps1 al armar dist/.
+  API_CONTACT: ""
 };

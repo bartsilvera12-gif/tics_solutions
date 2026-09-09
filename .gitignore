@@ -9,3 +9,6 @@
 
 # Dependencias de la función de contacto: las instala Vercel al desplegar
 node_modules/
+
+# Salida de tools/construir-dist.ps1: se regenera, no se versiona
+dist/

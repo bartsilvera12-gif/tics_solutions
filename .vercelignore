@@ -16,3 +16,7 @@ uploads/
 *.ps1
 *.pl
 .thumbnail
+
+# La carpeta que se sube a Hostinger. En Vercel duplicaria todo el sitio.
+dist/
+tools/

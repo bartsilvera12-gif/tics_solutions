@@ -54,6 +54,146 @@
     }
   });
 
+  /* =================================================== textos por página === */
+  // El titular y la entrada de cada sección del sitio. Se agrupan por página
+  // porque así es como se los encuentra: "el texto de Ciberseguridad", no
+  // "la fila ciberseguridad".
+  //
+  // No se crean ni se borran: cada fila corresponde a una sección que ya
+  // existe en el sitio. Una fila de más no aparecería en ningún lado, y una
+  // de menos deja al sitio mostrando su texto de fábrica.
+  App.modulo({
+    id: "textos",
+    titulo: "Textos de las páginas",
+    sub: "Titulares y entradas de cada sección",
+    grupo: "Contenido",
+    icono: "¶",
+
+    async render(nodo) {
+      var paginas, secciones;
+      try {
+        var p = await sb.from("pages").select("*").order("sort_order");
+        if (p.error) throw p.error;
+        var s = await sb.from("page_sections").select("*").order("sort_order");
+        if (s.error) throw s.error;
+        paginas = p.data; secciones = s.data;
+      } catch (e) {
+        UI.vaciar(nodo);
+        if (!App.franjaSiFalta(nodo, e)) {
+          nodo.appendChild(el("div.aviso.aviso-error", { texto: Auth.mensajeDeError(e) }));
+        }
+        return;
+      }
+
+      UI.vaciar(nodo);
+
+      if (!secciones.length) {
+        nodo.appendChild(el("div.tarjeta", {}, [
+          UI.vacio("Todavía no hay textos cargados", "Se cargan con el seed inicial del contenido.")
+        ]));
+        return;
+      }
+
+      nodo.appendChild(el("div.aviso", { texto:
+        "Lo que se escribe acá reemplaza el texto del sitio. Si una sección se " +
+        "apaga, el sitio vuelve a mostrar su texto original." }));
+
+      paginas.forEach(function (pagina) {
+        var propias = secciones.filter(function (s) { return s.page_id === pagina.id; });
+        if (!propias.length) return;
+
+        var tarjeta = el("div.tarjeta", { estilo: "margin-bottom:18px" }, [
+          el("div.tarjeta-titulo", {}, [
+            el("div", {}, [
+              el("p.rotulo", { texto: pagina.route }),
+              el("h2", { texto: pagina.name })
+            ])
+          ])
+        ]);
+
+        tarjeta.appendChild(UI.tabla([
+          { titulo: "Titular", celda: function (f) {
+              return el("div", {}, [
+                el("div.celda-principal", { texto: f.title || "(sin titular)" }),
+                el("div.celda-secundaria", { texto: recortar(f.body, 80) })
+              ]); } },
+          { titulo: "Parte en rojo", celda: function (f) {
+              return f.highlight_text ||
+                el("span", { texto: "—", estilo: "color:var(--gris-claro)" }); } },
+          { titulo: "Estado", celda: function (f) {
+              return f.is_visible
+                ? el("span.insignia.insignia-publicado", { texto: "En el sitio" })
+                : el("span.insignia.insignia-archivado", { texto: "Texto original" }); } },
+          { titulo: "", clase: "celda-acciones", celda: function (f) {
+              return el("button.btn.btn-chico", {
+                type: "button", texto: "Editar",
+                onclick: function () { abrirSeccion(f, pagina); }
+              }); } }
+        ], propias));
+
+        nodo.appendChild(tarjeta);
+      });
+    }
+  });
+
+  function recortar(t, n) {
+    if (!t) return "";
+    return t.length > n ? t.slice(0, n) + "…" : t;
+  }
+
+  async function abrirSeccion(sec, pagina) {
+    var campos = [
+      { nombre: "eyebrow", etiqueta: "Rótulo superior", ancho: "total",
+        ayuda: "El texto chico en rojo que va arriba del titular." },
+      { nombre: "title", etiqueta: "Titular", ancho: "total", requerido: true },
+      { nombre: "highlight_text", etiqueta: "Parte en rojo", ancho: "total",
+        ayuda: "Tiene que ser un fragmento exacto del titular. Vacío deja el titular todo del mismo color." },
+      { nombre: "body", etiqueta: "Entrada", tipo: "textarea", ancho: "total",
+        ayuda: "El párrafo que va debajo del titular. No todas las secciones tienen uno." },
+      { nombre: "is_visible", etiqueta: "Usar este texto en el sitio", tipo: "interruptor",
+        ayuda: "Apagado, el sitio muestra el texto original con el que salió publicado." }
+    ];
+
+    var cuerpo = UI.formulario(campos, sec);
+
+    var guardar = await UI.modal({
+      titulo: pagina.name,
+      ancho: true,
+      cuerpo: cuerpo,
+      botones: [
+        { texto: "Cancelar", alPulsar: function (c) { c(null); } },
+        { texto: "Guardar", clase: "btn-primario",
+          alPulsar: function (cerrar, caja) { cerrar(UI.leerFormulario(caja, campos)); } }
+      ]
+    });
+
+    if (!guardar) return;
+
+    if (!guardar.title) {
+      UI.error("El titular no puede quedar vacío. No se guardó.");
+      return;
+    }
+    // Si el resalte no está dentro del titular, el sitio muestra la frase
+    // entera sin pintar nada. Mejor avisar acá que dejar que se note en vivo.
+    if (guardar.highlight_text && guardar.title.indexOf(guardar.highlight_text) < 0) {
+      UI.error("La parte en rojo no aparece dentro del titular. No se guardó.");
+      return;
+    }
+
+    try {
+      var r = await sb.from("page_sections").update({
+        eyebrow: guardar.eyebrow || null,
+        title: guardar.title,
+        highlight_text: guardar.highlight_text || null,
+        body: guardar.body || null,
+        is_visible: !!guardar.is_visible
+      }).eq("id", sec.id);
+      if (r.error) throw r.error;
+      UI.ok("Texto actualizado.");
+      App.ir();
+    } catch (e) { UI.error(Auth.mensajeDeError(e)); }
+  }
+
   /* ======================================================== servicios === */
   App.modulo({
     id: "servicios",

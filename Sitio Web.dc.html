@@ -720,9 +720,9 @@
     <div style="max-width: 1280px; margin: 0 auto;">
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: clamp(36px, 5vw, 80px); align-items: start; margin-bottom: clamp(52px, 6vw, 90px);">
-        <h2 data-reveal="" style="font-size: clamp(26px, 5vw, 70px); font-weight: 400; line-height: 1.05; letter-spacing: -0.02em;">NUESTROS<br /><span class="om-glitch" data-text="SERVICIOS" style="color: #E71917;">SERVICIOS</span></h2>
+        <h2 data-reveal="" style="font-size: clamp(26px, 5vw, 70px); font-weight: 400; line-height: 1.05; letter-spacing: -0.02em;">{{ t.servicios.antes }}<br /><span class="om-glitch" data-text="{{ t.servicios.resalte }}" style="color: #E71917;">{{ t.servicios.resalte }}</span>{{ t.servicios.despues }}</h2>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 22px; max-width: 560px; padding-top: 10px;">
-          <p style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.85; font-weight: 500; color: #3B3C3C;">Te ofrecemos un servicio completo y profesional. Nuestro equipo técnico cuenta con la experiencia y conocimientos necesarios que garantizan la correcta implementación de las soluciones y un acompañamiento constante en cada etapa.</p>
+          <p style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.85; font-weight: 500; color: #3B3C3C;">{{ t.servicios.entrada }}</p>
           <p style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.85; font-weight: 500; color: #1D1E1E;">En Tic's Solutions acompañamos todo el recorrido: elegir la licencia que corresponde, ponerla a andar y sostener la operación.</p>
         </div>
       </div>
@@ -764,7 +764,7 @@
     <div class="om-vig" style="background: radial-gradient(ellipse 80% 60% at 50% 50%, transparent 0%, rgba(245,246,248,.8) 70%, #F5F6F8 100%);"></div>
 
     <div style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto;">
-      <h2 data-reveal="" style="font-size: clamp(24px, 3.8vw, 54px); font-weight: 400; line-height: 1.12; letter-spacing: -0.015em; max-width: 760px; margin-bottom: clamp(48px, 6vw, 84px); text-wrap: pretty;">Herramientas que tu equipo <span class="om-glitch" data-text="usa todos los días" style="color: #E71917;">usa todos los días</span></h2>
+      <h2 data-reveal="" style="font-size: clamp(24px, 3.8vw, 54px); font-weight: 400; line-height: 1.12; letter-spacing: -0.015em; max-width: 760px; margin-bottom: clamp(48px, 6vw, 84px); text-wrap: pretty;">{{ t.beneficios.antes }}<span class="om-glitch" data-text="{{ t.beneficios.resalte }}" style="color: #E71917;">{{ t.beneficios.resalte }}</span>{{ t.beneficios.despues }}</h2>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(32px, 4vw, 64px); align-items: center;">
         <div data-reveal="" style="width: 100%; max-width: 440px; justify-self: center;">
@@ -808,8 +808,8 @@
   <section id="partners" data-screen-label="Partners" style="position: relative; padding: clamp(80px, 10vw, 140px) 0 clamp(84px, 10vw, 130px); background: rgba(255,255,255,.55); overflow: hidden;">
     <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px);">
       <div style="max-width: 720px; margin-bottom: clamp(48px, 6vw, 80px);">
-        <h2 data-reveal="" style="font-size: clamp(24px, 4vw, 58px); font-weight: 400; line-height: 1.08; letter-spacing: -0.015em; margin-bottom: 24px;">MARCAS Y <span class="om-glitch" data-text="SERVICIOS" style="color: #E71917;">SERVICIOS</span></h2>
-        <p data-reveal="" style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.8; font-weight: 500; color: #3B3C3C;">Trabajamos con líderes del mercado para ofrecerte soluciones de la más alta calidad y confianza.</p>
+        <h2 data-reveal="" style="font-size: clamp(24px, 4vw, 58px); font-weight: 400; line-height: 1.08; letter-spacing: -0.015em; margin-bottom: 24px;">{{ t.partnersHome.antes }}<span class="om-glitch" data-text="{{ t.partnersHome.resalte }}" style="color: #E71917;">{{ t.partnersHome.resalte }}</span>{{ t.partnersHome.despues }}</h2>
+        <p data-reveal="" style="font-size: clamp(15px, 1.15vw, 18px); line-height: 1.8; font-weight: 500; color: #3B3C3C;">{{ t.partnersHome.entrada }}</p>
       </div>
 
       <!-- Las dos unidades, con las mismas marcas que muestra el desplegable -->
@@ -895,8 +895,8 @@
     </sc-if>
 
     <div style="position: relative; z-index: 3; max-width: 1000px; margin: 0 auto;">
-      <h2 data-reveal="" style="font-size: clamp(26px, 4.6vw, 66px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 40px; text-wrap: pretty;">Tu <span class="om-glitch" data-text="socio estratégico" style="color: #E71917;">socio estratégico</span> en el entorno digital</h2>
-      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 20px); line-height: 1.85; font-weight: 500; color: #E3E4E6; max-width: 720px; margin-bottom: 26px;">Nuestra misión es ser tu socio estratégico en lo técnico. Te damos las herramientas con las que tu equipo diseña, calcula y documenta todos los días, y nos quedamos cerca para que rindan: eligiendo bien la licencia, poniéndola a andar y resolviendo cuando algo traba.</p>
+      <h2 data-reveal="" style="font-size: clamp(26px, 4.6vw, 66px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 40px; text-wrap: pretty;">{{ t.mision.antes }}<span class="om-glitch" data-text="{{ t.mision.resalte }}" style="color: #E71917;">{{ t.mision.resalte }}</span>{{ t.mision.despues }}</h2>
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 20px); line-height: 1.85; font-weight: 500; color: #E3E4E6; max-width: 720px; margin-bottom: 26px;">{{ t.mision.entrada }}</p>
       <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 20px); line-height: 1.85; font-weight: 500; color: #E3E4E6; max-width: 720px; margin-bottom: 52px;">Y cuidamos que ese trabajo no se pierda ni se detenga, con respaldo y protección de los equipos. Así vos te enfocás en los proyectos.</p>
       <a data-reveal="" href="#/contacto" class="om-star" style="color: #fff; height: 56px; padding: 0 36px; display: inline-flex; align-items: center; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; transition: color .3s ease, transform .25s ease;" style-hover="color: #E71917;">Hablemos de tu empresa</a>
     </div>
@@ -909,7 +909,7 @@
     <div style="max-width: 1280px; margin: 0 auto;">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: clamp(46px, 6vw, 96px);">
         <div data-reveal="">
-          <h2 style="font-size: clamp(26px, 4.4vw, 60px); font-weight: 400; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 30px;">Contactá con <span class="om-glitch" data-text="nosotros" style="color: #E71917;">nosotros</span></h2>
+          <h2 style="font-size: clamp(26px, 4.4vw, 60px); font-weight: 400; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 30px;">{{ t.contacto.antes }}<span class="om-glitch" data-text="{{ t.contacto.resalte }}" style="color: #E71917;">{{ t.contacto.resalte }}</span>{{ t.contacto.despues }}</h2>
           <p style="font-size: 17px; line-height: 1.8; font-weight: 500; color: #3B3C3C; max-width: 460px; margin-bottom: 46px;">Conversemos sobre la infraestructura y la seguridad de tu empresa. Respondemos por teléfono, correo o WhatsApp.</p>
 
           <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 36px;">
@@ -1122,9 +1122,9 @@
 
       <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 26px;">[ Unidad ] &nbsp;//&nbsp; AEC</p>
 
-      <h1 data-reveal="" style="font-size: clamp(26px, 4.4vw, 58px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; text-wrap: pretty;">CAD, topografía, electricidad y <span style="color: #E71917;">diseño de maquinarias</span>.</h1>
+      <h1 data-reveal="" style="font-size: clamp(26px, 4.4vw, 58px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; text-wrap: pretty;">{{ t.unidadAec.antes }}<span style="color: #E71917;">{{ t.unidadAec.resalte }}</span>{{ t.unidadAec.despues }}</h1>
 
-      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 500; color: #3B3C3C; max-width: 700px; margin-bottom: clamp(46px, 6vw, 70px);">Licenciamos, implementamos y damos soporte local al software técnico con el que trabajan los estudios de arquitectura, las constructoras y las empresas de topografía e ingeniería. Cada marca cubre una parte del flujo, y se complementan entre sí sobre el mismo dibujo.</p>
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 500; color: #3B3C3C; max-width: 700px; margin-bottom: clamp(46px, 6vw, 70px);">{{ t.unidadAec.entrada }}</p>
 
       <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: clamp(18px, 2.4vw, 28px); margin-bottom: clamp(46px, 6vw, 72px);">
         <a href="#/zwcad" class="om-spot" data-spotlight="" style="display: flex; flex-direction: column; border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(24px, 2.8vw, 32px); transition: border-color .3s ease;" style-hover="border-color: rgba(231,25,23,.55);">
@@ -1173,9 +1173,9 @@
 
       <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 26px;">[ Unidad ] &nbsp;//&nbsp; Ciberseguridad</p>
 
-      <h1 data-reveal="" style="font-size: clamp(26px, 4.4vw, 58px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; text-wrap: pretty;">Que un incidente no te <span style="color: #E71917;">frene la operación</span>.</h1>
+      <h1 data-reveal="" style="font-size: clamp(26px, 4.4vw, 58px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; text-wrap: pretty;">{{ t.ciberseguridad.antes }}<span style="color: #E71917;">{{ t.ciberseguridad.resalte }}</span>{{ t.ciberseguridad.despues }}</h1>
 
-      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 500; color: #3B3C3C; max-width: 700px; margin-bottom: clamp(46px, 6vw, 70px);">Trabajamos sobre dos frentes que se complementan: evitar que la amenaza entre, y poder volver a trabajar rápido si algo pasa igual. Licenciamos, implementamos y acompañamos localmente las dos partes.</p>
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 500; color: #3B3C3C; max-width: 700px; margin-bottom: clamp(46px, 6vw, 70px);">{{ t.ciberseguridad.entrada }}</p>
 
       <div data-reveal="" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 2.6vw, 32px); margin-bottom: clamp(46px, 6vw, 72px);">
         <a href="#/arcserve" class="om-spot" data-spotlight="" style="display: flex; flex-direction: column; border: 1px solid rgba(29,30,30,.14); background: #fff; padding: clamp(26px, 3vw, 36px); transition: border-color .3s ease;" style-hover="border-color: rgba(231,25,23,.55);">
@@ -1593,9 +1593,9 @@
 
       <p data-reveal="" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #BC1310; margin-bottom: 26px;">[ Novedades ] &nbsp;//&nbsp; Eventos</p>
 
-      <h1 data-reveal="" style="font-size: clamp(26px, 4.4vw, 58px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; text-wrap: pretty;">En qué <span style="color: #E71917;">andamos</span>.</h1>
+      <h1 data-reveal="" style="font-size: clamp(26px, 4.4vw, 58px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; text-wrap: pretty;">{{ t.novedades.antes }}<span style="color: #E71917;">{{ t.novedades.resalte }}</span>{{ t.novedades.despues }}</h1>
 
-      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 500; color: #3B3C3C; max-width: 640px; margin-bottom: clamp(46px, 6vw, 70px);">Ferias, alianzas y novedades de las marcas que representamos.</p>
+      <p data-reveal="" style="font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; font-weight: 500; color: #3B3C3C; max-width: 640px; margin-bottom: clamp(46px, 6vw, 70px);">{{ t.novedades.entrada }}</p>
 
       <div data-reveal="" style="display: flex; flex-direction: column; gap: clamp(26px, 3vw, 38px);">
 
@@ -1807,8 +1807,9 @@ class Component extends DCLogic {
       pedir('brands?select=name,route,display_height,brand_type,media_assets!brands_media_id_fkey(public_url)&status=eq.published&order=sort_order'),
       pedir('solution_features?select=label,title,description,group_key,bullets,media_assets!solution_features_media_id_fkey(public_url),solutions!inner(slug)&status=eq.published&order=sort_order'),
       pedir('solution_demos?select=slug,title,description,media_assets!solution_demos_video_media_id_fkey(public_url),solutions!inner(slug)&status=eq.published&order=sort_order'),
-      pedir('solutions?select=slug,headline,headline_highlight,intro&status=eq.published')
-    ]).then(([marcasDb, featuresDb, demosDb, solucionesDb]) => {
+      pedir('solutions?select=slug,headline,headline_highlight,intro&status=eq.published'),
+      pedir('page_sections?select=section_key,title,highlight_text,body&is_visible=eq.true')
+    ]).then(([marcasDb, featuresDb, demosDb, solucionesDb, seccionesDb]) => {
       clearTimeout(reloj);
       if (this._muerto) return;
 
@@ -1844,13 +1845,18 @@ class Component extends DCLogic {
         // Titular y entrada de cada página de marca, por slug.
         soluciones: (solucionesDb && solucionesDb.length)
           ? solucionesDb.reduce((acc, s) => { acc[s.slug] = s; return acc; }, {})
+          : null,
+
+        // Titular y entrada del resto de las secciones, por clave.
+        secciones: (seccionesDb && seccionesDb.length)
+          ? seccionesDb.reduce((acc, x) => { acc[x.section_key] = x; return acc; }, {})
           : null
       };
 
       // Si no vino nada útil, no se toca el estado: repintar con vacío sería
       // peor que dejar lo que ya se está viendo.
       if (!cms.partners && !cms.marcas && !cms.novedades &&
-          !cms.demosElectrico && !cms.zw3dEspecializado && !cms.soluciones) return;
+          !cms.demosElectrico && !cms.zw3dEspecializado && !cms.soluciones && !cms.secciones) return;
       this.setState({ cms: cms });
     }).catch(() => { clearTimeout(reloj); });
   }
@@ -2594,6 +2600,34 @@ class Component extends DCLogic {
                   entrada: 'Arcserve cubre el respaldo y la recuperación de punta a punta: servidores físicos y virtuales, la nube y las plataformas donde hoy vive el trabajo diario. Estas son las soluciones de la línea, cada una para un escenario distinto.' },
     };
 
+    // Igual que TEXTOS_MARCA, para las secciones que no son de marca.
+    const TEXTOS_SECCION = {
+      servicios:       { titular: 'NUESTROS SERVICIOS',
+                         resalte: 'SERVICIOS',
+                         entrada: 'Te ofrecemos un servicio completo y profesional. Nuestro equipo técnico cuenta con la experiencia y conocimientos necesarios que garantizan la correcta implementación de las soluciones y un acompañamiento constante en cada etapa.' },
+      beneficios:      { titular: 'Herramientas que tu equipo usa todos los días',
+                         resalte: 'usa todos los días',
+                         entrada: '' },
+      partnersHome:    { titular: 'MARCAS Y SERVICIOS',
+                         resalte: 'SERVICIOS',
+                         entrada: 'Trabajamos con líderes del mercado para ofrecerte soluciones de la más alta calidad y confianza.' },
+      mision:          { titular: 'Tu socio estratégico en el entorno digital',
+                         resalte: 'socio estratégico',
+                         entrada: 'Nuestra misión es ser tu socio estratégico en lo técnico. Te damos las herramientas con las que tu equipo diseña, calcula y documenta todos los días, y nos quedamos cerca para que rindan: eligiendo bien la licencia, poniéndola a andar y resolviendo cuando algo traba.' },
+      contacto:        { titular: 'Contactá con nosotros',
+                         resalte: 'nosotros',
+                         entrada: '' },
+      novedades:       { titular: 'En qué andamos.',
+                         resalte: 'andamos',
+                         entrada: 'Ferias, alianzas y novedades de las marcas que representamos.' },
+      unidadAec:       { titular: 'CAD, topografía, electricidad y diseño de maquinarias.',
+                         resalte: 'diseño de maquinarias',
+                         entrada: 'Licenciamos, implementamos y damos soporte local al software técnico con el que trabajan los estudios de arquitectura, las constructoras y las empresas de topografía e ingeniería. Cada marca cubre una parte del flujo, y se complementan entre sí sobre el mismo dibujo.' },
+      ciberseguridad:  { titular: 'Que un incidente no te frene la operación.',
+                         resalte: 'frene la operación',
+                         entrada: 'Trabajamos sobre dos frentes que se complementan: evitar que la amenaza entre, y poder volver a trabajar rápido si algo pasa igual. Licenciamos, implementamos y acompañamos localmente las dos partes.' },
+    };
+
     const partners = [
       // Primero las de CAD, que es hacia donde apunta el sitio, y después
       // las de ciberseguridad. Mismo orden que el desplegable de Soluciones.
@@ -2831,8 +2865,22 @@ class Component extends DCLogic {
           p.entrada = (db && db.intro) || base.entrada;
           return p;
         };
+        // Las secciones que no son de marca guardan su texto en
+        // page_sections, con una clave por sección.
+        const armarSeccion = (clave) => {
+          const base = TEXTOS_SECCION[clave];
+          const db = s.cms && s.cms.secciones && s.cms.secciones[clave];
+          const p = partir(
+            (db && db.title) || base.titular,
+            (db && db.highlight_text) || base.resalte
+          );
+          p.entrada = (db && db.body) || base.entrada;
+          return p;
+        };
+
         const out = {};
         Object.keys(TEXTOS_MARCA).forEach((k) => { out[k] = armar(k); });
+        Object.keys(TEXTOS_SECCION).forEach((k) => { out[k] = armarSeccion(k); });
         return out;
       })(),
 

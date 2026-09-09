@@ -33,23 +33,10 @@ const SCHEMA = 'ticspy';
 // tiene que salir igual por correo. Perder un pedido de presupuesto porque se
 // cayó Postgres sería el peor resultado posible.
 
-// TEMPORAL. Diagnóstico para entender por qué no se guardaba en producción:
-// desde afuera, una variable ausente y una clave mal pegada se ven idénticas,
-// las dos terminan en "correo enviado, nada guardado".
-//
-// No expone ningún valor: solo si la variable existe y qué código devolvió
-// PostgREST. Sacar en cuanto quede resuelto.
-const diagnostico = { tieneUrl: false, tieneClave: false, largoClave: 0, resultado: null };
-
 async function guardarConsulta(datos, ruta) {
   const { SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY } = process.env;
 
-  diagnostico.tieneUrl = !!SUPABASE_URL;
-  diagnostico.tieneClave = !!SUPABASE_SERVICE_ROLE_KEY;
-  diagnostico.largoClave = SUPABASE_SERVICE_ROLE_KEY ? SUPABASE_SERVICE_ROLE_KEY.length : 0;
-
   if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-    diagnostico.resultado = 'faltan variables';
     return null;
   }
 
@@ -76,15 +63,12 @@ async function guardarConsulta(datos, ruta) {
 
     if (!r.ok) {
       const detalle = await r.text();
-      diagnostico.resultado = 'http ' + r.status + ' :: ' + detalle.slice(0, 120);
       console.error('No se pudo guardar la consulta:', r.status, detalle);
       return null;
     }
     const filas = await r.json();
-    diagnostico.resultado = 'guardada';
     return filas && filas[0] ? filas[0].id : null;
   } catch (error) {
-    diagnostico.resultado = 'excepcion :: ' + (error && error.message);
     console.error('No se pudo guardar la consulta:', error && error.message);
     return null;
   }
@@ -289,10 +273,5 @@ module.exports = async (req, res) => {
     console.error('La consulta llegó, pero falló el acuse al visitante:', error);
   }
 
-  // TEMPORAL: sale junto con el resto del diagnóstico.
-  return res.status(200).json({
-    success: true,
-    message: 'Consulta enviada correctamente.',
-    diagnostico: diagnostico
-  });
+  return res.status(200).json({ success: true, message: 'Consulta enviada correctamente.' });
 };

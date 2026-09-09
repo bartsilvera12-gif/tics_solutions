@@ -9,6 +9,10 @@
 
   var el = UI.el;
 
+  // El mismo control que hace el formulario del sitio antes de guardar. Se
+  // repite acá porque una fila vieja puede traer cualquier cosa en el campo.
+  var CORREO_VALIDO = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   var ESTADOS = [
     { valor: "new",      texto: "Nueva" },
     { valor: "read",     texto: "Leída" },
@@ -143,13 +147,44 @@
           cuerpo: cuerpo,
           botones: [
             { texto: "Responder por correo", alPulsar: function (cerrar, caja) {
-                // mailto abre el cliente de correo de quien administra, con
-                // el asunto y la cita ya puestos.
-                var asunto = "Re: tu consulta en Tic's Solutions";
-                var cita = c.message.split("\n").map(function (l) { return "> " + l; }).join("\n");
-                location.href = "mailto:" + encodeURIComponent(c.email) +
-                  "?subject=" + encodeURIComponent(asunto) +
-                  "&body=" + encodeURIComponent("\n\n---\n" + cita);
+                // Abre Gmail en el navegador con el destinatario, el asunto y
+                // el saludo ya puestos. No manda nada: queda en pantalla para
+                // revisar y tocar Enviar dentro de Gmail.
+                //
+                // Antes esto era un mailto, que en Windows abre Outlook.
+                var correo = String(c.email || "").trim();
+                if (!CORREO_VALIDO.test(correo)) {
+                  UI.error("Esta consulta no tiene un correo válido para responder.");
+                  return;
+                }
+
+                var asunto = "Re: Consulta web - " + c.name;
+                var saludo = "Hola " + c.name + ",\n\n" +
+                             "Gracias por comunicarte con TIC'S Solutions.\n\n";
+
+                var url = "https://mail.google.com/mail/?view=cm&fs=1" +
+                  "&to=" + encodeURIComponent(correo) +
+                  "&su=" + encodeURIComponent(asunto) +
+                  "&body=" + encodeURIComponent(saludo);
+
+                // La pestaña se abre sin poner 'noopener' entre las opciones a
+                // propósito: con esa palabra el navegador devuelve null aunque
+                // la haya abierto bien, y no quedaría forma de distinguir eso
+                // de una pestaña bloqueada. Se corta la referencia después, que
+                // deja el mismo aislamiento.
+                var pestana = window.open(url, "_blank");
+                if (pestana) {
+                  try { pestana.opener = null; } catch (e) { /* ya se abrió igual */ }
+                } else {
+                  // Solo si el navegador bloqueó la pestaña. Vuelve al cliente
+                  // de correo del sistema, que es lo que se quería evitar, pero
+                  // es mejor que dejar el botón sin hacer nada.
+                  UI.aviso("El navegador bloqueó la pestaña de Gmail. Se abre el correo del sistema.");
+                  location.href = "mailto:" + encodeURIComponent(correo) +
+                    "?subject=" + encodeURIComponent(asunto) +
+                    "&body=" + encodeURIComponent(saludo);
+                }
+
                 cerrar({ datos: UI.leerFormulario(caja, campos), responder: true });
               } },
             { texto: "Cancelar", alPulsar: function (cerrar) { cerrar(null); } },

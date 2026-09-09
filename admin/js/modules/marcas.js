@@ -9,11 +9,6 @@
     { valor: "draft",     texto: "Borrador" }
   ];
 
-  function logo(f, media) {
-    var m = media[f.media_id];
-    if (!m) return el("div.mini", { title: "sin logo" });
-    return el("img.mini", { src: m.public_url, alt: "", loading: "lazy" });
-  }
 
   /* ================================================ marcas y partners === */
   // Dos cintas distintas del sitio: los partners son las marcas que se
@@ -27,11 +22,8 @@
     icono: "◇",
 
     async render(nodo) {
-      var media = {};
       try {
-        var m = await sb.from("media_assets").select("id,public_url").limit(500);
-        if (m.error) throw m.error;
-        m.data.forEach(function (x) { media[x.id] = x; });
+        await Media.cargar();
       } catch (e) {
         UI.vaciar(nodo);
         if (!App.franjaSiFalta(nodo, e)) {
@@ -70,7 +62,7 @@
           plural: tipo === "partner" ? "partners" : "marcas",
           filtroFijo: function (f) { return f.brand_type === tipo; },
           columnas: [
-            { titulo: "", ancho: "62px", celda: function (f) { return logo(f, media); } },
+            { titulo: "", ancho: "62px", celda: function (f) { return Media.mini(f.media_id, f.name); } },
             { titulo: "Marca", celda: function (f) {
                 return el("div", {}, [
                   el("div.celda-principal", { texto: f.name }),
@@ -80,6 +72,8 @@
             { titulo: "Estado", celda: function (f) { return UI.insignia(f.status); } }
           ],
           campos: [
+            { nombre: "media_id", etiqueta: "Logo", tipo: "imagen", ancho: "total",
+              ayuda: "Es lo que se ve en la cinta del sitio." },
             { nombre: "name", etiqueta: "Nombre", requerido: true },
             { nombre: "slug", etiqueta: "Slug" },
             { nombre: "route", etiqueta: "Ruta interna", marcador: "/zwcad" },

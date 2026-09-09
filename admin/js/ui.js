@@ -79,6 +79,11 @@
         }
 
         function alTeclado(ev) {
+          // Con dos diálogos abiertos (elegir una imagen desde una ficha),
+          // Escape tiene que cerrar solo el de arriba. Sin esto cerraba los
+          // dos y se perdía lo que se estaba escribiendo en la ficha.
+          var abiertos = document.querySelectorAll(".fondo-modal");
+          if (abiertos.length && abiertos[abiertos.length - 1] !== fondo) return;
           if (ev.key === "Escape") cerrar(null);
           // El foco no debe escaparse del diálogo mientras está abierto.
           if (ev.key === "Tab") {
@@ -199,6 +204,7 @@
 
     /* --------------------------------------------------------- campos -- */
     // campos: [{ nombre, etiqueta, tipo, ayuda, opciones, ancho }]
+    // tipo "imagen" guarda el id de media_assets y muestra la miniatura.
     formulario: function (campos, valores) {
       valores = valores || {};
       var rejilla = el("div.rejilla");
@@ -216,6 +222,38 @@
             control.appendChild(el("option", { value: o.valor, texto: o.texto,
                                                selected: String(v) === String(o.valor) }));
           });
+        } else if (c.tipo === "imagen") {
+          // La miniatura y el botón son la interfaz; el valor viaja en un
+          // campo oculto para que leerFormulario lo encuentre como a
+          // cualquier otro.
+          var oculto = el("input", { type: "hidden", name: c.nombre });
+          oculto.value = v == null ? "" : v;
+
+          var vista = el("div", { estilo: "display:flex;align-items:center;gap:12px" });
+          var refrescar = function () {
+            UI.vaciar(vista);
+            vista.appendChild(Media.mini(oculto.value || null, c.etiqueta));
+            vista.appendChild(el("button.btn.btn-chico", {
+              type: "button",
+              texto: oculto.value ? "Cambiar" : "Elegir",
+              onclick: async function () {
+                var r = await Media.elegir(oculto.value || null, c.soloVideo);
+                if (!r) return;                 // canceló
+                oculto.value = r.id || "";
+                refrescar();
+              }
+            }));
+            vista.appendChild(oculto);
+          };
+          refrescar();
+
+          rejilla.appendChild(el("div.campo" + (c.ancho === "total" ? ".ancho-total" : ""), {}, [
+            el("span", { texto: c.etiqueta }),
+            vista,
+            c.ayuda ? el("p.campo-ayuda", { texto: c.ayuda }) : null
+          ]));
+          return;
+
         } else if (c.tipo === "interruptor") {
           var entrada = el("input", { type: "checkbox", name: c.nombre, checked: !!v });
           var etiqueta = el("label.interruptor", {}, [

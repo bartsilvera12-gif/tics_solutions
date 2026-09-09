@@ -253,12 +253,19 @@
 
     async render(nodo) {
       var unidades, soluciones;
+      // Si se entró a las tarjetas de una solución, la pantalla muestra eso
+      // en vez de la lista. Se guarda afuera para que App.ir() no lo pierda
+      // al repintar después de guardar.
+      var verTarjetas = sessionStorage.getItem("ticspy.soluciones.tarjetas");
+      if (verTarjetas) return pintarTarjetas(nodo, verTarjetas);
+
       try {
         var u = await sb.from("solution_units").select("*").order("sort_order");
         if (u.error) throw u.error;
         var s = await sb.from("solutions").select("*").order("sort_order");
         if (s.error) throw s.error;
         unidades = u.data; soluciones = s.data;
+        await Media.cargar();
       } catch (e) {
         UI.vaciar(nodo);
         if (!App.franjaSiFalta(nodo, e)) {
@@ -297,16 +304,195 @@
               ]); } },
           { titulo: "Estado", celda: function (f) { return UI.insignia(f.status); } },
           { titulo: "", clase: "celda-acciones", celda: function (f) {
-              return el("button.btn.btn-chico", {
-                type: "button", texto: "Editar",
-                onclick: function () { abrirSolucion(f); }
-              }); } }
+              return el("div", { estilo: "display:inline-flex;gap:6px" }, [
+                el("button.btn.btn-chico", {
+                  type: "button", texto: "Tarjetas e imágenes",
+                  onclick: function () {
+                    sessionStorage.setItem("ticspy.soluciones.tarjetas", f.id);
+                    App.ir();
+                  }
+                }),
+                el("button.btn.btn-chico", {
+                  type: "button", texto: "Editar",
+                  onclick: function () { abrirSolucion(f); }
+                })
+              ]); } }
         ], propias));
 
         nodo.appendChild(tarjeta);
       });
     }
   });
+
+  /* ------------------------------------------- tarjetas de una solución -- */
+  // Acá viven las imágenes que se ven en el sitio: las tarjetas de novedades
+  // de ZWCAD, los módulos de ZW3D y los videos de CADprofi. Antes no había
+  // forma de verlas desde el panel.
+  //
+  // Es una vista aparte y no una pestaña más de la ficha: son listas, no
+  // campos, y meterlas en el mismo diálogo obligaría a abrir un diálogo
+  // dentro de otro para editar cada fila.
+  async function pintarTarjetas(nodo, solucionId) {
+    var sol, tarjetas, videos;
+    try {
+      var s = await sb.from("solutions").select("*").eq("id", solucionId).maybeSingle();
+      if (s.error) throw s.error;
+      sol = s.data;
+      var f = await sb.from("solution_features").select("*")
+        .eq("solution_id", solucionId).order("sort_order");
+      if (f.error) throw f.error;
+      var d = await sb.from("solution_demos").select("*")
+        .eq("solution_id", solucionId).order("sort_order");
+      if (d.error) throw d.error;
+      tarjetas = f.data; videos = d.data;
+      await Media.cargar();
+    } catch (e) {
+      UI.vaciar(nodo);
+      if (!App.franjaSiFalta(nodo, e)) {
+        nodo.appendChild(el("div.aviso.aviso-error", { texto: Auth.mensajeDeError(e) }));
+      }
+      return;
+    }
+
+    UI.vaciar(nodo);
+
+    if (!sol) {
+      sessionStorage.removeItem("ticspy.soluciones.tarjetas");
+      App.ir();
+      return;
+    }
+
+    nodo.appendChild(el("button.btn.btn-chico", {
+      type: "button", texto: "← Volver a soluciones",
+      estilo: "margin-bottom:16px",
+      onclick: function () {
+        sessionStorage.removeItem("ticspy.soluciones.tarjetas");
+        App.ir();
+      }
+    }));
+
+    if (!tarjetas.length && !videos.length) {
+      nodo.appendChild(el("div.tarjeta", {}, [
+        UI.vacio("Esta solución no tiene tarjetas",
+          "Las tarjetas con imagen son las de ZWCAD, ZW3D y CADprofi.")
+      ]));
+      return;
+    }
+
+    // Las tarjetas vienen agrupadas por su clave de grupo, que es la misma
+    // que separa las secciones en el sitio.
+    var grupos = {};
+    tarjetas.forEach(function (t) {
+      var g = t.group_key || "otras";
+      (grupos[g] = grupos[g] || []).push(t);
+    });
+
+    Object.keys(grupos).forEach(function (g) {
+      nodo.appendChild(bloque(sol.name + " · " + (NOMBRE_GRUPO[g] || g), grupos[g], [
+        { titulo: "", ancho: "62px", celda: function (f) { return Media.mini(f.media_id, f.title); } },
+        { titulo: "Tarjeta", celda: function (f) {
+            return el("div", {}, [
+              el("div.celda-principal", { texto: f.title || "(sin título)" }),
+              el("div.celda-secundaria", { texto: recortar(f.description, 70) })
+            ]); } },
+        { titulo: "Etiqueta", celda: function (f) {
+            return f.label || el("span", { texto: "—", estilo: "color:var(--gris-claro)" }); } },
+        { titulo: "Estado", celda: function (f) { return UI.insignia(f.status); } },
+        { titulo: "", clase: "celda-acciones", celda: function (f) {
+            return el("button.btn.btn-chico", {
+              type: "button", texto: "Editar",
+              onclick: function () { editarTarjeta(f); }
+            }); } }
+      ]));
+    });
+
+    if (videos.length) {
+      nodo.appendChild(bloque(sol.name + " · Videos", videos, [
+        { titulo: "", ancho: "62px", celda: function (f) { return Media.mini(f.video_media_id, f.title); } },
+        { titulo: "Video", celda: function (f) {
+            return el("div", {}, [
+              el("div.celda-principal", { texto: f.title || "(sin título)" }),
+              el("div.celda-secundaria", { texto: recortar(f.description, 70) })
+            ]); } },
+        { titulo: "Estado", celda: function (f) { return UI.insignia(f.status); } },
+        { titulo: "", clase: "celda-acciones", celda: function (f) {
+            return el("button.btn.btn-chico", {
+              type: "button", texto: "Editar",
+              onclick: function () { editarVideo(f); }
+            }); } }
+      ]));
+    }
+
+    function bloque(titulo, filas, columnas) {
+      var t = el("div.tarjeta", { estilo: "margin-bottom:18px" }, [
+        el("div.tarjeta-titulo", {}, [
+          el("div", {}, [
+            el("p.rotulo", { texto: filas.length + (filas.length === 1 ? " fila" : " filas") }),
+            el("h2", { texto: titulo })
+          ])
+        ])
+      ]);
+      t.appendChild(UI.tabla(columnas, filas));
+      return t;
+    }
+  }
+
+  var NOMBRE_GRUPO = {
+    novedades: "Novedades de la versión",
+    especializado: "Módulos especializados"
+  };
+
+  async function editarTarjeta(f) {
+    var campos = [
+      { nombre: "media_id", etiqueta: "Imagen", tipo: "imagen", ancho: "total",
+        ayuda: "Es la que se ve en la tarjeta del sitio." },
+      { nombre: "title", etiqueta: "Título", requerido: true, ancho: "total" },
+      { nombre: "label", etiqueta: "Etiqueta", ayuda: "El recuadro chico de color, si lleva." },
+      { nombre: "description", etiqueta: "Texto", tipo: "textarea", ancho: "total" },
+      { nombre: "status", etiqueta: "Estado", tipo: "select", opciones: ESTADOS },
+      { nombre: "sort_order", etiqueta: "Orden", tipo: "number" }
+    ];
+    await guardarFila("solution_features", f, campos, f.title);
+  }
+
+  async function editarVideo(f) {
+    var campos = [
+      { nombre: "video_media_id", etiqueta: "Video", tipo: "imagen", soloVideo: true, ancho: "total",
+        ayuda: "Es el que se reproduce en el sitio." },
+      { nombre: "title", etiqueta: "Título", requerido: true, ancho: "total" },
+      { nombre: "description", etiqueta: "Texto", tipo: "textarea", ancho: "total" },
+      { nombre: "status", etiqueta: "Estado", tipo: "select", opciones: ESTADOS },
+      { nombre: "sort_order", etiqueta: "Orden", tipo: "number" }
+    ];
+    await guardarFila("solution_demos", f, campos, f.title);
+  }
+
+  async function guardarFila(tabla, fila, campos, nombre) {
+    var cuerpo = UI.formulario(campos, fila);
+    var datos = await UI.modal({
+      titulo: "Editar " + (nombre || "fila"),
+      ancho: true,
+      cuerpo: cuerpo,
+      botones: [
+        { texto: "Cancelar", alPulsar: function (c) { c(null); } },
+        { texto: "Guardar", clase: "btn-primario",
+          alPulsar: function (cerrar, caja) {
+            var d = UI.leerFormulario(caja, campos);
+            if (!d.title) { UI.error("El título no puede quedar vacío."); return; }
+            cerrar(d);
+          } }
+      ]
+    });
+    if (!datos) return;
+
+    try {
+      var r = await sb.from(tabla).update(datos).eq("id", fila.id);
+      if (r.error) throw r.error;
+      await Auth.anotar("update", tabla, fila.id, { nombre: datos.title });
+      UI.ok("Cambios guardados.");
+      App.ir();
+    } catch (e) { UI.error(Auth.mensajeDeError(e)); }
+  }
 
   // Ficha de solución, con pestañas: son muchos campos para una sola lista.
   async function abrirSolucion(sol) {
